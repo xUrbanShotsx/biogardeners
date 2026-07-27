@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/lib/cart-context";
+import { CartDrawer }  from "@/components/cart-drawer";
 
 const nunitoSans = Nunito_Sans({
   subsets:  ["latin"],
@@ -37,7 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${nunitoSans.variable} ${sourceSerif.variable} h-full`}>
       <body className="min-h-full flex flex-col" style={{ background: "var(--canvas)", color: "var(--text-black)" }}>
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

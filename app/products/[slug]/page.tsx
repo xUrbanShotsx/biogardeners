@@ -11,6 +11,7 @@ import { FrapButton }    from "@/components/frap-button";
 import { ProductCard }   from "@/components/product-card";
 import { DEMO_PRODUCTS } from "@/lib/shopify";
 import { formatPrice }   from "@/lib/utils";
+import { useCart }       from "@/lib/cart-context";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
 
@@ -169,8 +170,9 @@ function ProductIllustration({ handle, label }: { handle: string; label: string 
 
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug }  = use(params);
-  const product   = DEMO_PRODUCTS.find((p) => p.handle === slug);
-  if (!product) notFound();
+  const productOrUndef = DEMO_PRODUCTS.find((p) => p.handle === slug);
+  if (!productOrUndef) notFound();
+  const product = productOrUndef!;
 
   const details   = PRODUCT_DETAILS[slug];
   const variants  = VARIANTS[slug] ?? [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }];
@@ -183,6 +185,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   const [activeGallery,  setActiveGallery]  = useState(0);
   const [quantity,       setQuantity]       = useState(1);
   const [openSection,    setOpenSection]    = useState<string | null>("benefits");
+  const { addItem }                         = useCart();
   const [addState,       setAddState]       = useState<"idle" | "adding" | "added">("idle");
   const [stickyVisible,  setStickyVisible]  = useState(false);
   const [viewingCount]                      = useState(() => Math.floor(Math.random() * 14) + 6);
@@ -205,6 +208,15 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   function handleAddToCart() {
     if (addState !== "idle") return;
     setAddState("adding");
+    const variant = variants[activeVariant];
+    addItem({
+      id:      `${product.handle}-${activeVariant}`,
+      handle:  product.handle,
+      title:   product.title,
+      variant: variant?.label ?? "Standard",
+      price:   parseFloat(variant?.price ?? currentPrice),
+      quantity,
+    });
     setTimeout(() => setAddState("added"), 600);
     setTimeout(() => setAddState("idle"), 2200);
   }

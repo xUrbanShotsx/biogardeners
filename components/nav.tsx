@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/lib/cart-context";
 
 const links = [
   { href: "/products",  label: "Products" },
@@ -13,7 +14,8 @@ const links = [
   { href: "/contact",   label: "Contact"  },
 ];
 
-export function Nav({ cartCount = 0 }: { cartCount?: number }) {
+export function Nav() {
+  const { count: cartCount, openCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -66,24 +68,27 @@ export function Nav({ cartCount = 0 }: { cartCount?: number }) {
 
           {/* Right: cart + sign in + join */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/cart"
-              className="relative p-2 transition-colors duration-200"
+            <button
+              onClick={openCart}
+              className="relative p-2 transition-colors duration-200 hover:text-[--green-accent]"
               style={{ color: "var(--text-black-soft)" }}
               aria-label={`Cart — ${cartCount} item${cartCount !== 1 ? "s" : ""}`}
             >
               <ShoppingBag size={20} />
-              {cartCount > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
-                  style={{ background: "var(--green-accent)" }}
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </Link>
+              <AnimatePresence>
+                {cartCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
+                    style={{ background: "var(--green-accent)" }}
+                  >
+                    {cartCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
 
             <Link
               href="/account"

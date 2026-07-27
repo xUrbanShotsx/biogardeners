@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag, Star, TrendingUp } from "lucide-react";
 import { type ShopifyProduct } from "@/lib/shopify";
 import { formatPrice } from "@/lib/utils";
+import { useCart } from "@/lib/cart-context";
 
 const BG_COLORS: Record<string, string> = {
   "bio-bloom-fertiliser": "linear-gradient(140deg, #d4e9e2 0%, #b0d0c4 100%)",
@@ -64,6 +65,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
+  const { addItem } = useCart();
   const [adding, setAdding] = useState(false);
   const price   = formatPrice(product.priceRange.minVariantPrice.amount);
   const tag     = product.tags[0];
@@ -73,6 +75,14 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
     setAdding(true);
+    const firstVariant = product.variants.edges[0]?.node;
+    addItem({
+      id:      firstVariant?.id ?? product.id,
+      handle:  product.handle,
+      title:   product.title,
+      variant: firstVariant?.title ?? "Default",
+      price:   parseFloat(product.priceRange.minVariantPrice.amount),
+    });
     setTimeout(() => setAdding(false), 1400);
   }
 
