@@ -1,26 +1,190 @@
 @import "tailwindcss";
 
+/* ─── BioGardeners × Starbucks Design System ─── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Four-tier green system */
+  --green-bio:    #006241;
+  --green-accent: #00754A;
+  --green-house:  #1E3932;
+  --green-uplift: #2b5148;
+  --green-light:  #d4e9e2;
+  --green-xlight: #edf6f2;
+
+  /* Gold */
+  --gold:          #cba258;
+  --gold-light:    #dfc49d;
+  --gold-lightest: #fdf9f2;
+
+  /* Surfaces — WHITE canvas */
+  --canvas:        #ffffff;
+  --surface-alt:   #f6faf8;   /* very faint green-tinted white — alternate sections */
+  --ceramic:       #eef3f0;   /* separator wash */
+  --white:         #ffffff;
+
+  /* Text */
+  --text-black:      rgba(0, 0, 0, 0.87);
+  --text-black-soft: rgba(0, 0, 0, 0.54);
+  --text-white:      rgba(255, 255, 255, 1);
+  --text-white-soft: rgba(255, 255, 255, 0.70);
+
+  /* Semantic */
+  --red:           #d93025;
+  --red-light:     #fce8e6;
+  --input-border:  #d0d9d5;
+
+  /* Elevation */
+  --shadow-card:   0 0 0 1px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-card-hover: 0 0 0 1px rgba(0,116,74,0.15), 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-nav:    0 1px 0 rgba(0,0,0,0.08);
+  --shadow-frap:   0 0 6px rgba(0,0,0,0.24), 0 8px 12px rgba(0,0,0,0.14);
+  --shadow-sticky: 0 -1px 0 rgba(0,0,0,0.06), 0 -4px 20px rgba(0,0,0,0.08);
+
+  /* Radius */
+  --radius-pill:  50px;
+  --radius-card:  14px;
+  --radius-input: 8px;
+
+  /* Transitions */
+  --duration:          200ms;
+  --expander-duration: 300ms;
+  --expander-ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas:       var(--canvas);
+  --color-surface-alt:  var(--surface-alt);
+  --color-ceramic:      var(--ceramic);
+  --color-card:         var(--white);
+  --color-green-bio:    var(--green-bio);
+  --color-green-accent: var(--green-accent);
+  --color-green-house:  var(--green-house);
+  --color-green-uplift: var(--green-uplift);
+  --color-green-light:  var(--green-light);
+  --color-green-xlight: var(--green-xlight);
+  --color-gold:         var(--gold);
+  --color-gold-light:   var(--gold-light);
+  --color-input-border: var(--input-border);
+  --color-red:          var(--red);
+
+  --font-primary: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif:   "Source Serif 4", "Iowan Old Style", Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ─── Base Reset ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--text-black);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+/* ─── Buttons — universal 50px pill + scale(0.95) active ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  padding: 0.625rem 1.375rem;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all var(--duration) ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.95); }
+
+.btn-primary {
+  background: var(--green-accent);
+  color: #fff;
+  border-color: var(--green-accent);
+}
+.btn-primary:hover { background: var(--green-bio); border-color: var(--green-bio); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--green-accent);
+  border-color: var(--green-accent);
+}
+.btn-outline:hover { background: var(--green-xlight); }
+
+.btn-white-filled {
+  background: #fff;
+  color: var(--green-bio);
+  border-color: #fff;
+}
+.btn-white-filled:hover { background: var(--green-light); }
+
+.btn-outline-white {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+
+/* Variant pill buttons */
+.variant-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 1.5px solid var(--input-border);
+  background: #fff;
+  color: var(--text-black);
+  transition: all 150ms ease;
+  letter-spacing: -0.01em;
+}
+.variant-pill:hover   { border-color: var(--green-accent); color: var(--green-accent); }
+.variant-pill.active  { border-color: var(--green-accent); background: var(--green-xlight); color: var(--green-bio); }
+.variant-pill.active:hover { background: var(--green-xlight); }
+
+::selection { background: var(--green-light); color: var(--green-house); }
+
+:focus-visible {
+  outline: 2px solid var(--green-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Footer social hover */
+.footer-social-link:hover {
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.5) !important;
+}
+
+/* Scrollbar hide */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
