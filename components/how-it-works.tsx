@@ -34,7 +34,7 @@ export function HowItWorks() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
           className="mb-12"
         >
           <h2
@@ -56,7 +56,7 @@ export function HowItWorks() {
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.12, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ delay: i * 0.12, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
               className="relative overflow-hidden"
               style={{
                 background:   step.color,

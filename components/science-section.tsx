@@ -40,7 +40,7 @@ export function ScienceSection() {
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             >
               <h2
                 id="science-heading"
@@ -78,7 +78,7 @@ export function ScienceSection() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ delay: 0.1 + i * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                   className="flex gap-5 items-start"
                   style={{
                     background: "rgba(255,255,255,0.06)",

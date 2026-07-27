@@ -53,7 +53,7 @@ function HeroProductVisual() {
       <motion.div
         initial={{ opacity: 0, x: 20, y: 0 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ delay: 0.7, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
         className="absolute top-8 right-0 bg-white rounded-2xl px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.12)]"
       >
         <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ function HeroProductVisual() {
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.85, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ delay: 0.85, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
         className="absolute bottom-12 left-0 bg-white rounded-2xl px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.12)]"
       >
         <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ function HeroProductVisual() {
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.0, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ delay: 1.0, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
         className="absolute top-4 left-4 rounded-full px-3 py-1 text-[10px] font-bold"
         style={{ background: "var(--green-accent)", color: "#fff", letterSpacing: "0.05em" }}
       >
@@ -101,7 +101,7 @@ const stagger = {
   container: { hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } },
   item: {
     hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
   },
 };
 
@@ -197,7 +197,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.93 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.25, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ delay: 0.25, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             style={{ y }}
             className="hidden lg:block w-full aspect-[4/5]"
           >

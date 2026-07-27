@@ -121,7 +121,7 @@ export function Nav({ cartCount = 0 }: { cartCount?: number }) {
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             className="fixed inset-0 z-[90] flex flex-col pt-28 px-6 pb-10"
             style={{ background: "var(--canvas)" }}
           >
@@ -131,7 +131,7 @@ export function Nav({ cartCount = 0 }: { cartCount?: number }) {
                   key={l.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ delay: i * 0.06, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                 >
                   <Link
                     href={l.href}

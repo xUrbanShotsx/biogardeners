@@ -28,7 +28,7 @@ export function CtaBanner() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10"
           >
             <div>

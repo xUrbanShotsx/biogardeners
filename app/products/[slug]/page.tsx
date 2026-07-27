@@ -268,7 +268,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 key={activeGallery}
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                 className="flex-1 aspect-square flex items-center justify-center rounded-2xl overflow-hidden relative"
                 style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)" }}
               >
@@ -292,7 +292,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             >
               {/* Tag */}
               {product.tags[0] && (
@@ -532,7 +532,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                         className="overflow-hidden"
                       >
                         <div className="pb-6 text-sm leading-relaxed" style={{ color: "var(--text-black-soft)" }}>
@@ -593,7 +593,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ delay: i * 0.08, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                   className="rounded-2xl p-5"
                   style={{ background: "var(--surface-alt)", boxShadow: "var(--shadow-card)" }}
                 >
@@ -641,7 +641,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
             initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             className="fixed bottom-0 inset-x-0 z-[150] lg:hidden"
             style={{ boxShadow: "var(--shadow-sticky)" }}
           >

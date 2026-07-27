@@ -89,7 +89,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
           >
             <h2
               id="reviews-heading"
@@ -108,7 +108,7 @@ export function Testimonials() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ delay: 0.15, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             className="bg-white rounded-2xl p-6"
             style={{ boxShadow: "var(--shadow-card)" }}
           >
@@ -129,7 +129,7 @@ export function Testimonials() {
                       initial={{ width: 0 }}
                       whileInView={{ width: `${pct}%` }}
                       viewport={{ once: true }}
-                      transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                       className="h-full rounded-full"
                       style={{ background: "var(--green-accent)" }}
                     />
@@ -149,7 +149,7 @@ export function Testimonials() {
               initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ delay: i * 0.06, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
               className="flex-shrink-0 snap-start flex flex-col w-[85vw] sm:w-[340px] rounded-2xl p-6 bg-white"
               style={{ boxShadow: "var(--shadow-card)" }}
             >

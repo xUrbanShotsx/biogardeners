@@ -203,7 +203,7 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.06, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ delay: index * 0.06, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
       className="rounded-2xl overflow-hidden"
       style={{ background: "#fff", boxShadow: "var(--shadow-card)", border: "1px solid var(--ceramic)" }}
     >
@@ -264,7 +264,7 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             className="overflow-hidden"
           >
             <div className="px-6 pb-6 pt-0" style={{ borderTop: "1px solid var(--ceramic)" }}>
@@ -311,7 +311,7 @@ export default function GrowingGuidesPage() {
         {/* Header band */}
         <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[1440px] mx-auto">
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}>
               <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Knowledge
               </p>

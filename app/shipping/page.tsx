@@ -43,11 +43,13 @@ const RETURN_STEPS = [
   { step: "04", title: "Get your refund", body: "Once we receive and inspect the return, your refund is processed within 2 business days to your original payment method." },
 ];
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
 const stagger = {
   container: { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } },
   item: {
     hidden:  { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
   },
 };
 
@@ -60,7 +62,7 @@ export default function ShippingPage() {
         {/* Header band */}
         <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[1440px] mx-auto">
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}>
               <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Orders
               </p>
@@ -278,7 +280,7 @@ export default function ShippingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ delay: i * 0.08, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                   className="rounded-xl p-5 relative overflow-hidden"
                   style={{ background: "#fff", border: "1px solid var(--ceramic)", boxShadow: "var(--shadow-card)" }}
                 >
