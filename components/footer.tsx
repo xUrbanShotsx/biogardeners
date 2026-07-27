@@ -31,7 +31,7 @@ export function Footer() {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 pt-14 pb-10">
 
         {/* Top: brand + links */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 mb-12 pb-12" style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12 pb-12" style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <Link

@@ -188,10 +188,15 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   const { addItem }                         = useCart();
   const [addState,       setAddState]       = useState<"idle" | "adding" | "added">("idle");
   const [stickyVisible,  setStickyVisible]  = useState(false);
-  const [viewingCount]                      = useState(() => Math.floor(Math.random() * 14) + 6);
-  const [stockLeft]                         = useState(() => Math.floor(Math.random() * 8) + 4);
+  const [viewingCount, setViewingCount] = useState(8);
+  const [stockLeft,    setStockLeft]    = useState(6);
 
   const addBtnRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setViewingCount(Math.floor(Math.random() * 14) + 6);
+    setStockLeft(Math.floor(Math.random() * 8) + 4);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -231,7 +236,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   return (
     <>
       <Nav />
-      <main style={{ background: "var(--canvas)", paddingTop: 80 }}>
+      <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Breadcrumb */}
         <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-3.5">
@@ -246,8 +251,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         </div>
 
         {/* Product layout */}
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10 lg:py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 mb-16">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-6 lg:py-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-16 mb-10 lg:mb-16">
 
             {/* Gallery */}
             <div className="flex gap-3">

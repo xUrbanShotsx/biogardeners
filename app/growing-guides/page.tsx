@@ -306,7 +306,7 @@ export default function GrowingGuidesPage() {
   return (
     <>
       <Nav />
-      <main style={{ background: "var(--canvas)", paddingTop: 99 }}>
+      <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Header band */}
         <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">

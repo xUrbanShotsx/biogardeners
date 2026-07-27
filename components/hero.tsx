@@ -111,9 +111,9 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   return (
-    <section ref={ref} style={{ background: "var(--canvas)", paddingTop: 99 }} aria-labelledby="hero-heading">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-8 lg:gap-16 items-center min-h-[calc(100vh-99px)] py-14">
+    <section ref={ref} style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }} aria-labelledby="hero-heading">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-6 lg:gap-16 items-center py-10 md:py-14" style={{ minHeight: "calc(100vh - var(--nav-h))" }}>
 
           {/* Content */}
           <motion.div
@@ -126,9 +126,9 @@ export function Hero() {
             <motion.h1
               variants={stagger.item}
               id="hero-heading"
-              className="font-bold mb-5"
+              className="font-bold mb-4 md:mb-5"
               style={{
-                fontSize: "clamp(2.6rem, 5.2vw, 4.8rem)",
+                fontSize: "clamp(2.2rem, 5.2vw, 4.8rem)",
                 lineHeight: 1.08,
                 letterSpacing: "-0.025em",
                 color: "var(--green-house)",
@@ -143,7 +143,7 @@ export function Hero() {
             {/* Body */}
             <motion.p
               variants={stagger.item}
-              className="text-lg mb-8 max-w-[480px]"
+              className="text-base md:text-lg mb-6 md:mb-8 max-w-[480px]"
               style={{ color: "var(--text-black-soft)", lineHeight: 1.65 }}
             >
               Australian-made fertilisers and soil formulas backed by science.
@@ -151,12 +151,12 @@ export function Hero() {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={stagger.item} className="flex flex-wrap gap-3 mb-10">
-              <Link href="/products/season-starter-kit" className="btn btn-primary" style={{ fontSize: 16, padding: "15px 34px" }}>
-                <ShoppingBag size={16} />
+            <motion.div variants={stagger.item} className="flex flex-wrap gap-3 mb-6 md:mb-10">
+              <Link href="/products/season-starter-kit" className="btn btn-primary" style={{ fontSize: 15, padding: "12px 24px" }}>
+                <ShoppingBag size={15} />
                 Shop Starter Kit
               </Link>
-              <Link href="/products" className="btn btn-outline" style={{ fontSize: 16, padding: "15px 34px" }}>
+              <Link href="/products" className="btn btn-outline" style={{ fontSize: 15, padding: "12px 24px" }}>
                 View all products
               </Link>
             </motion.div>
@@ -164,7 +164,7 @@ export function Hero() {
             {/* Trust micro-line */}
             <motion.div
               variants={stagger.item}
-              className="flex items-center gap-1.5 text-xs mb-10"
+              className="flex flex-wrap items-center gap-1.5 text-xs mb-6 md:mb-10"
               style={{ color: "var(--text-black-soft)" }}
             >
               <RotateCcw size={12} />
@@ -176,7 +176,7 @@ export function Hero() {
             {/* Social proof stats */}
             <motion.div
               variants={stagger.item}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 pt-6 md:pt-8"
               style={{ borderTop: "1px solid var(--ceramic)" }}
             >
               {[
@@ -193,13 +193,13 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Product visual */}
+          {/* Product visual — visible on all sizes, smaller on mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.93 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.25, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             style={{ y }}
-            className="hidden lg:block w-full aspect-[4/5]"
+            className="w-full max-w-[280px] mx-auto lg:max-w-none aspect-[4/5]"
           >
             <HeroProductVisual />
           </motion.div>

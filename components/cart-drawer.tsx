@@ -116,7 +116,7 @@ function DrawerPanel() {
       exit={{ x: "100%" }}
       transition={{ type: "spring", damping: 32, stiffness: 300 }}
       className="fixed top-0 right-0 bottom-0 z-[200] flex flex-col"
-      style={{ width: "min(440px, 100vw)", background: "#fff", boxShadow: "-4px 0 40px rgba(0,0,0,0.14)" }}
+      style={{ width: "min(440px, 100vw)", background: "#fff", boxShadow: "-4px 0 40px rgba(0,0,0,0.14)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       role="dialog"
       aria-label="Shopping cart"
       aria-modal="true"

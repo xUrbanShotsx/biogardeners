@@ -14,7 +14,7 @@ export default function ProductsPage() {
   return (
     <>
       <Nav />
-      <main style={{ background: "var(--canvas)", paddingTop: 99, paddingBottom: "5rem" }}>
+      <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)", paddingBottom: "5rem" }}>
 
         {/* Page header — dark green band */}
         <div style={{ background: "var(--green-house)", paddingTop: "3rem", paddingBottom: "3rem" }}>
