@@ -12,13 +12,25 @@ import { type ShopifyProduct } from "@/lib/shopify";
 const CATEGORIES: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":             "Fertilisers",
   "lawn-fertilizer-premium-granulated-concentrated": "Fertilisers",
-  "volcanic-dust-trace-elements":                  "Minerals",
+  "volcanic-dust-trace-elements":                  "Fertilisers",
+  "soil-health-conditioner-powder":                "Fertilisers",
+  "liquid-npk-fertilizer":                         "Fertilisers",
+  "glacial-milk":                                  "Fertilisers",
+  "soil-health-conditioner":                       "Fertilisers",
+  "plant-spray":                                   "Disease Control",
+  "penetrator":                                    "Supplements",
 };
 
 const BG_COLORS: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":             "linear-gradient(140deg, #d4e9e2 0%, #a8cfc0 100%)",
   "lawn-fertilizer-premium-granulated-concentrated": "linear-gradient(140deg, #fdebc8 0%, #f2d49a 100%)",
   "volcanic-dust-trace-elements":                  "linear-gradient(140deg, #e8e4df 0%, #cec8c0 100%)",
+  "soil-health-conditioner-powder":                "linear-gradient(140deg, #ede0d0 0%, #d4c0a8 100%)",
+  "liquid-npk-fertilizer":                         "linear-gradient(140deg, #cce4f0 0%, #9ecde6 100%)",
+  "glacial-milk":                                  "linear-gradient(140deg, #e8f4f8 0%, #c8e4f0 100%)",
+  "soil-health-conditioner":                       "linear-gradient(140deg, #dde8d8 0%, #b8d4b0 100%)",
+  "plant-spray":                                   "linear-gradient(140deg, #d8edd4 0%, #aed4a8 100%)",
+  "penetrator":                                    "linear-gradient(140deg, #d8d4e8 0%, #b4aed4 100%)",
 };
 
 const VARIANTS: Record<string, { label: string; price: number }[]> = {
@@ -37,35 +49,65 @@ const SPEC_LINE: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":             "Volcanic Minerals · Meat & Bone Meal",
   "lawn-fertilizer-premium-granulated-concentrated": "Granulated · Slow-Release · Concentrated",
   "volcanic-dust-trace-elements":                  "60+ Trace Elements · Natural Volcanic",
+  "soil-health-conditioner-powder":                "Powder · Microbial Boost · All Soils",
+  "liquid-npk-fertilizer":                         "Liquid · Fast-Acting · NPK Balanced",
+  "glacial-milk":                                  "Glacial Rock Flour · Silica · Trace Minerals",
+  "soil-health-conditioner":                       "Liquid · Microbial · Water Retention",
+  "plant-spray":                                   "Disease Control · Ready to Use",
+  "penetrator":                                    "Soil Wetter · Penetrating Agent",
 };
 
 const RATINGS: Record<string, { avg: number; count: number }> = {
   "gp-fertiliser-premium-garden-lawn":             { avg: 4.9, count: 142 },
   "lawn-fertilizer-premium-granulated-concentrated": { avg: 4.8, count: 89  },
   "volcanic-dust-trace-elements":                  { avg: 5.0, count: 34  },
+  "soil-health-conditioner-powder":                { avg: 4.8, count: 27  },
+  "liquid-npk-fertilizer":                         { avg: 4.9, count: 53  },
+  "glacial-milk":                                  { avg: 4.9, count: 41  },
+  "soil-health-conditioner":                       { avg: 4.8, count: 38  },
+  "plant-spray":                                   { avg: 4.7, count: 62  },
+  "penetrator":                                    { avg: 4.9, count: 48  },
 };
 
 const BADGE: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":             "Bestseller",
   "lawn-fertilizer-premium-granulated-concentrated": "Popular",
   "volcanic-dust-trace-elements":                  "New",
+  "soil-health-conditioner-powder":                "New",
+  "liquid-npk-fertilizer":                         "Popular",
+  "glacial-milk":                                  "New",
+  "soil-health-conditioner":                       "Popular",
+  "plant-spray":                                   "Bestseller",
+  "penetrator":                                    "Popular",
 };
 
 const SOLD: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":             "98 this month",
   "lawn-fertilizer-premium-granulated-concentrated": "74 this month",
   "volcanic-dust-trace-elements":                  "31 this month",
+  "soil-health-conditioner-powder":                "44 this month",
+  "liquid-npk-fertilizer":                         "67 this month",
+  "glacial-milk":                                  "29 this month",
+  "soil-health-conditioner":                       "52 this month",
+  "plant-spray":                                   "83 this month",
+  "penetrator":                                    "58 this month",
 };
 
-const FILTER_LABELS = ["All", "Fertilisers", "Minerals"];
+const FILTER_LABELS = ["All", "Fertilisers", "Disease Control", "Supplements"];
 
 /* ─── Product illustration (SVG) ──────────────────────────────────── */
 
 function ProductVisual({ handle }: { handle: string }) {
   const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser", line2: "Garden / Lawn", spec: "5 kg · 12 kg · 20 kg"     },
-    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated", spec: "Granulated · Slow-Release" },
-    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust", line2: "Trace Elements", spec: "60+ Natural Minerals"      },
+    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser",   line2: "Garden / Lawn",  spec: "5 kg · 12 kg · 20 kg"    },
+    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated",   spec: "Granulated · Slow-Release"},
+    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust",   line2: "Trace Elements", spec: "60+ Natural Minerals"     },
+    "soil-health-conditioner-powder":                { line1: "Soil Health",     line2: "Conditioner",    spec: "Powder · Microbial Boost" },
+    "liquid-npk-fertilizer":                         { line1: "Liquid NPK",      line2: "Fertilizer",     spec: "Fast-Acting · Balanced"   },
+    "glacial-milk":                                  { line1: "Glacial Milk",    line2: "Rock Flour",     spec: "Silica · Trace Minerals"  },
+    "soil-health-conditioner":                       { line1: "Soil Health",     line2: "Conditioner",    spec: "Liquid · Microbial"       },
+    "plant-spray":                                   { line1: "Plant Spray",     line2: "Disease Control",spec: "Ready to Use"             },
+    "penetrator":                                    { line1: "Penetrator",      line2: "Soil Wetter",    spec: "Wetting Agent"            },
   };
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: "" };
   const isBundle = false;

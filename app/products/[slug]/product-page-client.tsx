@@ -62,6 +62,72 @@ const PRODUCT_DETAILS: Record<string, {
     ingredients: "100% natural volcanic basalt dust. Contains silicon, calcium, magnesium, iron, manganese, zinc, copper, boron, and 50+ additional trace minerals. No additives.",
     weight:      "See product listing for available sizes",
   },
+  "soil-health-conditioner-powder": {
+    benefits:    [
+      "Improves soil structure and aeration in all soil types",
+      "Boosts beneficial microbial populations for long-term fertility",
+      "Enhances nutrient availability and uptake by plant roots",
+      "Easy to apply — mixes directly into soil or potting mix",
+    ],
+    howToUse:    "Mix 50–100g per m² into the top 10cm of soil before planting, or apply as a top dress and water in. Can be added directly to potting mix at 5–10% by volume. Apply every season for best results.",
+    ingredients: "Natural mineral complex, biological soil stimulants, humic substances, trace elements. 100% Australian made.",
+    weight:      "See product listing for available sizes",
+  },
+  "liquid-npk-fertilizer": {
+    benefits:    [
+      "Balanced NPK formula for rapid, visible growth results",
+      "Liquid delivery for fast root and foliar uptake",
+      "Suitable for all plants, vegetables, lawns, and fruit trees",
+      "Ideal for regular feeding programs or quick green-up",
+    ],
+    howToUse:    "Dilute as directed on the label and apply to the root zone or as a foliar spray. For lawns, apply via hose-end sprayer or watering can. Water in after application. Apply every 2–4 weeks during the growing season.",
+    ingredients: "Soluble nitrogen, phosphorus, potassium, and trace elements in liquid concentrate. See label for full analysis.",
+    weight:      "See product listing for available sizes",
+  },
+  "glacial-milk": {
+    benefits:    [
+      "Ultra-fine glacial rock flour rich in silica and trace minerals",
+      "Strengthens plant cell walls and improves drought tolerance",
+      "Remineralises soils with slow-release natural minerals",
+      "Improves soil structure and water-holding capacity",
+    ],
+    howToUse:    "Apply 200g per m² and work into the top 10cm of soil, or mix into potting mix at 10% by volume. Can also be used as a foliar spray when diluted. Safe for all plants, vegetables, and lawns.",
+    ingredients: "100% natural glacial rock flour. Rich in silica, calcium, magnesium, and a wide spectrum of trace minerals. No additives or fillers.",
+    weight:      "See product listing for available sizes",
+  },
+  "soil-health-conditioner": {
+    benefits:    [
+      "Feeds beneficial soil microbes for long-term soil health",
+      "Improves water retention and reduces watering frequency",
+      "Breaks up compacted soils and improves aeration",
+      "Works synergistically with all BioGardeners fertilisers",
+    ],
+    howToUse:    "Dilute as directed and apply to the root zone using a watering can or hose-end sprayer. Use every 4–6 weeks as part of a regular soil maintenance program. Can be combined with fertiliser applications.",
+    ingredients: "Liquid humic and fulvic acid complex, biological soil stimulants, seaweed extract, trace elements. 100% natural.",
+    weight:      "See product listing for available sizes",
+  },
+  "plant-spray": {
+    benefits:    [
+      "Protects against common fungal diseases and pest damage",
+      "Ready-to-use — no mixing or dilution required",
+      "Safe for edibles, vegetables, and ornamentals when used as directed",
+      "Strengthens plant natural defences against environmental stress",
+    ],
+    howToUse:    "Spray directly onto affected plant surfaces, ensuring full coverage of leaves — top and bottom. Apply in the morning or evening, avoiding hot conditions. Repeat every 7–14 days or as needed. Do not spray in direct sunlight.",
+    ingredients: "Active botanical and mineral complex. Biodegradable formula. Safe for beneficial insects when dry. See label for full active ingredient list.",
+    weight:      "See product listing for available sizes",
+  },
+  "penetrator": {
+    benefits:    [
+      "Breaks through hydrophobic and water-repellent soils",
+      "Improves water and nutrient infiltration to the root zone",
+      "Reduces run-off and dry patch in lawns and garden beds",
+      "Works quickly — visible improvement after first application",
+    ],
+    howToUse:    "Dilute as directed and apply to the target area using a watering can or hose-end sprayer. For severe dry patches, apply and repeat after 7 days. Use regularly throughout the growing season to maintain soil wettability.",
+    ingredients: "Non-ionic surfactant blend, soil penetrating agents, plant-safe wetting compounds. Biodegradable formula.",
+    weight:      "See product listing for available sizes",
+  },
 };
 
 const GALLERY_BG: Record<string, string[]> = {
@@ -79,6 +145,36 @@ const GALLERY_BG: Record<string, string[]> = {
     "linear-gradient(140deg,#e8e4df,#cec8c0)",
     "linear-gradient(140deg,#e2ddd8,#c8c2b8)",
     "linear-gradient(140deg,#dcd8d0,#c0baae)",
+  ],
+  "soil-health-conditioner-powder": [
+    "linear-gradient(140deg,#ede0d0,#d4c0a8)",
+    "linear-gradient(140deg,#e8d8c4,#ceb898)",
+    "linear-gradient(140deg,#e2d0b8,#c8b090)",
+  ],
+  "liquid-npk-fertilizer": [
+    "linear-gradient(140deg,#cce4f0,#9ecde6)",
+    "linear-gradient(140deg,#c4dcea,#94c8e0)",
+    "linear-gradient(140deg,#b8d4e4,#88beda)",
+  ],
+  "glacial-milk": [
+    "linear-gradient(140deg,#e8f4f8,#c8e4f0)",
+    "linear-gradient(140deg,#e0f0f6,#c0dcea)",
+    "linear-gradient(140deg,#d8ecf4,#b8d8e8)",
+  ],
+  "soil-health-conditioner": [
+    "linear-gradient(140deg,#dde8d8,#b8d4b0)",
+    "linear-gradient(140deg,#d4e2ce,#aecca6)",
+    "linear-gradient(140deg,#ccdcc6,#a4c49c)",
+  ],
+  "plant-spray": [
+    "linear-gradient(140deg,#d8edd4,#aed4a8)",
+    "linear-gradient(140deg,#cce8c8,#a4cc9e)",
+    "linear-gradient(140deg,#c4e2be,#9ac494)",
+  ],
+  "penetrator": [
+    "linear-gradient(140deg,#d8d4e8,#b4aed4)",
+    "linear-gradient(140deg,#d0cce2,#aca6cc)",
+    "linear-gradient(140deg,#c8c4dc,#a49ec4)",
   ],
 };
 
@@ -106,9 +202,15 @@ function Stars({ count, size = 13 }: { count: number; size?: number }) {
 
 function ProductIllustration({ handle, label }: { handle: string; label: string }) {
   const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser",   line2: "Garden / Lawn",  spec: "5 kg · 12 kg · 20 kg"   },
-    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated",   spec: "Granulated · Slow-Release" },
-    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust",   line2: "Trace Elements", spec: "60+ Natural Minerals"      },
+    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser",   line2: "Garden / Lawn",   spec: "5 kg · 12 kg · 20 kg"    },
+    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated",    spec: "Granulated · Slow-Release"},
+    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust",   line2: "Trace Elements",  spec: "60+ Natural Minerals"     },
+    "soil-health-conditioner-powder":                { line1: "Soil Health",     line2: "Conditioner",     spec: "Powder · Microbial Boost" },
+    "liquid-npk-fertilizer":                         { line1: "Liquid NPK",      line2: "Fertilizer",      spec: "Fast-Acting · Balanced"   },
+    "glacial-milk":                                  { line1: "Glacial Milk",    line2: "Rock Flour",      spec: "Silica · Trace Minerals"  },
+    "soil-health-conditioner":                       { line1: "Soil Health",     line2: "Conditioner",     spec: "Liquid · Microbial"       },
+    "plant-spray":                                   { line1: "Plant Spray",     line2: "Disease Control", spec: "Ready to Use"             },
+    "penetrator":                                    { line1: "Penetrator",      line2: "Soil Wetter",     spec: "Wetting Agent"            },
   };
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: label };
 
