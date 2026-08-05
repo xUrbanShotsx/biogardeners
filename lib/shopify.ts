@@ -119,46 +119,45 @@ export async function addToCart(cartId: string, variantId: string, quantity = 1)
   return data.cartLinesAdd.cart;
 }
 
-/* ─── Demo products (used when Shopify is not yet connected) ─── */
+/* ─── Demo products (mirrors real Shopify catalog — used as fallback) ─── */
 export const DEMO_PRODUCTS = [
   {
     id:          "demo-1",
-    handle:      "bio-bloom-fertiliser",
-    title:       "Bio Bloom Fertiliser",
-    description: "A precision-balanced NPK formula designed for flowering plants, vegetables, and herbs. Our Bio Bloom blend delivers slow-release nitrogen with fast-acting phosphorus for visible results in 7–10 days.",
-    tags:        ["Bestseller", "Flowering"],
-    priceRange:  { minVariantPrice: { amount: "34.95", currencyCode: "AUD" } },
+    handle:      "gp-fertiliser-premium-garden-lawn",
+    title:       "GP Fertiliser Premium Garden / Lawn",
+    description: "One fertiliser for your entire garden. Perfect for lawns, fruit trees, vegetables, flowers, pot plants and native plants. Improves soil health, encourages strong healthy growth and delivers fast results. Made with natural volcanic minerals, meat and bone meal, essential nutrients and trace elements. 100% Australian owned and made.",
+    tags:        ["Bestseller", "Fertiliser"],
+    priceRange:  { minVariantPrice: { amount: "17.00", currencyCode: "AUD" } },
     images:      { edges: [] },
-    variants:    { edges: [{ node: { id: "variant-1", title: "1kg", price: { amount: "34.95" } } }] },
+    variants:    { edges: [
+      { node: { id: "variant-1a", title: "5KG",  price: { amount: "17.00" } } },
+      { node: { id: "variant-1b", title: "12KG", price: { amount: "36.00" } } },
+      { node: { id: "variant-1c", title: "20KG", price: { amount: "50.00" } } },
+    ]},
   },
   {
     id:          "demo-2",
-    handle:      "terra-pro-soil-mix",
-    title:       "Terra Pro Soil Mix",
-    description: "Our premium potting mix engineered with volcanic basalt, coconut coir, and composted pine bark. Optimised pH 6.2–6.8. Exceptional drainage and aeration for root systems that thrive.",
-    tags:        ["New", "Soil"],
-    priceRange:  { minVariantPrice: { amount: "28.00", currencyCode: "AUD" } },
+    handle:      "lawn-fertilizer-premium-granulated-concentrated",
+    title:       "Lawn Fertilizer Premium Granulated Concentrated",
+    description: "A concentrated granulated fertiliser formulated specifically for lawns. Slow-release nutrients feed your lawn for months, promoting thick green growth and deep root systems. Easy to spread with no unpleasant smells. 100% Australian made.",
+    tags:        ["Popular", "Fertiliser"],
+    priceRange:  { minVariantPrice: { amount: "35.00", currencyCode: "AUD" } },
     images:      { edges: [] },
-    variants:    { edges: [{ node: { id: "variant-2", title: "10L", price: { amount: "28.00" } } }] },
+    variants:    { edges: [
+      { node: { id: "variant-2a", title: "1 Pack", price: { amount: "35.00" } } },
+      { node: { id: "variant-2b", title: "2 Pack", price: { amount: "60.00" } } },
+    ]},
   },
   {
     id:          "demo-3",
-    handle:      "deep-root-tonic",
-    title:       "Deep Root Tonic",
-    description: "Mycorrhizal fungi concentrate combined with humic acid and seaweed extract. Supports aggressive root expansion and nutrient uptake — the foundation of every high-performing garden.",
-    tags:        ["Popular", "Root Care"],
-    priceRange:  { minVariantPrice: { amount: "42.00", currencyCode: "AUD" } },
+    handle:      "volcanic-dust-trace-elements",
+    title:       "Volcanic Dust Trace Elements",
+    description: "Premium volcanic dust packed with over 60 naturally occurring trace elements and minerals. Remineralises depleted soils, improves microbial activity, and provides a slow-release source of essential nutrients for plants, lawns and vegetables. 100% natural and Australian made.",
+    tags:        ["New", "Minerals"],
+    priceRange:  { minVariantPrice: { amount: "25.00", currencyCode: "AUD" } },
     images:      { edges: [] },
-    variants:    { edges: [{ node: { id: "variant-3", title: "500ml", price: { amount: "42.00" } } }] },
-  },
-  {
-    id:          "demo-4",
-    handle:      "season-starter-kit",
-    title:       "Season Starter Kit",
-    description: "Everything to kickstart a productive garden season. Includes Bio Bloom Fertiliser, Terra Pro Soil Mix, and Deep Root Tonic — the complete BioGardeners foundation system.",
-    tags:        ["Bundle", "Value"],
-    priceRange:  { minVariantPrice: { amount: "89.00", currencyCode: "AUD" } },
-    images:      { edges: [] },
-    variants:    { edges: [{ node: { id: "variant-4", title: "Bundle", price: { amount: "89.00" } } }] },
+    variants:    { edges: [
+      { node: { id: "variant-3a", title: "Standard", price: { amount: "25.00" } } },
+    ]},
   },
 ] satisfies ShopifyProduct[];

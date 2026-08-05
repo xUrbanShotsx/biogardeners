@@ -12,22 +12,14 @@ import type { ShopifyProduct }                from "@/lib/shopify";
 /* ─── Static data ─────────────────────────────────────────────────── */
 
 const VARIANTS: Record<string, { label: string; price: string }[]> = {
-  "bio-bloom-fertiliser": [
-    { label: "1 kg",            price: "34.95"  },
-    { label: "2.5 kg",          price: "79.95"  },
-    { label: "5 kg",            price: "149.95" },
+  "gp-fertiliser-premium-garden-lawn": [
+    { label: "5 KG",  price: "17.00" },
+    { label: "12 KG", price: "36.00" },
+    { label: "20 KG", price: "50.00" },
   ],
-  "terra-pro-soil-mix": [
-    { label: "10 L",            price: "28.00"  },
-    { label: "25 L",            price: "62.00"  },
-  ],
-  "deep-root-tonic": [
-    { label: "250 ml",          price: "42.00"  },
-    { label: "500 ml",          price: "79.00"  },
-    { label: "1 L",             price: "149.00" },
-  ],
-  "season-starter-kit": [
-    { label: "Standard bundle", price: "89.00"  },
+  "lawn-fertilizer-premium-granulated-concentrated": [
+    { label: "1 Pack", price: "35.00" },
+    { label: "2 Pack", price: "60.00" },
   ],
 };
 
@@ -37,72 +29,56 @@ const PRODUCT_DETAILS: Record<string, {
   ingredients: string;
   weight:      string;
 }> = {
-  "bio-bloom-fertiliser": {
+  "gp-fertiliser-premium-garden-lawn": {
     benefits:    [
-      "Optimised NPK 8-12-6 ratio for flowering and fruiting",
-      "Slow-release nitrogen with 90-day soil residue",
-      "Chelated trace elements for rapid uptake",
-      "Safe for vegetables, herbs, and ornamentals",
+      "One fertiliser for your entire garden — lawns, fruit trees, vegetables, flowers, pot plants and natives",
+      "Improves soil health and encourages strong, healthy growth",
+      "Fast results with no unpleasant smells — easy to spread",
+      "Made with natural volcanic minerals, meat and bone meal, and essential trace elements",
     ],
-    howToUse:    "Apply 30g per m² into the top 5cm of soil before planting, or apply as a side-dress every 6–8 weeks. Water thoroughly after application.",
-    ingredients: "Monoammonium phosphate, Potassium sulfate, Calcium nitrate, Magnesium sulfate, Iron EDTA, Manganese sulfate, Zinc sulfate, Humic acid (15%), Seaweed extract (5%)",
-    weight:      "Available in 1kg, 2.5kg, 5kg",
+    howToUse:    "Apply evenly to soil surface and water in thoroughly. For lawns, apply 100g per m². For garden beds and pots, work into the top 5cm of soil before planting or as a top dress. Reapply every 6–8 weeks during the growing season.",
+    ingredients: "Natural volcanic minerals, Meat and bone meal, Essential nutrients and trace elements. 100% Australian owned and made.",
+    weight:      "Available in 5KG, 12KG, 20KG",
   },
-  "terra-pro-soil-mix": {
+  "lawn-fertilizer-premium-granulated-concentrated": {
     benefits:    [
-      "pH buffered to 6.2–6.8 for optimal nutrient availability",
-      "45% coconut coir for superior water retention",
-      "Volcanic basalt for long-term trace mineral release",
-      "Wetting agent included for hydrophobic soil correction",
+      "Concentrated formula — a little goes a long way",
+      "Slow-release granules feed your lawn for months",
+      "Promotes thick, green growth and deep root development",
+      "Easy to spread with no unpleasant smells",
     ],
-    howToUse:    "Use as a direct replacement for standard potting mix. For garden beds, blend 30% Terra Pro with existing soil. Refresh annually with a 5cm top-dressing.",
-    ingredients: "Composted pine bark (40%), Coconut coir (35%), Perlite (15%), Volcanic basalt (5%), Dolomite lime, Wetting agent, Slow-release fertiliser charge",
-    weight:      "Available in 10L, 25L",
+    howToUse:    "Apply 50g per m² to lawn surface using a spreader or by hand. Water thoroughly after application. Apply every 8–10 weeks during the growing season for best results. Avoid applying in extreme heat.",
+    ingredients: "Concentrated granulated fertiliser blend. Slow-release nitrogen, phosphorus and potassium with essential trace elements. 100% Australian made.",
+    weight:      "Available as 1 Pack or 2 Pack (save $10)",
   },
-  "deep-root-tonic": {
+  "volcanic-dust-trace-elements": {
     benefits:    [
-      "Mycorrhizal fungi consortium — 5 species blend",
-      "Humic acid complex improves cation exchange capacity",
-      "Kelp-derived cytokinins stimulate root branching",
-      "Concentrated — 1 bottle treats up to 100 plants",
+      "Over 60 naturally occurring trace elements and minerals",
+      "Remineralises depleted soils and restores soil biology",
+      "Improves microbial activity and overall soil health",
+      "Slow-release — a single application lasts for months",
     ],
-    howToUse:    "Dilute 5ml per litre of water. Apply to root zone at transplanting, or as a monthly drench for established plants. Do not mix with chemical fungicides.",
-    ingredients: "Glomus intraradices, Rhizophagus irregularis, Trichoderma harzianum, Humic acid (8%), Fulvic acid (3%), Ascophyllum nodosum extract (5%), Amino acids",
-    weight:      "Available in 250ml, 500ml, 1L",
-  },
-  "season-starter-kit": {
-    benefits:    [
-      "Complete foundation system — everything to start strong",
-      "Includes Bio Bloom (1kg), Terra Pro (10L), Deep Root Tonic (250ml)",
-      "15% saving vs individual purchase",
-      "Paired growing guide included",
-    ],
-    howToUse:    "Prepare beds with Terra Pro, treat transplants with Deep Root Tonic, then apply Bio Bloom after first 2 weeks of establishment.",
-    ingredients: "See individual product pages for full ingredient lists.",
-    weight:      "Kit weight approx. 12kg",
+    howToUse:    "Apply 100–200g per m² and work into the top 10cm of soil, or use as a top dress and water in. Can be mixed into potting mix at 10% by volume. Safe for all plants, lawns, and vegetables.",
+    ingredients: "100% natural volcanic basalt dust. Contains silicon, calcium, magnesium, iron, manganese, zinc, copper, boron, and 50+ additional trace minerals. No additives.",
+    weight:      "See product listing for available sizes",
   },
 };
 
 const GALLERY_BG: Record<string, string[]> = {
-  "bio-bloom-fertiliser": [
+  "gp-fertiliser-premium-garden-lawn": [
     "linear-gradient(140deg,#d4e9e2,#a8cfc0)",
     "linear-gradient(140deg,#c8e0d8,#9fc5b6)",
     "linear-gradient(140deg,#bcd8ce,#91b9a8)",
   ],
-  "terra-pro-soil-mix": [
+  "lawn-fertilizer-premium-granulated-concentrated": [
     "linear-gradient(140deg,#fdebc8,#f2d49a)",
     "linear-gradient(140deg,#fde5b8,#efcc88)",
     "linear-gradient(140deg,#fad89e,#e8c170)",
   ],
-  "deep-root-tonic": [
-    "linear-gradient(140deg,#dde8e0,#bcd5c8)",
-    "linear-gradient(140deg,#d4e2dc,#afd0c0)",
-    "linear-gradient(140deg,#c8dcd4,#a2c8b8)",
-  ],
-  "season-starter-kit": [
-    "linear-gradient(140deg,#faf6ee,#ede4d0)",
-    "linear-gradient(140deg,#f5f0e6,#e6dcc4)",
-    "linear-gradient(140deg,#eeeadf,#dcd4b6)",
+  "volcanic-dust-trace-elements": [
+    "linear-gradient(140deg,#e8e4df,#cec8c0)",
+    "linear-gradient(140deg,#e2ddd8,#c8c2b8)",
+    "linear-gradient(140deg,#dcd8d0,#c0baae)",
   ],
 };
 
@@ -130,10 +106,9 @@ function Stars({ count, size = 13 }: { count: number; size?: number }) {
 
 function ProductIllustration({ handle, label }: { handle: string; label: string }) {
   const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "bio-bloom-fertiliser": { line1: "Bio Bloom",      line2: "Fertiliser", spec: "1 kg · NPK 8-12-6"   },
-    "terra-pro-soil-mix":   { line1: "Terra Pro",      line2: "Soil Mix",   spec: "10 L · pH 6.2–6.8"   },
-    "deep-root-tonic":      { line1: "Deep Root",      line2: "Tonic",      spec: "500 ml · Mycorrhizal" },
-    "season-starter-kit":   { line1: "Season Starter", line2: "Kit",        spec: "Bundle · 3 products"  },
+    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser",   line2: "Garden / Lawn",  spec: "5 kg · 12 kg · 20 kg"   },
+    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated",   spec: "Granulated · Slow-Release" },
+    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust",   line2: "Trace Elements", spec: "60+ Natural Minerals"      },
   };
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: label };
 
@@ -168,8 +143,9 @@ interface Props {
 
 export function ProductPageClient({ product, related, slug }: Props) {
   const details       = PRODUCT_DETAILS[slug];
-  const variants      = VARIANTS[slug] ?? [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }];
-  const galleries     = GALLERY_BG[slug] ?? GALLERY_BG["bio-bloom-fertiliser"];
+  const shopifyVars   = product.variants.edges.map((e) => ({ label: e.node.title, price: e.node.price.amount }));
+  const variants      = VARIANTS[slug] ?? (shopifyVars.length ? shopifyVars : [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }]);
+  const galleries     = GALLERY_BG[slug] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
   const bundleItems   = related.slice(0, 2); // "Frequently bought together" = first 2 related
 
   const [activeVariant, setActiveVariant] = useState(0);

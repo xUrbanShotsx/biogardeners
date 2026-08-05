@@ -5,85 +5,70 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Star, TrendingUp, Check, ArrowRight, Package } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
-import { DEMO_PRODUCTS } from "@/lib/shopify";
+import { type ShopifyProduct } from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
 
 const CATEGORIES: Record<string, string> = {
-  "bio-bloom-fertiliser": "Fertilisers",
-  "terra-pro-soil-mix":   "Soil",
-  "deep-root-tonic":      "Tonics",
-  "season-starter-kit":   "Bundles",
+  "gp-fertiliser-premium-garden-lawn":             "Fertilisers",
+  "lawn-fertilizer-premium-granulated-concentrated": "Fertilisers",
+  "volcanic-dust-trace-elements":                  "Minerals",
 };
 
 const BG_COLORS: Record<string, string> = {
-  "bio-bloom-fertiliser": "linear-gradient(140deg, #d4e9e2 0%, #b0d0c4 100%)",
-  "terra-pro-soil-mix":   "linear-gradient(140deg, #fdebc8 0%, #f2d49a 100%)",
-  "deep-root-tonic":      "linear-gradient(140deg, #dde8e0 0%, #bcd5c8 100%)",
-  "season-starter-kit":   "linear-gradient(140deg, #1E3932 0%, #2b5148 100%)",
+  "gp-fertiliser-premium-garden-lawn":             "linear-gradient(140deg, #d4e9e2 0%, #a8cfc0 100%)",
+  "lawn-fertilizer-premium-granulated-concentrated": "linear-gradient(140deg, #fdebc8 0%, #f2d49a 100%)",
+  "volcanic-dust-trace-elements":                  "linear-gradient(140deg, #e8e4df 0%, #cec8c0 100%)",
 };
 
 const VARIANTS: Record<string, { label: string; price: number }[]> = {
-  "bio-bloom-fertiliser": [
-    { label: "1 kg",           price: 34.95  },
-    { label: "2.5 kg",         price: 79.95  },
-    { label: "5 kg",           price: 149.95 },
+  "gp-fertiliser-premium-garden-lawn": [
+    { label: "5 KG",  price: 17.00 },
+    { label: "12 KG", price: 36.00 },
+    { label: "20 KG", price: 50.00 },
   ],
-  "terra-pro-soil-mix": [
-    { label: "10 L",           price: 28.00  },
-    { label: "25 L",           price: 62.00  },
-  ],
-  "deep-root-tonic": [
-    { label: "250 ml",         price: 42.00  },
-    { label: "500 ml",         price: 79.00  },
-    { label: "1 L",            price: 149.00 },
-  ],
-  "season-starter-kit": [
-    { label: "Complete bundle", price: 89.00 },
+  "lawn-fertilizer-premium-granulated-concentrated": [
+    { label: "1 Pack", price: 35.00 },
+    { label: "2 Pack", price: 60.00 },
   ],
 };
 
 const SPEC_LINE: Record<string, string> = {
-  "bio-bloom-fertiliser": "NPK 8-12-6 · Slow-release nitrogen",
-  "terra-pro-soil-mix":   "pH 6.2–6.8 · Coconut coir blend",
-  "deep-root-tonic":      "Mycorrhizal fungi · Humic acid",
-  "season-starter-kit":   "Bio Bloom + Terra Pro + Deep Root",
+  "gp-fertiliser-premium-garden-lawn":             "Volcanic Minerals · Meat & Bone Meal",
+  "lawn-fertilizer-premium-granulated-concentrated": "Granulated · Slow-Release · Concentrated",
+  "volcanic-dust-trace-elements":                  "60+ Trace Elements · Natural Volcanic",
 };
 
 const RATINGS: Record<string, { avg: number; count: number }> = {
-  "bio-bloom-fertiliser": { avg: 4.9, count: 184 },
-  "terra-pro-soil-mix":   { avg: 4.8, count: 97  },
-  "deep-root-tonic":      { avg: 4.9, count: 61  },
-  "season-starter-kit":   { avg: 5.0, count: 38  },
+  "gp-fertiliser-premium-garden-lawn":             { avg: 4.9, count: 142 },
+  "lawn-fertilizer-premium-granulated-concentrated": { avg: 4.8, count: 89  },
+  "volcanic-dust-trace-elements":                  { avg: 5.0, count: 34  },
 };
 
 const BADGE: Record<string, string> = {
-  "bio-bloom-fertiliser": "Bestseller",
-  "terra-pro-soil-mix":   "New",
-  "deep-root-tonic":      "Popular",
-  "season-starter-kit":   "Best Value",
+  "gp-fertiliser-premium-garden-lawn":             "Bestseller",
+  "lawn-fertilizer-premium-granulated-concentrated": "Popular",
+  "volcanic-dust-trace-elements":                  "New",
 };
 
 const SOLD: Record<string, string> = {
-  "bio-bloom-fertiliser": "142 this month",
-  "terra-pro-soil-mix":   "89 this month",
-  "deep-root-tonic":      "73 this month",
-  "season-starter-kit":   "38 this month",
+  "gp-fertiliser-premium-garden-lawn":             "98 this month",
+  "lawn-fertilizer-premium-granulated-concentrated": "74 this month",
+  "volcanic-dust-trace-elements":                  "31 this month",
 };
 
-const FILTER_LABELS = ["All", "Fertilisers", "Soil", "Tonics", "Bundles"];
+const FILTER_LABELS = ["All", "Fertilisers", "Minerals"];
 
 /* ─── Product illustration (SVG) ──────────────────────────────────── */
 
 function ProductVisual({ handle }: { handle: string }) {
   const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "bio-bloom-fertiliser": { line1: "Bio Bloom",      line2: "Fertiliser",  spec: "1 kg · NPK 8-12-6"   },
-    "terra-pro-soil-mix":   { line1: "Terra Pro",      line2: "Soil Mix",    spec: "10 L · pH 6.2–6.8"   },
-    "deep-root-tonic":      { line1: "Deep Root",      line2: "Tonic",       spec: "500 ml · Mycorrhizal" },
-    "season-starter-kit":   { line1: "Season Starter", line2: "Kit",         spec: "Bundle · 3 products"  },
+    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser", line2: "Garden / Lawn", spec: "5 kg · 12 kg · 20 kg"     },
+    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated", spec: "Granulated · Slow-Release" },
+    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust", line2: "Trace Elements", spec: "60+ Natural Minerals"      },
   };
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: "" };
-  const isBundle = handle === "season-starter-kit";
+  const isBundle = false;
 
   if (isBundle) {
     return (
@@ -135,22 +120,24 @@ function ProductVisual({ handle }: { handle: string }) {
 
 /* ─── Quick Pick Card ──────────────────────────────────────────────── */
 
-function QuickPickCard({ handle, title, description, index }: {
+function QuickPickCard({ handle, title, description, index, shopifyVariants, basePrice }: {
   handle: string;
   title: string;
   description: string;
   index: number;
+  shopifyVariants: { label: string; price: number }[];
+  basePrice: number;
 }) {
   const { addItem } = useCart();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [addState, setAddState] = useState<"idle" | "added">("idle");
 
-  const variants = VARIANTS[handle] ?? [{ label: "Standard", price: 0 }];
-  const variant  = variants[selectedVariant];
+  const variants = VARIANTS[handle] ?? shopifyVariants;
+  const variant  = variants[selectedVariant] ?? { label: "Standard", price: basePrice };
   const rating   = RATINGS[handle];
   const badge    = BADGE[handle];
   const sold     = SOLD[handle];
-  const isBundle = handle === "season-starter-kit";
+  const isBundle = false;
   const spec     = SPEC_LINE[handle];
 
   function handleAdd(e: React.MouseEvent) {
@@ -351,10 +338,10 @@ function QuickPickCard({ handle, title, description, index }: {
 
 /* ─── Main client component ────────────────────────────────────────── */
 
-export function ProductsClient() {
+export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const filtered = DEMO_PRODUCTS.filter((p) => {
+  const filtered = products.filter((p) => {
     if (activeFilter === "All") return true;
     return CATEGORIES[p.handle] === activeFilter;
   });
@@ -440,6 +427,11 @@ export function ProductsClient() {
                 title={p.title}
                 description={p.description}
                 index={i}
+                shopifyVariants={p.variants.edges.map((e) => ({
+                  label: e.node.title,
+                  price: parseFloat(e.node.price.amount),
+                }))}
+                basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
               />
             ))}
           </AnimatePresence>
@@ -455,42 +447,29 @@ export function ProductsClient() {
         )}
       </div>
 
-      {/* Bundle promo strip — always shown at bottom */}
-      {(activeFilter === "All" || activeFilter === "Bundles") && (
-        <div
-          className="border-t"
-          style={{ background: "var(--green-xlight)", borderColor: "var(--ceramic)" }}
-        >
-          <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div className="flex items-start gap-4">
-                <div
-                  className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
-                  style={{ background: "var(--green-house)" }}
-                >
-                  <Package size={22} color="#fff" />
-                </div>
-                <div>
-                  <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-house)" }}>
-                    New to BioGardeners?
-                  </p>
-                  <p className="text-sm max-w-sm" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>
-                    Start with the Season Starter Kit — Bio Bloom, Terra Pro, and Deep Root bundled at 15% off. Everything your garden needs.
-                  </p>
-                </div>
+      {/* Bottom CTA */}
+      <div className="border-t" style={{ background: "var(--green-xlight)", borderColor: "var(--ceramic)" }}>
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "var(--green-house)" }}>
+                <Package size={22} color="#fff" />
               </div>
-              <Link
-                href="/products/season-starter-kit"
-                className="btn btn-primary shrink-0"
-                style={{ padding: "11px 24px", fontSize: 14 }}
-              >
-                <ShoppingBag size={15} />
-                View Starter Kit — $89
-              </Link>
+              <div>
+                <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-house)" }}>
+                  100% Australian owned and made
+                </p>
+                <p className="text-sm max-w-sm" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>
+                  Natural volcanic minerals, meat and bone meal, and essential trace elements — premium inputs for healthier plants from the ground up.
+                </p>
+              </div>
             </div>
+            <Link href="/growing-guides" className="btn btn-primary shrink-0" style={{ padding: "11px 24px", fontSize: 14 }}>
+              Growing guides
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
