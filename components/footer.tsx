@@ -2,11 +2,11 @@ import Link from "next/link";
 
 const links = {
   Shop: [
-    { href: "/products",                      label: "All Products"         },
-    { href: "/products/bio-bloom-fertiliser",  label: "Bio Bloom Fertiliser" },
-    { href: "/products/terra-pro-soil-mix",    label: "Terra Pro Soil Mix"   },
-    { href: "/products/deep-root-tonic",       label: "Deep Root Tonic"      },
-    { href: "/products/season-starter-kit",    label: "Starter Kit"          },
+    { href: "/products",                                       label: "All Products"          },
+    { href: "/products/gp-fertiliser-premium-garden-lawn",     label: "GP Fertiliser"         },
+    { href: "/products/lawn-fertilizer-premium-granulated-concentrated", label: "Lawn Fertilizer" },
+    { href: "/products/volcanic-dust-trace-elements",          label: "Volcanic Dust"         },
+    { href: "/products/penetrator",                            label: "Penetrator"            },
   ],
   Company: [
     { href: "/#about",   label: "About"       },
