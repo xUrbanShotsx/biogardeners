@@ -321,7 +321,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
       {/* Product layout */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-6 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-10 lg:mb-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-6 lg:mb-8 items-start">
 
           {/* Gallery */}
           <div className="flex gap-3 self-stretch">
@@ -442,10 +442,16 @@ export function ProductPageClient({ product, related, slug }: Props) {
             )}
 
             {/* Description */}
-            <p className="text-sm mb-5 max-w-[48ch]" style={{ color: "var(--text-black-soft)", lineHeight: 1.7 }}>
+            <p className="text-sm mb-0 max-w-[48ch]" style={{ color: "var(--text-black-soft)", lineHeight: 1.7 }}>
               {product.description}
             </p>
+          </motion.div>
+        </div>
 
+        {/* Purchase section — sits under the right (info) column */}
+        <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-10 lg:mb-16">
+          <div className="hidden lg:block" aria-hidden="true" />
+          <div>
             {/* Stock urgency */}
             <div className="flex items-center gap-2 mb-5 text-sm font-semibold" style={{ color: "var(--red)" }}>
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--red)" }} />
@@ -524,7 +530,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Frequently bought together */}
