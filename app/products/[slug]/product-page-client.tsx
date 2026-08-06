@@ -324,7 +324,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-10 lg:mb-16 items-start">
 
           {/* Gallery */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 self-stretch">
             {/* Thumbnails */}
             <div className="hidden sm:flex flex-col gap-2.5">
               {galleries.map((bg, i) => (
@@ -356,7 +356,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.35, ease }}
               className="flex-1 flex items-center justify-center rounded-2xl overflow-hidden relative"
-              style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)", aspectRatio: "4/3", maxHeight: "440px" }}
+              style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)", minHeight: "320px" }}
             >
               <ProductIllustration handle={slug} label={product.title} />
 
