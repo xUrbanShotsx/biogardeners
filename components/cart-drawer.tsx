@@ -2,21 +2,33 @@
 
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf } from "lucide-react";
+import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles } from "lucide-react";
 import { useCart, type CartItem } from "@/lib/cart-context";
+import { useAi } from "@/lib/ai-context";
+import { cartCheckoutMessage } from "@/lib/ai-messages";
 
 /* ─── Per-product visual colours ─── */
 const PRODUCT_BG: Record<string, string> = {
-  "bio-bloom-fertiliser": "linear-gradient(140deg,#d4e9e2,#b0d0c4)",
-  "terra-pro-soil-mix":   "linear-gradient(140deg,#fdebc8,#f2d49a)",
-  "deep-root-tonic":      "linear-gradient(140deg,#dde8e0,#bcd5c8)",
-  "season-starter-kit":   "linear-gradient(140deg,#faf6ee,#ede4d0)",
+  "gp-fertiliser-premium-garden-lawn":              "linear-gradient(140deg,#d4e9e2,#a8cfc0)",
+  "lawn-fertilizer-premium-granulated-concentrated": "linear-gradient(140deg,#fdebc8,#f2d49a)",
+  "volcanic-dust-trace-elements":                   "linear-gradient(140deg,#e8e4df,#cec8c0)",
+  "soil-health-conditioner-powder":                 "linear-gradient(140deg,#ede0d0,#d4c0a8)",
+  "liquid-npk-fertilizer":                          "linear-gradient(140deg,#cce4f0,#9ecde6)",
+  "glacial-milk":                                   "linear-gradient(140deg,#e8f4f8,#c8e4f0)",
+  "soil-health-conditioner":                        "linear-gradient(140deg,#dde8d8,#b8d4b0)",
+  "plant-spray":                                    "linear-gradient(140deg,#d8edd4,#aed4a8)",
+  "penetrator":                                     "linear-gradient(140deg,#d8d4e8,#b4aed4)",
 };
 const PRODUCT_LABEL: Record<string, { l1: string; l2: string }> = {
-  "bio-bloom-fertiliser": { l1: "Bio Bloom",      l2: "Fertiliser" },
-  "terra-pro-soil-mix":   { l1: "Terra Pro",      l2: "Soil Mix"   },
-  "deep-root-tonic":      { l1: "Deep Root",      l2: "Tonic"      },
-  "season-starter-kit":   { l1: "Season Starter", l2: "Kit"        },
+  "gp-fertiliser-premium-garden-lawn":              { l1: "GP Fertiliser",  l2: "Garden / Lawn"  },
+  "lawn-fertilizer-premium-granulated-concentrated": { l1: "Lawn Fertilizer", l2: "Concentrated"   },
+  "volcanic-dust-trace-elements":                   { l1: "Volcanic Dust",  l2: "Trace Elements" },
+  "soil-health-conditioner-powder":                 { l1: "Soil Health",    l2: "Conditioner"    },
+  "liquid-npk-fertilizer":                          { l1: "Liquid NPK",     l2: "Fertilizer"     },
+  "glacial-milk":                                   { l1: "Glacial Milk",   l2: "Rock Flour"     },
+  "soil-health-conditioner":                        { l1: "Soil Health",    l2: "Conditioner"    },
+  "plant-spray":                                    { l1: "Plant Spray",    l2: "Disease Control"},
+  "penetrator":                                     { l1: "Penetrator",     l2: "Soil Wetter"    },
 };
 
 function MiniProduct({ handle }: { handle: string }) {
@@ -102,9 +114,49 @@ function EmptyCart({ onClose }: { onClose: () => void }) {
   );
 }
 
+/* ─── AI advisor bubble ─── */
+function AiBubble({ compliment, tip, onDismiss }: { compliment: string; tip: string; onDismiss: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="overflow-hidden shrink-0"
+      style={{ borderBottom: "1px solid var(--ceramic)" }}
+    >
+      <div className="px-5 py-3" style={{ background: "var(--green-xlight)" }}>
+        <div className="flex gap-2.5 items-start">
+          <div
+            className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+            style={{ background: "var(--green-house)" }}
+          >
+            <Sparkles size={13} color="#fff" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[9px] font-bold uppercase tracking-[0.08em] mb-0.5" style={{ color: "var(--green-accent)" }}>
+              Bio Advisor
+            </p>
+            <p className="text-xs font-semibold mb-0.5 leading-snug" style={{ color: "var(--green-house)" }}>
+              {compliment}
+            </p>
+            <p className="text-[11px] leading-snug" style={{ color: "var(--text-black-soft)" }}>
+              {tip}
+            </p>
+          </div>
+          <button onClick={onDismiss} aria-label="Dismiss" className="p-0.5 mt-0.5 shrink-0" style={{ color: "var(--text-black-soft)" }}>
+            <X size={12} />
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ─── Drawer panel (slide-in from right) ─── */
 function DrawerPanel() {
   const { items, subtotal, count, closeCart, expandCart } = useCart();
+  const { cartMessage, clearCartMessage } = useAi();
   const freeShippingLeft = Math.max(0, 80 - subtotal);
   const freeShippingPct  = Math.min(100, (subtotal / 80) * 100);
 
@@ -181,6 +233,18 @@ function DrawerPanel() {
         </div>
       )}
 
+      {/* AI message — appears when item is added */}
+      <AnimatePresence>
+        {cartMessage && count > 0 && (
+          <AiBubble
+            key={cartMessage.key}
+            compliment={cartMessage.compliment}
+            tip={cartMessage.tip}
+            onDismiss={clearCartMessage}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Items */}
       <div className="flex-1 overflow-y-auto px-5">
         {items.length === 0 ? (
@@ -212,6 +276,22 @@ function DrawerPanel() {
             <span className="text-lg font-bold" style={{ color: "var(--green-bio)" }}>${subtotal.toFixed(2)}</span>
           </div>
           <p className="text-[10px] mb-4" style={{ color: "var(--text-black-soft)" }}>Taxes and shipping calculated at checkout</p>
+
+          {/* AI checkout encouragement */}
+          <div className="flex gap-2.5 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
+            <div
+              className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+              style={{ background: "var(--green-house)" }}
+            >
+              <Sparkles size={11} color="#fff" />
+            </div>
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.08em] mb-0.5" style={{ color: "var(--green-accent)" }}>Bio Advisor</p>
+              <p className="text-[11px] leading-snug" style={{ color: "var(--green-bio)" }}>
+                {cartCheckoutMessage(count, items.map(i => i.title))}
+              </p>
+            </div>
+          </div>
 
           {/* CTA row */}
           <div className="flex gap-2">
@@ -416,6 +496,22 @@ function FullscreenCart() {
                     <span style={{ color: "var(--green-bio)" }}>
                       ${(subtotal + (freeShippingLeft <= 0 ? 0 : 8.95)).toFixed(2)}
                     </span>
+                  </div>
+
+                  {/* AI checkout encouragement */}
+                  <div className="flex gap-3 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
+                    <div
+                      className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+                      style={{ background: "var(--green-house)" }}
+                    >
+                      <Sparkles size={13} color="#fff" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-bold uppercase tracking-[0.08em] mb-0.5" style={{ color: "var(--green-accent)" }}>Bio Advisor</p>
+                      <p className="text-xs leading-snug" style={{ color: "var(--green-bio)" }}>
+                        {cartCheckoutMessage(count, items.map(i => i.title))}
+                      </p>
+                    </div>
                   </div>
 
                   <a

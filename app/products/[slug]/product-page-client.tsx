@@ -7,6 +7,7 @@ import { ArrowLeft, ShoppingBag, ChevronDown, Star, Users, Truck, RotateCcw, Shi
 import { ProductCard }                        from "@/components/product-card";
 import { formatPrice }                        from "@/lib/utils";
 import { useCart }                            from "@/lib/cart-context";
+import { useAi }                             from "@/lib/ai-context";
 import type { ShopifyProduct }                from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
@@ -255,6 +256,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
   const [quantity,      setQuantity]      = useState(1);
   const [openSection,   setOpenSection]   = useState<string | null>("benefits");
   const { addItem }                       = useCart();
+  const { showCartMessage }               = useAi();
   const [addState,      setAddState]      = useState<"idle" | "adding" | "added">("idle");
   const [stickyVisible, setStickyVisible] = useState(false);
   const [viewingCount,  setViewingCount]  = useState(8);
@@ -291,6 +293,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
       price:   parseFloat(variant?.price ?? currentPrice),
       quantity,
     });
+    showCartMessage(product.handle);
     setTimeout(() => setAddState("added"), 600);
     setTimeout(() => setAddState("idle"), 2200);
   }
