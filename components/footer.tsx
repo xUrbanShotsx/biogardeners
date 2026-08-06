@@ -14,6 +14,7 @@ const links = {
     { href: "/contact",  label: "Contact"     },
   ],
   Support: [
+    { href: "/contact",        label: "Contact Us"       },
     { href: "/faq",            label: "FAQ"              },
     { href: "/shipping",       label: "Shipping & Returns"},
     { href: "/growing-guides", label: "Growing Guides"   },
