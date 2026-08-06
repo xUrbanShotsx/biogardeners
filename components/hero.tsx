@@ -40,10 +40,10 @@ function HeroProductVisual() {
         <circle cx="160" cy="168" r="22" fill="#006241" opacity="0.10" />
         <text x="160" y="162" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="10" fill="#006241" letterSpacing="2">BIO</text>
         <text x="160" y="175" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="10" fill="#006241" letterSpacing="2">GARDENERS</text>
-        <text x="160" y="216" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">Bio Bloom</text>
-        <text x="160" y="234" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">Fertiliser</text>
+        <text x="160" y="216" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">GP Fertiliser</text>
+        <text x="160" y="234" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">Garden / Lawn</text>
         <rect x="80" y="248" width="160" height="3" rx="1.5" fill="#00754A" opacity="0.4" />
-        <text x="160" y="272" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="11" fill="rgba(0,0,0,0.52)">1 kg · NPK 8-12-6</text>
+        <text x="160" y="272" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="11" fill="rgba(0,0,0,0.52)">5 kg · 12 kg · 20 kg</text>
         <rect x="80" y="285" width="160" height="15" fill="#006241" opacity="0.07" />
         <text x="160" y="296" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="9" fill="#006241" letterSpacing="1.5">AUSTRALIAN MADE</text>
         <ellipse cx="160" cy="355" rx="80" ry="10" fill="rgba(0,0,0,0.09)" />
@@ -152,9 +152,9 @@ export function Hero() {
 
             {/* CTAs */}
             <motion.div variants={stagger.item} className="flex flex-wrap gap-3 mb-6 md:mb-10">
-              <Link href="/products/season-starter-kit" className="btn btn-primary" style={{ fontSize: 15, padding: "12px 24px" }}>
+              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-primary" style={{ fontSize: 15, padding: "12px 24px" }}>
                 <ShoppingBag size={15} />
-                Shop Starter Kit
+                Shop Bestseller
               </Link>
               <Link href="/products" className="btn btn-outline" style={{ fontSize: 15, padding: "12px 24px" }}>
                 View all products

@@ -8,16 +8,31 @@ import { CtaBanner }        from "@/components/cta-banner";
 import { Nav }              from "@/components/nav";
 import { Footer }           from "@/components/footer";
 import { FrapButton }       from "@/components/frap-button";
-import { DEMO_PRODUCTS }    from "@/lib/shopify";
+import { getProducts, DEMO_PRODUCTS } from "@/lib/shopify";
 
-export default function Home() {
+const BESTSELLER_HANDLE = "gp-fertiliser-premium-garden-lawn";
+
+export default async function Home() {
+  let allProducts;
+  try {
+    allProducts = await getProducts(20);
+    if (!allProducts.length) allProducts = DEMO_PRODUCTS;
+  } catch {
+    allProducts = DEMO_PRODUCTS;
+  }
+
+  // Pin GP Fertiliser first, then fill remaining 3 slots from the rest
+  const bestseller = allProducts.find((p) => p.handle === BESTSELLER_HANDLE);
+  const rest       = allProducts.filter((p) => p.handle !== BESTSELLER_HANDLE);
+  const featured   = bestseller ? [bestseller, ...rest].slice(0, 4) : allProducts.slice(0, 4);
+
   return (
     <>
       <Nav />
       <main>
         <Hero />
         <TrustBar />
-        <FeaturedProducts products={DEMO_PRODUCTS} />
+        <FeaturedProducts products={featured} />
         <HowItWorks />
         <ScienceSection />
         <Testimonials />

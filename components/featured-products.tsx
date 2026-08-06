@@ -1,27 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { type ShopifyProduct } from "@/lib/shopify";
 
-const CATEGORIES = ["All", "Fertiliser", "Soil", "Tonic", "Bundle"];
-
-const PRODUCT_CATEGORY: Record<string, string> = {
-  "bio-bloom-fertiliser": "Fertiliser",
-  "terra-pro-soil-mix":   "Soil",
-  "deep-root-tonic":      "Tonic",
-  "season-starter-kit":   "Bundle",
-};
-
 export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
-  const [active, setActive] = useState("All");
-
-  const filtered = active === "All"
-    ? products
-    : products.filter((p) => PRODUCT_CATEGORY[p.handle] === active);
-
   return (
     <section className="py-16 lg:py-24" style={{ background: "var(--surface-alt)" }} aria-labelledby="products-heading">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
@@ -32,7 +17,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
         >
           <div>
             <h2
@@ -46,44 +31,29 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
               Soil-tested, precision-balanced for Australian conditions.
             </p>
           </div>
-          <Link href="/products" className="btn btn-outline shrink-0" style={{ fontSize: 14, padding: "8px 22px" }}>
-            View all
+          <Link
+            href="/products"
+            className="flex items-center gap-1.5 text-sm font-semibold shrink-0 transition-colors duration-200"
+            style={{ color: "var(--green-bio)" }}
+          >
+            View all products <ArrowRight size={15} />
           </Link>
         </motion.div>
 
-        {/* Category filter pills */}
-        <div className="flex gap-2 overflow-x-auto scrollbar-none pb-1 mb-8">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className="shrink-0 text-sm font-semibold px-5 py-2 rounded-full border transition-all duration-200"
-              style={{
-                background:   active === cat ? "var(--green-house)" : "transparent",
-                color:        active === cat ? "#fff" : "var(--text-black-soft)",
-                borderColor:  active === cat ? "var(--green-house)" : "var(--input-border)",
-              }}
+        {/* Grid — 4 products */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+          {products.map((p, i) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             >
-              {cat}
-            </button>
+              <ProductCard product={p} index={i} />
+            </motion.div>
           ))}
         </div>
-
-        {/* Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"
-          >
-            {filtered.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
-            ))}
-          </motion.div>
-        </AnimatePresence>
       </div>
     </section>
   );
