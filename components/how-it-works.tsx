@@ -5,22 +5,22 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title:  "We test Australian soil",
-    body:   "Our team analyses soil profiles from every Australian climate zone — from Darwin's tropics to Hobart's cool highlands — every season.",
+    title:  "Choose your product",
+    body:   "Browse our range of Australian-made fertilisers, soil conditioners, and supplements. Pick the right formula for your lawn, garden beds, or pot plants.",
     color:  "var(--green-xlight)",
     accent: "var(--green-accent)",
   },
   {
     number: "02",
-    title:  "We precision-balance each formula",
-    body:   "NPK ratios, trace minerals, and pH buffers are calibrated to what Australian home gardens actually need. No guesswork. No cheap fillers.",
+    title:  "We ship it fast",
+    body:   "Order today and we'll get it on its way. Standard delivery 3–5 business days, express available. Free shipping on orders over $80.",
     color:  "var(--green-light)",
     accent: "var(--green-bio)",
   },
   {
     number: "03",
-    title:  "You see results in 10 days",
-    body:   "Apply, water, watch. Most customers report visible improvement — stronger colour, new growth, increased yield — within two weekends.",
+    title:  "Apply and watch it work",
+    body:   "Follow the simple instructions on the pack. Most customers see stronger colour, new growth, and healthier plants within a couple of weeks.",
     color:  "#d4e9e2",
     accent: "var(--green-house)",
   },
@@ -45,7 +45,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
-            From soil test to visible results — here&apos;s our process.
+            Simple process, real results.
           </p>
         </motion.div>
 
