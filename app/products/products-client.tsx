@@ -3,10 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Star, TrendingUp, Check, ArrowRight, Sparkles, Package } from "lucide-react";
+import { ShoppingBag, Star, TrendingUp, Check, ArrowRight, Package } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { useAi }  from "@/lib/ai-context";
-import { AI_HOVER } from "@/lib/ai-messages";
 import { type ShopifyProduct } from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
@@ -255,36 +254,6 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
             </div>
           )}
 
-          {/* AI hover bubble */}
-          <AnimatePresence>
-            {hovered && AI_HOVER[handle] && (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 4 }}
-                transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute bottom-12 left-2.5 right-2.5 z-10 rounded-xl p-2.5"
-                style={{ background: "rgba(255,255,255,0.97)", boxShadow: "0 4px 24px rgba(0,0,0,0.13)", backdropFilter: "blur(8px)" }}
-              >
-                <div className="flex gap-2 items-start">
-                  <div
-                    className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: "var(--green-house)" }}
-                  >
-                    <Sparkles size={11} color="#fff" />
-                  </div>
-                  <div>
-                    <p className="text-[9px] font-bold uppercase tracking-[0.08em] mb-0.5" style={{ color: "var(--green-accent)" }}>
-                      Bio Advisor
-                    </p>
-                    <p className="text-[11px] leading-snug" style={{ color: "var(--text-black)" }}>
-                      {AI_HOVER[handle]}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </Link>
 
