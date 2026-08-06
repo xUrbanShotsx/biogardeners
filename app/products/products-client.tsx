@@ -173,7 +173,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
   basePrice: number;
 }) {
   const { addItem } = useCart();
-  const { showCartMessage } = useAi();
+  const { showCartMessage, setHoveredProduct } = useAi();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [addState, setAddState] = useState<"idle" | "added">("idle");
   const [hovered, setHovered] = useState(false);
@@ -209,8 +209,8 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
       transition={{ delay: index * 0.06, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="flex flex-col rounded-[var(--radius-card)] overflow-hidden"
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => { setHovered(true);  setHoveredProduct({ handle, title }); }}
+      onMouseLeave={() => { setHovered(false); setHoveredProduct(null); }}
     >
       {/* Image area */}
       <Link href={`/products/${handle}`} className="block">

@@ -10,16 +10,24 @@ interface AiCartMessage {
   key: number;
 }
 
+export interface HoveredProduct {
+  handle: string;
+  title: string;
+}
+
 interface AiContextValue {
-  cartMessage: AiCartMessage | null;
-  showCartMessage: (handle: string) => void;
-  clearCartMessage: () => void;
+  cartMessage:       AiCartMessage | null;
+  showCartMessage:   (handle: string) => void;
+  clearCartMessage:  () => void;
+  hoveredProduct:    HoveredProduct | null;
+  setHoveredProduct: (p: HoveredProduct | null) => void;
 }
 
 const AiContext = createContext<AiContextValue | null>(null);
 
 export function AiProvider({ children }: { children: ReactNode }) {
-  const [cartMessage, setCartMessage] = useState<AiCartMessage | null>(null);
+  const [cartMessage,    setCartMessage]    = useState<AiCartMessage | null>(null);
+  const [hoveredProduct, setHoveredProduct] = useState<HoveredProduct | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showCartMessage = useCallback((handle: string) => {
@@ -36,7 +44,10 @@ export function AiProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AiContext.Provider value={{ cartMessage, showCartMessage, clearCartMessage }}>
+    <AiContext.Provider value={{
+      cartMessage, showCartMessage, clearCartMessage,
+      hoveredProduct, setHoveredProduct,
+    }}>
       {children}
     </AiContext.Provider>
   );
