@@ -215,7 +215,7 @@ function ProductIllustration({ handle, label }: { handle: string; label: string 
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: label };
 
   return (
-    <svg viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" className="w-48 lg:w-64 drop-shadow-2xl" aria-label={label}>
+    <svg viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" className="w-36 lg:w-48 drop-shadow-2xl" aria-label={label}>
       <rect x="20" y="70" width="240" height="275" rx="14" fill="#1E3932" />
       <path d="M20 70 Q140 48 260 70 L260 105 Q140 83 20 105 Z" fill="#2b5148" opacity="0.6" />
       <path d="M90 70 Q90 32 130 32 Q140 32 140 46" fill="none" stroke="#2b5148" strokeWidth="8" strokeLinecap="round" />
@@ -321,7 +321,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
       {/* Product layout */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-6 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-16 mb-10 lg:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-10 lg:mb-16 items-start">
 
           {/* Gallery */}
           <div className="flex gap-3">
@@ -331,7 +331,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 <button
                   key={i}
                   onClick={() => setActiveGallery(i)}
-                  className="w-16 h-16 rounded-xl overflow-hidden transition-all duration-200 shrink-0"
+                  className="w-14 h-14 rounded-xl overflow-hidden transition-all duration-200 shrink-0"
                   style={{
                     background: bg,
                     outline: activeGallery === i ? "2px solid var(--green-accent)" : "2px solid transparent",
@@ -355,8 +355,8 @@ export function ProductPageClient({ product, related, slug }: Props) {
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.35, ease }}
-              className="flex-1 aspect-square flex items-center justify-center rounded-2xl overflow-hidden relative"
-              style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)" }}
+              className="flex-1 flex items-center justify-center rounded-2xl overflow-hidden relative"
+              style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)", aspectRatio: "4/3", maxHeight: "440px" }}
             >
               <ProductIllustration handle={slug} label={product.title} />
 
