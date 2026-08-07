@@ -277,12 +277,11 @@ export function Hero() {
 
           {/* ── Right: product visual */}
           <motion.div
-            style={{ y: visualY }}
+            style={{ y: visualY, height: "clamp(440px, 52vw, 600px)" }}
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.18, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="relative flex items-center justify-center"
-            style={{ height: "clamp(440px, 52vw, 600px)" }}
           >
             {/* Ambient glow behind product */}
             <div
