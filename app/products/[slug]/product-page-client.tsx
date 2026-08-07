@@ -246,6 +246,7 @@ interface Props {
 
 export function ProductPageClient({ product, related, slug }: Props) {
   const details       = PRODUCT_DETAILS[slug];
+  const shopifyVarIds = product.variants.edges.map((e) => e.node.id);
   const shopifyVars   = product.variants.edges.map((e) => ({ label: e.node.title, price: e.node.price.amount }));
   const variants      = VARIANTS[slug] ?? (shopifyVars.length ? shopifyVars : [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }]);
   const galleries     = GALLERY_BG[slug] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
@@ -286,7 +287,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
     setAddState("adding");
     const variant = variants[activeVariant];
     addItem({
-      id:      `${product.handle}-${activeVariant}`,
+      id:      shopifyVarIds[activeVariant] ?? product.variants.edges[activeVariant]?.node.id ?? product.id,
       handle:  product.handle,
       title:   product.title,
       variant: variant?.label ?? "Standard",

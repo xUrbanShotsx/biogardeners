@@ -163,12 +163,13 @@ function ProductVisual({ handle }: { handle: string }) {
 
 /* ─── Quick Pick Card ──────────────────────────────────────────────── */
 
-function QuickPickCard({ handle, title, description, index, shopifyVariants, basePrice }: {
+function QuickPickCard({ handle, title, description, index, shopifyVariants, shopifyVariantIds, basePrice }: {
   handle: string;
   title: string;
   description: string;
   index: number;
   shopifyVariants: { label: string; price: number }[];
+  shopifyVariantIds: string[];
   basePrice: number;
 }) {
   const { addItem } = useCart();
@@ -188,7 +189,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
   function handleAdd(e: React.MouseEvent) {
     e.preventDefault();
     addItem({
-      id:      `${handle}-v${selectedVariant}`,
+      id:      shopifyVariantIds[selectedVariant] ?? shopifyVariantIds[0] ?? `${handle}-v${selectedVariant}`,
       handle,
       title,
       variant: variant.label,
@@ -477,6 +478,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                   label: e.node.title,
                   price: parseFloat(e.node.price.amount),
                 }))}
+                shopifyVariantIds={p.variants.edges.map((e) => e.node.id)}
                 basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
               />
             ))}

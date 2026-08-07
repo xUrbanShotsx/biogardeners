@@ -9,7 +9,7 @@ import {
   ShieldCheck, Truck, Leaf, ArrowLeft, Sparkles, Check,
 } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
-import { DEMO_PRODUCTS } from "@/lib/shopify";
+import { type ShopifyProduct, DEMO_PRODUCTS } from "@/lib/shopify";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -23,7 +23,7 @@ function ImpulseCard({
   inCart,
   onAdd,
 }: {
-  product: (typeof DEMO_PRODUCTS)[number];
+  product: ShopifyProduct;
   inCart: boolean;
   onAdd: () => void;
 }) {
@@ -80,14 +80,22 @@ export default function CheckoutPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [allProducts, setAllProducts] = useState<ShopifyProduct[]>(DEMO_PRODUCTS);
 
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then(r => r.json())
+      .then((data: ShopifyProduct[]) => { if (data?.length) setAllProducts(data); })
+      .catch(() => {});
+  }, []);
 
   const shipping = subtotal >= 80 ? 0 : 8.95;
   const total = subtotal + shipping;
 
   const cartHandles = new Set(items.map(i => i.handle));
-  const suggestions = DEMO_PRODUCTS.filter(p => !cartHandles.has(p.handle)).slice(0, 5);
+  const suggestions = allProducts.filter(p => !cartHandles.has(p.handle)).slice(0, 5);
 
   async function handleCheckout() {
     if (!items.length) return;
@@ -114,7 +122,7 @@ export default function CheckoutPage() {
     }
   }
 
-  function handleImpulseAdd(product: (typeof DEMO_PRODUCTS)[number]) {
+  function handleImpulseAdd(product: ShopifyProduct) {
     const v = product.variants.edges[0]?.node;
     if (!v) return;
     addItem({ id: v.id, handle: product.handle, title: product.title, variant: v.title, price: parseFloat(v.price.amount) });
@@ -301,7 +309,7 @@ export default function CheckoutPage() {
               </div>
               <div className="p-4">
                 <div className="flex gap-3 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
-                  {suggestions.map(product => (
+                  {suggestions.map((product) => (
                     <ImpulseCard
                       key={product.id}
                       product={product}
