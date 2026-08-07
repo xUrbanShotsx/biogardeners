@@ -104,6 +104,39 @@ export async function createCart() {
   return data.cartCreate.cart;
 }
 
+export async function createCartWithItems(
+  lines: { variantId: string; quantity: number }[]
+): Promise<ShopifyCart> {
+  const mutation = `
+    mutation cartCreate($input: CartInput!) {
+      cartCreate(input: $input) {
+        cart {
+          id checkoutUrl
+          cost { totalAmount { amount currencyCode } }
+          lines(first: 100) {
+            edges {
+              node {
+                id quantity
+                merchandise {
+                  ... on ProductVariant {
+                    id title
+                    price { amount currencyCode }
+                    product { title handle }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(mutation, {
+    input: { lines: lines.map(l => ({ merchandiseId: l.variantId, quantity: l.quantity })) },
+  });
+  return data.cartCreate.cart;
+}
+
 export async function addToCart(cartId: string, variantId: string, quantity = 1) {
   const mutation = `
     mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
