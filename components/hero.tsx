@@ -2,45 +2,213 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ShoppingBag, ArrowRight, Star, Truck, RotateCcw, CheckCircle2 } from "lucide-react";
+import { useRef, useState } from "react";
+import { ShoppingBag, ArrowRight, Star, Truck, RotateCcw, Leaf } from "lucide-react";
 
-// Floating feature cards around the product
-const FEATURE_CARDS = [
-  { label: "60+ Minerals",  sub: "Volcanic rock",    top: "12%",  left: "-10%",  right: "auto", delay: 0.75 },
-  { label: "pH 6.2–6.8",   sub: "Optimal balance",  top: "50%",  left: "auto",  right: "-12%", delay: 0.90 },
-  { label: "NPK 8-12-6",   sub: "Precision ratio",  top: "78%",  left: "-8%",   right: "auto", delay: 1.05 },
+const SPECS = [
+  { label: "NPK",       value: "8-12-6"   },
+  { label: "Minerals",  value: "60+"      },
+  { label: "pH",        value: "6.2–6.8"  },
 ];
 
-function FeatureCard({
-  label, sub, top, left, right, delay,
-}: {
-  label: string; sub: string; top: string; left: string; right: string; delay: number;
-}) {
+const SIZES = [
+  { label: "5 kg",  price: "from $17" },
+  { label: "12 kg", price: "from $34" },
+  { label: "20 kg", price: "from $49" },
+];
+
+function ProductPanel() {
+  const [selected, setSelected] = useState(0);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.75, y: 12 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute flex items-center gap-2.5 bg-white rounded-2xl px-3.5 py-2.5"
+    <div
+      className="relative overflow-hidden rounded-3xl w-full"
       style={{
-        top, left, right,
-        whiteSpace:   "nowrap",
-        boxShadow:    "0 4px 24px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.06)",
-        zIndex:        20,
+        background:  "var(--green-house)",
+        minHeight:   "clamp(440px, 50vw, 560px)",
       }}
     >
+      {/* Subtle organic texture layer */}
       <div
-        className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-        style={{ background: "var(--green-xlight)" }}
-      >
-        <CheckCircle2 size={13} style={{ color: "var(--green-accent)" }} />
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 80% 15%, rgba(0,117,74,0.28) 0%, transparent 50%),
+                            radial-gradient(circle at 10% 90%, rgba(0,98,65,0.20) 0%, transparent 45%)`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Dot-grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.055]"
+        style={{
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)`,
+          backgroundSize:  "24px 24px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 h-full flex flex-col justify-between p-8 lg:p-10" style={{ minHeight: "clamp(440px, 50vw, 560px)" }}>
+
+        {/* ── Top row: category label + rating */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.5 }}
+          className="flex items-center justify-between"
+        >
+          <div className="flex items-center gap-2">
+            <Leaf size={13} style={{ color: "rgba(212,233,226,0.70)" }} />
+            <span
+              className="text-[11px] font-semibold"
+              style={{ color: "rgba(212,233,226,0.70)", letterSpacing: "0.08em" }}
+            >
+              GP FERTILISER
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            {[0,1,2,3,4].map((i) => (
+              <Star key={i} size={11} fill="var(--gold)" stroke="none" />
+            ))}
+            <span className="text-xs font-semibold ml-1" style={{ color: "rgba(255,255,255,0.55)" }}>
+              4.9 (380+)
+            </span>
+          </div>
+        </motion.div>
+
+        {/* ── Middle: product name + specs */}
+        <div>
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.50, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="font-bold mb-2"
+            style={{
+              fontSize:      "clamp(2.4rem, 4.4vw, 3.8rem)",
+              lineHeight:    1.05,
+              letterSpacing: "-0.03em",
+              color:         "#fff",
+            }}
+          >
+            Garden &amp;
+            <br />
+            <em
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontStyle:  "italic",
+                color:      "var(--green-light)",
+                fontWeight: 600,
+              }}
+            >
+              Lawn Formula
+            </em>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.65, duration: 0.55 }}
+            className="text-sm mb-7 max-w-[34ch]"
+            style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}
+          >
+            A balanced slow-release fertiliser with volcanic minerals, tailored for Australian soils.
+          </motion.p>
+
+          {/* Spec pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.72, duration: 0.5 }}
+            className="flex flex-wrap gap-2.5 mb-8"
+          >
+            {SPECS.map((s) => (
+              <div
+                key={s.label}
+                className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5"
+                style={{ background: "rgba(255,255,255,0.09)", border: "1px solid rgba(255,255,255,0.13)" }}
+              >
+                <span className="text-[10px] font-semibold" style={{ color: "rgba(212,233,226,0.65)", letterSpacing: "0.06em" }}>
+                  {s.label}
+                </span>
+                <span className="text-xs font-bold" style={{ color: "#fff" }}>
+                  {s.value}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Divider */}
+          <div style={{ height: 1, background: "rgba(255,255,255,0.10)", marginBottom: "1.5rem" }} />
+
+          {/* Size selector */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.80, duration: 0.5 }}
+          >
+            <p className="text-[11px] font-semibold mb-3" style={{ color: "rgba(255,255,255,0.40)", letterSpacing: "0.07em" }}>
+              SIZE
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {SIZES.map((sz, i) => (
+                <button
+                  key={sz.label}
+                  onClick={() => setSelected(i)}
+                  className="flex flex-col items-center px-5 py-2.5 rounded-xl text-left transition-all duration-200"
+                  style={{
+                    background: selected === i ? "#fff" : "rgba(255,255,255,0.07)",
+                    border:     selected === i ? "none" : "1px solid rgba(255,255,255,0.14)",
+                    transform:  selected === i ? "scale(1.02)" : "scale(1)",
+                  }}
+                >
+                  <span
+                    className="text-sm font-bold leading-none"
+                    style={{ color: selected === i ? "var(--green-house)" : "#fff" }}
+                  >
+                    {sz.label}
+                  </span>
+                  <span
+                    className="text-[10px] mt-0.5 leading-none"
+                    style={{ color: selected === i ? "var(--green-accent)" : "rgba(255,255,255,0.40)" }}
+                  >
+                    {sz.price}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Bottom: CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.90, duration: 0.55 }}
+          className="flex items-center gap-3 flex-wrap"
+        >
+          <Link
+            href="/products/gp-fertiliser-premium-garden-lawn"
+            className="flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm transition-all hover:brightness-105 active:scale-95 flex-1 justify-center"
+            style={{
+              background: "var(--green-accent)",
+              color:      "#fff",
+              boxShadow:  "0 4px 20px rgba(0,117,74,0.40)",
+            }}
+          >
+            <ShoppingBag size={15} />
+            Add to bag — {SIZES[selected].price}
+          </Link>
+          <Link
+            href="/products"
+            className="flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70 whitespace-nowrap"
+            style={{ color: "rgba(212,233,226,0.70)" }}
+          >
+            View all
+            <ArrowRight size={13} />
+          </Link>
+        </motion.div>
       </div>
-      <div>
-        <p className="text-xs font-bold leading-none" style={{ color: "var(--green-house)" }}>{label}</p>
-        <p className="text-[10px] leading-none mt-0.5" style={{ color: "var(--text-black-soft)" }}>{sub}</p>
-      </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -233,106 +401,15 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: product visual */}
+          {/* ── Right: product panel */}
           <motion.div
-            style={{ y, height: "clamp(440px, 52vw, 580px)" }}
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.18, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center justify-center"
+            style={{ y }}
+            initial={{ opacity: 0, x: 32 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.22, duration: 0.90, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full lg:pl-8"
           >
-            {/* Circle stage — sage gradient */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                width:      "min(430px, 78vw)",
-                height:     "min(430px, 78vw)",
-                background: "radial-gradient(circle at 38% 32%, var(--green-light) 0%, var(--green-xlight) 55%, rgba(212,233,226,0.30) 100%)",
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Subtle inner ring */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                width:        "min(310px, 58vw)",
-                height:       "min(310px, 58vw)",
-                border:       "1.5px solid rgba(0,98,65,0.10)",
-                borderRadius: "50%",
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Feature cards */}
-            {FEATURE_CARDS.map((c) => <FeatureCard key={c.label} {...c} />)}
-
-            {/* Product bag — floating */}
-            <motion.div
-              animate={{ y: [0, -9, 0] }}
-              transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut" }}
-              className="relative z-10"
-              style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.16))" }}
-            >
-              <svg
-                viewBox="0 0 320 400"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-56 md:w-64 lg:w-72"
-                aria-label="BioGardeners GP Fertiliser bag"
-              >
-                <defs>
-                  <linearGradient id="bagGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#2b5148" />
-                    <stop offset="100%" stopColor="#0d2419" />
-                  </linearGradient>
-                </defs>
-                <rect x="60" y="80" width="200" height="270" rx="16" fill="url(#bagGrad2)" />
-                <path d="M60 80 Q160 58 260 80 L260 114 Q160 92 60 114 Z" fill="rgba(255,255,255,0.07)" />
-                <path d="M110 80 Q110 38 140 38 Q160 38 160 58" fill="none" stroke="#2b5148" strokeWidth="9" strokeLinecap="round" />
-                <path d="M210 80 Q210 38 180 38 Q160 38 160 58" fill="none" stroke="#2b5148" strokeWidth="9" strokeLinecap="round" />
-                <rect x="80" y="132" width="160" height="170" rx="9" fill="white" opacity="0.97" />
-                <circle cx="160" cy="170" r="24" fill="#006241" opacity="0.08" />
-                <text x="160" y="163" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="10" fill="#006241" letterSpacing="2">BIO</text>
-                <text x="160" y="178" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="10" fill="#006241" letterSpacing="2">GARDENERS</text>
-                <text x="160" y="218" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">GP Fertiliser</text>
-                <text x="160" y="236" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="14" fill="#1E3932">Garden / Lawn</text>
-                <rect x="80" y="250" width="160" height="3" rx="1.5" fill="#00754A" opacity="0.40" />
-                <text x="160" y="274" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="11" fill="rgba(0,0,0,0.50)">5 kg · 12 kg · 20 kg</text>
-                <rect x="80" y="287" width="160" height="15" fill="#006241" opacity="0.07" />
-                <text x="160" y="298" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="9" fill="#006241" letterSpacing="1.5">AUSTRALIAN MADE</text>
-                <ellipse cx="160" cy="358" rx="80" ry="9" fill="rgba(0,0,0,0.12)" />
-              </svg>
-            </motion.div>
-
-            {/* Rating pill */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.0, duration: 0.5 }}
-              className="absolute top-6 right-2 flex items-center gap-2 rounded-2xl px-3.5 py-2.5 bg-white"
-              style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.10)" }}
-            >
-              <Star size={13} fill="var(--gold)" stroke="none" />
-              <div>
-                <p className="text-xs font-bold leading-none" style={{ color: "var(--green-house)" }}>4.9 / 5</p>
-                <p className="text-[10px] leading-none mt-0.5" style={{ color: "var(--text-black-soft)" }}>380+ reviews</p>
-              </div>
-            </motion.div>
-
-            {/* Australian made stamp */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="absolute bottom-6 right-2 flex items-center gap-2 rounded-2xl px-3.5 py-2.5 bg-white"
-              style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.10)" }}
-            >
-              <CheckCircle2 size={13} style={{ color: "var(--green-accent)" }} />
-              <div>
-                <p className="text-xs font-bold leading-none" style={{ color: "var(--green-house)" }}>Aust. made</p>
-                <p className="text-[10px] leading-none mt-0.5" style={{ color: "var(--text-black-soft)" }}>Ships nationwide</p>
-              </div>
-            </motion.div>
+            <ProductPanel />
           </motion.div>
         </div>
       </div>
