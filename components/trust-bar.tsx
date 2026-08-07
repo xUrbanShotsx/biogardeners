@@ -1,46 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Truck, RotateCcw, ShieldCheck, Leaf } from "lucide-react";
+import { Truck, RotateCcw, ShieldCheck, Leaf, Star, Clock } from "lucide-react";
 
-const items = [
-  { icon: Truck,       label: "Free shipping",       sub: "On orders over $80"         },
-  { icon: RotateCcw,   label: "30-day returns",       sub: "No questions asked"         },
-  { icon: ShieldCheck, label: "Secure checkout",      sub: "SSL encrypted payments"     },
-  { icon: Leaf,        label: "Australian made",      sub: "100% made in Australia"     },
+const ITEMS = [
+  { Icon: Star,        text: "4.9★ — 380+ verified reviews" },
+  { Icon: Truck,       text: "Free shipping over $80" },
+  { Icon: RotateCcw,   text: "30-day money-back guarantee" },
+  { Icon: Leaf,        text: "100% Australian made" },
+  { Icon: ShieldCheck, text: "SSL encrypted checkout" },
+  { Icon: Clock,       text: "Visible results in 10 days" },
 ];
+
+// Duplicate for seamless infinite loop
+const DOUBLED = [...ITEMS, ...ITEMS];
 
 export function TrustBar() {
   return (
-    <section
-      style={{ borderTop: "1px solid var(--ceramic)", borderBottom: "1px solid var(--ceramic)" }}
+    <div
+      className="overflow-hidden"
+      style={{ background: "var(--green-bio)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
       aria-label="Trust signals"
     >
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-5">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-          {items.map(({ icon: Icon, label, sub }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-              className="flex items-center gap-3"
-            >
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: "var(--green-xlight)" }}
-              >
-                <Icon size={15} style={{ color: "var(--green-accent)" }} />
-              </div>
-              <div>
-                <p className="text-sm font-bold" style={{ color: "var(--text-black)" }}>{label}</p>
-                <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>{sub}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      <div
+        className="flex items-center"
+        style={{
+          animation:  "ticker-scroll 28s linear infinite",
+          width:      "max-content",
+          willChange: "transform",
+        }}
+      >
+        {DOUBLED.map(({ Icon, text }, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2.5 py-3 px-8 shrink-0"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            <Icon size={13} style={{ color: "rgba(255,255,255,0.65)", flexShrink: 0 }} aria-hidden="true" />
+            <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.82)" }}>{text}</span>
+            <span
+              className="ml-5 w-1 h-1 rounded-full shrink-0"
+              style={{ background: "rgba(255,255,255,0.22)", display: "inline-block" }}
+              aria-hidden="true"
+            />
+          </div>
+        ))}
       </div>
-    </section>
+
+      <style>{`
+        @keyframes ticker-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="ticker-scroll"] { animation: none !important; }
+        }
+      `}</style>
+    </div>
   );
 }
