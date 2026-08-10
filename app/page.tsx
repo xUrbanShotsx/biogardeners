@@ -29,7 +29,7 @@ export default async function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <main style={{ paddingTop: 0 }}>
         <Hero />
         <TrustBar />
         <FeaturedProducts products={featured} />
