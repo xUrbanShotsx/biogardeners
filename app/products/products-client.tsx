@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Star, TrendingUp, Check, ArrowRight, Package } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
@@ -98,45 +99,17 @@ const FILTER_LABELS = ["All", "Fertilisers", "Disease Control", "Supplements"];
 
 /* ─── Product illustration (SVG) ──────────────────────────────────── */
 
-function ProductVisual({ handle }: { handle: string }) {
-  const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "gp-fertiliser-premium-garden-lawn":             { line1: "GP Fertiliser",   line2: "Garden / Lawn",  spec: "5 kg · 12 kg · 20 kg"    },
-    "lawn-fertilizer-premium-granulated-concentrated": { line1: "Lawn Fertilizer", line2: "Concentrated",   spec: "Granulated · Slow-Release"},
-    "volcanic-dust-trace-elements":                  { line1: "Volcanic Dust",   line2: "Trace Elements", spec: "60+ Natural Minerals"     },
-    "soil-health-conditioner-powder":                { line1: "Soil Health",     line2: "Conditioner",    spec: "Powder · Microbial Boost" },
-    "liquid-npk-fertilizer":                         { line1: "Liquid NPK",      line2: "Fertilizer",     spec: "Fast-Acting · Balanced"   },
-    "glacial-milk":                                  { line1: "Glacial Milk",    line2: "Rock Flour",     spec: "Silica · Trace Minerals"  },
-    "soil-health-conditioner":                       { line1: "Soil Health",     line2: "Conditioner",    spec: "Liquid · Microbial"       },
-    "plant-spray":                                   { line1: "Plant Spray",     line2: "Disease Control",spec: "Ready to Use"             },
-    "penetrator":                                    { line1: "Penetrator",      line2: "Soil Wetter",    spec: "Wetting Agent"            },
-  };
-  const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: "" };
-  const isBundle = false;
-
-  if (isBundle) {
+function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUrl?: string; imageAlt?: string }) {
+  if (imageUrl) {
     return (
-      <div className="w-full h-full flex items-center justify-center gap-2 px-4">
-        {["Bio Bloom", "Terra Pro", "Deep Root"].map((name, i) => (
-          <svg
-            key={name}
-            viewBox="0 0 120 160"
-            xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-lg"
-            style={{ width: `${i === 1 ? 44 : 36}%`, opacity: i === 1 ? 1 : 0.8 }}
-            aria-hidden="true"
-          >
-            <rect x="10" y="30" width="100" height="120" rx="8" fill="rgba(255,255,255,0.15)" />
-            <rect x="10" y="30" width="100" height="120" rx="8" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-            <path d="M38 30 Q38 14 60 14 Q82 14 82 30" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="5" strokeLinecap="round" />
-            <rect x="20" y="56" width="80" height="76" rx="5" fill="white" opacity="0.92" />
-            <text x="60" y="74" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="6" fill="#006241" letterSpacing="1">BIOGARDENERS</text>
-            <text x="60" y="92" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="8" fill="#1E3932">{name.split(" ")[0]}</text>
-            <text x="60" y="104" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="8" fill="#1E3932">{name.split(" ")[1]}</text>
-            <rect x="20" y="110" width="80" height="1.5" fill="#00754A" opacity="0.25" />
-            <text x="60" y="124" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="600" fontSize="6" fill="#006241" letterSpacing="0.8">AUSTRALIAN MADE</text>
-            <ellipse cx="60" cy="152" rx="38" ry="5" fill="rgba(0,0,0,0.09)" />
-          </svg>
-        ))}
+      <div className="w-full h-full relative">
+        <Image
+          src={imageUrl}
+          alt={imageAlt ?? handle}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-contain p-6"
+        />
       </div>
     );
   }
@@ -149,12 +122,7 @@ function ProductVisual({ handle }: { handle: string }) {
         <rect x="34" y="90" width="132" height="130" rx="6" fill="white" opacity="0.95" />
         <text x="100" y="118" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="8" fill="#006241" letterSpacing="1.5">BIOGARDENERS</text>
         <rect x="34" y="121" width="132" height="1.5" fill="#006241" opacity="0.14" />
-        <text x="100" y="148" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">{lbl.line1}</text>
-        <text x="100" y="163" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">{lbl.line2}</text>
-        <rect x="34" y="173" width="132" height="2.5" rx="1" fill="#00754A" opacity="0.35" />
-        <text x="100" y="194" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="8" fill="rgba(0,0,0,0.50)">{lbl.spec}</text>
-        <rect x="34" y="203" width="132" height="12" fill="#006241" opacity="0.07" />
-        <text x="100" y="212" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="600" fontSize="7" fill="#006241" letterSpacing="1.2">AUSTRALIAN MADE</text>
+        <text x="100" y="163" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">BioGardeners</text>
         <ellipse cx="100" cy="248" rx="60" ry="8" fill="rgba(0,0,0,0.07)" />
       </svg>
     </div>
@@ -163,7 +131,7 @@ function ProductVisual({ handle }: { handle: string }) {
 
 /* ─── Quick Pick Card ──────────────────────────────────────────────── */
 
-function QuickPickCard({ handle, title, description, index, shopifyVariants, shopifyVariantIds, basePrice }: {
+function QuickPickCard({ handle, title, description, index, shopifyVariants, shopifyVariantIds, basePrice, imageUrl, imageAlt }: {
   handle: string;
   title: string;
   description: string;
@@ -171,6 +139,8 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
   shopifyVariants: { label: string; price: number }[];
   shopifyVariantIds: string[];
   basePrice: number;
+  imageUrl?: string;
+  imageAlt?: string;
 }) {
   const { addItem } = useCart();
   const { showCartMessage, setHoveredProduct } = useAi();
@@ -221,7 +191,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
             aspectRatio: isBundle ? "16/9" : "4/4.2",
           }}
         >
-          <ProductVisual handle={handle} />
+          <ProductVisual handle={handle} imageUrl={imageUrl} imageAlt={imageAlt} />
 
           {/* Badge top-left */}
           <span
@@ -467,7 +437,9 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
           style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
         >
           <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => (
+            {filtered.map((p, i) => {
+              const firstImg = p.images.edges[0]?.node;
+              return (
               <QuickPickCard
                 key={p.handle}
                 handle={p.handle}
@@ -480,8 +452,11 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                 }))}
                 shopifyVariantIds={p.variants.edges.map((e) => e.node.id)}
                 basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
+                imageUrl={firstImg?.url}
+                imageAlt={firstImg?.altText ?? p.title}
               />
-            ))}
+              );
+            })}
           </AnimatePresence>
         </motion.div>
 
