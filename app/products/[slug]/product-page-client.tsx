@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef }       from "react";
 import Link                                   from "next/link";
+import Image                                  from "next/image";
 import { motion, AnimatePresence }            from "framer-motion";
 import { ArrowLeft, ShoppingBag, ChevronDown, Star, Users, Truck, RotateCcw, ShieldCheck, Minus, Plus, Check } from "lucide-react";
 import { ProductCard }                        from "@/components/product-card";
@@ -250,6 +251,8 @@ export function ProductPageClient({ product, related, slug }: Props) {
   const shopifyVars   = product.variants.edges.map((e) => ({ label: e.node.title, price: e.node.price.amount }));
   const variants      = VARIANTS[slug] ?? (shopifyVars.length ? shopifyVars : [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }]);
   const galleries     = GALLERY_BG[slug] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
+  const shopifyImages = product.images.edges.map((e) => e.node);
+  const hasImages     = shopifyImages.length > 0;
   const bundleItems   = related.slice(0, 2); // "Frequently bought together" = first 2 related
 
   const [activeVariant, setActiveVariant] = useState(0);
@@ -329,29 +332,45 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
           {/* Gallery */}
           <div className="flex gap-3 self-stretch">
-            {/* Thumbnails */}
-            <div className="hidden sm:flex flex-col gap-2.5">
-              {galleries.map((bg, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveGallery(i)}
-                  className="w-14 h-14 rounded-xl overflow-hidden transition-all duration-200 shrink-0"
-                  style={{
-                    background: bg,
-                    outline: activeGallery === i ? "2px solid var(--green-accent)" : "2px solid transparent",
-                    outlineOffset: 2,
-                  }}
-                  aria-label={`View ${i + 1}`}
-                >
-                  <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
-                    <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-8" aria-hidden="true">
-                      <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
-                      <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
-                    </svg>
-                  </div>
-                </button>
-              ))}
-            </div>
+            {/* Thumbnails — show only if multiple images */}
+            {(hasImages ? shopifyImages.length : galleries.length) > 1 && (
+              <div className="hidden sm:flex flex-col gap-2.5">
+                {(hasImages ? shopifyImages : galleries).map((item, i) => {
+                  const isImg = hasImages && typeof item === "object" && "url" in item;
+                  const bg    = !isImg ? (item as string) : (galleries[i] ?? galleries[0]);
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setActiveGallery(i)}
+                      className="w-14 h-14 rounded-xl overflow-hidden transition-all duration-200 shrink-0 relative"
+                      style={{
+                        background:    bg,
+                        outline:       activeGallery === i ? "2px solid var(--green-accent)" : "2px solid transparent",
+                        outlineOffset: 2,
+                      }}
+                      aria-label={`View image ${i + 1}`}
+                    >
+                      {isImg ? (
+                        <Image
+                          src={(item as { url: string }).url}
+                          alt={(item as { altText: string | null }).altText ?? product.title}
+                          fill
+                          sizes="56px"
+                          className="object-contain p-1"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
+                          <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-8" aria-hidden="true">
+                            <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
+                            <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
+                          </svg>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
             {/* Main image */}
             <motion.div
@@ -360,9 +379,24 @@ export function ProductPageClient({ product, related, slug }: Props) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.35, ease }}
               className="flex-1 flex items-center justify-center rounded-2xl overflow-hidden relative"
-              style={{ background: galleries[activeGallery], boxShadow: "var(--shadow-card)", minHeight: "320px" }}
+              style={{
+                background:  hasImages ? (galleries[activeGallery] ?? "#f6faf8") : galleries[activeGallery],
+                boxShadow:   "var(--shadow-card)",
+                minHeight:   "320px",
+              }}
             >
-              <ProductIllustration handle={slug} label={product.title} />
+              {hasImages && shopifyImages[activeGallery] ? (
+                <Image
+                  src={shopifyImages[activeGallery].url}
+                  alt={shopifyImages[activeGallery].altText ?? product.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 44vw"
+                  className="object-contain p-8"
+                  priority
+                />
+              ) : (
+                <ProductIllustration handle={slug} label={product.title} />
+              )}
 
               {/* Social proof bubble */}
               <motion.div
@@ -547,15 +581,19 @@ export function ProductPageClient({ product, related, slug }: Props) {
               {/* Current product thumbnail */}
               <div className="flex items-center gap-3">
                 <div
-                  className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0"
+                  className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative"
                   style={{ background: galleries[0], boxShadow: "var(--shadow-card)" }}
                 >
-                  <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
-                    <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
-                      <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
-                      <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
-                    </svg>
-                  </div>
+                  {shopifyImages[0] ? (
+                    <Image src={shopifyImages[0].url} alt={product.title} fill sizes="80px" className="object-contain p-1" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
+                      <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
+                        <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
+                        <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <p className="text-sm font-semibold" style={{ color: "var(--text-black)" }}>{product.title}</p>
@@ -564,20 +602,25 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </div>
 
               {bundleItems.map((bp) => {
-                const bpGalleries = GALLERY_BG[bp.handle] ?? GALLERY_BG["bio-bloom-fertiliser"];
+                const bpGalleries  = GALLERY_BG[bp.handle] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
+                const bpFirstImg   = bp.images.edges[0]?.node;
                 return (
                   <div key={bp.handle} className="flex items-center gap-3">
                     <span className="text-xl" style={{ color: "var(--text-black-soft)" }}>+</span>
                     <div
-                      className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0"
+                      className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative"
                       style={{ background: bpGalleries[0], boxShadow: "var(--shadow-card)" }}
                     >
-                      <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
-                        <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
-                          <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
-                          <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
-                        </svg>
-                      </div>
+                      {bpFirstImg ? (
+                        <Image src={bpFirstImg.url} alt={bp.title} fill sizes="80px" className="object-contain p-1" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
+                          <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
+                            <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
+                            <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
+                          </svg>
+                        </div>
+                      )}
                     </div>
                     <div>
                       <p className="text-sm font-semibold" style={{ color: "var(--text-black)" }}>{bp.title}</p>

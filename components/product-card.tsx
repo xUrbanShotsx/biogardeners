@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Star, TrendingUp } from "lucide-react";
@@ -29,15 +30,22 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
   "season-starter-kit":   { avg: 5.0, count: 38  },
 };
 
-function ProductVisual({ handle }: { handle: string }) {
+function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUrl?: string; imageAlt?: string }) {
   const bg = BG_COLORS[handle] ?? "linear-gradient(140deg,#d4e9e2,#b0d0c4)";
-  const labels: Record<string, { line1: string; line2: string; spec: string }> = {
-    "bio-bloom-fertiliser": { line1: "Bio Bloom",      line2: "Fertiliser", spec: "1 kg · NPK 8-12-6"   },
-    "terra-pro-soil-mix":   { line1: "Terra Pro",      line2: "Soil Mix",   spec: "10 L · pH 6.2–6.8"   },
-    "deep-root-tonic":      { line1: "Deep Root",      line2: "Tonic",      spec: "500 ml · Mycorrhizal" },
-    "season-starter-kit":   { line1: "Season Starter", line2: "Kit",        spec: "Bundle · 3 products"  },
-  };
-  const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: "Precision Formula" };
+
+  if (imageUrl) {
+    return (
+      <div className="w-full h-full relative" style={{ background: bg }}>
+        <Image
+          src={imageUrl}
+          alt={imageAlt ?? handle}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-contain p-4"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex items-center justify-center" style={{ background: bg }}>
@@ -47,12 +55,7 @@ function ProductVisual({ handle }: { handle: string }) {
         <rect x="34" y="90" width="132" height="130" rx="6" fill="white" opacity="0.95" />
         <text x="100" y="118" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="800" fontSize="8" fill="#006241" letterSpacing="1.5">BIOGARDENERS</text>
         <rect x="34" y="121" width="132" height="1.5" fill="#006241" opacity="0.14" />
-        <text x="100" y="148" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">{lbl.line1}</text>
-        <text x="100" y="163" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">{lbl.line2}</text>
-        <rect x="34" y="173" width="132" height="2.5" rx="1" fill="#00754A" opacity="0.35" />
-        <text x="100" y="194" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="8" fill="rgba(0,0,0,0.50)">{lbl.spec}</text>
-        <rect x="34" y="203" width="132" height="12" fill="#006241" opacity="0.07" />
-        <text x="100" y="212" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="600" fontSize="7" fill="#006241" letterSpacing="1.2">AUSTRALIAN MADE</text>
+        <text x="100" y="163" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="11" fill="#1E3932">BioGardeners</text>
         <ellipse cx="100" cy="248" rx="60" ry="8" fill="rgba(0,0,0,0.07)" />
       </svg>
     </div>
@@ -67,10 +70,11 @@ interface ProductCardProps {
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
   const [adding, setAdding] = useState(false);
-  const price   = formatPrice(product.priceRange.minVariantPrice.amount);
-  const tag     = product.tags[0];
-  const proof   = SOCIAL_PROOF[product.handle];
-  const rating  = RATINGS[product.handle];
+  const price    = formatPrice(product.priceRange.minVariantPrice.amount);
+  const tag      = product.tags[0];
+  const proof    = SOCIAL_PROOF[product.handle];
+  const rating   = RATINGS[product.handle];
+  const firstImg = product.images.edges[0]?.node;
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
@@ -100,7 +104,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           className="relative w-full aspect-[4/4.5] overflow-hidden mb-4 transition-all duration-300 group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
           style={{ borderRadius: "var(--radius-card)", boxShadow: "var(--shadow-card)" }}
         >
-          <ProductVisual handle={product.handle} />
+          <ProductVisual handle={product.handle} imageUrl={firstImg?.url} imageAlt={firstImg?.altText ?? product.title} />
 
           {/* Social proof chip */}
           {proof && (
