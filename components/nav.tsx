@@ -51,7 +51,7 @@ export function Nav() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-bold text-lg md:text-xl shrink-0 transition-colors duration-500"
+            className="font-bold text-xl md:text-2xl shrink-0 transition-colors duration-500"
             style={{ color: transparent ? "#fff" : "var(--green-bio)", letterSpacing: "-0.01em" }}
             aria-label="BioGardeners home"
           >
@@ -64,7 +64,7 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm font-semibold whitespace-nowrap transition-colors duration-500"
+                className="text-base font-semibold whitespace-nowrap transition-colors duration-500"
                 style={{ color: transparent ? "rgba(255,255,255,0.85)" : "var(--text-black)", letterSpacing: "-0.01em" }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = transparent ? "#fff" : "var(--green-accent)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = transparent ? "rgba(255,255,255,0.85)" : "var(--text-black)"; }}
@@ -103,34 +103,20 @@ export function Nav() {
               </AnimatePresence>
             </button>
 
-            {/* Desktop CTA buttons */}
-            <div className="hidden md:flex items-center gap-2">
+            {/* Desktop CTA button */}
+            <div className="hidden md:flex items-center">
               {transparent ? (
-                <>
-                  <Link
-                    href="/account"
-                    className="text-sm font-semibold px-4 py-2 rounded-full transition-all"
-                    style={{ color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.28)" }}
-                  >
-                    Sign in
-                  </Link>
-                  <Link
-                    href="/products"
-                    className="text-sm font-bold px-5 py-2 rounded-full transition-all hover:brightness-110"
-                    style={{ background: "var(--green-accent)", color: "#fff", boxShadow: "0 2px 14px rgba(0,117,74,0.45)" }}
-                  >
-                    Shop now
-                  </Link>
-                </>
+                <Link
+                  href="/products"
+                  className="font-bold px-5 py-2 rounded-full transition-all hover:brightness-110"
+                  style={{ background: "var(--green-accent)", color: "#fff", fontSize: 16, boxShadow: "0 2px 14px rgba(0,117,74,0.45)" }}
+                >
+                  Shop now
+                </Link>
               ) : (
-                <>
-                  <Link href="/account" className="btn btn-outline" style={{ padding: "7px 16px", fontSize: 14 }}>
-                    Sign in
-                  </Link>
-                  <Link href="/products" className="btn btn-primary" style={{ padding: "7px 16px", fontSize: 14 }}>
-                    Shop now
-                  </Link>
-                </>
+                <Link href="/products" className="btn btn-primary" style={{ padding: "7px 16px", fontSize: 16 }}>
+                  Shop now
+                </Link>
               )}
             </div>
 
