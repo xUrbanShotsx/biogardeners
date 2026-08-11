@@ -133,51 +133,15 @@ const PRODUCT_DETAILS: Record<string, {
 };
 
 const GALLERY_BG: Record<string, string[]> = {
-  "gp-fertiliser-premium-garden-lawn": [
-    "linear-gradient(140deg,#d4e9e2,#a8cfc0)",
-    "linear-gradient(140deg,#c8e0d8,#9fc5b6)",
-    "linear-gradient(140deg,#bcd8ce,#91b9a8)",
-  ],
-  "lawn-fertilizer-premium-granulated-concentrated": [
-    "linear-gradient(140deg,#fdebc8,#f2d49a)",
-    "linear-gradient(140deg,#fde5b8,#efcc88)",
-    "linear-gradient(140deg,#fad89e,#e8c170)",
-  ],
-  "volcanic-dust-trace-elements": [
-    "linear-gradient(140deg,#e8e4df,#cec8c0)",
-    "linear-gradient(140deg,#e2ddd8,#c8c2b8)",
-    "linear-gradient(140deg,#dcd8d0,#c0baae)",
-  ],
-  "soil-health-conditioner-powder": [
-    "linear-gradient(140deg,#ede0d0,#d4c0a8)",
-    "linear-gradient(140deg,#e8d8c4,#ceb898)",
-    "linear-gradient(140deg,#e2d0b8,#c8b090)",
-  ],
-  "liquid-npk-fertilizer": [
-    "linear-gradient(140deg,#cce4f0,#9ecde6)",
-    "linear-gradient(140deg,#c4dcea,#94c8e0)",
-    "linear-gradient(140deg,#b8d4e4,#88beda)",
-  ],
-  "glacial-milk": [
-    "linear-gradient(140deg,#e8f4f8,#c8e4f0)",
-    "linear-gradient(140deg,#e0f0f6,#c0dcea)",
-    "linear-gradient(140deg,#d8ecf4,#b8d8e8)",
-  ],
-  "soil-health-conditioner": [
-    "linear-gradient(140deg,#dde8d8,#b8d4b0)",
-    "linear-gradient(140deg,#d4e2ce,#aecca6)",
-    "linear-gradient(140deg,#ccdcc6,#a4c49c)",
-  ],
-  "plant-spray": [
-    "linear-gradient(140deg,#d8edd4,#aed4a8)",
-    "linear-gradient(140deg,#cce8c8,#a4cc9e)",
-    "linear-gradient(140deg,#c4e2be,#9ac494)",
-  ],
-  "penetrator": [
-    "linear-gradient(140deg,#d8d4e8,#b4aed4)",
-    "linear-gradient(140deg,#d0cce2,#aca6cc)",
-    "linear-gradient(140deg,#c8c4dc,#a49ec4)",
-  ],
+  "gp-fertiliser-premium-garden-lawn":               ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "lawn-fertilizer-premium-granulated-concentrated": ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "volcanic-dust-trace-elements":                    ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "soil-health-conditioner-powder":                  ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "liquid-npk-fertilizer":                           ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "glacial-milk":                                    ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "soil-health-conditioner":                         ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "plant-spray":                                     ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "penetrator":                                      ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
 };
 
 const REVIEWS = [

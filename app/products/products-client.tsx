@@ -24,15 +24,15 @@ const CATEGORIES: Record<string, string> = {
 };
 
 const BG_COLORS: Record<string, string> = {
-  "gp-fertiliser-premium-garden-lawn":             "linear-gradient(140deg, #d4e9e2 0%, #a8cfc0 100%)",
-  "lawn-fertilizer-premium-granulated-concentrated": "linear-gradient(140deg, #fdebc8 0%, #f2d49a 100%)",
-  "volcanic-dust-trace-elements":                  "linear-gradient(140deg, #e8e4df 0%, #cec8c0 100%)",
-  "soil-health-conditioner-powder":                "linear-gradient(140deg, #ede0d0 0%, #d4c0a8 100%)",
-  "liquid-npk-fertilizer":                         "linear-gradient(140deg, #cce4f0 0%, #9ecde6 100%)",
-  "glacial-milk":                                  "linear-gradient(140deg, #e8f4f8 0%, #c8e4f0 100%)",
-  "soil-health-conditioner":                       "linear-gradient(140deg, #dde8d8 0%, #b8d4b0 100%)",
-  "plant-spray":                                   "linear-gradient(140deg, #d8edd4 0%, #aed4a8 100%)",
-  "penetrator":                                    "linear-gradient(140deg, #d8d4e8 0%, #b4aed4 100%)",
+  "gp-fertiliser-premium-garden-lawn":             "#fdf9f6",
+  "lawn-fertilizer-premium-granulated-concentrated": "#fdf9f6",
+  "volcanic-dust-trace-elements":                  "#fdf9f6",
+  "soil-health-conditioner-powder":                "#fdf9f6",
+  "liquid-npk-fertilizer":                         "#fdf9f6",
+  "glacial-milk":                                  "#fdf9f6",
+  "soil-health-conditioner":                       "#fdf9f6",
+  "plant-spray":                                   "#fdf9f6",
+  "penetrator":                                    "#fdf9f6",
 };
 
 const VARIANTS: Record<string, { label: string; price: number }[]> = {

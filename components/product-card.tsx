@@ -10,10 +10,10 @@ import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";
 
 const BG_COLORS: Record<string, string> = {
-  "bio-bloom-fertiliser": "linear-gradient(140deg, #d4e9e2 0%, #b0d0c4 100%)",
-  "terra-pro-soil-mix":   "linear-gradient(140deg, #fdebc8 0%, #f2d49a 100%)",
-  "deep-root-tonic":      "linear-gradient(140deg, #dde8e0 0%, #bcd5c8 100%)",
-  "season-starter-kit":   "linear-gradient(140deg, #faf6ee 0%, #ede4d0 100%)",
+  "bio-bloom-fertiliser": "#fdf9f6",
+  "terra-pro-soil-mix":   "#fdf9f6",
+  "deep-root-tonic":      "#fdf9f6",
+  "season-starter-kit":   "#fdf9f6",
 };
 
 const SOCIAL_PROOF: Record<string, string> = {
@@ -31,7 +31,7 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
 };
 
 function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUrl?: string; imageAlt?: string }) {
-  const bg = BG_COLORS[handle] ?? "linear-gradient(140deg,#d4e9e2,#b0d0c4)";
+  const bg = BG_COLORS[handle] ?? "#fdf9f6";
 
   if (imageUrl) {
     return (
