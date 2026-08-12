@@ -165,7 +165,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
       variant: variant.label,
       price:   variant.price,
     });
-    showCartMessage(handle);
+    showCartMessage(handle, title, []);
     setAddState("added");
     setTimeout(() => setAddState("idle"), 1800);
   }

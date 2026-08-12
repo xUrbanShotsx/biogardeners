@@ -1,24 +1,36 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const grok = new OpenAI({
+  apiKey:  process.env.XAI_API_KEY,
+  baseURL: "https://api.x.ai/v1",
+});
 
 export async function POST(req: NextRequest) {
-  const { question } = await req.json();
+  const { question, history } = await req.json();
   if (!question?.trim()) {
     return NextResponse.json({ error: "No question" }, { status: 400 });
   }
 
-  const msg = await client.messages.create({
-    model: "claude-haiku-4-5-20251001",
+  const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+    {
+      role: "system",
+      content:
+        "You are the BioGardeners Bio Advisor — a friendly, knowledgeable plant and soil expert based in Australia. " +
+        "Answer gardening, soil health, fertiliser, and plant care questions in 2–3 sentences max. " +
+        "Keep it warm, practical, and encouraging. No markdown, just plain conversational text. " +
+        "When relevant, mention BioGardeners products (GP Fertiliser, Volcanic Dust, Glacial Milk, Soil Conditioner, Liquid NPK, Penetrator, Plant Spray, Lawn Fertilizer) naturally.",
+    },
+    ...(Array.isArray(history) ? history : []),
+    { role: "user", content: question },
+  ];
+
+  const completion = await grok.chat.completions.create({
+    model:      "grok-3-mini",
     max_tokens: 300,
-    system:
-      "You are the BioGardeners Bio Advisor — a friendly, knowledgeable plant and soil expert. " +
-      "Answer gardening, soil health, fertiliser, and plant care questions in 2–3 sentences max. " +
-      "Keep it warm, practical, and encouraging. No markdown, just plain conversational text.",
-    messages: [{ role: "user", content: question }],
+    messages,
   });
 
-  const text = (msg.content[0] as { type: string; text: string }).text;
+  const text = completion.choices[0]?.message?.content ?? "Sorry, I couldn't get an answer right now.";
   return NextResponse.json({ answer: text });
 }

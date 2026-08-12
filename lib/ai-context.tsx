@@ -17,7 +17,7 @@ export interface HoveredProduct {
 
 interface AiContextValue {
   cartMessage:       AiCartMessage | null;
-  showCartMessage:   (handle: string) => void;
+  showCartMessage:   (handle: string, title: string, cartTitles?: string[]) => void;
   clearCartMessage:  () => void;
   hoveredProduct:    HoveredProduct | null;
   setHoveredProduct: (p: HoveredProduct | null) => void;
@@ -30,12 +30,35 @@ export function AiProvider({ children }: { children: ReactNode }) {
   const [hoveredProduct, setHoveredProduct] = useState<HoveredProduct | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const showCartMessage = useCallback((handle: string) => {
-    const msgs = AI_CART[handle];
-    if (!msgs) return;
+  const showCartMessage = useCallback((handle: string, title: string, cartTitles: string[] = []) => {
+    // Optimistically show static fallback immediately
+    const fallback = AI_CART[handle];
     if (timerRef.current) clearTimeout(timerRef.current);
-    setCartMessage({ ...msgs, handle, key: Date.now() });
-    timerRef.current = setTimeout(() => setCartMessage(null), 7000);
+    setCartMessage({
+      compliment: fallback?.compliment ?? "Great pick!",
+      tip:        fallback?.tip        ?? "Follow label directions for best results.",
+      handle,
+      key: Date.now(),
+    });
+    timerRef.current = setTimeout(() => setCartMessage(null), 9000);
+
+    // Then upgrade with Grok response
+    fetch("/api/ai/cart-tip", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ handle, title, cartTitles }),
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.compliment && data.tip) {
+          setCartMessage(prev =>
+            prev && prev.handle === handle
+              ? { ...prev, compliment: data.compliment, tip: data.tip }
+              : prev
+          );
+        }
+      })
+      .catch(() => { /* keep fallback */ });
   }, []);
 
   const clearCartMessage = useCallback(() => {

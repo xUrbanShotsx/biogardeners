@@ -261,7 +261,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
       price:   parseFloat(variant?.price ?? currentPrice),
       quantity,
     });
-    showCartMessage(product.handle);
+    showCartMessage(product.handle, product.title, []);
     setTimeout(() => setAddState("added"), 600);
     setTimeout(() => setAddState("idle"), 2200);
   }

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Send } from "lucide-react";
 import { useAi } from "@/lib/ai-context";
 import { AI_HOVER } from "@/lib/ai-messages";
+
+type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -53,21 +55,23 @@ function PlantCharacter({ size = 72 }: { size?: number }) {
 }
 
 /* ─── Chat message type ──────────────────────── */
-type Message = { role: "user" | "advisor"; text: string };
+type Message = { role: "user" | "advisor"; text: string; apiMsg?: ChatMessage };
 
 /* ═══════════════════════════════════════════════
    MAIN WIDGET
    ═══════════════════════════════════════════════ */
 export function FrapButton() {
   const { hoveredProduct } = useAi();
-  const [open, setOpen]       = useState(false);
+  const [open, setOpen]         = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput]     = useState("");
-  const [loading, setLoading] = useState(false);
-  const [wander, setWander]   = useState({ x: 0, y: 0 });
-  const wanderRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef  = useRef<HTMLInputElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const [input, setInput]       = useState("");
+  const [loading, setLoading]   = useState(false);
+  const [wander, setWander]     = useState({ x: 0, y: 0 });
+  const [dynamicHover, setDynamicHover] = useState<string>("");
+  const wanderRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverReqRef = useRef<AbortController | null>(null);
+  const inputRef   = useRef<HTMLInputElement>(null);
+  const bottomRef  = useRef<HTMLDivElement>(null);
 
   /* Wander when idle */
   useEffect(() => {
@@ -84,11 +88,38 @@ export function FrapButton() {
     return () => { if (wanderRef.current) clearTimeout(wanderRef.current); };
   }, [open, hoveredProduct]);
 
+  /* Fetch dynamic hover tip from Grok when product changes */
+  const fetchHoverTip = useCallback(async (handle: string, title: string) => {
+    setDynamicHover("");
+    if (hoverReqRef.current) hoverReqRef.current.abort();
+    const ctrl = new AbortController();
+    hoverReqRef.current = ctrl;
+    try {
+      const res = await fetch("/api/chat", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ question: `Give me a 1-2 sentence expert tip about "${title}" — what makes it special and one key usage tip for Australian gardens. Be specific to this product, warm, and concise.` }),
+        signal:  ctrl.signal,
+      });
+      const data = await res.json();
+      if (data.answer) setDynamicHover(data.answer);
+    } catch { /* aborted or failed — fall through to static */ }
+  }, []);
+
+  useEffect(() => {
+    if (hoveredProduct && !open) {
+      fetchHoverTip(hoveredProduct.handle, hoveredProduct.title);
+    } else {
+      setDynamicHover("");
+    }
+  }, [hoveredProduct, open, fetchHoverTip]);
+
   /* When a product is hovered, show the panel with its tip */
-  const hoverHandle = hoveredProduct?.handle ?? "";
-  const hoverTitle  = hoveredProduct?.title  ?? "";
-  const hoverMsg    = AI_HOVER[hoverHandle] ?? "";
-  const typedHover  = useTypewriter(open ? "" : hoverMsg);
+  const hoverHandle  = hoveredProduct?.handle ?? "";
+  const hoverTitle   = hoveredProduct?.title  ?? "";
+  const staticMsg    = AI_HOVER[hoverHandle] ?? "";
+  const hoverMsg     = dynamicHover || staticMsg;
+  const typedHover   = useTypewriter(open ? "" : hoverMsg);
 
   /* Scroll to bottom on new message */
   useEffect(() => {
@@ -105,16 +136,25 @@ export function FrapButton() {
     const q = input.trim();
     if (!q || loading) return;
     setInput("");
-    setMessages(prev => [...prev, { role: "user", text: q }]);
+    const newUserMsg: Message = { role: "user", text: q, apiMsg: { role: "user", content: q } };
+    setMessages(prev => [...prev, newUserMsg]);
     setLoading(true);
     try {
+      const history: ChatMessage[] = messages
+        .filter(m => m.apiMsg)
+        .map(m => m.apiMsg as ChatMessage);
       const res = await fetch("/api/chat", {
-        method: "POST",
+        method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q }),
+        body:    JSON.stringify({ question: q, history }),
       });
       const data = await res.json();
-      setMessages(prev => [...prev, { role: "advisor", text: data.answer ?? "Sorry, I couldn't get an answer right now." }]);
+      const answer = data.answer ?? "Sorry, I couldn't get an answer right now.";
+      setMessages(prev => [...prev, {
+        role: "advisor",
+        text: answer,
+        apiMsg: { role: "assistant", content: answer },
+      }]);
     } catch {
       setMessages(prev => [...prev, { role: "advisor", text: "Something went wrong — please try again." }]);
     } finally {
