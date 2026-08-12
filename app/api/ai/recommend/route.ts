@@ -1,11 +1,6 @@
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
 
-const grok = new OpenAI({
-  apiKey:  process.env.XAI_API_KEY,
-  baseURL: "https://api.x.ai/v1",
-});
-
 const ALL_PRODUCTS = [
   { handle: "gp-fertiliser-premium-garden-lawn",             title: "GP Fertiliser"          },
   { handle: "lawn-fertilizer-premium-granulated-concentrated", title: "Lawn Fertilizer"       },
@@ -19,6 +14,10 @@ const ALL_PRODUCTS = [
 ];
 
 export async function POST(req: NextRequest) {
+  const grok = new OpenAI({
+    apiKey:  process.env.XAI_API_KEY!,
+    baseURL: "https://api.x.ai/v1",
+  });
   const { currentHandle, cartHandles = [] } = await req.json();
 
   const exclude   = new Set([currentHandle, ...cartHandles]);

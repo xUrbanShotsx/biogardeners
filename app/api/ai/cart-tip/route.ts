@@ -1,12 +1,11 @@
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
 
-const grok = new OpenAI({
-  apiKey:  process.env.XAI_API_KEY,
-  baseURL: "https://api.x.ai/v1",
-});
-
 export async function POST(req: NextRequest) {
+  const grok = new OpenAI({
+    apiKey:  process.env.XAI_API_KEY!,
+    baseURL: "https://api.x.ai/v1",
+  });
   const { handle, title, cartTitles } = await req.json();
   if (!handle) return NextResponse.json({ error: "No handle" }, { status: 400 });
 
