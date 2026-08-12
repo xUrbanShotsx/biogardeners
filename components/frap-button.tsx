@@ -62,20 +62,29 @@ type Message = { role: "user" | "advisor"; text: string; apiMsg?: ChatMessage };
    ═══════════════════════════════════════════════ */
 export function FrapButton() {
   const { hoveredProduct } = useAi();
-  const [open, setOpen]         = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput]       = useState("");
-  const [loading, setLoading]   = useState(false);
-  const [wander, setWander]     = useState({ x: 0, y: 0 });
-  const [dynamicHover, setDynamicHover] = useState<string>("");
-  const wanderRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [open, setOpen]           = useState(false);
+  const [messages, setMessages]   = useState<Message[]>([]);
+  const [input, setInput]         = useState("");
+  const [loading, setLoading]     = useState(false);
+  const [wander, setWander]       = useState({ x: 0, y: 0 });
+  const [dynamicHover, setDynamicHover]     = useState<string>("");
+  // Latched product — stays set after hover-off so tip remains visible
+  const [latchedProduct, setLatchedProduct] = useState<{ handle: string; title: string } | null>(null);
+  const wanderRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hoverReqRef = useRef<AbortController | null>(null);
-  const inputRef   = useRef<HTMLInputElement>(null);
-  const bottomRef  = useRef<HTMLDivElement>(null);
+  const inputRef    = useRef<HTMLInputElement>(null);
+  const bottomRef   = useRef<HTMLDivElement>(null);
+
+  function closeAll() {
+    setOpen(false);
+    setMessages([]);
+    setLatchedProduct(null);
+    setDynamicHover("");
+  }
 
   /* Wander when idle */
   useEffect(() => {
-    if (open || hoveredProduct) {
+    if (open || latchedProduct) {
       setWander({ x: 0, y: 0 });
       if (wanderRef.current) clearTimeout(wanderRef.current);
       return;
@@ -86,11 +95,11 @@ export function FrapButton() {
     }
     wanderRef.current = setTimeout(drift, 1800);
     return () => { if (wanderRef.current) clearTimeout(wanderRef.current); };
-  }, [open, hoveredProduct]);
+  }, [open, latchedProduct]);
 
-  /* Fetch dynamic hover tip from Grok when product changes */
+  /* Fetch dynamic hover tip from Grok when a new product is hovered */
   const fetchHoverTip = useCallback(async (handle: string, title: string) => {
-    setDynamicHover("");
+    setDynamicHover(AI_HOVER[handle] ?? ""); // show static immediately
     if (hoverReqRef.current) hoverReqRef.current.abort();
     const ctrl = new AbortController();
     hoverReqRef.current = ctrl;
@@ -98,28 +107,40 @@ export function FrapButton() {
       const res = await fetch("/api/chat", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({ question: `Give me a 1-2 sentence expert tip about "${title}" — what makes it special and one key usage tip for Australian gardens. Be specific to this product, warm, and concise.` }),
+        body:    JSON.stringify({ question: `Give me a 1-2 sentence expert tip about "${title}" — what makes it special and one key usage tip for Australian gardens. Be specific, warm, and concise.` }),
         signal:  ctrl.signal,
       });
       const data = await res.json();
       if (data.answer) setDynamicHover(data.answer);
-    } catch { /* aborted or failed — fall through to static */ }
+    } catch { /* aborted or failed — keep static */ }
   }, []);
 
+  /* When a product is newly hovered, latch it and fetch tip */
   useEffect(() => {
     if (hoveredProduct && !open) {
-      fetchHoverTip(hoveredProduct.handle, hoveredProduct.title);
-    } else {
+      const isNew = hoveredProduct.handle !== latchedProduct?.handle;
+      if (isNew) {
+        setLatchedProduct(hoveredProduct);
+        fetchHoverTip(hoveredProduct.handle, hoveredProduct.title);
+      }
+    }
+    // hoveredProduct going null (hover-off) is intentionally ignored — tip stays latched
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hoveredProduct?.handle]);
+
+  /* When chat opens, dismiss any latched tip */
+  useEffect(() => {
+    if (open) {
+      setLatchedProduct(null);
       setDynamicHover("");
     }
-  }, [hoveredProduct, open, fetchHoverTip]);
+  }, [open]);
 
-  /* When a product is hovered, show the panel with its tip */
-  const hoverHandle  = hoveredProduct?.handle ?? "";
-  const hoverTitle   = hoveredProduct?.title  ?? "";
-  const staticMsg    = AI_HOVER[hoverHandle] ?? "";
-  const hoverMsg     = dynamicHover || staticMsg;
-  const typedHover   = useTypewriter(open ? "" : hoverMsg);
+  /* Hover tip display values */
+  const hoverHandle = latchedProduct?.handle ?? "";
+  const hoverTitle  = latchedProduct?.title  ?? "";
+  const hoverMsg    = dynamicHover || AI_HOVER[hoverHandle] || "";
+  const typedHover  = useTypewriter(open ? "" : hoverMsg);
 
   /* Scroll to bottom on new message */
   useEffect(() => {
@@ -162,7 +183,7 @@ export function FrapButton() {
     }
   }
 
-  const isOpen = open || !!hoveredProduct;
+  const isOpen = open || !!latchedProduct;
 
   return (
     <div className="fixed bottom-6 right-6 z-[200] flex flex-col items-end gap-3">
@@ -198,7 +219,7 @@ export function FrapButton() {
               <div className="flex items-center gap-2">
                 <PulseDot />
                 <button
-                  onClick={() => { setOpen(false); setMessages([]); }}
+                  onClick={closeAll}
                   aria-label="Close"
                   className="p-0.5 rounded opacity-60 hover:opacity-100 transition-opacity"
                   style={{ color: "#fff" }}>
@@ -212,7 +233,7 @@ export function FrapButton() {
               style={{ background: "#fff", minHeight: 80 }}>
 
               {/* Product hover tip (when no chat yet) */}
-              {!open && hoveredProduct && messages.length === 0 && (
+              {!open && latchedProduct && messages.length === 0 && (
                 <div>
                   {hoverTitle && (
                     <p className="text-[10px] font-bold uppercase tracking-[0.08em] mb-1.5"
@@ -317,14 +338,14 @@ export function FrapButton() {
           style={{
             width: 72, height: 72,
             background: "#fff",
-            boxShadow: (open || hoveredProduct)
+            boxShadow: (open || latchedProduct)
               ? "0 0 0 4px rgba(0,171,85,0.28), 0 8px 24px rgba(0,0,0,0.24)"
               : "0 4px 18px rgba(0,0,0,0.26)",
             transition: "box-shadow 0.3s ease",
           }}
         >
           <PlantCharacter size={72} />
-          {hoveredProduct && !open && (
+          {latchedProduct && !open && (
             <span className="absolute inset-0 rounded-full animate-ping"
               style={{ background: "var(--green-accent)", opacity: 0.18 }} />
           )}
