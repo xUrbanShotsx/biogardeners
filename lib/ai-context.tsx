@@ -15,12 +15,18 @@ export interface HoveredProduct {
   title: string;
 }
 
+export interface SimpleRect {
+  top: number; left: number; right: number; bottom: number; width: number; height: number;
+}
+
 interface AiContextValue {
   cartMessage:       AiCartMessage | null;
   showCartMessage:   (handle: string, title: string, cartTitles?: string[]) => void;
   clearCartMessage:  () => void;
   hoveredProduct:    HoveredProduct | null;
   setHoveredProduct: (p: HoveredProduct | null) => void;
+  hoveredRect:       SimpleRect | null;
+  setHoveredRect:    (r: SimpleRect | null) => void;
 }
 
 const AiContext = createContext<AiContextValue | null>(null);
@@ -28,6 +34,7 @@ const AiContext = createContext<AiContextValue | null>(null);
 export function AiProvider({ children }: { children: ReactNode }) {
   const [cartMessage,    setCartMessage]    = useState<AiCartMessage | null>(null);
   const [hoveredProduct, setHoveredProduct] = useState<HoveredProduct | null>(null);
+  const [hoveredRect,    setHoveredRect]    = useState<SimpleRect | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showCartMessage = useCallback((handle: string, title: string, cartTitles: string[] = []) => {
@@ -70,6 +77,7 @@ export function AiProvider({ children }: { children: ReactNode }) {
     <AiContext.Provider value={{
       cartMessage, showCartMessage, clearCartMessage,
       hoveredProduct, setHoveredProduct,
+      hoveredRect, setHoveredRect,
     }}>
       {children}
     </AiContext.Provider>

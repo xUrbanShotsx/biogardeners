@@ -143,7 +143,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
   imageAlt?: string;
 }) {
   const { addItem } = useCart();
-  const { showCartMessage, setHoveredProduct } = useAi();
+  const { showCartMessage, setHoveredProduct, setHoveredRect } = useAi();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [addState, setAddState] = useState<"idle" | "added">("idle");
   const [hovered, setHovered] = useState(false);
@@ -179,7 +179,12 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
       transition={{ delay: index * 0.06, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="flex flex-col rounded-[var(--radius-card)] overflow-hidden"
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
-      onMouseEnter={() => { setHovered(true);  setHoveredProduct({ handle, title }); }}
+      onMouseEnter={(e) => {
+        setHovered(true);
+        setHoveredProduct({ handle, title });
+        const r = e.currentTarget.getBoundingClientRect();
+        setHoveredRect({ top: r.top, left: r.left, right: r.right, bottom: r.bottom, width: r.width, height: r.height });
+      }}
       onMouseLeave={() => { setHovered(false); setHoveredProduct(null); }}
     >
       {/* Image area */}
