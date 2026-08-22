@@ -20,15 +20,21 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
         >
           <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full inline-block" style={{ background: "#4ade80" }} />
+              <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--green-bio)" }}>
+                Free shipping Australia wide
+              </span>
+            </div>
             <h2
               id="products-heading"
               className="font-bold text-4xl lg:text-5xl mb-1.5"
               style={{ color: "var(--green-bio)", letterSpacing: "-0.02em" }}
             >
-              Our formulas
+              Shop Bestsellers
             </h2>
             <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
-              Soil-tested, precision-balanced for Australian conditions.
+              Over 2,400 Australian gardeners trust these formulas — soil-tested, season after season.
             </p>
           </div>
           <Link
@@ -36,7 +42,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
             className="flex items-center gap-1.5 text-sm font-semibold shrink-0 transition-colors duration-200"
             style={{ color: "var(--green-bio)" }}
           >
-            View all products <ArrowRight size={15} />
+            View all 9 products <ArrowRight size={15} />
           </Link>
         </motion.div>
 

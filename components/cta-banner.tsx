@@ -37,23 +37,23 @@ export function CtaBanner() {
                 className="font-bold text-4xl lg:text-5xl mb-4"
                 style={{ color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.12 }}
               >
-                Your best garden season<br />
+                Grow more, waste less —<br />
                 <em className="font-serif" style={{ color: "var(--green-light)", fontStyle: "italic" }}>
-                  starts here.
+                  results you can see.
                 </em>
               </h2>
               <p className="text-base max-w-[400px]" style={{ color: "rgba(255,255,255,0.68)", lineHeight: 1.65 }}>
-                Get Bio Bloom, Terra Pro, and Deep Root Tonic together with a 15% bundle saving.
-                Free shipping Australia wide.
+                Science-backed formulas crafted for Australian soil. Over 2,400 home gardeners
+                choose BioGardeners every season — free shipping, Australia wide.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <Link href="/products/season-starter-kit" className="btn btn-white-filled" style={{ fontSize: 16, padding: "15px 32px" }}>
-                Get the Starter Kit — $89
+              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-white-filled" style={{ fontSize: 16, padding: "15px 32px" }}>
+                Shop Bestseller
               </Link>
               <Link href="/products" className="btn btn-outline-white" style={{ fontSize: 16, padding: "15px 32px" }}>
-                Browse all
+                View all products
               </Link>
             </div>
           </motion.div>

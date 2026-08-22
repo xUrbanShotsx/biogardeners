@@ -1,16 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {
-    quote:   "Bio Bloom doubled my tomato yield this season. I've tried 6 different fertilisers and nothing comes close.",
+    quote:   "GP Fertiliser doubled my tomato yield this season. I've tried 6 different fertilisers and nothing comes close.",
     name:    "Sarah M.",
     city:    "Sydney, NSW",
     rating:  5,
     initial: "S",
-    product: "Bio Bloom Fertiliser",
+    product: "GP Fertiliser",
+    handle:  "gp-fertiliser-premium-garden-lawn",
     color:   "#006241",
     verified: true,
   },
@@ -20,37 +22,41 @@ const testimonials = [
     city:    "Melbourne, VIC",
     rating:  5,
     initial: "J",
-    product: "Deep Root Tonic",
+    product: "Penetrator",
+    handle:  "penetrator",
     color:   "#00754A",
     verified: true,
   },
   {
-    quote:   "I've gardened for 20 years. Terra Pro is the best potting mix I've ever used — drainage is perfect and my herbs are thriving.",
+    quote:   "I've gardened for 20 years. The Soil Conditioner is the best I've ever used — drainage is perfect and my herbs are thriving.",
     name:    "Helen R.",
     city:    "Brisbane, QLD",
     rating:  5,
     initial: "H",
-    product: "Terra Pro Soil Mix",
+    product: "Soil Conditioner",
+    handle:  "soil-health-conditioner",
     color:   "#1E3932",
     verified: true,
   },
   {
-    quote:   "Deep Root Tonic made a visible difference in my fruit trees within two weeks. New growth on every branch.",
+    quote:   "Penetrator made a visible difference in my fruit trees within two weeks. New growth on every branch.",
     name:    "David K.",
     city:    "Perth, WA",
     rating:  5,
     initial: "D",
-    product: "Deep Root Tonic",
+    product: "Penetrator",
+    handle:  "penetrator",
     color:   "#2b5148",
     verified: true,
   },
   {
-    quote:   "Love that it's Australian made. My succulents are thriving with Terra Pro. Fast delivery too — ordered Monday, arrived Wednesday.",
+    quote:   "Love that it's Australian made. My succulents are thriving. Fast delivery too — ordered Monday, arrived Wednesday.",
     name:    "Amy C.",
     city:    "Adelaide, SA",
     rating:  5,
     initial: "A",
-    product: "Terra Pro Soil Mix",
+    product: "Soil Conditioner",
+    handle:  "soil-health-conditioner",
     color:   "#006241",
     verified: true,
   },
@@ -142,7 +148,7 @@ export function Testimonials() {
         </div>
 
         {/* Cards — horizontal scroll */}
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 lg:-mx-10 lg:px-10 snap-x snap-mandatory scrollbar-none">
+        <div className="flex gap-4 overflow-x-auto pb-6 -mx-6 px-6 lg:-mx-10 lg:px-10 snap-x snap-mandatory scrollbar-none">
           {testimonials.map((t, i) => (
             <motion.article
               key={i}
@@ -183,13 +189,38 @@ export function Testimonials() {
                     <p className="text-[10px]" style={{ color: "var(--text-black-soft)" }}>{t.city}</p>
                   </div>
                 </div>
-                <p className="text-[10px] font-semibold text-right max-w-[90px]" style={{ color: "var(--text-black-soft)" }}>
-                  {t.product}
-                </p>
+                <Link
+                  href={`/products/${t.handle}`}
+                  className="flex items-center gap-1 text-[10px] font-bold transition-colors hover:underline"
+                  style={{ color: "var(--green-bio)" }}
+                >
+                  Shop {t.product} <ArrowRight size={10} />
+                </Link>
               </div>
             </motion.article>
           ))}
         </div>
+
+        {/* CTA row */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-8"
+          style={{ borderTop: "1px solid var(--ceramic)" }}
+        >
+          <p className="text-sm font-semibold" style={{ color: "var(--text-black-soft)" }}>
+            Join 2,400+ Australian gardeners seeing real results
+          </p>
+          <Link
+            href="/products"
+            className="btn btn-primary flex items-center gap-2 shrink-0"
+            style={{ fontSize: 15, padding: "12px 28px" }}
+          >
+            Shop all products <ArrowRight size={15} />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
