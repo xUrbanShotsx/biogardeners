@@ -47,7 +47,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
         </motion.div>
 
         {/* Grid — 4 products */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
           {products.map((p, i) => (
             <motion.div
               key={p.id}

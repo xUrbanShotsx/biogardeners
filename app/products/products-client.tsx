@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState } from "react"; // kept for QuickPickCard internal state
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -361,13 +361,6 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
 /* ─── Main client component ────────────────────────────────────────── */
 
 export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filtered = products.filter((p) => {
-    if (activeFilter === "All") return true;
-    return CATEGORIES[p.handle] === activeFilter;
-  });
-
   return (
     <>
       {/* Page header */}
@@ -391,49 +384,6 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
         </div>
       </div>
 
-      {/* Sticky filter bar */}
-      <div
-        className="sticky z-[50] border-b"
-        style={{
-          top: "var(--nav-h)",
-          background: "#fff",
-          borderColor: "var(--ceramic)",
-          boxShadow: "0 1px 0 rgba(0,0,0,0.04)",
-        }}
-      >
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10">
-          <div className="flex items-center justify-between gap-4 py-3">
-            {/* Filter pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-0.5 scrollbar-none" style={{ scrollbarWidth: "none" }}>
-              {FILTER_LABELS.map((label) => (
-                <button
-                  key={label}
-                  onClick={() => setActiveFilter(label)}
-                  className="whitespace-nowrap text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-200 shrink-0"
-                  style={{
-                    background: activeFilter === label ? "var(--green-accent)" : "transparent",
-                    color:      activeFilter === label ? "#fff" : "var(--text-black-soft)",
-                    boxShadow:  activeFilter === label ? "none" : "inset 0 0 0 1px var(--input-border)",
-                  }}
-                  aria-pressed={activeFilter === label}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            {/* Product count */}
-            <span
-              className="text-sm shrink-0"
-              style={{ color: "var(--text-black-soft)" }}
-              aria-live="polite"
-            >
-              {filtered.length} {filtered.length === 1 ? "product" : "products"}
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Product grid */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-8 md:py-12">
         <motion.div
@@ -442,7 +392,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
           style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
         >
           <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => {
+            {products.map((p, i) => {
               const firstImg = p.images.edges[0]?.node;
               return (
               <QuickPickCard
@@ -466,10 +416,10 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
         </motion.div>
 
         {/* Empty state */}
-        {filtered.length === 0 && (
+        {products.length === 0 && (
           <div className="text-center py-20">
             <p className="text-lg font-semibold" style={{ color: "var(--text-black-soft)" }}>
-              No products in this category yet.
+              No products available yet.
             </p>
           </div>
         )}
