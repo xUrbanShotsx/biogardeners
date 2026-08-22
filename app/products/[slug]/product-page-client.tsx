@@ -444,9 +444,21 @@ export function ProductPageClient({ product, related, slug }: Props) {
             )}
 
             {/* Description */}
-            <p className="text-sm mb-0 max-w-[48ch]" style={{ color: "var(--text-black-soft)", lineHeight: 1.7 }}>
+            <p className="text-sm mb-4 max-w-[48ch]" style={{ color: "var(--text-black-soft)", lineHeight: 1.7 }}>
               {product.description}
             </p>
+
+            {/* Top 3 benefits — inline social proof before buy button */}
+            {details?.benefits && (
+              <ul className="flex flex-col gap-2 mb-1">
+                {details.benefits.slice(0, 3).map((b) => (
+                  <li key={b} className="flex items-start gap-2.5 text-sm font-semibold" style={{ color: "var(--green-house)" }}>
+                    <Check size={15} className="shrink-0 mt-0.5" style={{ color: "var(--green-accent)" }} />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            )}
           </motion.div>
         </div>
 
@@ -454,16 +466,23 @@ export function ProductPageClient({ product, related, slug }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-[44fr_56fr] gap-6 lg:gap-14 mb-10 lg:mb-16">
           <div className="hidden lg:block" aria-hidden="true" />
           <div>
-            {/* Stock urgency */}
-            <div className="flex items-center gap-2 mb-5 text-sm font-semibold" style={{ color: "var(--red)" }}>
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--red)" }} />
-              Only {stockLeft} left in stock — order soon
+
+            {/* Urgency row */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 mb-5">
+              <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--red)" }}>
+                <span className="w-2 h-2 rounded-full animate-pulse shrink-0" style={{ background: "var(--red)" }} />
+                Only {stockLeft} left in stock
+              </div>
+              <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--green-bio)" }}>
+                <Truck size={14} className="shrink-0" />
+                Order before 2pm AEST — ships today
+              </div>
             </div>
 
             {/* Quantity + Add to cart */}
-            <div ref={addBtnRef} className="flex gap-3 mb-6">
+            <div ref={addBtnRef} className="flex gap-3 mb-4">
               {/* Quantity stepper */}
-              <div className="flex items-center rounded-full" style={{ border: "1.5px solid var(--input-border)" }}>
+              <div className="flex items-center rounded-full shrink-0" style={{ border: "1.5px solid var(--input-border)" }}>
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   className="w-11 h-11 flex items-center justify-center transition-colors duration-200 rounded-full"
@@ -483,16 +502,16 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 </button>
               </div>
 
-              {/* Add to cart */}
+              {/* Add to cart — dominant CTA */}
               <button
                 onClick={handleAddToCart}
-                className="btn btn-primary flex-1 gap-2 text-base"
-                style={{ padding: "14px 24px" }}
+                className="btn btn-primary flex-1 gap-2"
+                style={{ fontSize: 17, padding: "16px 24px", boxShadow: "0 4px 18px rgba(0,168,86,0.35)" }}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {addState === "idle" && (
                     <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <ShoppingBag size={16} /> Add to cart
+                      <ShoppingBag size={18} /> Add to cart
                     </motion.span>
                   )}
                   {addState === "adding" && (
@@ -502,33 +521,56 @@ export function ProductPageClient({ product, related, slug }: Props) {
                   )}
                   {addState === "added" && (
                     <motion.span key="added" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <Check size={16} /> Added to cart!
+                      <Check size={18} /> Added to cart!
                     </motion.span>
                   )}
                 </AnimatePresence>
               </button>
             </div>
 
-            {/* Trust badges */}
-            <div className="grid grid-cols-2 gap-3 mb-6">
+            {/* Post-ATC reassurance strip */}
+            <div
+              className="flex items-center justify-center gap-4 flex-wrap py-3 px-4 rounded-xl mb-5 text-xs font-semibold"
+              style={{ background: "var(--green-xlight)", color: "var(--green-house)" }}
+            >
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck size={13} style={{ color: "var(--green-accent)" }} />
+                30-day money-back guarantee
+              </span>
+              <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
+              <span className="flex items-center gap-1.5">
+                <Truck size={13} style={{ color: "var(--green-accent)" }} />
+                Free shipping over $80
+              </span>
+              <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
+              <span className="flex items-center gap-1.5">
+                <span className="text-[11px]">🇦🇺</span>
+                Australian made
+              </span>
+            </div>
+
+            {/* Trust badges — horizontal strip */}
+            <div
+              className="grid grid-cols-4 gap-0 mb-6 rounded-xl overflow-hidden"
+              style={{ border: "1px solid var(--ceramic)" }}
+            >
               {[
-                { icon: Truck,       label: "Free shipping",   sub: "Orders over $80"      },
-                { icon: RotateCcw,   label: "30-day returns",  sub: "No questions asked"   },
-                { icon: ShieldCheck, label: "Secure payment",  sub: "SSL encrypted"        },
-                { icon: Star,        label: "4.9 / 5 rating",  sub: "380 verified reviews" },
-              ].map(({ icon: Icon, label, sub }) => (
+                { icon: Truck,       label: "Free shipping", sub: "Orders $80+"       },
+                { icon: RotateCcw,   label: "30-day returns",sub: "No questions"      },
+                { icon: ShieldCheck, label: "Secure checkout",sub: "SSL encrypted"    },
+                { icon: Star,        label: "4.9 / 5",       sub: "380 reviews"       },
+              ].map(({ icon: Icon, label, sub }, idx, arr) => (
                 <div
                   key={label}
-                  className="flex items-center gap-2.5 rounded-xl p-3"
-                  style={{ background: "var(--surface-alt)" }}
+                  className="flex flex-col items-center gap-1.5 py-3.5 px-2 text-center"
+                  style={{
+                    borderRight: idx < arr.length - 1 ? "1px solid var(--ceramic)" : "none",
+                    background: "var(--canvas)",
+                  }}
                 >
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: "var(--green-xlight)" }}>
-                    <Icon size={13} style={{ color: "var(--green-accent)" }} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold" style={{ color: "var(--text-black)" }}>{label}</p>
-                    <p className="text-[10px]" style={{ color: "var(--text-black-soft)" }}>{sub}</p>
-                  </div>
+                  <Icon size={16} style={{ color: "var(--green-accent)" }} />
+                  <p className="text-[10px] font-bold leading-tight" style={{ color: "var(--green-house)" }}>{label}</p>
+                  <p className="text-[9px] leading-tight" style={{ color: "var(--text-black-soft)" }}>{sub}</p>
                 </div>
               ))}
             </div>
@@ -537,10 +579,20 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
         {/* Frequently bought together */}
         {bundleItems.length > 0 && (
-          <section className="mb-16 rounded-2xl p-6 lg:p-8" style={{ background: "var(--surface-alt)" }} aria-labelledby="bundle-heading">
-            <h2 id="bundle-heading" className="font-bold text-xl mb-6" style={{ color: "var(--green-bio)", letterSpacing: "-0.01em" }}>
-              Frequently bought together
-            </h2>
+          <section className="mb-16 rounded-2xl p-6 lg:p-8" style={{ background: "var(--green-xlight)", border: "1.5px solid var(--green-light)" }} aria-labelledby="bundle-heading">
+            <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+              <div>
+                <h2 id="bundle-heading" className="font-bold text-xl" style={{ color: "var(--green-house)", letterSpacing: "-0.01em" }}>
+                  Frequently bought together
+                </h2>
+                <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>
+                  Customers who viewed this also added these — bundle &amp; save 10%
+                </p>
+              </div>
+              <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
+                Save 10% on bundle
+              </span>
+            </div>
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
               {/* Current product thumbnail */}
               <div className="flex items-center gap-3">
@@ -594,10 +646,14 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 );
               })}
 
-              <div className="lg:ml-auto shrink-0">
+              <div className="lg:ml-auto shrink-0 flex flex-col items-end gap-1">
+                <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>
+                  Total: <span className="line-through">{formatPrice((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)).toFixed(2))}</span>
+                  {" "}<span className="font-bold" style={{ color: "var(--green-bio)" }}>{formatPrice(((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)) * 0.9).toFixed(2))}</span>
+                </p>
                 <button className="btn btn-primary gap-2" style={{ fontSize: 14, padding: "12px 24px" }}>
                   <ShoppingBag size={15} />
-                  Add bundle — save 10%
+                  Add all to cart — save 10%
                 </button>
               </div>
             </div>
@@ -677,13 +733,24 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
         {/* Reviews */}
         <section className="mb-16" aria-labelledby="pdp-reviews-heading">
-          <h2
-            id="pdp-reviews-heading"
-            className="font-bold text-2xl lg:text-3xl mb-6"
-            style={{ color: "var(--green-bio)", letterSpacing: "-0.01em" }}
-          >
-            Customer reviews
-          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+            <div>
+              <h2
+                id="pdp-reviews-heading"
+                className="font-bold text-2xl lg:text-3xl"
+                style={{ color: "var(--green-house)", letterSpacing: "-0.01em" }}
+              >
+                Customer reviews
+              </h2>
+            </div>
+            <div className="flex items-center gap-3 sm:ml-auto shrink-0">
+              <div className="flex flex-col items-center px-4 py-2.5 rounded-xl" style={{ background: "var(--green-xlight)" }}>
+                <span className="text-3xl font-bold" style={{ color: "var(--green-bio)", letterSpacing: "-0.02em" }}>4.9</span>
+                <Stars count={5} size={12} />
+                <span className="text-[10px] mt-0.5" style={{ color: "var(--text-black-soft)" }}>380 verified reviews</span>
+              </div>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {REVIEWS.map((r, i) => (
               <motion.div
@@ -733,7 +800,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
         )}
       </div>
 
-      {/* Sticky bottom bar — appears when add-to-cart scrolls out */}
+      {/* Sticky bottom bar — appears when add-to-cart scrolls out of view */}
       <AnimatePresence>
         {stickyVisible && (
           <motion.div
@@ -741,18 +808,36 @@ export function ProductPageClient({ product, related, slug }: Props) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
             transition={{ duration: 0.25, ease }}
-            className="fixed bottom-0 inset-x-0 z-[150] lg:hidden"
+            className="fixed bottom-0 inset-x-0 z-[150]"
             style={{ boxShadow: "var(--shadow-sticky)" }}
           >
-            <div className="flex items-center gap-3 px-4 py-4" style={{ background: "#fff" }}>
-              <div className="flex-1 min-w-0">
-                <p className="font-bold text-sm truncate" style={{ color: "var(--text-black)" }}>{product.title}</p>
-                <p className="text-sm font-bold" style={{ color: "var(--green-bio)" }}>{displayPrice}</p>
+            <div className="max-w-[1440px] mx-auto flex items-center gap-4 px-4 lg:px-10 py-3.5" style={{ background: "#fff" }}>
+              {/* Product info */}
+              <div className="hidden sm:flex items-center gap-3 flex-1 min-w-0">
+                <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 relative" style={{ background: galleries[0] }}>
+                  {shopifyImages[0] && (
+                    <Image src={shopifyImages[0].url} alt={product.title} fill sizes="40px" className="object-contain p-0.5" />
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="font-bold text-sm truncate" style={{ color: "var(--text-black)" }}>{product.title}</p>
+                  <p className="text-sm font-bold" style={{ color: "var(--green-bio)" }}>{displayPrice}</p>
+                </div>
               </div>
+              {/* Mobile — just title + price */}
+              <div className="sm:hidden flex-1 min-w-0">
+                <p className="font-bold text-sm truncate" style={{ color: "var(--text-black)" }}>{product.title}</p>
+                <p className="text-xs font-bold" style={{ color: "var(--green-bio)" }}>{displayPrice}</p>
+              </div>
+              {/* Trust hint */}
+              <p className="hidden lg:block text-xs font-semibold shrink-0" style={{ color: "var(--text-black-soft)" }}>
+                ✓ 30-day guarantee &nbsp;·&nbsp; Free shipping $80+
+              </p>
+              {/* CTA */}
               <button
                 onClick={handleAddToCart}
                 className="btn btn-primary gap-2 shrink-0"
-                style={{ fontSize: 14, padding: "12px 24px" }}
+                style={{ fontSize: 15, padding: "12px 28px", boxShadow: "0 2px 12px rgba(0,168,86,0.30)" }}
               >
                 <ShoppingBag size={15} />
                 Add to cart
