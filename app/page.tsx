@@ -1,7 +1,7 @@
 import { Hero }             from "@/components/hero";
 import { TrustBar }         from "@/components/trust-bar";
 import { FeaturedProducts } from "@/components/featured-products";
-import { HowItWorks }       from "@/components/how-it-works";
+import { ResultsShowcase }  from "@/components/results-showcase";
 import { ScienceSection }   from "@/components/science-section";
 import { Testimonials }     from "@/components/testimonials";
 import { CtaBanner }        from "@/components/cta-banner";
@@ -33,7 +33,7 @@ export default async function Home() {
         <Hero />
         <TrustBar />
         <FeaturedProducts products={featured} />
-        <HowItWorks />
+        <ResultsShowcase />
         <ScienceSection />
         <Testimonials />
         <CtaBanner />

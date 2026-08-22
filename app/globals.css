@@ -3,22 +3,22 @@
 /* ─── BioGardeners × Starbucks Design System ─── */
 :root {
   /* Four-tier green system */
-  --green-bio:    #006241;
-  --green-accent: #00754A;
-  --green-house:  #1E3932;
+  --green-bio:    #007845;
+  --green-accent: #00A856;
+  --green-house:  #152E27;
   --green-uplift: #2b5148;
-  --green-light:  #d4e9e2;
-  --green-xlight: #edf6f2;
+  --green-light:  #9FDFC3;
+  --green-xlight: #D8F2E6;
 
   /* Gold */
-  --gold:          #cba258;
-  --gold-light:    #dfc49d;
-  --gold-lightest: #fdf9f2;
+  --gold:          #D4911E;
+  --gold-light:    #EBC57A;
+  --gold-lightest: #FEF5E7;
 
-  /* Surfaces — WHITE canvas */
+  /* Surfaces */
   --canvas:        #ffffff;
-  --surface-alt:   #f6faf8;   /* very faint green-tinted white — alternate sections */
-  --ceramic:       #eef3f0;   /* separator wash */
+  --surface-alt:   #E8F5EE;   /* vivid green-tinted section bg */
+  --ceramic:       #C8E8D8;   /* separator wash */
   --white:         #ffffff;
 
   /* Text */
@@ -34,7 +34,7 @@
 
   /* Elevation */
   --shadow-card:   0 0 0 1px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-card-hover: 0 0 0 1px rgba(0,116,74,0.15), 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-card-hover: 0 0 0 1px rgba(0,168,86,0.20), 0 8px 24px rgba(0,0,0,0.12);
   --shadow-nav:    0 1px 0 rgba(0,0,0,0.08);
   --shadow-frap:   0 0 6px rgba(0,0,0,0.24), 0 8px 12px rgba(0,0,0,0.14);
   --shadow-sticky: 0 -1px 0 rgba(0,0,0,0.06), 0 -4px 20px rgba(0,0,0,0.08);
