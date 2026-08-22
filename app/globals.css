@@ -17,8 +17,8 @@
 
   /* Surfaces */
   --canvas:        #ffffff;
-  --surface-alt:   #E8F5EE;   /* vivid green-tinted section bg */
-  --ceramic:       #C8E8D8;   /* separator wash */
+  --surface-alt:   #ffffff;   /* all sections white */
+  --ceramic:       #e4ede8;   /* subtle separator */
   --white:         #ffffff;
 
   /* Text */
