@@ -67,8 +67,8 @@ const FAQS = [
   },
   {
     category: "Shipping",
-    q: "How do I get free shipping?",
-    a: "Standard shipping is free on all orders over $80. Orders under $80 incur a flat $8.95 shipping fee regardless of location. The Season Starter Kit ($89) automatically qualifies for free shipping.",
+    q: "How much does shipping cost?",
+    a: "We ship Australia wide for a flat rate of $17.95 per order, regardless of size or location. Standard delivery takes 3–5 business days.",
   },
   {
     category: "Shipping",

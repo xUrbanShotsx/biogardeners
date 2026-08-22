@@ -540,7 +540,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
               <span className="flex items-center gap-1.5">
                 <Truck size={13} style={{ color: "var(--green-accent)" }} />
-                Free shipping over $80
+                $17.95 flat rate shipping
               </span>
               <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
               <span className="flex items-center gap-1.5">
@@ -555,7 +555,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               style={{ border: "1px solid var(--ceramic)" }}
             >
               {[
-                { icon: Truck,       label: "Free shipping", sub: "Orders $80+"       },
+                { icon: Truck,       label: "Flat rate shipping", sub: "$17.95 AUS wide"  },
                 { icon: RotateCcw,   label: "30-day returns",sub: "No questions"      },
                 { icon: ShieldCheck, label: "Secure checkout",sub: "SSL encrypted"    },
                 { icon: Star,        label: "4.9 / 5",       sub: "380 reviews"       },
@@ -706,7 +706,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
                         ) : (
                           <div className="flex flex-col gap-3">
                             {[
-                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · Free over $80, otherwise $8.95" },
+                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · $17.95 flat rate, Australia wide" },
                               { icon: ShoppingBag, label: "Express shipping",  info: "1–2 business days · $14.95"                         },
                               { icon: RotateCcw,   label: "Returns",           info: "30-day returns for unopened products. Contact us for damaged goods." },
                             ].map(({ icon: Icon, label, info }) => (
@@ -831,7 +831,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </div>
               {/* Trust hint */}
               <p className="hidden lg:block text-xs font-semibold shrink-0" style={{ color: "var(--text-black-soft)" }}>
-                ✓ 30-day guarantee &nbsp;·&nbsp; Free shipping $80+
+                ✓ 30-day guarantee &nbsp;·&nbsp; $17.95 flat rate shipping
               </p>
               {/* CTA */}
               <button

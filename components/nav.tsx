@@ -177,7 +177,7 @@ export function Nav() {
             </div>
 
             <p className="mt-auto px-5 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Free shipping over $80 · Ships Australia wide
+              $17.95 flat rate shipping · Australia wide
             </p>
           </motion.div>
         )}

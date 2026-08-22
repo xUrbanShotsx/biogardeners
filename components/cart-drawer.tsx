@@ -2,10 +2,12 @@
 
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles } from "lucide-react";
+import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles, Truck } from "lucide-react";
 import { useCart, type CartItem } from "@/lib/cart-context";
 import { useAi } from "@/lib/ai-context";
 import { cartCheckoutMessage } from "@/lib/ai-messages";
+
+const SHIPPING = 17.95;
 
 /* ─── Per-product visual colours ─── */
 const PRODUCT_BG: Record<string, string> = {
@@ -157,8 +159,6 @@ function AiBubble({ compliment, tip, onDismiss }: { compliment: string; tip: str
 function DrawerPanel() {
   const { items, subtotal, count, closeCart, expandCart } = useCart();
   const { cartMessage, clearCartMessage } = useAi();
-  const freeShippingLeft = Math.max(0, 80 - subtotal);
-  const freeShippingPct  = Math.min(100, (subtotal / 80) * 100);
 
   return (
     <motion.div
@@ -209,27 +209,13 @@ function DrawerPanel() {
         </div>
       </div>
 
-      {/* Free shipping bar */}
+      {/* Shipping info strip */}
       {count > 0 && (
-        <div className="px-5 py-3 shrink-0" style={{ background: "var(--surface-alt)", borderBottom: "1px solid var(--ceramic)" }}>
-          {freeShippingLeft > 0 ? (
-            <p className="text-xs mb-1.5" style={{ color: "var(--text-black-soft)" }}>
-              Add <span className="font-bold" style={{ color: "var(--green-bio)" }}>${freeShippingLeft.toFixed(2)}</span> more for free shipping
-            </p>
-          ) : (
-            <p className="text-xs mb-1.5 font-semibold" style={{ color: "var(--green-bio)" }}>
-              ✓ You qualify for free shipping!
-            </p>
-          )}
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "var(--ceramic)" }}>
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: "var(--green-accent)" }}
-              initial={{ width: 0 }}
-              animate={{ width: `${freeShippingPct}%` }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-            />
-          </div>
+        <div className="px-5 py-2.5 shrink-0 flex items-center gap-2" style={{ background: "var(--green-xlight)", borderBottom: "1px solid var(--ceramic)" }}>
+          <Truck size={13} style={{ color: "var(--green-accent)", flexShrink: 0 }} />
+          <p className="text-xs font-semibold" style={{ color: "var(--green-house)" }}>
+            $17.95 flat rate shipping · Australia wide
+          </p>
         </div>
       )}
 
@@ -457,35 +443,13 @@ function FullscreenCart() {
                   <p className="text-xs font-bold uppercase tracking-[0.08em]" style={{ color: "var(--text-black-soft)" }}>Order summary</p>
                 </div>
                 <div className="px-6 py-5">
-                  {/* Free shipping progress */}
-                  <div className="mb-5 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
-                    {freeShippingLeft > 0 ? (
-                      <p className="text-xs mb-1.5" style={{ color: "var(--green-bio)" }}>
-                        <span className="font-bold">${freeShippingLeft.toFixed(2)}</span> away from free shipping
-                      </p>
-                    ) : (
-                      <p className="text-xs mb-1.5 font-bold" style={{ color: "var(--green-bio)" }}>✓ Free shipping unlocked!</p>
-                    )}
-                    <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.08)" }}>
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ background: "var(--green-accent)" }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(100, (subtotal / 80) * 100)}%` }}
-                        transition={{ duration: 0.5 }}
-                      />
-                    </div>
-                  </div>
-
                   <div className="flex justify-between text-sm mb-2">
                     <span style={{ color: "var(--text-black-soft)" }}>Subtotal</span>
                     <span className="font-semibold" style={{ color: "var(--text-black)" }}>${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm mb-5">
                     <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                    <span className="font-semibold" style={{ color: freeShippingLeft <= 0 ? "var(--green-bio)" : "var(--text-black)" }}>
-                      {freeShippingLeft <= 0 ? "Free" : "$8.95"}
-                    </span>
+                    <span className="font-semibold" style={{ color: "var(--text-black)" }}>$17.95</span>
                   </div>
 
                   <div
@@ -494,7 +458,7 @@ function FullscreenCart() {
                   >
                     <span style={{ color: "var(--text-black)" }}>Estimated total</span>
                     <span style={{ color: "var(--green-bio)" }}>
-                      ${(subtotal + (freeShippingLeft <= 0 ? 0 : 8.95)).toFixed(2)}
+                      ${(subtotal + SHIPPING).toFixed(2)}
                     </span>
                   </div>
 

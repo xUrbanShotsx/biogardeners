@@ -91,7 +91,7 @@ export default function CheckoutPage() {
       .catch(() => {});
   }, []);
 
-  const shipping = subtotal >= 80 ? 0 : 8.95;
+  const shipping = 17.95;
   const total = subtotal + shipping;
 
   const cartHandles = new Set(items.map(i => i.handle));
@@ -280,17 +280,10 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                <span className="font-semibold" style={{ color: shipping === 0 ? "var(--green-accent)" : "var(--text-black)" }}>
-                  {shipping === 0 ? "FREE" : formatPrice(shipping)}
+                <span className="font-semibold" style={{ color: "var(--text-black)" }}>
+                  {formatPrice(shipping)}
                 </span>
               </div>
-              {subtotal < 80 && (
-                <div className="flex items-center gap-2 mt-1 px-3 py-2 rounded-lg text-xs font-semibold"
-                  style={{ background: "var(--green-xlight)", color: "var(--green-bio)" }}>
-                  <Truck size={12} />
-                  Add {formatPrice(80 - subtotal)} more for <strong>free shipping</strong>
-                </div>
-              )}
               <div className="flex justify-between items-center pt-2" style={{ borderTop: "1px solid var(--ceramic)" }}>
                 <span className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Total</span>
                 <span className="text-lg font-bold" style={{ color: "var(--green-house)", fontFamily: "var(--font-serif)" }}>
@@ -337,15 +330,9 @@ export default function CheckoutPage() {
               <p className="text-4xl font-bold leading-none" style={{ color: "#fff", fontFamily: "var(--font-serif)" }}>
                 {formatPrice(total)}
               </p>
-              {shipping === 0 ? (
-                <p className="text-xs mt-2 font-semibold flex items-center gap-1" style={{ color: "var(--green-light)" }}>
-                  <Truck size={11} /> Free shipping included
-                </p>
-              ) : (
-                <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  + {formatPrice(shipping)} shipping
-                </p>
-              )}
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.45)" }}>
+                Includes $17.95 flat rate shipping
+              </p>
             </div>
 
             {/* CTA body */}
