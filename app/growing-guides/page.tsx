@@ -230,7 +230,7 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
           </div>
         </div>
 
-        <h3 className="font-bold text-lg mb-2" style={{ color: "var(--green-house)", letterSpacing: "-0.01em", lineHeight: 1.3 }}>
+        <h3 className="font-bold text-lg mb-2" style={{ color: "var(--green-accent)", letterSpacing: "-0.01em", lineHeight: 1.3 }}>
           {guide.title}
         </h3>
         <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-black-soft)" }}>
@@ -309,7 +309,7 @@ export default function GrowingGuidesPage() {
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Header band */}
-        <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
+        <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[1440px] mx-auto">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}>
               <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -335,9 +335,9 @@ export default function GrowingGuidesPage() {
                 onClick={() => setActiveCategory(cat)}
                 className="shrink-0 text-sm font-semibold px-5 py-2 rounded-full border transition-all duration-200"
                 style={{
-                  background:  activeCategory === cat ? "var(--green-house)" : "transparent",
+                  background:  activeCategory === cat ? "var(--green-accent)" : "transparent",
                   color:       activeCategory === cat ? "#fff" : "var(--text-black-soft)",
-                  borderColor: activeCategory === cat ? "var(--green-house)" : "var(--input-border)",
+                  borderColor: activeCategory === cat ? "var(--green-accent)" : "var(--input-border)",
                 }}
               >
                 {cat}

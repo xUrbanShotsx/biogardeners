@@ -143,7 +143,7 @@ export function Nav() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-[99] flex flex-col pb-10"
-            style={{ background: "var(--green-house)", paddingTop: "var(--nav-h)" }}
+            style={{ background: "var(--green-accent)", paddingTop: "var(--nav-h)" }}
           >
             <nav className="flex flex-col px-5 pt-4" aria-label="Mobile navigation">
               {links.map((l, i) => (
@@ -169,7 +169,7 @@ export function Nav() {
               <Link
                 href="/products"
                 className="w-full py-4 rounded-full font-bold text-sm flex items-center justify-center"
-                style={{ background: "var(--green-accent)", color: "#fff" }}
+                style={{ background: "#fff", color: "var(--green-accent)" }}
                 onClick={() => setMenuOpen(false)}
               >
                 Shop now

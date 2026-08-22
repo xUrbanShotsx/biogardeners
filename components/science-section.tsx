@@ -51,7 +51,7 @@ export function ScienceSection() {
       <section
         id="science"
         className="py-16 lg:py-24"
-        style={{ background: "var(--green-house)" }}
+        style={{ background: "var(--green-accent)" }}
         aria-labelledby="science-heading"
       >
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10">

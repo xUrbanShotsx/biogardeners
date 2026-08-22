@@ -60,7 +60,7 @@ export default function ShippingPage() {
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Header band */}
-        <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
+        <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[1440px] mx-auto">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}>
               <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -105,7 +105,7 @@ export default function ShippingPage() {
                   variants={stagger.item}
                   className="rounded-2xl p-6"
                   style={{
-                    background:  highlight ? "var(--green-house)" : "var(--surface-alt)",
+                    background:  highlight ? "var(--green-accent)" : "var(--surface-alt)",
                     boxShadow:   "var(--shadow-card)",
                     outline:     highlight ? "none" : "1px solid var(--ceramic)",
                   }}
@@ -163,7 +163,7 @@ export default function ShippingPage() {
               style={{ boxShadow: "var(--shadow-card)", border: "1px solid var(--ceramic)" }}
             >
               {/* Table header */}
-              <div className="grid grid-cols-3 px-6 py-3.5" style={{ background: "var(--green-house)" }}>
+              <div className="grid grid-cols-3 px-6 py-3.5" style={{ background: "var(--green-accent)" }}>
                 {["State / Territory", "Standard", "Express"].map((h) => (
                   <p key={h} className="text-xs font-bold uppercase tracking-[0.08em]" style={{ color: "rgba(255,255,255,0.60)" }}>{h}</p>
                 ))}
@@ -264,7 +264,7 @@ export default function ShippingPage() {
               <div className="flex items-start gap-3">
                 <ShieldCheck size={20} style={{ color: "var(--green-bio)", flexShrink: 0, marginTop: 2 }} />
                 <div>
-                  <p className="font-bold text-lg mb-1.5" style={{ color: "var(--green-house)" }}>30-day satisfaction guarantee</p>
+                  <p className="font-bold text-lg mb-1.5" style={{ color: "var(--green-accent)" }}>30-day satisfaction guarantee</p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--text-black-soft)" }}>
                     If you&apos;re unhappy with any BioGardeners product for any reason within 30 days of purchase, we&apos;ll refund you in full. No forms, no fine print. Unopened products can be returned for a full refund. Opened products are covered under our satisfaction guarantee — if it didn&apos;t work for your garden, we want to know.
                   </p>

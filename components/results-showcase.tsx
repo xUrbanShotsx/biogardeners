@@ -181,7 +181,7 @@ export function ResultsShowcase() {
             <h2
               id="results-heading"
               className="font-bold mb-2"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", color: "var(--green-house)", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", color: "var(--green-accent)", letterSpacing: "-0.02em" }}
             >
               Real gardens.{" "}
               <em className="font-serif" style={{ color: "var(--green-accent)", fontStyle: "italic" }}>Real results.</em>
@@ -198,7 +198,7 @@ export function ResultsShowcase() {
               disabled={offset === 0}
               className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background:   offset === 0 ? "var(--ceramic)" : "var(--green-house)",
+                background:   offset === 0 ? "var(--ceramic)" : "var(--green-accent)",
                 color:        offset === 0 ? "var(--text-black-soft)" : "#fff",
                 border:       "none",
                 cursor:       offset === 0 ? "default" : "pointer",
@@ -212,7 +212,7 @@ export function ResultsShowcase() {
               disabled={offset === maxOffset}
               className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background:   offset === maxOffset ? "var(--ceramic)" : "var(--green-house)",
+                background:   offset === maxOffset ? "var(--ceramic)" : "var(--green-accent)",
                 color:        offset === maxOffset ? "var(--text-black-soft)" : "#fff",
                 border:       "none",
                 cursor:       offset === maxOffset ? "default" : "pointer",

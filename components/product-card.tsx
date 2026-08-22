@@ -110,7 +110,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           <span
             className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-[0.05em]"
             style={{
-              background: badge === "Bestseller" ? "var(--green-accent)" : tag === "Bundle" ? "var(--gold)" : "var(--green-bio)",
+              background: badge === "Bestseller" ? "var(--green-accent)" : tag === "Bundle" ? "var(--gold)" : "var(--green-accent)",
               color: "#fff",
             }}
           >
@@ -165,7 +165,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           onClick={handleAddToCart}
           className="mt-1 w-full flex items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-all active:scale-[0.97]"
           style={{
-            background: adding ? "var(--green-bio)" : "var(--green-house)",
+            background: "var(--green-accent)",
             color: "#fff",
             boxShadow: adding ? "none" : "0 2px 12px rgba(0,0,0,0.18)",
           }}

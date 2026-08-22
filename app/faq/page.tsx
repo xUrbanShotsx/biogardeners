@@ -160,7 +160,7 @@ export default function FAQPage() {
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Header band */}
-        <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
+        <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[1440px] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -215,9 +215,9 @@ export default function FAQPage() {
                   onClick={() => { setActiveCategory(cat); setOpenIndex(null); }}
                   className="shrink-0 text-sm font-semibold px-4 py-2 rounded-full border transition-all duration-200"
                   style={{
-                    background:  activeCategory === cat ? "var(--green-house)" : "transparent",
+                    background:  activeCategory === cat ? "var(--green-accent)" : "transparent",
                     color:       activeCategory === cat ? "#fff" : "var(--text-black-soft)",
-                    borderColor: activeCategory === cat ? "var(--green-house)" : "var(--input-border)",
+                    borderColor: activeCategory === cat ? "var(--green-accent)" : "var(--input-border)",
                   }}
                 >
                   {cat}

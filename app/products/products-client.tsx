@@ -202,7 +202,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
           <span
             className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
             style={{
-              background: isBundle ? "var(--gold)" : "var(--green-house)",
+              background: isBundle ? "var(--gold)" : "var(--green-accent)",
               color: "#fff",
             }}
           >
@@ -274,7 +274,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
                 onClick={() => setSelectedVariant(i)}
                 className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-150"
                 style={{
-                  background:   selectedVariant === i ? "var(--green-house)" : "var(--ceramic)",
+                  background:   selectedVariant === i ? "var(--green-accent)" : "var(--ceramic)",
                   color:        selectedVariant === i ? "#fff" : "var(--text-black)",
                   boxShadow:    selectedVariant === i ? "0 0 0 2px var(--green-house)" : "none",
                 }}
@@ -303,7 +303,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
             onClick={handleAdd}
             className="flex items-center justify-center gap-1.5 font-bold rounded-full transition-all duration-200"
             style={{
-              background: addState === "added" ? "var(--green-accent)" : "var(--green-house)",
+              background: addState === "added" ? "var(--green-accent)" : "var(--green-accent)",
               color:      "#fff",
               fontSize:   13,
               padding:    "9px 18px",
@@ -371,7 +371,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
   return (
     <>
       {/* Page header */}
-      <div style={{ background: "var(--green-house)", paddingTop: "3.5rem", paddingBottom: "3rem" }}>
+      <div style={{ background: "var(--green-accent)", paddingTop: "3.5rem", paddingBottom: "3rem" }}>
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10">
           <h1
             className="font-bold mb-2"
@@ -411,7 +411,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                   onClick={() => setActiveFilter(label)}
                   className="whitespace-nowrap text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-200 shrink-0"
                   style={{
-                    background: activeFilter === label ? "var(--green-house)" : "transparent",
+                    background: activeFilter === label ? "var(--green-accent)" : "transparent",
                     color:      activeFilter === label ? "#fff" : "var(--text-black-soft)",
                     boxShadow:  activeFilter === label ? "none" : "inset 0 0 0 1px var(--input-border)",
                   }}
@@ -480,11 +480,11 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
-              <div className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "var(--green-house)" }}>
+              <div className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "var(--green-accent)" }}>
                 <Package size={22} color="#fff" />
               </div>
               <div>
-                <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-house)" }}>
+                <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-accent)" }}>
                   100% Australian owned and made
                 </p>
                 <p className="text-sm max-w-sm" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>

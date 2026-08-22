@@ -128,7 +128,7 @@ p { text-wrap: pretty; }
   color: #fff;
   border-color: var(--green-accent);
 }
-.btn-primary:hover { background: var(--green-bio); border-color: var(--green-bio); }
+.btn-primary:hover { background: #009148; border-color: #009148; }
 
 .btn-outline {
   background: transparent;

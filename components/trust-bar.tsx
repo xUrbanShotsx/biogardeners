@@ -18,7 +18,7 @@ export function TrustBar() {
   return (
     <div
       className="overflow-hidden"
-      style={{ background: "var(--green-bio)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+      style={{ background: "var(--green-accent)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
       aria-label="Trust signals"
     >
       <div

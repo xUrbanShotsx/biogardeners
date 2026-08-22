@@ -279,7 +279,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
     <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
       {/* Breadcrumb */}
-      <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-3.5">
+      <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-3.5">
         <div className="max-w-[1440px] mx-auto flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
           <Link href="/products" className="flex items-center gap-1.5 hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.55)" }}>
             <ArrowLeft size={13} />

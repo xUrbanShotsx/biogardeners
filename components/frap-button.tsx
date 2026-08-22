@@ -249,7 +249,7 @@ export function FrapButton() {
             {/* Header */}
             <div
               className="flex items-center justify-between px-3.5 py-2.5 flex-shrink-0"
-              style={{ background: "var(--green-house)" }}
+              style={{ background: "var(--green-accent)" }}
             >
               <div className="flex items-center gap-2">
                 <div className="rounded-full overflow-hidden flex-shrink-0"
@@ -338,7 +338,7 @@ export function FrapButton() {
                   <div
                     className="text-[13px] leading-relaxed rounded-xl px-3 py-2 max-w-[88%]"
                     style={m.role === "user"
-                      ? { background: "var(--green-house)", color: "#fff", fontWeight: 500 }
+                      ? { background: "var(--green-accent)", color: "#fff", fontWeight: 500 }
                       : { background: "#f3f4f3", color: "var(--text-black)", fontWeight: 500 }}
                   >
                     {m.text}
@@ -378,7 +378,7 @@ export function FrapButton() {
                 />
                 <button type="submit" disabled={!input.trim() || loading}
                   className="rounded-full p-1.5 flex-shrink-0 transition-opacity disabled:opacity-30"
-                  style={{ background: "var(--green-house)", color: "#fff" }}>
+                  style={{ background: "var(--green-accent)", color: "#fff" }}>
                   <Send size={13} />
                 </button>
               </form>
@@ -387,7 +387,7 @@ export function FrapButton() {
                 <button
                   onClick={openChatWithContext}
                   className="w-full flex items-center justify-center gap-2 rounded-full py-2 text-[13px] font-semibold transition-all hover:brightness-110"
-                  style={{ background: "var(--green-house)", color: "#fff" }}
+                  style={{ background: "var(--green-accent)", color: "#fff" }}
                 >
                   <MessageCircle size={13} />
                   Ask a question

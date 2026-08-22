@@ -27,7 +27,7 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      style={{ background: "var(--green-house)", color: "rgba(255,255,255,0.70)" }}
+      style={{ background: "var(--green-accent)", color: "rgba(255,255,255,0.70)" }}
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 pt-14 pb-10">
 

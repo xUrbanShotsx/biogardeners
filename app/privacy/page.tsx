@@ -104,7 +104,7 @@ export default function PrivacyPage() {
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
         {/* Header band */}
-        <div style={{ background: "var(--green-house)" }} className="px-6 lg:px-10 py-14">
+        <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-14">
           <div className="max-w-[860px] mx-auto">
             <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
               Legal

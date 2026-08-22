@@ -61,7 +61,7 @@ function ImpulseCard({
           className="mt-auto w-full flex items-center justify-center gap-1 py-1.5 rounded-lg text-[10px] font-bold transition-all"
           style={inCart
             ? { background: "var(--green-xlight)", color: "var(--green-bio)" }
-            : { background: "var(--green-house)", color: "#fff" }
+            : { background: "var(--green-accent)", color: "#fff" }
           }
         >
           {inCart ? <><Check size={9} /> Added</> : <><Plus size={9} /> Add</>}
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
           </div>
           <Link href="/products"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white"
-            style={{ background: "var(--green-bio)" }}>
+            style={{ background: "var(--green-accent)" }}>
             Browse products <ChevronRight size={13} />
           </Link>
         </div>
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
         </Link>
         {/* Step breadcrumb */}
         <div className="hidden sm:flex items-center gap-2 text-xs font-semibold">
-          <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-house)", color: "#fff" }}>
+          <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
             1 · Review
           </span>
           <span style={{ color: "var(--ceramic)" }}>›</span>
@@ -323,7 +323,7 @@ export default function CheckoutPage() {
           <div className="rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.10)" }}>
 
             {/* Dark header */}
-            <div className="px-6 py-5" style={{ background: "var(--green-house)" }}>
+            <div className="px-6 py-5" style={{ background: "var(--green-accent)" }}>
               <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>
                 Order total
               </p>
@@ -357,7 +357,7 @@ export default function CheckoutPage() {
                 onClick={handleCheckout}
                 disabled={status === "loading"}
                 className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-70"
-                style={{ background: "var(--green-bio)", boxShadow: "0 4px 18px rgba(0,98,65,0.35)" }}
+                style={{ background: "var(--green-accent)", boxShadow: "0 4px 18px rgba(0,98,65,0.35)" }}
               >
                 {status === "loading" ? (
                   <>

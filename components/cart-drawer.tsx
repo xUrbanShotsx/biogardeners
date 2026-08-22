@@ -131,7 +131,7 @@ function AiBubble({ compliment, tip, onDismiss }: { compliment: string; tip: str
         <div className="flex gap-2.5 items-start">
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-            style={{ background: "var(--green-house)" }}
+            style={{ background: "var(--green-accent)" }}
           >
             <Sparkles size={13} color="#fff" />
           </div>
@@ -267,7 +267,7 @@ function DrawerPanel() {
           <div className="flex gap-2.5 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
             <div
               className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-              style={{ background: "var(--green-house)" }}
+              style={{ background: "var(--green-accent)" }}
             >
               <Sparkles size={11} color="#fff" />
             </div>
@@ -332,7 +332,7 @@ function FullscreenCart() {
       {/* Top bar */}
       <div
         className="sticky top-0 z-10 flex items-center justify-between px-6 lg:px-10 py-4"
-        style={{ background: "var(--green-house)" }}
+        style={{ background: "var(--green-accent)" }}
       >
         <div className="flex items-center gap-3">
           <ShoppingBag size={18} color="#fff" />
@@ -466,7 +466,7 @@ function FullscreenCart() {
                   <div className="flex gap-3 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-                      style={{ background: "var(--green-house)" }}
+                      style={{ background: "var(--green-accent)" }}
                     >
                       <Sparkles size={13} color="#fff" />
                     </div>
