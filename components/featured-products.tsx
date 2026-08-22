@@ -8,7 +8,7 @@ import { type ShopifyProduct } from "@/lib/shopify";
 
 export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
   return (
-    <section className="py-16 lg:py-24" style={{ background: "var(--surface-alt)" }} aria-labelledby="products-heading">
+    <section className="py-12 lg:py-24" style={{ background: "var(--surface-alt)" }} aria-labelledby="products-heading">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
 
         {/* Header */}
@@ -47,7 +47,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
         </motion.div>
 
         {/* Grid — 4 products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
           {products.map((p, i) => (
             <motion.div
               key={p.id}

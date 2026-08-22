@@ -19,7 +19,7 @@ export function CtaBanner() {
     <>
       {/* Main CTA band */}
       <section
-        className="py-16 lg:py-24"
+        className="py-12 lg:py-24"
         style={{ background: "var(--green-accent)" }}
         aria-labelledby="cta-heading"
       >
@@ -34,7 +34,7 @@ export function CtaBanner() {
             <div>
               <h2
                 id="cta-heading"
-                className="font-bold text-4xl lg:text-5xl mb-4"
+                className="font-bold text-3xl lg:text-5xl mb-4"
                 style={{ color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.12 }}
               >
                 Grow more, waste less —<br />
@@ -48,11 +48,11 @@ export function CtaBanner() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-white-filled" style={{ fontSize: 16, padding: "15px 32px" }}>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
+              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-white-filled w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
                 Shop Bestseller
               </Link>
-              <Link href="/products" className="btn btn-outline-white" style={{ fontSize: 16, padding: "15px 32px" }}>
+              <Link href="/products" className="btn btn-outline-white w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
                 View all products
               </Link>
             </div>

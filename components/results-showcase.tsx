@@ -142,7 +142,7 @@ export function ResultsShowcase() {
 
   return (
     <section
-      className="py-16 lg:py-24 overflow-hidden"
+      className="py-12 lg:py-24 overflow-hidden"
       style={{ background: "var(--canvas)" }}
       aria-labelledby="results-heading"
       onMouseEnter={() => setPaused(true)}
@@ -151,8 +151,8 @@ export function ResultsShowcase() {
       {/* CSS vars for card dimensions — responsive */}
       <style>{`
         :root {
-          --card-w: min(84vw, 420px);
-          --card-h: 480px;
+          --card-w: calc(100vw - 3rem);
+          --card-h: 420px;
           --card-gap: 16px;
         }
         @media (min-width: 640px) {
@@ -191,8 +191,8 @@ export function ResultsShowcase() {
             </p>
           </div>
 
-          {/* Arrows */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Arrows — hidden on mobile, shown sm+ */}
+          <div className="hidden sm:flex items-center gap-3 shrink-0">
             <button
               onClick={prev}
               disabled={offset === 0}

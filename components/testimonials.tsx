@@ -83,7 +83,7 @@ function Stars({ count, size = 14 }: { count: number; size?: number }) {
 export function Testimonials() {
   return (
     <section
-      className="py-16 lg:py-24"
+      className="py-12 lg:py-24"
       style={{ background: "var(--surface-alt)" }}
       aria-labelledby="reviews-heading"
     >

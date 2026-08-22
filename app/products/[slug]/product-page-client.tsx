@@ -280,13 +280,13 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
       {/* Breadcrumb */}
       <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-3.5">
-        <div className="max-w-[1440px] mx-auto flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
-          <Link href="/products" className="flex items-center gap-1.5 hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <div className="max-w-[1440px] mx-auto flex items-center gap-2 text-sm min-w-0" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <Link href="/products" className="flex items-center gap-1.5 hover:text-white transition-colors shrink-0" style={{ color: "rgba(255,255,255,0.55)" }}>
             <ArrowLeft size={13} />
             All Products
           </Link>
-          <span>/</span>
-          <span style={{ color: "rgba(255,255,255,0.90)" }}>{product.title}</span>
+          <span className="shrink-0">/</span>
+          <span className="truncate" style={{ color: "rgba(255,255,255,0.90)" }}>{product.title}</span>
         </div>
       </div>
 
@@ -530,28 +530,29 @@ export function ProductPageClient({ product, related, slug }: Props) {
 
             {/* Post-ATC reassurance strip */}
             <div
-              className="flex items-center justify-center gap-4 flex-wrap py-3 px-4 rounded-xl mb-5 text-xs font-semibold"
+              className="flex items-center justify-around py-3 px-3 rounded-xl mb-5 text-xs font-semibold"
               style={{ background: "var(--green-xlight)", color: "var(--green-house)" }}
             >
               <span className="flex items-center gap-1.5">
                 <ShieldCheck size={13} style={{ color: "var(--green-accent)" }} />
-                30-day money-back guarantee
+                30-day guarantee
               </span>
               <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
               <span className="flex items-center gap-1.5">
                 <Truck size={13} style={{ color: "var(--green-accent)" }} />
-                $17.95 flat rate shipping
+                $17.95 flat rate
               </span>
               <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
               <span className="flex items-center gap-1.5">
                 <span className="text-[11px]">🇦🇺</span>
-                Australian made
+                <span className="hidden sm:inline">Australian made</span>
+                <span className="sm:hidden">AU made</span>
               </span>
             </div>
 
-            {/* Trust badges — horizontal strip */}
+            {/* Trust badges — 2×2 on mobile, 4-col on sm+ */}
             <div
-              className="grid grid-cols-4 gap-0 mb-6 rounded-xl overflow-hidden"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-0 mb-6 rounded-xl overflow-hidden"
               style={{ border: "1px solid var(--ceramic)" }}
             >
               {[
@@ -559,12 +560,12 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 { icon: RotateCcw,   label: "30-day returns",sub: "No questions"      },
                 { icon: ShieldCheck, label: "Secure checkout",sub: "SSL encrypted"    },
                 { icon: Star,        label: "4.9 / 5",       sub: "380 reviews"       },
-              ].map(({ icon: Icon, label, sub }, idx, arr) => (
+              ].map(({ icon: Icon, label, sub }, idx) => (
                 <div
                   key={label}
-                  className="flex flex-col items-center gap-1.5 py-3.5 px-2 text-center"
+                  className={`flex flex-col items-center gap-1.5 py-3.5 px-2 text-center ${idx % 2 === 0 ? "border-r" : ""} ${idx < 2 ? "border-b sm:border-b-0" : ""} ${idx < 3 ? "sm:border-r" : "sm:border-r-0 border-r-0"}`}
                   style={{
-                    borderRight: idx < arr.length - 1 ? "1px solid var(--ceramic)" : "none",
+                    borderColor: "var(--ceramic)",
                     background: "var(--canvas)",
                   }}
                 >
@@ -646,12 +647,12 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 );
               })}
 
-              <div className="lg:ml-auto shrink-0 flex flex-col items-end gap-1">
+              <div className="lg:ml-auto w-full lg:w-auto flex flex-col gap-1">
                 <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>
                   Total: <span className="line-through">{formatPrice((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)).toFixed(2))}</span>
                   {" "}<span className="font-bold" style={{ color: "var(--green-bio)" }}>{formatPrice(((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)) * 0.9).toFixed(2))}</span>
                 </p>
-                <button className="btn btn-primary gap-2" style={{ fontSize: 14, padding: "12px 24px" }}>
+                <button className="btn btn-primary gap-2 w-full lg:w-auto justify-center" style={{ fontSize: 14, padding: "12px 24px" }}>
                   <ShoppingBag size={15} />
                   Add all to cart — save 10%
                 </button>

@@ -131,7 +131,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
       </Link>
 
       {/* Info */}
-      <div className="flex flex-col flex-1 px-4 pt-3 pb-4 gap-2">
+      <div className="flex flex-col flex-1 px-2.5 sm:px-4 pt-2.5 sm:pt-3 pb-3 sm:pb-4 gap-1.5 sm:gap-2">
         {/* Rating */}
         {rating && (
           <div className="flex items-center gap-1.5">
@@ -141,29 +141,27 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
               ))}
             </div>
             <span className="text-[10px] font-semibold" style={{ color: "var(--text-black-soft)" }}>
-              {rating.avg} ({rating.count})
+              {rating.avg}
             </span>
           </div>
         )}
 
         {/* Title + Price */}
-        <div className="flex items-start justify-between gap-2">
-          <Link href={`/products/${product.handle}`}>
-            <h3 className="font-bold text-sm leading-snug hover:underline" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
-              {product.title}
-            </h3>
-          </Link>
-          <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
-        </div>
+        <Link href={`/products/${product.handle}`} className="block">
+          <h3 className="font-bold text-xs sm:text-sm leading-snug hover:underline" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
+            {product.title}
+          </h3>
+        </Link>
+        <span className="font-bold text-sm sm:text-base" style={{ color: "var(--green-bio)" }}>{price}</span>
 
-        <p className="text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
+        <p className="hidden sm:block text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
           {product.description}
         </p>
 
         {/* Add to cart — always visible */}
         <button
           onClick={handleAddToCart}
-          className="mt-1 w-full flex items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-all active:scale-[0.97]"
+          className="mt-0.5 w-full flex items-center justify-center gap-1.5 sm:gap-2 rounded-full font-bold text-xs sm:text-sm py-2 sm:py-2.5 transition-all active:scale-[0.97]"
           style={{
             background: "var(--green-accent)",
             color: "#fff",
@@ -172,12 +170,12 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
         >
           <AnimatePresence mode="wait" initial={false}>
             {adding ? (
-              <motion.span key="done" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1.5">
-                <Check size={14} /> Added!
+              <motion.span key="done" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1">
+                <Check size={13} /> <span className="hidden sm:inline">Added!</span><span className="sm:hidden">✓</span>
               </motion.span>
             ) : (
-              <motion.span key="add" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1.5">
-                <ShoppingBag size={14} /> Add to cart
+              <motion.span key="add" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1">
+                <ShoppingBag size={13} /> <span className="hidden sm:inline">Add to cart</span><span className="sm:hidden">Add</span>
               </motion.span>
             )}
           </AnimatePresence>
