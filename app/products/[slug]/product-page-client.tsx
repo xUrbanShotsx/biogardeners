@@ -434,9 +434,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
                       className={`variant-pill${activeVariant === i ? " active" : ""}`}
                     >
                       {v.label}
-                      {i === 0 && variants.length > 1 && (
-                        <span className="ml-1.5 text-[10px] opacity-60">best value</span>
-                      )}
                     </button>
                   ))}
                 </div>
