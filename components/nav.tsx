@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -19,8 +18,6 @@ export function Nav() {
   const { count: cartCount, openCart } = useCart();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
-  const pathname = usePathname();
-  const isHome   = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -34,15 +31,13 @@ export function Nav() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const transparent = isHome && !scrolled;
-
   return (
     <>
       <header
         className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500"
         style={{
-          height:    "var(--nav-h)",
-          background: transparent ? "transparent" : "#fff",
+          height:     "var(--nav-h)",
+          background: "#fff",
           boxShadow:  scrolled ? "0 1px 3px rgba(0,0,0,0.10),0 2px 2px rgba(0,0,0,0.06)" : "none",
         }}
       >
@@ -51,11 +46,11 @@ export function Nav() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-bold text-xl md:text-2xl shrink-0 transition-colors duration-500"
-            style={{ color: transparent ? "#fff" : "var(--green-bio)", letterSpacing: "-0.01em" }}
+            className="font-bold text-2xl md:text-3xl shrink-0"
+            style={{ color: "var(--green-bio)", letterSpacing: "-0.01em" }}
             aria-label="BioGardeners home"
           >
-            Bio<span style={{ color: transparent ? "rgba(255,255,255,0.72)" : "var(--green-house)" }}>Gardeners</span>
+            Bio<span style={{ color: "var(--green-house)" }}>Gardeners</span>
           </Link>
 
           {/* Desktop nav links */}
@@ -64,10 +59,10 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-base font-semibold whitespace-nowrap transition-colors duration-500"
-                style={{ color: transparent ? "rgba(255,255,255,0.85)" : "var(--text-black)", letterSpacing: "-0.01em" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = transparent ? "#fff" : "var(--green-accent)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = transparent ? "rgba(255,255,255,0.85)" : "var(--text-black)"; }}
+                className="text-lg font-semibold whitespace-nowrap transition-colors"
+                style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--green-accent)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-black)"; }}
               >
                 {l.label}
               </Link>
@@ -80,11 +75,11 @@ export function Nav() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative p-2 rounded-lg transition-colors duration-500"
-              style={{ color: transparent ? "rgba(255,255,255,0.85)" : "var(--text-black-soft)" }}
+              className="relative p-2 rounded-lg transition-colors"
+              style={{ color: "var(--text-black-soft)" }}
               aria-label={`Cart — ${cartCount} item${cartCount !== 1 ? "s" : ""}`}
             >
-              <ShoppingBag size={20} />
+              <ShoppingBag size={24} />
               <AnimatePresence>
                 {cartCount > 0 && (
                   <motion.span
@@ -105,30 +100,20 @@ export function Nav() {
 
             {/* Desktop CTA button */}
             <div className="hidden md:flex items-center">
-              {transparent ? (
-                <Link
-                  href="/products"
-                  className="font-bold px-5 py-2 rounded-full transition-all hover:brightness-110"
-                  style={{ background: "var(--green-accent)", color: "#fff", fontSize: 16, boxShadow: "0 2px 14px rgba(0,117,74,0.45)" }}
-                >
-                  Shop now
-                </Link>
-              ) : (
-                <Link href="/products" className="btn btn-primary" style={{ padding: "7px 16px", fontSize: 16 }}>
-                  Shop now
-                </Link>
-              )}
+              <Link href="/products" className="btn btn-primary" style={{ padding: "9px 20px", fontSize: 17 }}>
+                Shop now
+              </Link>
             </div>
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden p-2 rounded-lg transition-colors duration-500"
-              style={{ color: transparent ? "rgba(255,255,255,0.85)" : "var(--text-black-soft)" }}
+              className="md:hidden p-2 rounded-lg transition-colors"
+              style={{ color: "var(--text-black-soft)" }}
               onClick={() => setMenuOpen((o) => !o)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
             >
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
