@@ -91,8 +91,7 @@ export default function CheckoutPage() {
       .catch(() => {});
   }, []);
 
-  const shipping = 17.95;
-  const total = subtotal + shipping;
+  const total = subtotal;
 
   const cartHandles = new Set(items.map(i => i.handle));
   const suggestions = allProducts.filter(p => !cartHandles.has(p.handle)).slice(0, 5);
@@ -331,7 +330,7 @@ export default function CheckoutPage() {
                 {formatPrice(total)}
               </p>
               <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Includes $17.95 flat rate shipping
+                Shipping calculated at checkout
               </p>
             </div>
 

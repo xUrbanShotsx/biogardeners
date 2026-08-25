@@ -44,7 +44,7 @@ export function CtaBanner() {
               </h2>
               <p className="text-base max-w-[400px]" style={{ color: "rgba(255,255,255,0.68)", lineHeight: 1.65 }}>
                 Science-backed formulas crafted for Australian soil. Over 2,400 home gardeners
-                choose BioGardeners every season. Flat rate $17.95 shipping, Australia wide.
+                choose BioGardeners every season. Delivered across Australia.
               </p>
             </div>
 

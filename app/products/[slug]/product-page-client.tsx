@@ -471,10 +471,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
                 <span className="w-2 h-2 rounded-full animate-pulse shrink-0" style={{ background: "var(--red)" }} />
                 Only {stockLeft} left in stock
               </div>
-              <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--green-bio)" }}>
-                <Truck size={14} className="shrink-0" />
-                Order before 2pm AEST — ships today
-              </div>
             </div>
 
             {/* Quantity + Add to cart */}
@@ -537,11 +533,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </span>
               <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
               <span className="flex items-center gap-1.5">
-                <Truck size={13} style={{ color: "var(--green-accent)" }} />
-                $17.95 flat rate
-              </span>
-              <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
-              <span className="flex items-center gap-1.5">
                 <span className="text-[11px]">🇦🇺</span>
                 <span className="hidden sm:inline">Australian made</span>
                 <span className="sm:hidden">AU made</span>
@@ -554,7 +545,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               style={{ border: "1px solid var(--ceramic)" }}
             >
               {[
-                { icon: Truck,       label: "Flat rate shipping", sub: "$17.95 AUS wide"  },
+                { icon: Truck,       label: "Fast shipping",     sub: "Australia wide"    },
                 { icon: RotateCcw,   label: "30-day returns",sub: "No questions"      },
                 { icon: ShieldCheck, label: "Secure checkout",sub: "SSL encrypted"    },
                 { icon: Star,        label: "4.9 / 5",       sub: "380 reviews"       },
@@ -705,8 +696,8 @@ export function ProductPageClient({ product, related, slug }: Props) {
                         ) : (
                           <div className="flex flex-col gap-3">
                             {[
-                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · $17.95 flat rate, Australia wide" },
-                              { icon: ShoppingBag, label: "Express shipping",  info: "1–2 business days · $14.95"                         },
+                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · Australia wide" },
+                              { icon: ShoppingBag, label: "Express shipping",  info: "1–2 business days · available at checkout" },
                               { icon: RotateCcw,   label: "Returns",           info: "30-day returns for unopened products. Contact us for damaged goods." },
                             ].map(({ icon: Icon, label, info }) => (
                               <div key={label} className="flex items-start gap-3">
@@ -830,7 +821,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </div>
               {/* Trust hint */}
               <p className="hidden lg:block text-xs font-semibold shrink-0" style={{ color: "var(--text-black-soft)" }}>
-                ✓ 30-day guarantee &nbsp;·&nbsp; $17.95 flat rate shipping
+                ✓ 30-day guarantee &nbsp;·&nbsp; Ships Australia wide
               </p>
               {/* CTA */}
               <button

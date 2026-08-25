@@ -215,14 +215,6 @@ function DrawerPanel() {
         </div>
       </div>
 
-      {/* Shipping info strip */}
-      {count > 0 && (
-        <div className="px-5 py-2.5 shrink-0 flex items-center gap-2" style={{ background: "var(--green-xlight)", borderBottom: "1px solid var(--ceramic)" }}>
-          <Truck size={13} style={{ color: "var(--green-accent)", flexShrink: 0 }} />
-          <p className="text-xs font-semibold" style={{ color: "var(--green-house)" }}>
-            $17.95 flat rate shipping · Australia wide
-          </p>
-        </div>
       )}
 
       {/* AI message — appears when item is added */}
@@ -455,16 +447,16 @@ function FullscreenCart() {
                   </div>
                   <div className="flex justify-between text-sm mb-5">
                     <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                    <span className="font-semibold" style={{ color: "var(--text-black)" }}>$17.95</span>
+                    <span className="font-semibold" style={{ color: "var(--text-black-soft)" }}>Calculated at checkout</span>
                   </div>
 
                   <div
                     className="flex justify-between text-base font-bold mb-6 pt-4"
                     style={{ borderTop: "1px solid var(--ceramic)" }}
                   >
-                    <span style={{ color: "var(--text-black)" }}>Estimated total</span>
+                    <span style={{ color: "var(--text-black)" }}>Subtotal</span>
                     <span style={{ color: "var(--green-bio)" }}>
-                      ${(subtotal + SHIPPING).toFixed(2)}
+                      ${subtotal.toFixed(2)}
                     </span>
                   </div>
 
