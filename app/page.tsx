@@ -10,7 +10,12 @@ import { Footer }           from "@/components/footer";
 import { FrapButton }       from "@/components/frap-button";
 import { getProducts, DEMO_PRODUCTS } from "@/lib/shopify";
 
-const BESTSELLER_HANDLE = "gp-fertiliser-premium-garden-lawn";
+const FEATURED_HANDLES = [
+  "gp-fertiliser-premium-garden-lawn",
+  "lawn-fertilizer-premium-granulated-concentrated",
+  "penetrator",
+  "plant-spray",
+];
 
 export default async function Home() {
   let allProducts;
@@ -21,10 +26,9 @@ export default async function Home() {
     allProducts = DEMO_PRODUCTS;
   }
 
-  // Pin GP Fertiliser first, then fill remaining 3 slots from the rest
-  const bestseller = allProducts.find((p) => p.handle === BESTSELLER_HANDLE);
-  const rest       = allProducts.filter((p) => p.handle !== BESTSELLER_HANDLE);
-  const featured   = bestseller ? [bestseller, ...rest].slice(0, 4) : allProducts.slice(0, 4);
+  // Show exactly these 4 products in order, regardless of Shopify sort
+  const byHandle = Object.fromEntries(allProducts.map((p) => [p.handle, p]));
+  const featured = FEATURED_HANDLES.map((h) => byHandle[h]).filter(Boolean);
 
   return (
     <>
