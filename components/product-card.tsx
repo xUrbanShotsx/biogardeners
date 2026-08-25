@@ -83,11 +83,12 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
     setAdding(true);
     const firstVariant = product.variants.edges[0]?.node;
     addItem({
-      id:      firstVariant?.id ?? product.id,
-      handle:  product.handle,
-      title:   product.title,
-      variant: firstVariant?.title ?? "Default",
-      price:   parseFloat(product.priceRange.minVariantPrice.amount),
+      id:       firstVariant?.id ?? product.id,
+      handle:   product.handle,
+      title:    product.title,
+      variant:  firstVariant?.title ?? "Default",
+      price:    parseFloat(product.priceRange.minVariantPrice.amount),
+      imageUrl: firstImg?.url,
     });
     setTimeout(() => setAdding(false), 1600);
   }

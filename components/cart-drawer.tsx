@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles, Truck } from "lucide-react";
 import { useCart, type CartItem } from "@/lib/cart-context";
@@ -33,18 +34,23 @@ const PRODUCT_LABEL: Record<string, { l1: string; l2: string }> = {
   "penetrator":                                     { l1: "Penetrator",     l2: "Soil Wetter"    },
 };
 
-function MiniProduct({ handle }: { handle: string }) {
-  const bg  = PRODUCT_BG[handle]  ?? "linear-gradient(140deg,#d4e9e2,#b0d0c4)";
-  const lbl = PRODUCT_LABEL[handle] ?? { l1: "BioGardeners", l2: "Product" };
+function MiniProduct({ handle, imageUrl }: { handle: string; imageUrl?: string }) {
+  const bg = PRODUCT_BG[handle] ?? "linear-gradient(140deg,#d4e9e2,#b0d0c4)";
   return (
-    <div className="w-16 h-16 rounded-xl shrink-0 flex items-center justify-center overflow-hidden" style={{ background: bg }}>
-      <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-9 h-auto drop-shadow" aria-hidden="true">
-        <rect x="10" y="18" width="60" height="74" rx="5" fill="#1E3932" />
-        <rect x="18" y="32" width="44" height="48" rx="3" fill="white" opacity="0.96" />
-        <text x="40" y="54" textAnchor="middle" fontFamily="sans-serif" fontWeight="700" fontSize="6.5" fill="#1E3932">{lbl.l1}</text>
-        <text x="40" y="64" textAnchor="middle" fontFamily="sans-serif" fontWeight="700" fontSize="6.5" fill="#1E3932">{lbl.l2}</text>
-        <ellipse cx="40" cy="94" rx="22" ry="3" fill="rgba(0,0,0,0.07)" />
-      </svg>
+    <div className="w-16 h-16 rounded-xl shrink-0 overflow-hidden" style={{ background: bg }}>
+      {imageUrl ? (
+        <div className="relative w-full h-full">
+          <Image src={imageUrl} alt={handle} fill sizes="64px" className="object-contain p-1.5" />
+        </div>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-9 h-auto drop-shadow" aria-hidden="true">
+            <rect x="10" y="18" width="60" height="74" rx="5" fill="#1E3932" />
+            <rect x="18" y="32" width="44" height="48" rx="3" fill="white" opacity="0.96" />
+            <ellipse cx="40" cy="94" rx="22" ry="3" fill="rgba(0,0,0,0.07)" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }
@@ -54,7 +60,7 @@ function CartItemRow({ item, compact = false }: { item: CartItem; compact?: bool
   const { updateQuantity, removeItem } = useCart();
   return (
     <div className={`flex items-start gap-3 ${compact ? "py-3" : "py-4"}`} style={{ borderBottom: "1px solid var(--ceramic)" }}>
-      <MiniProduct handle={item.handle} />
+      <MiniProduct handle={item.handle} imageUrl={item.imageUrl} />
       <div className="flex-1 min-w-0">
         <p className={`font-semibold leading-tight mb-0.5 ${compact ? "text-sm" : "text-base"}`} style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
           {item.title}
@@ -386,7 +392,7 @@ function FullscreenCart() {
                       >
                         {/* Fullscreen item row — bigger */}
                         <div className="flex items-center gap-4 py-5" style={{ borderBottom: "1px solid var(--ceramic)" }}>
-                          <MiniProduct handle={item.handle} />
+                          <MiniProduct handle={item.handle} imageUrl={item.imageUrl} />
                           <div className="flex-1 min-w-0">
                             <p className="font-semibold text-base mb-0.5" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
                               {item.title}

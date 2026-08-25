@@ -254,12 +254,13 @@ export function ProductPageClient({ product, related, slug }: Props) {
     setAddState("adding");
     const variant = variants[activeVariant];
     addItem({
-      id:      shopifyVarIds[activeVariant] ?? product.variants.edges[activeVariant]?.node.id ?? product.id,
-      handle:  product.handle,
-      title:   product.title,
-      variant: variant?.label ?? "Standard",
-      price:   parseFloat(variant?.price ?? currentPrice),
+      id:       shopifyVarIds[activeVariant] ?? product.variants.edges[activeVariant]?.node.id ?? product.id,
+      handle:   product.handle,
+      title:    product.title,
+      variant:  variant?.label ?? "Standard",
+      price:    parseFloat(variant?.price ?? currentPrice),
       quantity,
+      imageUrl: shopifyImages[0]?.url,
     });
     showCartMessage(product.handle, product.title, []);
     setTimeout(() => setAddState("added"), 600);

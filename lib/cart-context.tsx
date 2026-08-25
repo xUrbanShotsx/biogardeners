@@ -12,6 +12,7 @@ export interface CartItem {
   variant:  string;
   price:    number;
   quantity: number;
+  imageUrl?: string;
 }
 
 interface CartContextValue {
