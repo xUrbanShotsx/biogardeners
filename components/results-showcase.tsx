@@ -107,14 +107,16 @@ function SlideCard({ slide, index }: { slide: typeof SLIDES[0]; index: number })
   );
 }
 
+// Duplicate slides so the carousel can scroll into clones then silently snap back
+const LOOPED = [...SLIDES, ...SLIDES];
+
 export function ResultsShowcase() {
   const total    = SLIDES.length;
-  const [offset, setOffset] = useState(0); // 0-based index of leftmost visible card
+  const [offset, setOffset] = useState(0);
+  const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // How many cards to show depends on viewport — handled via CSS var
-  // For JS logic we use a simple clamp
   const visibleCount = useRef(3);
   useEffect(() => {
     function update() {
@@ -126,19 +128,30 @@ export function ResultsShowcase() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const maxOffset = total - 1;
+  // When we've scrolled into the duplicate copy, silently snap back to the real copy
+  useEffect(() => {
+    if (offset >= total) {
+      const t = setTimeout(() => {
+        setAnimated(false);
+        setOffset((o) => o - total);
+      }, 560);
+      return () => clearTimeout(t);
+    } else {
+      setAnimated(true);
+    }
+  }, [offset, total]);
 
-  const next = useCallback(() => setOffset((o) => Math.min(o + 1, maxOffset)), [maxOffset]);
-  const prev = useCallback(() => setOffset((o) => Math.max(o - 1, 0)), []);
+  const next = useCallback(() => setOffset((o) => o + 1), []);
+  const prev = useCallback(() => setOffset((o) => (o <= 0 ? total - 1 : o - 1)), [total]);
 
   // Auto-advance
   useEffect(() => {
     if (paused) return;
     const t = setInterval(() => {
-      setOffset((o) => (o >= maxOffset ? 0 : o + 1));
+      setOffset((o) => o + 1);
     }, 4500);
     return () => clearInterval(t);
-  }, [paused, maxOffset]);
+  }, [paused]);
 
   return (
     <section
@@ -195,13 +208,12 @@ export function ResultsShowcase() {
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <button
               onClick={prev}
-              disabled={offset === 0}
               className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background:   offset === 0 ? "var(--ceramic)" : "var(--green-accent)",
-                color:        offset === 0 ? "var(--text-black-soft)" : "#fff",
-                border:       "none",
-                cursor:       offset === 0 ? "default" : "pointer",
+                background: "var(--green-accent)",
+                color:      "#fff",
+                border:     "none",
+                cursor:     "pointer",
               }}
               aria-label="Previous"
             >
@@ -209,13 +221,12 @@ export function ResultsShowcase() {
             </button>
             <button
               onClick={next}
-              disabled={offset === maxOffset}
               className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
               style={{
-                background:   offset === maxOffset ? "var(--ceramic)" : "var(--green-accent)",
-                color:        offset === maxOffset ? "var(--text-black-soft)" : "#fff",
-                border:       "none",
-                cursor:       offset === maxOffset ? "default" : "pointer",
+                background: "var(--green-accent)",
+                color:      "#fff",
+                border:     "none",
+                cursor:     "pointer",
               }}
               aria-label="Next"
             >
@@ -224,41 +235,44 @@ export function ResultsShowcase() {
           </div>
         </div>
 
-        {/* Card track */}
+        {/* Card track — LOOPED renders slides twice for seamless wrap */}
         <div className="overflow-hidden">
           <motion.div
             ref={trackRef}
             className="flex"
             animate={{ x: `calc(-${offset} * (var(--card-w) + var(--card-gap)))` }}
-            transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={animated ? { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } : { duration: 0 }}
             style={{ gap: "var(--card-gap)" }}
           >
-            {SLIDES.map((slide, i) => (
-              <SlideCard key={i} slide={slide} index={i} />
+            {LOOPED.map((slide, i) => (
+              <SlideCard key={i} slide={slide} index={i % total} />
             ))}
           </motion.div>
         </div>
 
-        {/* Dot navigation */}
+        {/* Dot navigation — maps to real slide positions */}
         <div className="flex items-center justify-center gap-2 mt-8" role="tablist">
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === offset}
-              onClick={() => setOffset(i)}
-              style={{
-                width:        i === offset ? "28px" : "8px",
-                height:       "8px",
-                borderRadius: "4px",
-                background:   i === offset ? "var(--green-accent)" : "var(--ceramic)",
-                border:       "none",
-                cursor:       "pointer",
-                transition:   "all 0.3s ease",
-              }}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+          {SLIDES.map((_, i) => {
+            const active = (offset % total) === i;
+            return (
+              <button
+                key={i}
+                role="tab"
+                aria-selected={active}
+                onClick={() => setOffset(i)}
+                style={{
+                  width:        active ? "28px" : "8px",
+                  height:       "8px",
+                  borderRadius: "4px",
+                  background:   active ? "var(--green-accent)" : "var(--ceramic)",
+                  border:       "none",
+                  cursor:       "pointer",
+                  transition:   "all 0.3s ease",
+                }}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
