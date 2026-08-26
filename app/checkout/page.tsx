@@ -279,8 +279,8 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                <span className="font-semibold" style={{ color: "var(--text-black)" }}>
-                  {formatPrice(shipping)}
+                <span className="font-semibold" style={{ color: "var(--text-black-soft)" }}>
+                  Calculated at checkout
                 </span>
               </div>
               <div className="flex justify-between items-center pt-2" style={{ borderTop: "1px solid var(--ceramic)" }}>
