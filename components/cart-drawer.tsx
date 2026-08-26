@@ -215,8 +215,6 @@ function DrawerPanel() {
         </div>
       </div>
 
-      )}
-
       {/* AI message — appears when item is added */}
       <AnimatePresence>
         {cartMessage && count > 0 && (
