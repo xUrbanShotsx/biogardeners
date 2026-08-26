@@ -9,7 +9,7 @@ export function CtaBanner() {
       {/* Main CTA band */}
       <section
         className="py-12 lg:py-24"
-        style={{ background: "var(--green-accent)" }}
+        style={{ background: "#fff" }}
         aria-labelledby="cta-heading"
       >
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
@@ -24,24 +24,24 @@ export function CtaBanner() {
               <h2
                 id="cta-heading"
                 className="font-bold text-3xl lg:text-5xl mb-4"
-                style={{ color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.12 }}
+                style={{ color: "var(--green-bio)", letterSpacing: "-0.02em", lineHeight: 1.12 }}
               >
                 Grow more, waste less —<br />
-                <em className="font-serif" style={{ color: "var(--green-light)", fontStyle: "italic" }}>
+                <em className="font-serif" style={{ color: "var(--green-accent)", fontStyle: "italic" }}>
                   results you can see.
                 </em>
               </h2>
-              <p className="text-base max-w-[400px]" style={{ color: "rgba(255,255,255,0.68)", lineHeight: 1.65 }}>
+              <p className="text-base max-w-[400px]" style={{ color: "var(--text-black-soft)", lineHeight: 1.65 }}>
                 Science-backed formulas crafted for Australian soil. Over 2,400 home gardeners
                 choose BioGardeners every season. Delivered across Australia.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
-              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-white-filled w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
+              <Link href="/products/gp-fertiliser-premium-garden-lawn" className="btn btn-primary w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
                 Shop Bestseller
               </Link>
-              <Link href="/products" className="btn btn-outline-white w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
+              <Link href="/products" className="btn btn-outline w-full sm:w-auto justify-center" style={{ fontSize: 16, padding: "15px 32px" }}>
                 View all products
               </Link>
             </div>
