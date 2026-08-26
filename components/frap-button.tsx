@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, Send, MessageCircle } from "lucide-react";
+import { X, ArrowRight, Send, MessageCircle, Sprout } from "lucide-react";
 import { useAi, type SimpleRect } from "@/lib/ai-context";
 import { AI_HOVER } from "@/lib/ai-messages";
 
@@ -63,19 +63,6 @@ function PulseDot() {
   );
 }
 
-/* ─── Plant character ────────────────────────── */
-function PlantCharacter({ size = 72 }: { size?: number }) {
-  return (
-    <motion.div
-      style={{ width: size, height: size, flexShrink: 0 }}
-      animate={{ rotate: [-2, 2, -2] }}
-      transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/plant.png" alt="" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
-    </motion.div>
-  );
-}
 
 /* ═══════════════════════════════════════════════
    MAIN WIDGET
@@ -252,9 +239,9 @@ export function FrapButton() {
               style={{ background: "var(--green-accent)" }}
             >
               <div className="flex items-center gap-2">
-                <div className="rounded-full overflow-hidden flex-shrink-0"
-                  style={{ width: 30, height: 30, background: "rgba(255,255,255,0.10)" }}>
-                  <PlantCharacter size={30} />
+                <div className="rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ width: 30, height: 30, background: "rgba(255,255,255,0.15)" }}>
+                  <Sprout size={15} color="#fff" />
                 </div>
                 <div>
                   <p className="text-xs font-bold leading-none" style={{ color: "#fff" }}>Bio Advisor</p>
@@ -415,17 +402,17 @@ export function FrapButton() {
               else { openChatWithContext(); }
             }}
             aria-label="Bio Advisor"
-            className="relative flex items-center justify-center rounded-full overflow-hidden"
+            className="relative flex items-center justify-center rounded-full"
             style={{
-              width: 72, height: 72,
-              background: "#fff",
+              width: 56, height: 56,
+              background: "var(--green-accent)",
               boxShadow: (open || latchedProduct)
                 ? "0 0 0 4px rgba(0,171,85,0.28), 0 8px 24px rgba(0,0,0,0.24)"
                 : "0 4px 18px rgba(0,0,0,0.26)",
               transition: "box-shadow 0.3s ease",
             }}
           >
-            <PlantCharacter size={72} />
+            <Sprout size={26} color="#fff" />
             {latchedProduct && !open && (
               <span className="absolute inset-0 rounded-full animate-ping"
                 style={{ background: "var(--green-accent)", opacity: 0.18 }} />

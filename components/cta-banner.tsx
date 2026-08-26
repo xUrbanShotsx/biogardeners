@@ -1,20 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, ArrowRight } from "lucide-react";
 
 export function CtaBanner() {
-  const [email,     setEmail]     = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
-  }
-
   return (
     <>
       {/* Main CTA band */}
@@ -60,70 +49,6 @@ export function CtaBanner() {
         </div>
       </section>
 
-      {/* Email capture strip */}
-      <section
-        className="py-12"
-        style={{ background: "var(--green-bio)" }}
-        aria-labelledby="newsletter-heading"
-      >
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-between gap-6"
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: "rgba(255,255,255,0.15)" }}
-              >
-                <Mail size={18} color="#fff" />
-              </div>
-              <div>
-                <h3 id="newsletter-heading" className="font-bold text-lg" style={{ color: "#fff", letterSpacing: "-0.01em" }}>
-                  Get 10% off your first order
-                </h3>
-                <p className="text-sm" style={{ color: "rgba(255,255,255,0.70)" }}>
-                  Plus seasonal growing tips from our team — no spam, ever.
-                </p>
-              </div>
-            </div>
-
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-2 text-sm font-semibold"
-                style={{ color: "var(--green-light)" }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                You&apos;re in! Check your inbox.
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex gap-2 w-full sm:w-auto">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                  className="flex-1 sm:w-64 px-4 py-3 rounded-full text-sm font-medium border-0 outline-none"
-                  style={{ background: "rgba(255,255,255,0.15)", color: "#fff", caretColor: "#fff" }}
-                  aria-label="Email address"
-                />
-                <button type="submit" className="btn btn-white-filled gap-2 shrink-0" style={{ fontSize: 14, padding: "10px 22px" }}>
-                  Subscribe
-                  <ArrowRight size={14} />
-                </button>
-              </form>
-            )}
-          </motion.div>
-        </div>
-      </section>
     </>
   );
 }

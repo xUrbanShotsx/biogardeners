@@ -158,23 +158,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
-        className="absolute bottom-6 right-6 md:right-10 flex flex-col items-center gap-1.5"
-        aria-hidden="true"
-      >
-        <motion.div
-          animate={{ y: [0, 7, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-5 h-8 rounded-full flex items-start justify-center pt-1.5"
-          style={{ border: "1.5px solid rgba(255,255,255,0.35)" }}
-        >
-          <div className="w-[3px] h-2 rounded-full" style={{ background: "rgba(255,255,255,0.60)" }} />
-        </motion.div>
-      </motion.div>
 
     </section>
   );
