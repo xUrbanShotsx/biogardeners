@@ -4,7 +4,7 @@ import { useState } from "react"; // kept for QuickPickCard internal state
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Star, TrendingUp, Check, ArrowRight, Package } from "lucide-react";
+import { ShoppingBag, Star, TrendingUp, Check, Package } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { useAi }  from "@/lib/ai-context";
 import { type ShopifyProduct } from "@/lib/shopify";
@@ -143,10 +143,9 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
   imageAlt?: string;
 }) {
   const { addItem } = useCart();
-  const { showCartMessage, setHoveredProduct, setHoveredRect } = useAi();
+  const { showCartMessage } = useAi();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [addState, setAddState] = useState<"idle" | "added">("idle");
-  const [hovered, setHovered] = useState(false);
 
   const variants = VARIANTS[handle] ?? shopifyVariants;
   const variant  = variants[selectedVariant] ?? { label: "Standard", price: basePrice };
@@ -179,13 +178,6 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
       transition={{ delay: index * 0.06, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="flex flex-col rounded-[var(--radius-card)] overflow-hidden"
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
-      onMouseEnter={(e) => {
-        setHovered(true);
-        setHoveredProduct({ handle, title });
-        const r = e.currentTarget.getBoundingClientRect();
-        setHoveredRect({ top: r.top, left: r.left, right: r.right, bottom: r.bottom, width: r.width, height: r.height });
-      }}
-      onMouseLeave={() => { setHovered(false); setHoveredProduct(null); }}
     >
       {/* Image area */}
       <Link href={`/products/${handle}`} className="block">
@@ -341,19 +333,6 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
         </div>
       </div>
 
-      {/* View details footer */}
-      <Link
-        href={`/products/${handle}`}
-        className="flex items-center justify-between px-4 py-2.5 text-xs font-semibold transition-colors duration-150"
-        style={{
-          borderTop: "1px solid var(--ceramic)",
-          color: "var(--green-bio)",
-          background: "var(--surface-alt)",
-        }}
-      >
-        <span>View full details</span>
-        <ArrowRight size={12} />
-      </Link>
     </motion.article>
   );
 }
