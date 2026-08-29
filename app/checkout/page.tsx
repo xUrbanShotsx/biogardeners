@@ -17,6 +17,36 @@ function formatPrice(n: number) {
   return new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD" }).format(n);
 }
 
+/* ── Shared checkout header ─────────────────────── */
+function CheckoutHeader() {
+  return (
+    <header
+      className="flex items-center justify-between px-6 md:px-10 flex-shrink-0"
+      style={{
+        background: "#fff",
+        borderBottom: "1px solid var(--ceramic)",
+        boxShadow: "0 1px 0 rgba(0,0,0,0.04)",
+        height: 64,
+      }}
+    >
+      <Link href="/" aria-label="BioGardeners home">
+        <img src="/logo.svg" alt="BioGardeners" style={{ height: 30, width: "auto" }} />
+      </Link>
+      <div className="hidden sm:flex items-center gap-2 text-xs font-semibold">
+        <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
+          1 · Review
+        </span>
+        <span style={{ color: "var(--ceramic)" }}>›</span>
+        <span style={{ color: "var(--text-black-soft)" }}>2 · Payment</span>
+      </div>
+      <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--text-black-soft)" }}>
+        <Lock size={12} style={{ color: "var(--green-accent)" }} />
+        Secure Checkout
+      </div>
+    </header>
+  );
+}
+
 /* ── Impulse card ───────────────────────────────── */
 function ImpulseCard({
   product,
@@ -29,23 +59,21 @@ function ImpulseCard({
 }) {
   const firstVariant = product.variants.edges[0]?.node;
   const price = firstVariant ? parseFloat(firstVariant.price.amount) : 0;
-  const badge = product.tags[0];
+  const imgUrl = product.featuredImage?.url;
 
   return (
     <motion.div
       className="flex-shrink-0 w-40 rounded-xl overflow-hidden flex flex-col border"
       style={{ background: "#fff", borderColor: "var(--ceramic)" }}
-      whileHover={{ y: -3, borderColor: "var(--green-light)" }}
+      whileHover={{ y: -3, borderColor: "var(--green-accent)" }}
       transition={{ duration: 0.16, ease }}
     >
-      <div className="relative flex items-center justify-center h-20"
-        style={{ background: "var(--green-xlight)" }}>
-        <Leaf size={28} style={{ color: "var(--green-bio)", opacity: 0.45 }} />
-        {badge && (
-          <span className="absolute top-1.5 left-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide"
-            style={{ background: "var(--gold)", color: "#fff" }}>
-            {badge}
-          </span>
+      <div className="relative flex items-center justify-center h-24 overflow-hidden"
+        style={{ background: "var(--surface-alt)" }}>
+        {imgUrl ? (
+          <img src={imgUrl} alt={product.title} className="w-full h-full object-contain p-2" />
+        ) : (
+          <Leaf size={28} style={{ color: "var(--green-bio)", opacity: 0.35 }} />
         )}
       </div>
       <div className="p-2.5 flex flex-col flex-1 gap-1.5">
@@ -60,7 +88,7 @@ function ImpulseCard({
           disabled={inCart}
           className="mt-auto w-full flex items-center justify-center gap-1 py-1.5 rounded-lg text-[10px] font-bold transition-all"
           style={inCart
-            ? { background: "var(--green-xlight)", color: "var(--green-bio)" }
+            ? { background: "var(--surface-alt)", color: "var(--green-bio)" }
             : { background: "var(--green-accent)", color: "#fff" }
           }
         >
@@ -92,7 +120,6 @@ export default function CheckoutPage() {
   }, []);
 
   const total = subtotal;
-
   const cartHandles = new Set(items.map(i => i.handle));
   const suggestions = allProducts.filter(p => !cartHandles.has(p.handle)).slice(0, 5);
 
@@ -124,7 +151,14 @@ export default function CheckoutPage() {
   function handleImpulseAdd(product: ShopifyProduct) {
     const v = product.variants.edges[0]?.node;
     if (!v) return;
-    addItem({ id: v.id, handle: product.handle, title: product.title, variant: v.title, price: parseFloat(v.price.amount) });
+    addItem({
+      id: v.id,
+      handle: product.handle,
+      title: product.title,
+      variant: v.title,
+      price: parseFloat(v.price.amount),
+      imageUrl: product.featuredImage?.url,
+    });
   }
 
   if (!mounted) return null;
@@ -133,29 +167,20 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-screen flex flex-col" style={{ background: "var(--surface-alt)" }}>
-        {/* Header */}
-        <header className="flex items-center justify-between px-6 h-16 border-b"
-          style={{ background: "#fff", borderColor: "var(--ceramic)" }}>
-          <Link href="/" className="text-base font-bold" style={{ color: "var(--green-house)", fontFamily: "var(--font-serif)" }}>
-            BioGardeners
-          </Link>
-          <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--text-black-soft)" }}>
-            <Lock size={12} /> Secure Checkout
-          </div>
-        </header>
-        <div className="flex-1 flex flex-col items-center justify-center gap-5 p-8">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center"
-            style={{ background: "var(--ceramic)" }}>
-            <ShoppingBag size={28} style={{ color: "var(--green-bio)" }} />
+        <CheckoutHeader />
+        <div className="flex-1 flex flex-col items-center justify-center gap-6 p-8">
+          <div className="w-20 h-20 rounded-full flex items-center justify-center"
+            style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08)" }}>
+            <ShoppingBag size={32} style={{ color: "var(--green-accent)" }} />
           </div>
           <div className="text-center">
-            <h1 className="text-xl font-bold mb-1" style={{ color: "var(--green-house)" }}>Your cart is empty</h1>
-            <p className="text-sm" style={{ color: "var(--text-black-soft)" }}>Add products before checking out.</p>
+            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--green-house)" }}>Your cart is empty</h1>
+            <p className="text-sm" style={{ color: "var(--text-black-soft)" }}>Add some products before checking out.</p>
           </div>
           <Link href="/products"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white"
-            style={{ background: "var(--green-accent)" }}>
-            Browse products <ChevronRight size={13} />
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-bold text-white"
+            style={{ background: "var(--green-accent)", boxShadow: "0 4px 18px rgba(0,98,65,0.30)" }}>
+            Browse products <ChevronRight size={14} />
           </Link>
         </div>
       </div>
@@ -164,34 +189,15 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--surface-alt)" }}>
-
-      {/* ── Checkout header ─────────────────────── */}
-      <header className="flex items-center justify-between px-6 md:px-10 h-16 border-b flex-shrink-0"
-        style={{ background: "#fff", borderColor: "var(--ceramic)", boxShadow: "0 1px 0 rgba(0,0,0,0.04)" }}>
-        <Link href="/" className="text-base font-bold tracking-tight"
-          style={{ color: "var(--green-house)", fontFamily: "var(--font-serif)" }}>
-          BioGardeners
-        </Link>
-        {/* Step breadcrumb */}
-        <div className="hidden sm:flex items-center gap-2 text-xs font-semibold">
-          <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
-            1 · Review
-          </span>
-          <span style={{ color: "var(--ceramic)" }}>›</span>
-          <span style={{ color: "var(--text-black-soft)" }}>2 · Payment</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--text-black-soft)" }}>
-          <Lock size={12} style={{ color: "var(--green-accent)" }} /> Secure Checkout
-        </div>
-      </header>
+      <CheckoutHeader />
 
       {/* ── Main content ────────────────────────── */}
-      <div className="flex-1 w-full max-w-6xl mx-auto px-4 md:px-8 py-8 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 items-start">
+      <div className="flex-1 w-full max-w-5xl mx-auto px-4 md:px-8 py-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-start">
 
-        {/* ── Left: summary + impulse ─────────── */}
+        {/* ── Left column ─────────────────────── */}
         <div className="flex flex-col gap-5 min-w-0">
 
-          {/* Back link */}
+          {/* Back */}
           <button onClick={() => router.back()}
             className="self-start flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-60"
             style={{ color: "var(--green-bio)" }}>
@@ -199,15 +205,14 @@ export default function CheckoutPage() {
           </button>
 
           {/* Order items card */}
-          <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06)" }}>
+          <div className="rounded-2xl overflow-hidden"
+            style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.06)" }}>
 
             {/* Card header */}
-            <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ borderColor: "var(--ceramic)" }}>
-              <h2 className="text-sm font-bold" style={{ color: "var(--green-house)" }}>
-                Order Summary
-              </h2>
+            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--ceramic)" }}>
+              <h2 className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Order Summary</h2>
               <span className="text-xs px-2.5 py-1 rounded-full font-bold"
-                style={{ background: "var(--green-xlight)", color: "var(--green-bio)" }}>
+                style={{ background: "var(--surface-alt)", color: "var(--green-bio)", border: "1px solid var(--ceramic)" }}>
                 {items.length} {items.length === 1 ? "item" : "items"}
               </span>
             </div>
@@ -223,13 +228,19 @@ export default function CheckoutPage() {
                   transition={{ duration: 0.2, ease }}
                   className="overflow-hidden"
                 >
-                  <div className="flex items-center gap-3.5 px-5 py-3.5"
-                    style={{ borderBottom: idx < items.length - 1 ? `1px solid var(--ceramic)` : "none" }}>
-                    {/* Icon */}
-                    <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center"
-                      style={{ background: "var(--green-xlight)" }}>
-                      <Leaf size={17} style={{ color: "var(--green-bio)" }} />
+                  <div className="flex items-center gap-4 px-5 py-4"
+                    style={{ borderBottom: idx < items.length - 1 ? "1px solid var(--ceramic)" : "none" }}>
+
+                    {/* Product image */}
+                    <div className="w-14 h-14 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
+                      style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}>
+                      {item.imageUrl ? (
+                        <img src={item.imageUrl} alt={item.title} className="w-full h-full object-contain p-1.5" />
+                      ) : (
+                        <Leaf size={20} style={{ color: "var(--green-bio)", opacity: 0.5 }} />
+                      )}
                     </div>
+
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold leading-snug" style={{ color: "var(--green-house)" }}>
@@ -239,31 +250,33 @@ export default function CheckoutPage() {
                         <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>{item.variant}</p>
                       )}
                     </div>
-                    {/* Qty */}
-                    <div className="flex items-center gap-1.5 flex-shrink-0">
+
+                    {/* Qty controls */}
+                    <div className="flex items-center gap-1.5 flex-shrink-0"
+                      style={{ background: "var(--surface-alt)", borderRadius: 999, padding: "4px 8px", border: "1px solid var(--ceramic)" }}>
                       <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-[var(--green-light)]"
-                        style={{ border: "1px solid var(--input-border)" }}>
-                        <Minus size={10} style={{ color: "var(--green-house)" }} />
+                        className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
+                        <Minus size={9} style={{ color: "var(--green-house)" }} />
                       </button>
-                      <span className="w-6 text-center text-sm font-bold" style={{ color: "var(--text-black)" }}>
+                      <span className="w-5 text-center text-xs font-bold" style={{ color: "var(--text-black)" }}>
                         {item.quantity}
                       </span>
                       <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-[var(--green-light)]"
-                        style={{ border: "1px solid var(--input-border)" }}>
-                        <Plus size={10} style={{ color: "var(--green-house)" }} />
+                        className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
+                        <Plus size={9} style={{ color: "var(--green-house)" }} />
                       </button>
                     </div>
+
                     {/* Price */}
                     <span className="w-16 text-right text-sm font-bold flex-shrink-0"
                       style={{ color: "var(--green-bio)" }}>
                       {formatPrice(item.price * item.quantity)}
                     </span>
+
                     {/* Remove */}
                     <button onClick={() => removeItem(item.id)} aria-label="Remove"
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-[var(--red-light)]"
-                      style={{ color: "#ccc" }}>
+                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-red-50"
+                      style={{ color: "var(--ceramic)" }}>
                       <X size={13} />
                     </button>
                   </div>
@@ -271,22 +284,21 @@ export default function CheckoutPage() {
               ))}
             </AnimatePresence>
 
-            {/* Totals */}
-            <div className="px-5 py-4 space-y-2.5" style={{ borderTop: "1px solid var(--ceramic)", background: "var(--surface-alt)" }}>
+            {/* Totals footer */}
+            <div className="px-5 py-4 space-y-2.5"
+              style={{ borderTop: "1px solid var(--ceramic)", background: "var(--surface-alt)" }}>
               <div className="flex justify-between text-sm">
                 <span style={{ color: "var(--text-black-soft)" }}>Subtotal</span>
                 <span className="font-semibold" style={{ color: "var(--text-black)" }}>{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                <span className="font-semibold" style={{ color: "var(--text-black-soft)" }}>
-                  Calculated at checkout
-                </span>
+                <span className="font-semibold" style={{ color: "var(--green-bio)" }}>$15.95 flat rate</span>
               </div>
-              <div className="flex justify-between items-center pt-2" style={{ borderTop: "1px solid var(--ceramic)" }}>
+              <div className="flex justify-between items-center pt-2.5" style={{ borderTop: "1px solid var(--ceramic)" }}>
                 <span className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Total</span>
-                <span className="text-lg font-bold" style={{ color: "var(--green-house)", fontFamily: "var(--font-serif)" }}>
-                  {formatPrice(total)}
+                <span className="text-xl font-bold" style={{ color: "var(--green-house)" }}>
+                  {formatPrice(total + 15.95)}
                 </span>
               </div>
             </div>
@@ -294,10 +306,11 @@ export default function CheckoutPage() {
 
           {/* Impulse buys */}
           {suggestions.length > 0 && (
-            <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06)" }}>
-              <div className="flex items-center gap-2 px-5 py-3.5 border-b" style={{ borderColor: "var(--ceramic)" }}>
+            <div className="rounded-2xl overflow-hidden"
+              style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.06)" }}>
+              <div className="flex items-center gap-2 px-5 py-4 border-b" style={{ borderColor: "var(--ceramic)" }}>
                 <Sparkles size={13} style={{ color: "var(--gold)" }} />
-                <h3 className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Complete your garden</h3>
+                <h3 className="text-sm font-bold" style={{ color: "var(--green-house)" }}>You might also like</h3>
               </div>
               <div className="p-4">
                 <div className="flex gap-3 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
@@ -315,22 +328,24 @@ export default function CheckoutPage() {
           )}
         </div>
 
-        {/* ── Right: payment panel ─────────────── */}
+        {/* ── Right: sticky panel ──────────────── */}
         <div className="lg:sticky lg:top-6 flex flex-col gap-4">
 
           {/* CTA card */}
-          <div className="rounded-2xl overflow-hidden" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.10)" }}>
+          <div className="rounded-2xl overflow-hidden"
+            style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.12)" }}>
 
             {/* Dark header */}
-            <div className="px-6 py-5" style={{ background: "var(--green-accent)" }}>
-              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <div className="px-6 py-6" style={{ background: "var(--green-house)" }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-2"
+                style={{ color: "rgba(255,255,255,0.40)", letterSpacing: "0.12em" }}>
                 Order total
               </p>
-              <p className="text-4xl font-bold leading-none" style={{ color: "#fff", fontFamily: "var(--font-serif)" }}>
-                {formatPrice(total)}
+              <p className="text-4xl font-bold leading-none mb-1" style={{ color: "#fff" }}>
+                {formatPrice(total + 15.95)}
               </p>
-              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Shipping calculated at checkout
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.40)" }}>
+                Includes $15.95 flat rate shipping
               </p>
             </div>
 
@@ -345,7 +360,7 @@ export default function CheckoutPage() {
                     className="mb-4 overflow-hidden"
                   >
                     <div className="px-3.5 py-3 rounded-xl text-xs font-semibold"
-                      style={{ background: "var(--red-light)", color: "var(--red)" }}>
+                      style={{ background: "#fff0f0", color: "#c0392b", border: "1px solid #fcc" }}>
                       {errorMsg}
                     </div>
                   </motion.div>
@@ -356,7 +371,7 @@ export default function CheckoutPage() {
                 onClick={handleCheckout}
                 disabled={status === "loading"}
                 className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-70"
-                style={{ background: "var(--green-accent)", boxShadow: "0 4px 18px rgba(0,98,65,0.35)" }}
+                style={{ background: "var(--green-accent)", boxShadow: "0 4px 18px rgba(0,98,65,0.30)" }}
               >
                 {status === "loading" ? (
                   <>
@@ -376,29 +391,29 @@ export default function CheckoutPage() {
                 )}
               </button>
 
-              <p className="text-center text-[11px] mt-3 leading-snug" style={{ color: "var(--text-black-soft)" }}>
-                Secured by Shopify · SSL encrypted
+              <p className="text-center text-[11px] mt-3" style={{ color: "var(--text-black-soft)" }}>
+                Secured by Shopify · 256-bit SSL
               </p>
             </div>
           </div>
 
           {/* Trust list */}
-          <div className="rounded-2xl px-5 py-4 flex flex-col gap-3"
+          <div className="rounded-2xl px-5 py-4 flex flex-col gap-3.5"
             style={{ background: "#fff", boxShadow: "0 0 0 1px rgba(0,0,0,0.05)" }}>
             {[
-              { icon: ShieldCheck, label: "SSL Encrypted", sub: "256-bit secure" },
-              { icon: Lock,        label: "Safe Payments",  sub: "Visa · MC · Apple Pay" },
-              { icon: Truck,       label: "Fast Dispatch",  sub: "1–2 business days" },
-              { icon: Leaf,        label: "100% Australian", sub: "Owned & made locally" },
+              { icon: ShieldCheck, label: "SSL Encrypted",    sub: "256-bit secure"          },
+              { icon: Lock,        label: "Safe Payments",    sub: "Visa · MC · Apple Pay"   },
+              { icon: Truck,       label: "$15.95 Flat Rate", sub: "Australia wide"           },
+              { icon: Leaf,        label: "100% Australian",  sub: "Owned & made locally"    },
             ].map(({ icon: Icon, label, sub }) => (
               <div key={label} className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center"
-                  style={{ background: "var(--green-xlight)" }}>
-                  <Icon size={13} style={{ color: "var(--green-bio)" }} />
+                <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center"
+                  style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}>
+                  <Icon size={14} style={{ color: "var(--green-bio)" }} />
                 </div>
-                <div className="flex items-baseline gap-1.5">
+                <div>
                   <span className="text-xs font-bold" style={{ color: "var(--green-house)" }}>{label}</span>
-                  <span className="text-[11px]" style={{ color: "var(--text-black-soft)" }}>· {sub}</span>
+                  <span className="text-[11px]" style={{ color: "var(--text-black-soft)" }}> · {sub}</span>
                 </div>
               </div>
             ))}
