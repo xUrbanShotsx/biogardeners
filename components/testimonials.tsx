@@ -202,25 +202,6 @@ export function Testimonials() {
         </div>
 
         {/* CTA row */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-8"
-          style={{ borderTop: "1px solid var(--ceramic)" }}
-        >
-          <p className="text-sm font-semibold" style={{ color: "var(--text-black-soft)" }}>
-            Join 2,400+ Australian gardeners seeing real results
-          </p>
-          <Link
-            href="/products"
-            className="btn btn-primary flex items-center gap-2 shrink-0"
-            style={{ fontSize: 15, padding: "12px 28px" }}
-          >
-            Shop all products <ArrowRight size={15} />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
