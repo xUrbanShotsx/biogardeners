@@ -59,7 +59,7 @@ function ImpulseCard({
 }) {
   const firstVariant = product.variants.edges[0]?.node;
   const price = firstVariant ? parseFloat(firstVariant.price.amount) : 0;
-  const imgUrl = product.featuredImage?.url;
+  const imgUrl = product.images.edges[0]?.node.url;
 
   return (
     <motion.div
@@ -157,7 +157,7 @@ export default function CheckoutPage() {
       title: product.title,
       variant: v.title,
       price: parseFloat(v.price.amount),
-      imageUrl: product.featuredImage?.url,
+      imageUrl: product.images.edges[0]?.node.url,
     });
   }
 
