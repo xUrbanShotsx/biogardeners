@@ -44,13 +44,8 @@ export function Nav() {
         <div className="max-w-[1440px] mx-auto px-4 md:px-10 h-full flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className="font-bold text-2xl md:text-3xl shrink-0"
-            style={{ color: "var(--green-bio)", letterSpacing: "-0.01em" }}
-            aria-label="BioGardeners home"
-          >
-            Bio<span style={{ color: "var(--green-house)" }}>Gardeners</span>
+          <Link href="/" className="shrink-0" aria-label="BioGardeners home">
+            <img src="/logo.svg" alt="BioGardeners" height={36} style={{ height: 36, width: "auto" }} />
           </Link>
 
           {/* Desktop nav links */}

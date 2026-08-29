@@ -35,13 +35,8 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12 pb-12" style={{ borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <Link
-              href="/"
-              className="font-bold text-xl"
-              style={{ color: "var(--green-light)", letterSpacing: "-0.01em" }}
-              aria-label="BioGardeners home"
-            >
-              BioGardeners
+            <Link href="/" aria-label="BioGardeners home">
+              <img src="/logo.svg" alt="BioGardeners" height={30} style={{ height: 30, width: "auto", filter: "brightness(0) invert(1)" }} />
             </Link>
             <p className="text-sm mt-4 max-w-[240px] leading-relaxed" style={{ color: "rgba(255,255,255,0.70)" }}>
               Precision-formulated garden nutrition for Australian home growers.
