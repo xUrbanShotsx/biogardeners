@@ -27,7 +27,7 @@ export function ScienceSection() {
     <section
       id="science"
       className="py-16 lg:py-24"
-      style={{ background: "var(--green-accent)" }}
+      style={{ background: "var(--green-house)" }}
       aria-labelledby="science-heading"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10">
@@ -40,21 +40,18 @@ export function ScienceSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.55)", letterSpacing: "0.12em" }}>
-              Our approach
-            </p>
             <h2
               id="science-heading"
               className="font-bold mb-6"
               style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)", color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.08 }}
             >
               The science behind{" "}
-              <em className="font-serif" style={{ color: "var(--green-light)", fontStyle: "italic" }}>
+              <em className="font-serif" style={{ color: "var(--green-accent)", fontStyle: "italic" }}>
                 every granule.
               </em>
             </h2>
 
-            <p className="text-base mb-10 max-w-[44ch]" style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.7 }}>
+            <p className="text-base mb-10 max-w-[44ch]" style={{ color: "rgba(255,255,255,0.60)", lineHeight: 1.7 }}>
               Most gardeners never see what&apos;s actually happening in their soil.
               We do. Our team of soil scientists and gardening experts analyse Australian
               growing conditions year-round to create formulas that actually work.
@@ -80,17 +77,17 @@ export function ScienceSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.08 + i * 0.10, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 className="flex gap-5 items-start"
-                style={{ background: "rgba(255,255,255,0.08)", borderRadius: "var(--radius-card)", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.10)" }}
+                style={{ background: "rgba(255,255,255,0.05)", borderRadius: "var(--radius-card)", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.08)" }}
               >
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                  style={{ background: "rgba(255,255,255,0.14)" }}
+                  style={{ background: "var(--green-accent)" }}
                 >
-                  <p.Icon size={18} color="rgba(255,255,255,0.92)" aria-hidden="true" />
+                  <p.Icon size={18} color="#fff" aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className="font-bold text-base mb-1.5" style={{ color: "#fff", letterSpacing: "-0.01em" }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>{p.body}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.58)" }}>{p.body}</p>
                 </div>
               </motion.div>
             ))}
