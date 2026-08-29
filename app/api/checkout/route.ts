@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ checkoutUrl: cart.checkoutUrl });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Checkout failed";
+    console.error("[checkout]", message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

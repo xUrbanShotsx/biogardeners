@@ -128,12 +128,21 @@ export async function createCartWithItems(
             }
           }
         }
+        userErrors { field message }
       }
     }
   `;
-  const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(mutation, {
+  const data = await shopifyFetch<{
+    cartCreate: { cart: ShopifyCart | null; userErrors: { field: string[]; message: string }[] }
+  }>(mutation, {
     input: { lines: lines.map(l => ({ merchandiseId: l.variantId, quantity: l.quantity })) },
   });
+  if (data.cartCreate.userErrors?.length) {
+    throw new Error(data.cartCreate.userErrors.map(e => e.message).join(". "));
+  }
+  if (!data.cartCreate.cart) {
+    throw new Error("Shopify did not return a cart — please try again.");
+  }
   return data.cartCreate.cart;
 }
 
