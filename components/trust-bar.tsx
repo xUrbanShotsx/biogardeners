@@ -1,11 +1,11 @@
 "use client";
 
-import { Truck, RotateCcw, ShieldCheck, Leaf, Star, Clock } from "lucide-react";
+import { Truck, ShieldCheck, Leaf, Star, Clock } from "lucide-react";
 
 const ITEMS = [
   { Icon: Star,        text: "4.9★ — 380+ verified reviews" },
   { Icon: Truck,       text: "$15.95 flat rate · Australia wide" },
-  { Icon: RotateCcw,   text: "30-day money-back guarantee" },
+  { Icon: ShieldCheck, text: "Australian Consumer Law protected" },
   { Icon: Leaf,        text: "100% Australian made" },
   { Icon: ShieldCheck, text: "SSL encrypted checkout" },
   { Icon: Clock,       text: "Visible results in 10 days" },

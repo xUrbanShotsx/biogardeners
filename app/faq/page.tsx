@@ -78,7 +78,7 @@ const FAQS = [
   {
     category: "Returns",
     q: "What is your returns policy?",
-    a: "We offer 30-day returns on all unopened products in original packaging. If you're unsatisfied for any reason, contact us at hello@biogardeners.com.au and we'll arrange a return and full refund, no questions asked.",
+    a: "All sales are final. We do not accept change-of-mind returns or exchanges. If your order arrives damaged, faulty, or not as described, email hello@biogardeners.com.au within 48 hours of delivery with your order number and photos, and we'll arrange a remedy as required by Australian Consumer Law.",
   },
   {
     category: "Returns",
@@ -87,8 +87,8 @@ const FAQS = [
   },
   {
     category: "Returns",
-    q: "My plants didn't improve — can I get a refund?",
-    a: "Results depend on multiple factors including existing soil conditions, climate, and application method. If you followed our application guide and didn't see improvement within 30 days, contact us — we'll troubleshoot together and, if we can't help, we'll refund you in full.",
+    q: "My plants didn't improve — what should I do?",
+    a: "Results depend on multiple factors including existing soil conditions, climate, and application method. If you followed our application guide and aren't seeing improvement, email hello@biogardeners.com.au — our team will troubleshoot your situation and help you get the best from the product.",
   },
   {
     category: "Growing tips",

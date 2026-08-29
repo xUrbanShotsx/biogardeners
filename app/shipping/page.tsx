@@ -20,22 +20,18 @@ const STATES = [
   { state: "Remote",     delivery: "8–12 business days" },
 ];
 
-const RETURN_STEPS = [
+const FAULTY_STEPS = [
   {
-    n: "01", title: "Contact us",
-    body: "Email hello@biogardeners.com.au with your order number and reason for return. We respond within one business day.",
+    n: "01", title: "Contact us within 48 hrs",
+    body: "Email hello@biogardeners.com.au with your order number and photos of the damaged or faulty item within 48 hours of delivery.",
   },
   {
-    n: "02", title: "Pack it up",
-    body: "Repack the product in its original packaging if possible. We'll send you a prepaid return label for eligible returns.",
+    n: "02", title: "We assess your claim",
+    body: "Our team reviews your case within one business day and confirms the appropriate remedy under Australian Consumer Law.",
   },
   {
-    n: "03", title: "Drop it off",
-    body: "Take the parcel to any Australia Post outlet. Keep your receipt as proof of postage.",
-  },
-  {
-    n: "04", title: "Get your refund",
-    body: "Once we receive and inspect the return, your refund is processed within 2 business days to your original payment method.",
+    n: "03", title: "Remedy arranged",
+    body: "Where applicable, we'll arrange a replacement, repair, or remedy. We'll advise you on next steps once your claim is confirmed.",
   },
 ];
 
@@ -195,29 +191,32 @@ export default function ShippingPage() {
               </h2>
             </div>
 
-            {/* Guarantee callout */}
+            {/* No-returns callout */}
             <motion.div
               {...fade()}
               className="rounded-2xl p-6 lg:p-8 mb-8 flex items-start gap-4"
-              style={{ background: "var(--green-house)", border: "none" }}
+              style={{ background: "var(--green-house)" }}
             >
               <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                style={{ background: "var(--green-accent)" }}>
-                <ShieldCheck size={18} color="#fff" />
+                style={{ background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                <ShieldCheck size={18} color="rgba(255,255,255,0.70)" />
               </div>
               <div>
-                <p className="font-bold text-lg mb-2" style={{ color: "#fff" }}>30-day satisfaction guarantee</p>
+                <p className="font-bold text-lg mb-2" style={{ color: "#fff" }}>All sales are final</p>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.60)" }}>
-                  If you&apos;re unhappy with any BioGardeners product within 30 days of purchase, we&apos;ll refund you in full.
-                  No forms, no fine print. Unopened products return for a full refund. Opened products are covered under our
-                  satisfaction guarantee — if it didn&apos;t work for your garden, we want to know.
+                  We do not accept change-of-mind returns or exchanges. Please review your order carefully before completing purchase.
+                  If your order arrives damaged, faulty, or not as described, please contact us within 48 hours of delivery — we&apos;ll
+                  arrange a remedy in accordance with your rights under the Australian Consumer Law.
                 </p>
               </div>
             </motion.div>
 
-            {/* Return steps */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {RETURN_STEPS.map((s, i) => (
+            {/* Faulty goods process */}
+            <p className="text-sm font-semibold mb-4" style={{ color: "var(--text-black-soft)" }}>
+              Received a damaged or faulty item? Here&apos;s what to do:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {FAULTY_STEPS.map((s, i) => (
                 <motion.div
                   key={s.n}
                   {...fade(i * 0.08)}
@@ -232,7 +231,7 @@ export default function ShippingPage() {
                     {s.n}
                   </span>
                   <div className="inline-flex items-center justify-center w-7 h-7 rounded-full text-white text-xs font-bold mb-4"
-                    style={{ background: "var(--green-accent)" }}>
+                    style={{ background: "var(--green-bio)" }}>
                     {s.n}
                   </div>
                   <p className="font-bold text-sm mb-1.5" style={{ color: "var(--green-house)" }}>{s.title}</p>

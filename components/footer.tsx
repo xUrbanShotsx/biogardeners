@@ -47,7 +47,7 @@ const socials = [
 const trust = [
   "Australian-owned",
   "$15.95 flat rate shipping",
-  "30-day guarantee",
+  "Australian Consumer Law protected",
 ];
 
 export function Footer() {

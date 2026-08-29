@@ -58,10 +58,8 @@ const SECTIONS = [
     id:    "returns",
     title: "Returns and refunds",
     body: [
-      "We offer a 30-day satisfaction guarantee. If you are not satisfied with your purchase for any reason, contact us within 30 days of receiving your order.",
-      "Unopened products in original condition are eligible for a full refund including return postage.",
-      "For opened products, we will assess refund requests on a case-by-case basis under our satisfaction guarantee. We may ask for photos or additional information.",
-      "Refunds are processed to the original payment method within 2–5 business days of us receiving and inspecting the return.",
+      "All sales are final. We do not accept change-of-mind returns or exchanges.",
+      "If your order arrives damaged, faulty, or not as described, please email hello@biogardeners.com.au within 48 hours of delivery with your order number and photos of the issue. We will arrange a replacement or remedy as required.",
       "Nothing in these terms limits your rights under the Australian Consumer Law.",
     ],
   },

@@ -299,7 +299,7 @@ function DrawerPanel() {
           {/* Trust */}
           <div className="flex items-center justify-center gap-1 mt-3">
             <Leaf size={10} style={{ color: "var(--green-accent)" }} />
-            <p className="text-[10px]" style={{ color: "var(--text-black-soft)" }}>30-day returns · Secure checkout</p>
+            <p className="text-[10px]" style={{ color: "var(--text-black-soft)" }}>All sales final · Secure checkout</p>
           </div>
         </div>
       )}
@@ -493,7 +493,7 @@ function FullscreenCart() {
 
                   {/* Trust badges */}
                   <div className="mt-5 pt-4 flex flex-col gap-1.5" style={{ borderTop: "1px solid var(--ceramic)" }}>
-                    {["Secure checkout — SSL encrypted", "30-day satisfaction guarantee", "Australian made & owned"].map(t => (
+                    {["Secure checkout — SSL encrypted", "All sales final · no change-of-mind returns", "Australian made & owned"].map(t => (
                       <div key={t} className="flex items-center gap-2">
                         <Leaf size={10} style={{ color: "var(--green-accent)", flexShrink: 0 }} />
                         <p className="text-[11px]" style={{ color: "var(--text-black-soft)" }}>{t}</p>
