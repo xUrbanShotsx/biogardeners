@@ -257,7 +257,7 @@ function DrawerPanel() {
             <span className="text-sm font-semibold" style={{ color: "var(--text-black-soft)" }}>Subtotal</span>
             <span className="text-lg font-bold" style={{ color: "var(--green-bio)" }}>${subtotal.toFixed(2)}</span>
           </div>
-          <p className="text-[10px] mb-4" style={{ color: "var(--text-black-soft)" }}>Taxes and shipping calculated at checkout</p>
+          <p className="text-[10px] mb-4" style={{ color: "var(--text-black-soft)" }}>$15.95 flat rate shipping · Australia wide</p>
 
           {/* AI checkout encouragement */}
           <div className="flex gap-2.5 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>

@@ -23,7 +23,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full inline-block" style={{ background: "#4ade80" }} />
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--green-bio)" }}>
-                Ships Australia wide
+                $15.95 flat rate · Australia wide
               </span>
             </div>
             <h2
