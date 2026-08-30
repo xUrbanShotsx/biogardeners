@@ -194,7 +194,7 @@ export default function BundlesPage() {
                   {/* CTA */}
                   <div className="px-6 pb-6 mt-auto">
                     <Link
-                      href="/contact"
+                      href={`/contact?bundle=${encodeURIComponent(bundle.name)}`}
                       className="w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold transition-all hover:brightness-110"
                       style={{ background: "var(--green-house)", color: "#fff" }}
                     >

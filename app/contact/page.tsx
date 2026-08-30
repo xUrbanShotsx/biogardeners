@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, CheckCircle, Send, MapPin } from "lucide-react";
 import { Nav }    from "@/components/nav";
@@ -11,7 +12,10 @@ type Field = "firstName" | "lastName" | "mobile" | "email" | "notes";
 type FormData = Record<Field, string>;
 type FormErrors = Partial<Record<Field, string>>;
 
-const INITIAL: FormData = { firstName: "", lastName: "", mobile: "", email: "", notes: "" };
+function initialNotes(bundle: string | null): string {
+  if (!bundle) return "";
+  return `Hi, I'm interested in the ${bundle} and would like to know more. Can you please provide pricing and availability?`;
+}
 
 function validate(data: FormData): FormErrors {
   const errors: FormErrors = {};
@@ -25,8 +29,10 @@ function validate(data: FormData): FormErrors {
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-export default function ContactPage() {
-  const [form,    setForm]    = useState<FormData>(INITIAL);
+function ContactForm() {
+  const searchParams = useSearchParams();
+  const bundle = searchParams.get("bundle");
+  const [form,    setForm]    = useState<FormData>({ firstName: "", lastName: "", mobile: "", email: "", notes: initialNotes(bundle) });
   const [errors,  setErrors]  = useState<FormErrors>({});
   const [status,  setStatus]  = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
@@ -133,7 +139,7 @@ export default function ContactPage() {
                       <strong style={{ color: "var(--text-black)" }}>{form.email}</strong> within 1–2 business days.
                     </p>
                     <button
-                      onClick={() => { setForm(INITIAL); setErrors({}); setTouched({}); setStatus("idle"); }}
+                      onClick={() => { setForm({ firstName: "", lastName: "", mobile: "", email: "", notes: "" }); setErrors({}); setTouched({}); setStatus("idle"); }}
                       className="btn btn-outline mt-8"
                       style={{ fontSize: 14, padding: "10px 24px" }}
                     >
@@ -347,5 +353,13 @@ export default function ContactPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactForm />
+    </Suspense>
   );
 }
