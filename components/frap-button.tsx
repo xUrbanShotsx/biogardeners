@@ -242,7 +242,7 @@ export function FrapButton() {
   const panelStyle = (isMobile && open)
     ? { inset: 0, width: "100%", height: "100dvh", borderRadius: 0, maxHeight: "100dvh" }
     : open
-      ? { ...calcPanelStyle(null), maxHeight: "calc(100vh - 140px)" }
+      ? { ...calcPanelStyle(null), height: "calc(100vh - 140px)", maxHeight: "calc(100vh - 140px)" }
       : { ...calcPanelStyle(panelRect), maxHeight: "calc(100vh - 140px)" };
 
   return (
