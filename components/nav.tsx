@@ -9,7 +9,7 @@ import { useCart } from "@/lib/cart-context";
 
 const links = [
   { href: "/products",       label: "Products"       },
-  { href: "/#science",       label: "Science"        },
+  { href: "/bundles",        label: "Bundles"        },
   { href: "/growing-guides", label: "Growing Guides" },
   { href: "/contact",        label: "Contact"        },
 ];
