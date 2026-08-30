@@ -13,6 +13,17 @@ type Message     = { role: "user" | "advisor"; text: string; apiMsg?: ChatMessag
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 const PANEL_W = 304;
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return mobile;
+}
+
 /* ─── Panel position relative to card rect ──── */
 function calcPanelStyle(rect: SimpleRect | null): React.CSSProperties {
   if (!rect || typeof window === "undefined") {
@@ -69,6 +80,7 @@ function PulseDot() {
    ═══════════════════════════════════════════════ */
 export function FrapButton() {
   const { hoveredProduct, hoveredRect } = useAi();
+  const isMobile = useIsMobile();
 
   const [open, setOpen]             = useState(false);
   const [messages, setMessages]     = useState<Message[]>([]);
@@ -212,7 +224,11 @@ export function FrapButton() {
   const typedHover  = useTypewriter(open ? "" : hoverMsg);
 
   const showPanel  = open || !!latchedProduct;
-  const panelStyle = open ? calcPanelStyle(null) : calcPanelStyle(panelRect);
+  const panelStyle = (isMobile && open)
+    ? { inset: 0, width: "100%", height: "100dvh", borderRadius: 0, maxHeight: "100dvh" }
+    : open
+      ? { ...calcPanelStyle(null), maxHeight: "calc(100vh - 140px)" }
+      : { ...calcPanelStyle(panelRect), maxHeight: "calc(100vh - 140px)" };
 
   return (
     <>
@@ -221,41 +237,60 @@ export function FrapButton() {
         {showPanel && (
           <motion.div
             key="panel"
-            initial={{ opacity: 0, scale: 0.94, y: 10 }}
-            animate={{ opacity: 1, scale: 1,    y: 0  }}
-            exit={{   opacity: 0, scale: 0.96,  y: 6  }}
-            transition={{ duration: 0.22, ease }}
-            className="fixed z-[199] flex flex-col rounded-2xl overflow-hidden"
+            initial={isMobile && open ? { y: "100%" } : { opacity: 0, scale: 0.94, y: 10 }}
+            animate={isMobile && open ? { y: 0 }      : { opacity: 1, scale: 1,    y: 0  }}
+            exit={   isMobile && open ? { y: "100%" } : { opacity: 0, scale: 0.96, y: 6  }}
+            transition={isMobile && open
+              ? { duration: 0.32, ease: [0.32, 0.72, 0, 1] }
+              : { duration: 0.22, ease }}
+            className="fixed z-[199] flex flex-col overflow-hidden"
             style={{
-              width: PANEL_W,
-              maxHeight: "calc(100vh - 140px)",
-              boxShadow: "0 16px 56px rgba(0,0,0,0.22), 0 2px 10px rgba(0,0,0,0.10)",
+              width: isMobile && open ? undefined : PANEL_W,
+              borderRadius: isMobile && open ? 0 : 16,
+              boxShadow: isMobile && open
+                ? "none"
+                : "0 16px 56px rgba(0,0,0,0.22), 0 2px 10px rgba(0,0,0,0.10)",
               ...panelStyle,
             }}
           >
             {/* Header */}
             <div
-              className="flex items-center justify-between px-3.5 py-2.5 flex-shrink-0"
-              style={{ background: "var(--green-accent)" }}
+              className="flex items-center justify-between flex-shrink-0"
+              style={{
+                background: "var(--green-accent)",
+                padding: isMobile && open
+                  ? "env(safe-area-inset-top, 16px) 20px 16px"
+                  : "10px 14px",
+              }}
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <div className="rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ width: 30, height: 30, background: "rgba(255,255,255,0.15)" }}>
-                  <Sprout size={15} color="#fff" />
+                  style={{
+                    width: isMobile && open ? 38 : 30,
+                    height: isMobile && open ? 38 : 30,
+                    background: "rgba(255,255,255,0.15)",
+                  }}>
+                  <Sprout size={isMobile && open ? 20 : 15} color="#fff" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold leading-none" style={{ color: "#fff" }}>Bio Advisor</p>
-                  <p className="text-[10px] leading-none mt-0.5" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <p className={`font-bold leading-none ${isMobile && open ? "text-base" : "text-xs"}`} style={{ color: "#fff" }}>Bio Advisor</p>
+                  <p className="text-[11px] leading-none mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>
                     {open ? "Ask me anything" : "Hover insight"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <PulseDot />
                 <button onClick={closeAll} aria-label="Close"
-                  className="p-0.5 rounded opacity-60 hover:opacity-100 transition-opacity"
-                  style={{ color: "#fff" }}>
-                  <X size={14} />
+                  className="flex items-center justify-center rounded-full transition-opacity"
+                  style={{
+                    width: isMobile && open ? 36 : 24,
+                    height: isMobile && open ? 36 : 24,
+                    background: isMobile && open ? "rgba(255,255,255,0.18)" : "transparent",
+                    color: "#fff",
+                    opacity: isMobile && open ? 1 : 0.7,
+                  }}>
+                  <X size={isMobile && open ? 18 : 14} />
                 </button>
               </div>
             </div>
@@ -352,8 +387,13 @@ export function FrapButton() {
             {/* Input — shown in chat mode; in hover mode shows "Ask a question" button */}
             {open ? (
               <form onSubmit={sendMessage}
-                className="flex items-center gap-2 px-3 py-2.5 flex-shrink-0"
-                style={{ background: "#f9faf9", borderTop: "1px solid #e8ece8" }}>
+                className="flex items-center gap-2 px-3 flex-shrink-0"
+                style={{
+                  background: "#f9faf9",
+                  borderTop: "1px solid #e8ece8",
+                  paddingTop: 10,
+                  paddingBottom: isMobile ? "max(10px, env(safe-area-inset-bottom, 10px))" : 10,
+                }}>
                 <input
                   ref={inputRef}
                   value={input}
@@ -385,8 +425,9 @@ export function FrapButton() {
         )}
       </AnimatePresence>
 
-      {/* ── Avatar — always bottom-right ─────────── */}
-      <div className="fixed bottom-6 right-6 z-[200]">
+      {/* ── Avatar — hidden on mobile when fullscreen panel is open ── */}
+      <div className="fixed bottom-6 right-6 z-[200]"
+        style={{ display: isMobile && open ? "none" : undefined }}>
         <motion.div
           animate={open || latchedProduct ? { x: 0, y: 0 } : { x: wander.x, y: wander.y }}
           transition={{ type: "spring", stiffness: 38, damping: 16 }}
