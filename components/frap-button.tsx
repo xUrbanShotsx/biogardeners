@@ -423,8 +423,8 @@ export function FrapButton() {
                     onChange={e => setInput(e.target.value)}
                     placeholder="Ask about plants or soil…"
                     disabled={loading}
-                    className="bio-advisor-input flex-1 bg-transparent outline-none placeholder:text-gray-400"
-                    style={{ color: "var(--text-black)" }}
+                    className="flex-1 bg-transparent outline-none placeholder:text-gray-400"
+                    style={{ color: "var(--text-black)", fontSize: 16 }}
                   />
                   <button type="submit" disabled={!input.trim() || loading}
                     className="rounded-full flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30"

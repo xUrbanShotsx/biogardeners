@@ -80,6 +80,11 @@
 /* ─── Base Reset ─── */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Prevent iOS auto-zoom on input focus (requires font-size >= 16px) */
+@media (max-width: 767px) {
+  input, textarea, select { font-size: 16px !important; }
+}
+
 html {
   scroll-behavior: smooth;
   /* Prevent iOS momentum-scroll from triggering IntersectionObserver flicker */
