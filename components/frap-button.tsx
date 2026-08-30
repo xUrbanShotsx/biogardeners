@@ -239,11 +239,13 @@ export function FrapButton() {
   const typedHover  = useTypewriter(open ? "" : hoverMsg);
 
   const showPanel  = open || !!latchedProduct;
+  // Desktop: bottom:104px + nav(99px) + 16px gap = 219px total clearance needed
+  const DESKTOP_H = "calc(100vh - 220px)";
   const panelStyle = (isMobile && open)
     ? { inset: 0, width: "100%", height: "100dvh", borderRadius: 0, maxHeight: "100dvh" }
     : open
-      ? { ...calcPanelStyle(null), height: "calc(100vh - 140px)", maxHeight: "calc(100vh - 140px)" }
-      : { ...calcPanelStyle(panelRect), maxHeight: "calc(100vh - 140px)" };
+      ? { ...calcPanelStyle(null), height: DESKTOP_H, maxHeight: DESKTOP_H }
+      : { ...calcPanelStyle(panelRect), maxHeight: DESKTOP_H };
 
   return (
     <>
