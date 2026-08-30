@@ -423,11 +423,8 @@ export function FrapButton() {
                     onChange={e => setInput(e.target.value)}
                     placeholder="Ask about plants or soil…"
                     disabled={loading}
-                    className="flex-1 bg-transparent outline-none placeholder:text-gray-400"
-                    style={{
-                      color: "var(--text-black)",
-                      fontSize: isMobile ? 16 : 13,
-                    }}
+                    className="bio-advisor-input flex-1 bg-transparent outline-none placeholder:text-gray-400"
+                    style={{ color: "var(--text-black)" }}
                   />
                   <button type="submit" disabled={!input.trim() || loading}
                     className="rounded-full flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30"
@@ -497,6 +494,11 @@ export function FrapButton() {
       <style>{`
         @media (prefers-reduced-motion: reduce) {
           .animate-ping, .animate-pulse { animation: none !important; }
+        }
+        /* 16px prevents iOS auto-zoom on focus — must be CSS, not JS, to apply before first paint */
+        .bio-advisor-input { font-size: 16px; }
+        @media (min-width: 768px) {
+          .bio-advisor-input { font-size: 13px; }
         }
       `}</style>
     </>
