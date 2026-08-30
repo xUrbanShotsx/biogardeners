@@ -21,7 +21,7 @@ function calcPanelStyle(rect: SimpleRect | null): React.CSSProperties {
   const vw     = window.innerWidth;
   const vh     = window.innerHeight;
   const margin = 14;
-  const approxH = 400;
+  const approxH = 520;
 
   // Prefer right of card, flip left if needed
   let left = rect.right + margin;
@@ -228,7 +228,7 @@ export function FrapButton() {
             className="fixed z-[199] flex flex-col rounded-2xl overflow-hidden"
             style={{
               width: PANEL_W,
-              maxHeight: 500,
+              maxHeight: 580,
               boxShadow: "0 16px 56px rgba(0,0,0,0.22), 0 2px 10px rgba(0,0,0,0.10)",
               ...panelStyle,
             }}
