@@ -170,6 +170,21 @@ export function FrapButton() {
     if (open) setTimeout(() => inputRef.current?.focus(), 200);
   }, [open]);
 
+  /* Lock body scroll when mobile fullscreen is open */
+  useEffect(() => {
+    if (isMobile && open) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [isMobile, open]);
+
   /* Scroll to bottom on new message */
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -259,7 +274,7 @@ export function FrapButton() {
               style={{
                 background: "var(--green-accent)",
                 padding: isMobile && open
-                  ? "env(safe-area-inset-top, 16px) 20px 16px"
+                  ? "calc(env(safe-area-inset-top, 0px) + 14px) 20px 14px"
                   : "10px 14px",
               }}
             >
@@ -387,27 +402,44 @@ export function FrapButton() {
             {/* Input — shown in chat mode; in hover mode shows "Ask a question" button */}
             {open ? (
               <form onSubmit={sendMessage}
-                className="flex items-center gap-2 px-3 flex-shrink-0"
+                className="flex-shrink-0"
                 style={{
                   background: "#f9faf9",
                   borderTop: "1px solid #e8ece8",
-                  paddingTop: 10,
-                  paddingBottom: isMobile ? "max(10px, env(safe-area-inset-bottom, 10px))" : 10,
+                  padding: isMobile
+                    ? `12px 16px max(16px, env(safe-area-inset-bottom, 16px))`
+                    : "10px 12px",
                 }}>
-                <input
-                  ref={inputRef}
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  placeholder="Ask about plants or soil…"
-                  disabled={loading}
-                  className="flex-1 text-[13px] bg-transparent outline-none placeholder:text-gray-400"
-                  style={{ color: "var(--text-black)" }}
-                />
-                <button type="submit" disabled={!input.trim() || loading}
-                  className="rounded-full p-1.5 flex-shrink-0 transition-opacity disabled:opacity-30"
-                  style={{ background: "var(--green-accent)", color: "#fff" }}>
-                  <Send size={13} />
-                </button>
+                <div className="flex items-center gap-2"
+                  style={{
+                    background: "#fff",
+                    border: "1.5px solid #d0d9d5",
+                    borderRadius: 999,
+                    padding: isMobile ? "10px 10px 10px 16px" : "6px 6px 6px 12px",
+                  }}>
+                  <input
+                    ref={inputRef}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    placeholder="Ask about plants or soil…"
+                    disabled={loading}
+                    className="flex-1 bg-transparent outline-none placeholder:text-gray-400"
+                    style={{
+                      color: "var(--text-black)",
+                      fontSize: isMobile ? 16 : 13,
+                    }}
+                  />
+                  <button type="submit" disabled={!input.trim() || loading}
+                    className="rounded-full flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30"
+                    style={{
+                      background: "var(--green-accent)",
+                      color: "#fff",
+                      width: isMobile ? 40 : 28,
+                      height: isMobile ? 40 : 28,
+                    }}>
+                    <Send size={isMobile ? 16 : 13} />
+                  </button>
+                </div>
               </form>
             ) : (
               <div className="px-3 py-2.5 flex-shrink-0" style={{ background: "#f9faf9", borderTop: "1px solid #e8ece8" }}>
