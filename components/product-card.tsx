@@ -95,10 +95,10 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.07, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-white"
       style={{ boxShadow: "var(--shadow-card)" }}
     >

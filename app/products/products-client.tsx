@@ -365,10 +365,8 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
 
       {/* Product grid */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-8 md:py-12">
-        <motion.div
-          layout
+        <div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-6"
-          style={{}}
         >
           <AnimatePresence mode="popLayout">
             {products.map((p, i) => {
@@ -392,7 +390,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
               );
             })}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {/* Empty state */}
         {products.length === 0 && (

@@ -118,20 +118,17 @@ export function Nav() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
             className="fixed inset-0 z-[99] flex flex-col pb-10"
             style={{ background: "var(--green-accent)", paddingTop: "var(--nav-h)" }}
           >
             <nav className="flex flex-col px-5 pt-4" aria-label="Mobile navigation">
               {links.map((l, i) => (
-                <motion.div
+                <div
                   key={l.href}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.055, duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <Link
                     href={l.href}
@@ -141,7 +138,7 @@ export function Nav() {
                   >
                     {l.label}
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </nav>
 
