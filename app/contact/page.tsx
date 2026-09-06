@@ -58,10 +58,18 @@ function ContactForm() {
     setTouched({ firstName: true, lastName: true, mobile: true, email: true, notes: true });
     if (Object.keys(errs).length) return;
 
-    setStatus("sending");
-    // Simulate submission — replace with your email service (e.g. Resend, Formspree)
-    await new Promise((r) => setTimeout(r, 1200));
-    setStatus("sent");
+    try {
+      setStatus("sending");
+      const res = await fetch("/api/contact", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   const inputBase: React.CSSProperties = {
