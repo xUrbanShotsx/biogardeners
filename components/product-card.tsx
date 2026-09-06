@@ -157,7 +157,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
         </div>
 
-        <p className="text-xs line-clamp-1 sm:line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
+        <p className="hidden sm:block text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
           {product.description}
         </p>
 
