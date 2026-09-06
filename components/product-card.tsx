@@ -132,7 +132,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
       </Link>
 
       {/* Info */}
-      <div className="flex flex-col flex-1 px-4 pt-3 pb-4 gap-2">
+      <div className="flex flex-col flex-1 px-3 pt-2.5 pb-3 gap-1.5 sm:px-4 sm:pt-3 sm:pb-4 sm:gap-2">
         {/* Rating */}
         {rating && (
           <div className="flex items-center gap-1.5">
@@ -157,7 +157,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
         </div>
 
-        <p className="text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
+        <p className="text-xs line-clamp-1 sm:line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
           {product.description}
         </p>
 

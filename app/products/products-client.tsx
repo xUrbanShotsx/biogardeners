@@ -367,8 +367,8 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-8 md:py-12">
         <motion.div
           layout
-          className="grid gap-5 md:gap-6"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-6"
+          style={{}}
         >
           <AnimatePresence mode="popLayout">
             {products.map((p, i) => {
