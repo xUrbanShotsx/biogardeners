@@ -67,7 +67,7 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
   );
 }
 
-export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; index?: number }) {
+export function ProductCard({ product, index = 0, hideDescription = false }: { product: ShopifyProduct; index?: number; hideDescription?: boolean }) {
   const { addItem } = useCart();
   const [adding, setAdding] = useState(false);
   const price    = formatPrice(product.priceRange.minVariantPrice.amount);
@@ -157,9 +157,11 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
         </div>
 
-        <p className="hidden sm:block text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
-          {product.description}
-        </p>
+        {!hideDescription && (
+          <p className="hidden sm:block text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
+            {product.description}
+          </p>
+        )}
 
         {/* Add to cart — always visible */}
         <button

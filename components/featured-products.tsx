@@ -56,7 +56,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
             >
-              <ProductCard product={p} index={i} />
+              <ProductCard product={p} index={i} hideDescription />
             </motion.div>
           ))}
         </div>
