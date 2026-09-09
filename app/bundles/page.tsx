@@ -19,79 +19,81 @@ export const metadata: Metadata = {
 
 /* ── Per-bundle metadata matched by keywords in the product title ── */
 type BundleMeta = {
-  icon:    React.ElementType;
-  color:   string;
-  tag:     string;
-  includes: string[];
+  icon:      React.ElementType;
+  color:     string;
+  tag:       string;
+  includes:  string[];
+  fullPrice: number;
 };
 
 function getMeta(title: string): BundleMeta {
   const t = title.toLowerCase();
   if (t.includes("spring"))
     return {
-      icon: Sprout, color: "var(--green-accent)", tag: "Seasonal",
+      icon: Sprout, color: "var(--green-accent)", tag: "Seasonal", fullPrice: 98.00,
       includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "1L EcoSpray", "5kg Premium GP Fertiliser", "1L Penetrator"],
     };
   if (t.includes("summer"))
     return {
-      icon: Sun, color: "var(--gold)", tag: "Seasonal",
+      icon: Sun, color: "var(--gold)", tag: "Seasonal", fullPrice: 79.50,
       includes: ["5kg Premium GP Fertiliser", "1L EcoSpray", "1L NPK Liquid Fertiliser", "1L Bloom N Yield"],
     };
   if (t.includes("autumn"))
     return {
-      icon: Leaf, color: "#b35c1e", tag: "Seasonal",
+      icon: Leaf, color: "#b35c1e", tag: "Seasonal", fullPrice: 47.00,
       includes: ["1L NPK Liquid Fertiliser", "100g Glacial Milk", "5kg Premium GP Fertiliser"],
     };
   if (t.includes("winter"))
     return {
-      icon: Snowflake, color: "#4a8fa8", tag: "Seasonal",
+      icon: Snowflake, color: "#4a8fa8", tag: "Seasonal", fullPrice: 42.50,
       includes: ["1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "100g Glacial Milk"],
     };
   if (t.includes("regenerative"))
     return {
-      icon: RefreshCcw, color: "var(--green-bio)", tag: "Treatment",
+      icon: RefreshCcw, color: "var(--green-bio)", tag: "Treatment", fullPrice: 77.00,
       includes: ["5kg Premium GP Fertiliser", "1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "1L EcoSpray"],
     };
   if (t.includes("planting") && !t.includes("seed"))
     return {
-      icon: Shovel, color: "var(--green-accent)", tag: "Planting",
+      icon: Shovel, color: "var(--green-accent)", tag: "Planting", fullPrice: 47.00,
       includes: ["5kg Premium GP Fertiliser", "1L Liquid Soil Conditioner", "1L Liquid NPK Fertiliser"],
     };
   if (t.includes("seed"))
     return {
-      icon: Wheat, color: "var(--gold)", tag: "Seeds",
+      icon: Wheat, color: "var(--gold)", tag: "Seeds", fullPrice: 45.00,
       includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "100g Glacial Milk"],
     };
   if (t.includes("indoor"))
     return {
-      icon: Home, color: "var(--green-accent)", tag: "Indoor",
+      icon: Home, color: "var(--green-accent)", tag: "Indoor", fullPrice: 72.50,
       includes: ["1L Liquid NPK Fertiliser", "1L Soil Conditioner", "100g Glacial Milk", "1L EcoSpray"],
     };
   if (t.includes("insect") || t.includes("fungus"))
     return {
-      icon: Shield, color: "var(--green-bio)", tag: "Protection",
+      icon: Shield, color: "var(--green-bio)", tag: "Protection", fullPrice: 30.00,
       includes: ["1L EcoSpray"],
     };
   if (t.includes("clay") || t.includes("heavy"))
     return {
-      icon: Layers, color: "#7c5c3a", tag: "Soil",
+      icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 0,
       includes: ["4L Liquid Instant ClayBreaker", "1L Penetrator"],
     };
   if (t.includes("flower"))
     return {
-      icon: Flower2, color: "#c0527a", tag: "Flowering",
+      icon: Flower2, color: "#c0527a", tag: "Flowering", fullPrice: 45.00,
       includes: ["1L Bloom N Yield", "1L Liquid NPK Fertiliser", "100g Glacial Milk"],
     };
   return {
-    icon: Sprout, color: "var(--green-accent)", tag: "Bundle",
+    icon: Sprout, color: "var(--green-accent)", tag: "Bundle", fullPrice: 0,
     includes: [],
   };
 }
 
 function BundleCard({ product }: { product: ShopifyProduct }) {
-  const meta  = getMeta(product.title);
-  const Icon  = meta.icon;
-  const price = formatPrice(product.priceRange.minVariantPrice.amount);
+  const meta      = getMeta(product.title);
+  const Icon      = meta.icon;
+  const bundleAmt = parseFloat(product.priceRange.minVariantPrice.amount);
+  const saving    = meta.fullPrice > 0 ? +(meta.fullPrice - bundleAmt).toFixed(2) : 0;
 
   return (
     <div
@@ -107,21 +109,42 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
           >
             <Icon size={22} style={{ color: meta.color }} />
           </div>
-          <span
-            className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-            style={{ background: meta.color + "15", color: meta.color }}
-          >
-            {meta.tag}
-          </span>
+          <div className="flex items-center gap-2">
+            {saving > 0 && (
+              <span
+                className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                style={{ background: "#dcfce7", color: "#15803d" }}
+              >
+                Save ${saving.toFixed(2)}
+              </span>
+            )}
+            <span
+              className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+              style={{ background: meta.color + "15", color: meta.color }}
+            >
+              {meta.tag}
+            </span>
+          </div>
         </div>
 
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <h2 className="font-bold text-xl leading-snug" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
-            {product.title}
-          </h2>
-          <span className="font-bold text-xl shrink-0" style={{ color: "var(--green-bio)" }}>
-            {price}
+        <h2 className="font-bold text-xl leading-snug mb-3" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
+          {product.title}
+        </h2>
+
+        <div className="flex items-baseline gap-2.5 mb-3">
+          <span className="font-bold text-2xl" style={{ color: "var(--green-bio)" }}>
+            ${bundleAmt.toFixed(2)}
           </span>
+          {meta.fullPrice > 0 && (
+            <span className="text-sm line-through" style={{ color: "var(--text-black-soft)" }}>
+              ${meta.fullPrice.toFixed(2)}
+            </span>
+          )}
+          {saving > 0 && (
+            <span className="text-xs font-semibold" style={{ color: "#15803d" }}>
+              10% off
+            </span>
+          )}
         </div>
 
         {product.description && (
