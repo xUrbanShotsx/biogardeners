@@ -32,31 +32,13 @@ export function Hero() {
       {/* Content — centred lower third */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
 
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2.5 mb-5"
-        >
-          <span
-            className="text-[11px] font-bold px-3 py-1.5 rounded-full"
-            style={{ background: "var(--gold)", color: "#fff", letterSpacing: "0.07em" }}
-          >
-            ★ BESTSELLER
-          </span>
-          <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.70)" }}>
-            Australian made · 380+ reviews
-          </span>
-        </motion.div>
-
         {/* Headline */}
         <motion.h1
           id="hero-heading"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.42, duration: 0.80, ease: [0.16, 1, 0.3, 1] }}
-          className="font-bold mb-5"
+          transition={{ delay: 0.3, duration: 0.80, ease: [0.16, 1, 0.3, 1] }}
+          className="font-bold mb-7"
           style={{
             fontSize:      "clamp(2.8rem, 7vw, 6rem)",
             lineHeight:    1.04,
@@ -80,27 +62,15 @@ export function Hero() {
           </em>
         </motion.h1>
 
-        {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.56, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 max-w-[42ch]"
-          style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", color: "rgba(255,255,255,0.72)", lineHeight: 1.65 }}
-        >
-          Australian-made fertilisers and soil formulas backed by science.
-          Designed for Australian conditions, tested in real home gardens.
-        </motion.p>
-
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.68, duration: 0.55 }}
-          className="flex flex-wrap gap-3 mb-10"
+          transition={{ delay: 0.48, duration: 0.55 }}
+          className="flex flex-wrap gap-3"
         >
           <Link
-            href="/products/gp-fertiliser-premium-garden-lawn"
+            href="/products"
             className="flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm transition-all hover:brightness-110 active:scale-95"
             style={{
               background: "var(--green-accent)",
@@ -109,52 +79,21 @@ export function Hero() {
             }}
           >
             <ShoppingBag size={15} />
-            Shop Bestseller — from $17
+            Shop now
           </Link>
           <Link
-            href="/products"
+            href="/bundles"
             className="flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm transition-all"
             style={{
-              background:  "rgba(255,255,255,0.12)",
-              color:       "#fff",
-              border:      "1px solid rgba(255,255,255,0.22)",
+              background:     "rgba(255,255,255,0.12)",
+              color:          "#fff",
+              border:         "1px solid rgba(255,255,255,0.22)",
               backdropFilter: "blur(8px)",
             }}
           >
-            View all products
+            View bundles
             <ArrowRight size={14} />
           </Link>
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.85, duration: 0.6 }}
-          className="flex flex-wrap gap-6 md:gap-10"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.14)", paddingTop: "1.5rem" }}
-        >
-          {[
-            { value: "4.9★",    label: "Average rating"      },
-            { value: "380+",    label: "Verified reviews"     },
-            { value: "100%",    label: "Australian made"      },
-            { value: "10 days", label: "Avg. visible results" },
-          ].map((s) => (
-            <div key={s.label}>
-              <p
-                className="font-bold leading-none mb-1"
-                style={{
-                  fontSize:      "clamp(1.1rem, 2vw, 1.4rem)",
-                  color:         "#fff",
-                  fontFamily:    "var(--font-serif)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {s.value}
-              </p>
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>{s.label}</p>
-            </div>
-          ))}
         </motion.div>
       </div>
 
