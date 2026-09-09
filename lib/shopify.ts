@@ -87,6 +87,19 @@ export async function getProducts(first = 12) {
   return data.products.edges.map((e) => e.node);
 }
 
+export async function getProductsByTag(tag: string, first = 20) {
+  const query = `{
+    products(first: ${first}, query: "tag:${tag}", sortKey: TITLE) {
+      edges { node { ${PRODUCT_FRAGMENT} } }
+    }
+  }`;
+
+  const data = await shopifyFetch<{
+    products: { edges: { node: ShopifyProduct }[] };
+  }>(query);
+  return data.products.edges.map((e) => e.node);
+}
+
 export async function getProductByHandle(handle: string) {
   const query = `{
     productByHandle(handle: "${handle}") { ${PRODUCT_FRAGMENT} }

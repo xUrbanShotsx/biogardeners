@@ -3,98 +3,170 @@ import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { FrapButton } from "@/components/frap-button";
-import { Leaf, Droplets, Sun, Sprout, ArrowRight, Snowflake, RefreshCcw, Shovel, Wheat, Home, Shield } from "lucide-react";
+import { BundleAddToCart } from "./bundle-add-to-cart";
+import { getProductsByTag } from "@/lib/shopify";
+import { type ShopifyProduct } from "@/lib/shopify";
+import { formatPrice } from "@/lib/utils";
+import {
+  Leaf, Sun, Sprout, Snowflake, RefreshCcw,
+  Shovel, Wheat, Home, Shield, Layers, Flower2,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Care Bundles | BioGardeners",
   description: "Curated soil and fertiliser bundles for every garden type. Everything you need, matched and ready to go.",
 };
 
-const BUNDLES = [
-  {
-    name: "Spring Care Package",
-    tagline: "Wake up your soil and kickstart the growing season",
-    description: "Spring is when plants push new growth and soil biology reactivates after winter. This package remineralises the root zone with 60+ minerals, opens compacted soil so water and nutrients can penetrate, and delivers a fast foliar boost to get new growth strong from the start.",
-    includes: ["GP Fertiliser 5KG", "Volcanic Dust 2KG", "Penetrator 1L", "Plant Spray 500ml"],
-    icon: Sprout,
-    color: "var(--green-accent)",
-    tag: "Seasonal",
-  },
-  {
-    name: "Summer Care Package",
-    tagline: "Drought-tough, heat-resistant plants through Australian summers",
-    description: "Cobalt and silicon in our volcanic minerals thicken plant cell walls and raise plant sugar concentration — the two natural mechanisms that protect against heat stress, drought, and wilting. Penetrator ensures every drop of water reaches deep into the root zone rather than running off hardened soil.",
-    includes: ["Volcanic Dust 5KG", "GP Fertiliser 5KG", "Penetrator 1L"],
-    icon: Sun,
-    color: "var(--gold)",
-    tag: "Seasonal",
-  },
-  {
-    name: "Autumn Care Package",
-    tagline: "Rebuild soil reserves before the cold sets in",
-    description: "Autumn is your best window to remineralise. Soil microbes are still active and will process minerals into plant-available form over winter, so by spring your garden has a full mineral bank. Soil Conditioner feeds the microbial community while Volcanic Dust floods the rhizosphere with trace elements.",
-    includes: ["Volcanic Dust 5KG", "Soil Health Conditioner", "GP Fertiliser 5KG"],
-    icon: Leaf,
-    color: "#b35c1e",
-    tag: "Seasonal",
-  },
-  {
-    name: "Winter Care Package",
-    tagline: "Frost protection and steady slow-release nutrition",
-    description: "High mineral content raises plant sugar concentration — the same mechanism that stops water in plant cells from freezing. Glacial Milk provides ultra-fine silica for cell wall strength, while our granulated fertiliser delivers slow-release nutrition through the colder months without pushing soft new growth.",
-    includes: ["Glacial Milk 2KG", "Volcanic Dust 2KG", "GP Fertiliser 5KG"],
-    icon: Snowflake,
-    color: "#4a8fa8",
-    tag: "Seasonal",
-  },
-  {
-    name: "Regenerative Treatment Pack",
-    tagline: "Full-spectrum restoration for depleted, dead, or acidic soil",
-    description: "For soils that have been chemically farmed, stripped bare, or are compacted and lifeless. Volcanic Dust and Glacial Milk together provide over 60 minerals, reduce acidity without CO₂ release, and restore cation exchange capacity. Soil Conditioner reintroduces microbial diversity, and Penetrator breaks the crust so everything can get in.",
-    includes: ["Volcanic Dust 5KG", "Glacial Milk 2KG", "Soil Health Conditioner", "Penetrator 1L"],
-    icon: RefreshCcw,
-    color: "var(--green-bio)",
-    tag: "Best Value",
-  },
-  {
-    name: "Planting Pack",
-    tagline: "Give new plants the mineral foundation to establish fast",
-    description: "Whether planting trees, shrubs, vegetables, or natives — what you put in the ground at planting time determines the next five years. This pack enriches the root zone with broad-spectrum minerals, opens soil structure for root penetration, and delivers a foliar spray to reduce transplant shock.",
-    includes: ["GP Fertiliser 5KG", "Volcanic Dust 2KG", "Penetrator 1L", "Plant Spray 500ml"],
-    icon: Shovel,
-    color: "var(--green-uplift)",
-    tag: "Planting",
-  },
-  {
-    name: "Seed & Soil Treatment Pack",
-    tagline: "Maximum germination and vigorous early growth",
-    description: "Seeds germinate faster and seedlings establish stronger when the surrounding soil has the full mineral profile they need from day one. Volcanic Dust conditions the growing medium, GP Fertiliser provides broad nutrition, and a gentle foliar treatment supports the seedling through its most vulnerable stage.",
-    includes: ["Volcanic Dust 2KG", "GP Fertiliser 5KG", "Liquid NPK 1L"],
-    icon: Wheat,
-    color: "var(--gold)",
-    tag: "Seeds",
-  },
-  {
-    name: "Indoor Plants Feed & Care Pack",
-    tagline: "Lush, healthy indoor plants that actually thrive",
-    description: "Indoor plants are cut off from the natural mineral cycle and rely entirely on what you give them. This pack delivers a balanced liquid feed, a selenium-enriched foliar spray for disease resistance and glossy leaf colour, and a light granular base fertiliser to keep potting mix nutritious between feeds.",
-    includes: ["Liquid NPK 1L", "Plant Spray 500ml", "GP Fertiliser 2KG"],
-    icon: Home,
-    color: "var(--green-accent)",
-    tag: "Indoor",
-  },
-  {
-    name: "Insect & Fungus Care Pack",
-    tagline: "Natural resistance from the inside out",
-    description: "Mineral-rich plants are naturally harder for insects and fungal disease to penetrate — thick cell walls, high plant sugars, and elevated selenium all act as deterrents. This pack addresses the root cause (mineral deficiency) while Plant Spray provides direct foliar protection with selenium toxic to aphids and whiteflies at the leaf surface.",
-    includes: ["Plant Spray 500ml", "Volcanic Dust 2KG", "Liquid NPK 1L", "Penetrator 500ml"],
-    icon: Shield,
-    color: "var(--green-bio)",
-    tag: "Protection",
-  },
-];
+/* ── Per-bundle metadata matched by keywords in the product title ── */
+type BundleMeta = {
+  icon:    React.ElementType;
+  color:   string;
+  tag:     string;
+  includes: string[];
+};
 
-export default function BundlesPage() {
+function getMeta(title: string): BundleMeta {
+  const t = title.toLowerCase();
+  if (t.includes("spring"))
+    return {
+      icon: Sprout, color: "var(--green-accent)", tag: "Seasonal",
+      includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "1L EcoSpray", "5kg Premium GP Fertiliser", "1L Penetrator"],
+    };
+  if (t.includes("summer"))
+    return {
+      icon: Sun, color: "var(--gold)", tag: "Seasonal",
+      includes: ["5kg Premium GP Fertiliser", "1L EcoSpray", "1L NPK Liquid Fertiliser", "1L Bloom N Yield"],
+    };
+  if (t.includes("autumn"))
+    return {
+      icon: Leaf, color: "#b35c1e", tag: "Seasonal",
+      includes: ["1L NPK Liquid Fertiliser", "100g Glacial Milk", "5kg Premium GP Fertiliser"],
+    };
+  if (t.includes("winter"))
+    return {
+      icon: Snowflake, color: "#4a8fa8", tag: "Seasonal",
+      includes: ["1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "100g Glacial Milk"],
+    };
+  if (t.includes("regenerative"))
+    return {
+      icon: RefreshCcw, color: "var(--green-bio)", tag: "Treatment",
+      includes: ["5kg Premium GP Fertiliser", "1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "1L EcoSpray"],
+    };
+  if (t.includes("planting") && !t.includes("seed"))
+    return {
+      icon: Shovel, color: "var(--green-accent)", tag: "Planting",
+      includes: ["5kg Premium GP Fertiliser", "1L Liquid Soil Conditioner", "1L Liquid NPK Fertiliser"],
+    };
+  if (t.includes("seed"))
+    return {
+      icon: Wheat, color: "var(--gold)", tag: "Seeds",
+      includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "100g Glacial Milk"],
+    };
+  if (t.includes("indoor"))
+    return {
+      icon: Home, color: "var(--green-accent)", tag: "Indoor",
+      includes: ["1L Liquid NPK Fertiliser", "1L Soil Conditioner", "100g Glacial Milk", "1L EcoSpray"],
+    };
+  if (t.includes("insect") || t.includes("fungus"))
+    return {
+      icon: Shield, color: "var(--green-bio)", tag: "Protection",
+      includes: ["1L EcoSpray"],
+    };
+  if (t.includes("clay") || t.includes("heavy"))
+    return {
+      icon: Layers, color: "#7c5c3a", tag: "Soil",
+      includes: ["4L Liquid Instant ClayBreaker", "1L Penetrator"],
+    };
+  if (t.includes("flower"))
+    return {
+      icon: Flower2, color: "#c0527a", tag: "Flowering",
+      includes: ["1L Bloom N Yield", "1L Liquid NPK Fertiliser", "100g Glacial Milk"],
+    };
+  return {
+    icon: Sprout, color: "var(--green-accent)", tag: "Bundle",
+    includes: [],
+  };
+}
+
+function BundleCard({ product }: { product: ShopifyProduct }) {
+  const meta  = getMeta(product.title);
+  const Icon  = meta.icon;
+  const price = formatPrice(product.priceRange.minVariantPrice.amount);
+
+  return (
+    <div
+      className="flex flex-col rounded-2xl overflow-hidden"
+      style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
+    >
+      {/* Header */}
+      <div className="px-6 pt-6 pb-5">
+        <div className="flex items-start justify-between mb-4">
+          <div
+            className="w-11 h-11 rounded-xl flex items-center justify-center"
+            style={{ background: meta.color + "18" }}
+          >
+            <Icon size={22} style={{ color: meta.color }} />
+          </div>
+          <span
+            className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+            style={{ background: meta.color + "15", color: meta.color }}
+          >
+            {meta.tag}
+          </span>
+        </div>
+
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h2 className="font-bold text-xl leading-snug" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
+            {product.title}
+          </h2>
+          <span className="font-bold text-xl shrink-0" style={{ color: "var(--green-bio)" }}>
+            {price}
+          </span>
+        </div>
+
+        {product.description && (
+          <p className="text-sm leading-relaxed" style={{ color: "var(--text-black-soft)" }}>
+            {product.description}
+          </p>
+        )}
+      </div>
+
+      {/* Includes */}
+      {meta.includes.length > 0 && (
+        <div
+          className="mx-6 mb-5 rounded-xl px-4 py-3"
+          style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-[0.08em] mb-2.5" style={{ color: "var(--text-black-soft)" }}>
+            Includes
+          </p>
+          <ul className="flex flex-col gap-1.5">
+            {meta.includes.map((item) => (
+              <li key={item} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--text-black)" }}>
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: meta.color }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Add to cart */}
+      <div className="px-6 pb-6 mt-auto">
+        <BundleAddToCart product={product} />
+      </div>
+    </div>
+  );
+}
+
+export default async function BundlesPage() {
+  let bundles: ShopifyProduct[] = [];
+  try {
+    bundles = await getProductsByTag("Bundle", 20);
+  } catch {
+    // Shopify not configured or unreachable — render empty
+  }
+
   return (
     <>
       <Nav />
@@ -121,95 +193,35 @@ export default function BundlesPage() {
           </p>
         </section>
 
-        {/* Coming soon banner */}
+        {/* Minimum sizes note */}
         <div
-          className="flex items-center justify-center gap-3 px-5 py-4 text-sm font-semibold"
-          style={{ background: "var(--gold-lightest)", borderBottom: "1px solid #f0d9a0", color: "var(--gold)" }}
+          className="flex items-start gap-3 px-5 md:px-10 py-4 text-sm"
+          style={{ background: "var(--green-xlight)", borderBottom: "1px solid var(--green-light)" }}
         >
-          <span>⏳</span>
-          <span>Bundles launching soon — sign up to be notified or{" "}
-            <Link href="/contact" className="underline font-bold" style={{ color: "var(--gold)" }}>
-              contact us
-            </Link>
-            {" "}to arrange a custom order.
-          </span>
+          <span className="text-base shrink-0 mt-0.5">📦</span>
+          <p style={{ color: "var(--green-bio)" }}>
+            <strong>Note:</strong> The packs are minimum sizes for delivery economy. If you need larger sizes, simply order individually and add to the cart.
+          </p>
         </div>
 
         {/* Bundle grid */}
         <section className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BUNDLES.map((bundle) => {
-              const Icon = bundle.icon;
-              return (
-                <div
-                  key={bundle.name}
-                  className="flex flex-col rounded-2xl overflow-hidden"
-                  style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
-                >
-                  {/* Card header */}
-                  <div className="px-6 pt-6 pb-5">
-                    <div className="flex items-start justify-between mb-4">
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center"
-                        style={{ background: bundle.color + "18" }}
-                      >
-                        <Icon size={22} style={{ color: bundle.color }} />
-                      </div>
-                      <span
-                        className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                        style={{ background: bundle.color + "15", color: bundle.color }}
-                      >
-                        {bundle.tag}
-                      </span>
-                    </div>
-                    <h2 className="font-bold text-xl mb-1" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
-                      {bundle.name}
-                    </h2>
-                    <p className="text-sm font-semibold mb-3" style={{ color: bundle.color }}>
-                      {bundle.tagline}
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--text-black-soft)" }}>
-                      {bundle.description}
-                    </p>
-                  </div>
-
-                  {/* Includes list */}
-                  <div
-                    className="mx-6 mb-5 rounded-xl px-4 py-3"
-                    style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
-                  >
-                    <p className="text-[10px] font-bold uppercase tracking-[0.08em] mb-2.5" style={{ color: "var(--text-black-soft)" }}>
-                      Includes
-                    </p>
-                    <ul className="flex flex-col gap-1.5">
-                      {bundle.includes.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--text-black)" }}>
-                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: bundle.color }} />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="px-6 pb-6 mt-auto">
-                    <Link
-                      href={`/contact?bundle=${encodeURIComponent(bundle.name)}`}
-                      className="w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold transition-all hover:brightness-110"
-                      style={{ background: "var(--green-house)", color: "#fff" }}
-                    >
-                      Enquire about this bundle <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {bundles.length === 0 ? (
+            <p className="text-center text-sm" style={{ color: "var(--text-black-soft)" }}>
+              Bundles coming soon — <Link href="/contact" className="underline font-semibold">contact us</Link> to order.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {bundles.map((b) => (
+                <BundleCard key={b.id} product={b} />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Bottom CTA */}
         <section
-          className="mx-5 md:mx-10 mb-16 rounded-2xl px-8 py-12 text-center max-w-[1280px] md:mx-auto"
+          className="mx-5 md:mx-10 mb-16 rounded-2xl px-8 py-12 text-center max-w-[1280px] lg:mx-auto"
           style={{ background: "var(--green-house)" }}
         >
           <h2 className="font-bold text-2xl md:text-3xl mb-3" style={{ color: "#fff", letterSpacing: "-0.02em" }}>
