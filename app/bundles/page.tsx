@@ -101,7 +101,7 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
     >
       {/* Header */}
-      <div className="px-6 pt-6 pb-5">
+      <div className="px-3 pt-3 pb-3 md:px-6 md:pt-6 md:pb-5">
         <div className="flex items-start justify-between mb-4">
           <div
             className="w-11 h-11 rounded-xl flex items-center justify-center"
@@ -127,12 +127,12 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
           </div>
         </div>
 
-        <h2 className="font-bold text-xl leading-snug mb-3" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
+        <h2 className="font-bold text-sm md:text-xl leading-snug mb-2 md:mb-3" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
           {product.title}
         </h2>
 
-        <div className="flex items-baseline gap-2.5 mb-3">
-          <span className="font-bold text-2xl" style={{ color: "var(--green-bio)" }}>
+        <div className="flex items-baseline gap-1.5 md:gap-2.5 mb-2 md:mb-3">
+          <span className="font-bold text-base md:text-2xl" style={{ color: "var(--green-bio)" }}>
             ${bundleAmt.toFixed(2)}
           </span>
           {meta.fullPrice > 0 && (
@@ -157,7 +157,7 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       {/* Includes */}
       {meta.includes.length > 0 && (
         <div
-          className="mx-6 mb-5 rounded-xl px-4 py-3"
+          className="mx-3 mb-3 md:mx-6 md:mb-5 rounded-xl px-3 py-2.5 md:px-4 md:py-3"
           style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.08em] mb-2.5" style={{ color: "var(--text-black-soft)" }}>
@@ -175,7 +175,7 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       )}
 
       {/* Add to cart */}
-      <div className="px-6 pb-6 mt-auto">
+      <div className="px-3 pb-3 md:px-6 md:pb-6 mt-auto">
         <BundleAddToCart product={product} />
       </div>
     </div>
@@ -234,7 +234,7 @@ export default async function BundlesPage() {
               Bundles coming soon — <Link href="/contact" className="underline font-semibold">contact us</Link> to order.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
               {bundles.map((b) => (
                 <BundleCard key={b.id} product={b} />
               ))}
