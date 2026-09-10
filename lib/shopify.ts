@@ -76,7 +76,7 @@ const PRODUCT_FRAGMENT = `
 
 export async function getProducts(first = 12) {
   const query = `{
-    products(first: ${first}, sortKey: CREATED_AT, reverse: true) {
+    products(first: ${first}, sortKey: CREATED_AT, reverse: true, query: "NOT tag:Bundle") {
       edges { node { ${PRODUCT_FRAGMENT} } }
     }
   }`;
