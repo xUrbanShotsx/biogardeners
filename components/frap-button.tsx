@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Send, MessageCircle, Sprout } from "lucide-react";
@@ -79,8 +80,10 @@ function PulseDot() {
    MAIN WIDGET
    ═══════════════════════════════════════════════ */
 export function FrapButton() {
-  const { hoveredProduct, hoveredRect } = useAi();
+  const { hoveredProduct, hoveredRect, advisorTrigger } = useAi();
   const isMobile = useIsMobile();
+  const pathname = usePathname();
+  const isHome   = pathname === "/";
 
   const [open, setOpen]             = useState(false);
   const [messages, setMessages]     = useState<Message[]>([]);
@@ -108,6 +111,14 @@ export function FrapButton() {
     setDynamicHover("");
     setPanelRect(null);
   }
+
+  /* Open chat when triggered from nav */
+  const triggerInitRef = useRef(true);
+  useEffect(() => {
+    if (triggerInitRef.current) { triggerInitRef.current = false; return; }
+    if (!open) openChatWithContext();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advisorTrigger]);
 
   /* Wander when idle */
   useEffect(() => {
@@ -456,9 +467,9 @@ export function FrapButton() {
         )}
       </AnimatePresence>
 
-      {/* ── Avatar — hidden on mobile when fullscreen panel is open ── */}
+      {/* ── Avatar — hidden on mobile when fullscreen panel is open, or on non-home pages ── */}
       <div className="fixed bottom-6 right-6 z-[200]"
-        style={{ display: isMobile && open ? "none" : undefined }}>
+        style={{ display: (isMobile && (open || !isHome)) ? "none" : undefined }}>
         <motion.div
           animate={open || latchedProduct ? { x: 0, y: 0 } : { x: wander.x, y: wander.y }}
           transition={{ type: "spring", stiffness: 38, damping: 16 }}

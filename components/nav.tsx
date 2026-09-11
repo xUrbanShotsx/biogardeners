@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, Sprout } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";
+import { useAi } from "@/lib/ai-context";
 
 const links = [
   { href: "/products",       label: "Products"       },
@@ -16,6 +17,7 @@ const links = [
 
 export function Nav() {
   const { count: cartCount, openCart } = useCart();
+  const { triggerAdvisor } = useAi();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
 
@@ -151,6 +153,14 @@ export function Nav() {
               >
                 Shop now
               </Link>
+              <button
+                className="w-full py-4 rounded-full font-bold text-sm flex items-center justify-center gap-2"
+                style={{ background: "#fff", color: "var(--green-accent)" }}
+                onClick={() => { setMenuOpen(false); triggerAdvisor(); }}
+              >
+                <Sprout size={15} />
+                Bio Advisor
+              </button>
             </div>
 
             <p className="mt-auto px-5 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>

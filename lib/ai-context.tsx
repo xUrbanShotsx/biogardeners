@@ -27,6 +27,8 @@ interface AiContextValue {
   setHoveredProduct: (p: HoveredProduct | null) => void;
   hoveredRect:       SimpleRect | null;
   setHoveredRect:    (r: SimpleRect | null) => void;
+  advisorTrigger:    number;
+  triggerAdvisor:    () => void;
 }
 
 const AiContext = createContext<AiContextValue | null>(null);
@@ -35,7 +37,10 @@ export function AiProvider({ children }: { children: ReactNode }) {
   const [cartMessage,    setCartMessage]    = useState<AiCartMessage | null>(null);
   const [hoveredProduct, setHoveredProduct] = useState<HoveredProduct | null>(null);
   const [hoveredRect,    setHoveredRect]    = useState<SimpleRect | null>(null);
+  const [advisorTrigger, setAdvisorTrigger] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const triggerAdvisor = useCallback(() => setAdvisorTrigger(n => n + 1), []);
 
   const showCartMessage = useCallback((handle: string, title: string, cartTitles: string[] = []) => {
     // Optimistically show static fallback immediately
@@ -78,6 +83,7 @@ export function AiProvider({ children }: { children: ReactNode }) {
       cartMessage, showCartMessage, clearCartMessage,
       hoveredProduct, setHoveredProduct,
       hoveredRect, setHoveredRect,
+      advisorTrigger, triggerAdvisor,
     }}>
       {children}
     </AiContext.Provider>
