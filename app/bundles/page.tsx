@@ -73,9 +73,9 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
           )}
         </div>
 
-        {product.description && (
+        {meta.blurb && (
           <p className="hidden md:block text-sm leading-relaxed mt-3" style={{ color: "var(--text-black-soft)" }}>
-            {product.description}
+            {meta.blurb}
           </p>
         )}
 
@@ -116,7 +116,11 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
 export default async function BundlesPage() {
   let bundles: ShopifyProduct[] = [];
   try {
-    bundles = await getProductsByTag("Bundle", 20);
+    const raw = await getProductsByTag("Bundle", 20);
+    // Pin Spring pack first, rest in original order
+    const spring = raw.filter(b => b.title.toLowerCase().includes("spring"));
+    const rest   = raw.filter(b => !b.title.toLowerCase().includes("spring"));
+    bundles = [...spring, ...rest];
   } catch {
     // Shopify not configured or unreachable — render empty
   }

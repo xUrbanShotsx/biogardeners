@@ -7,6 +7,7 @@ export type BundleMeta = {
   icon:       React.ElementType;
   color:      string;
   tag:        string;
+  blurb:      string;
   fullPrice:  number;
   includes:   { name: string; why: string }[];
   idealFor:   string[];
@@ -20,6 +21,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("spring"))
     return {
       icon: Sprout, color: "#00A856", tag: "Seasonal", fullPrice: 98.00,
+      blurb: "Everything your garden needs to wake up after winter. Liquid feed, granular minerals, and a wetting agent to get roots moving fast.",
       includes: [
         { name: "1L NPK Liquid Fertiliser",   why: "Fast-acting liquid feed to kickstart root activity after dormancy." },
         { name: "1L Bloom N Yield",            why: "Boosts early flowering signals and sets up strong cell structure." },
@@ -46,6 +48,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("summer"))
     return {
       icon: Sun, color: "#D4911E", tag: "Seasonal", fullPrice: 79.50,
+      blurb: "Built for heat and drought. Keeps plants hydrated, productive, and pest-resistant through Australia's toughest growing months.",
       includes: [
         { name: "5kg Premium GP Fertiliser",  why: "Supplies the minerals that raise plant sugar concentration — the key to heat and drought tolerance." },
         { name: "1L EcoSpray",                why: "Provides silicon and selenium which thicken leaf cuticles and reduce water loss through transpiration." },
@@ -70,6 +73,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("autumn"))
     return {
       icon: Leaf, color: "#b35c1e", tag: "Seasonal", fullPrice: 47.00,
+      blurb: "Remineralise and replenish before the cold sets in. Feeds soil biology over winter so your garden hits spring with full reserves.",
       includes: [
         { name: "1L NPK Liquid Fertiliser",  why: "Delivers a final burst of balanced nutrition before plant activity slows." },
         { name: "100g Glacial Milk",         why: "Ultra-fine rock flour that feeds soil microbes over winter, building reserves for spring." },
@@ -92,6 +96,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("winter"))
     return {
       icon: Snowflake, color: "#4a8fa8", tag: "Seasonal", fullPrice: 42.50,
+      blurb: "Low-rate maintenance feeding for cold months. Keeps soil biology alive and builds frost resistance without pushing vulnerable new growth.",
       includes: [
         { name: "1L NPK Liquid Fertiliser",    why: "Low-rate liquid feeding keeps soil biology ticking through cold months without stimulating frost-vulnerable growth." },
         { name: "1L Liquid Soil Conditioner",  why: "Feeds beneficial soil microbes that process winter-applied minerals into plant-available form." },
@@ -114,6 +119,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("regenerative"))
     return {
       icon: RefreshCcw, color: "#007845", tag: "Treatment", fullPrice: 77.00,
+      blurb: "Full soil restoration for depleted, chemically exhausted, or lifeless ground. Reintroduces biology, restocks minerals, and stabilises struggling plants.",
       includes: [
         { name: "5kg Premium GP Fertiliser",  why: "Delivers the full mineral spectrum to restock depleted soil chemistry." },
         { name: "1L NPK Liquid Fertiliser",   why: "Fast-acting nutrition to stabilise struggling plants while the soil recovers." },
@@ -139,6 +145,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("planting") && !t.includes("seed"))
     return {
       icon: Shovel, color: "#00A856", tag: "Planting", fullPrice: 47.00,
+      blurb: "Everything you need the day you plant. Mineralises the hole, reduces transplant shock, and connects new roots to soil biology from day one.",
       includes: [
         { name: "5kg Premium GP Fertiliser",  why: "Mixed into the planting hole, it gives roots a full mineral environment from day one." },
         { name: "1L Liquid Soil Conditioner", why: "Populates the root zone with beneficial microbes that form partnerships with new roots." },
@@ -163,6 +170,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("seed"))
     return {
       icon: Wheat, color: "#D4911E", tag: "Seeds", fullPrice: 45.00,
+      blurb: "Mineral-rich seed-raising support. Boosts germination rates and gives seedlings the trace elements they need before their first feed.",
       includes: [
         { name: "1L NPK Liquid Fertiliser", why: "Diluted mineral solution that soaks into germinating seeds and supports early root formation." },
         { name: "1L Bloom N Yield",         why: "Supports the early hormonal signals that trigger germination and first leaf emergence." },
@@ -187,6 +195,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("indoor"))
     return {
       icon: Home, color: "#00A856", tag: "Indoor", fullPrice: 72.50,
+      blurb: "Keeps indoor and container plants thriving year-round. Replaces the trace elements that flush out with every watering and controls common pests without toxic sprays.",
       includes: [
         { name: "1L Liquid NPK Fertiliser",   why: "Clean, odour-free liquid feed safe for indoor use — no soil-smell or residue." },
         { name: "1L Liquid Soil Conditioner", why: "Refreshes the microbial life in potting mix that depletes over time in pots." },
@@ -211,6 +220,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("insect") || t.includes("fungus"))
     return {
       icon: Shield, color: "#007845", tag: "Protection", fullPrice: 30.00,
+      blurb: "Controls aphids, whitefly, mites, and fungal disease without toxic chemicals. Safe for edibles and safe to use around kids and pets.",
       includes: [
         { name: "1L EcoSpray", why: "Selenium-rich foliar spray toxic to soft-bodied insects at the leaf surface, with anti-fungal properties from natural plant extracts." },
       ],
@@ -232,6 +242,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("clay") || t.includes("heavy"))
     return {
       icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 33.50,
+      blurb: "Opens compacted clay soils so water, air, and roots can actually penetrate. Penetrator first, then Conditioner — results visible in the first application.",
       includes: [
         { name: "1L Soil Health Conditioner", why: "Introduces microbial strains that break down clay particle bonds and improve soil aggregation." },
         { name: "1L Penetrator",              why: "Wetting agent that forces water through the clay profile, carrying conditioner to depth." },
@@ -254,6 +265,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("flower"))
     return {
       icon: Flower2, color: "#c0527a", tag: "Flowering", fullPrice: 45.00,
+      blurb: "More flowers, bigger blooms, longer season. Phosphorus-rich feeding paired with trace minerals to maximise bud formation and fruit set.",
       includes: [
         { name: "1L Bloom N Yield",         why: "Specifically formulated to stimulate and sustain flowering — higher in phosphorus and potassium to support bud development." },
         { name: "1L Liquid NPK Fertiliser", why: "Balanced base nutrition to keep foliage healthy while energy is directed into flowering." },
@@ -275,7 +287,7 @@ export function getBundleMeta(title: string): BundleMeta {
     };
 
   return {
-    icon: Sprout, color: "#00A856", tag: "Bundle", fullPrice: 0,
+    icon: Sprout, color: "#00A856", tag: "Bundle", blurb: "", fullPrice: 0,
     includes: [], idealFor: [], useCases: [], howToUse: [],
   };
 }
