@@ -6,13 +6,14 @@ import {
 } from "react";
 
 export interface CartItem {
-  id:       string;
-  handle:   string;
-  title:    string;
-  variant:  string;
-  price:    number;
-  quantity: number;
+  id:        string;
+  handle:    string;
+  title:     string;
+  variant:   string;
+  price:     number;
+  quantity:  number;
   imageUrl?: string;
+  isBundle?: boolean;
 }
 
 interface CartContextValue {

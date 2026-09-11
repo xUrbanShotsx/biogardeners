@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles, Truck } from "lucide-react";
+import { X, Minus, Plus, Trash2, Maximize2, Minimize2, ShoppingBag, ArrowRight, Leaf, Sparkles, Truck, Package } from "lucide-react";
 import { useCart, type CartItem } from "@/lib/cart-context";
 import { useAi } from "@/lib/ai-context";
 import { cartCheckoutMessage } from "@/lib/ai-messages";
@@ -34,8 +34,20 @@ const PRODUCT_LABEL: Record<string, { l1: string; l2: string }> = {
   "penetrator":                                     { l1: "Penetrator",     l2: "Soil Wetter"    },
 };
 
-function MiniProduct({ handle, imageUrl }: { handle: string; imageUrl?: string }) {
+function MiniProduct({ handle, imageUrl, isBundle }: { handle: string; imageUrl?: string; isBundle?: boolean }) {
   const bg = PRODUCT_BG[handle] ?? "linear-gradient(140deg,#d4e9e2,#b0d0c4)";
+
+  if (isBundle) {
+    return (
+      <div
+        className="w-16 h-16 rounded-xl shrink-0 flex items-center justify-center"
+        style={{ background: "linear-gradient(140deg,#1E3932,#2d5a48)" }}
+      >
+        <Package size={26} color="#86EFAC" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-16 h-16 rounded-xl shrink-0 overflow-hidden" style={{ background: bg }}>
       {imageUrl ? (
@@ -60,7 +72,7 @@ function CartItemRow({ item, compact = false }: { item: CartItem; compact?: bool
   const { updateQuantity, removeItem } = useCart();
   return (
     <div className={`flex items-start gap-3 ${compact ? "py-3" : "py-4"}`} style={{ borderBottom: "1px solid var(--ceramic)" }}>
-      <MiniProduct handle={item.handle} imageUrl={item.imageUrl} />
+      <MiniProduct handle={item.handle} imageUrl={item.imageUrl} isBundle={item.isBundle} />
       <div className="flex-1 min-w-0">
         <p className={`font-semibold leading-tight mb-0.5 ${compact ? "text-sm" : "text-base"}`} style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
           {item.title}
@@ -382,7 +394,7 @@ function FullscreenCart() {
                       >
                         {/* Fullscreen item row — bigger */}
                         <div className="flex items-center gap-4 py-5" style={{ borderBottom: "1px solid var(--ceramic)" }}>
-                          <MiniProduct handle={item.handle} imageUrl={item.imageUrl} />
+                          <MiniProduct handle={item.handle} imageUrl={item.imageUrl} isBundle={item.isBundle} />
                           <div className="flex-1 min-w-0">
                             <p className="font-semibold text-base mb-0.5" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
                               {item.title}

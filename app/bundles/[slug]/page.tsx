@@ -96,19 +96,26 @@ export default async function BundleSlugPage({ params }: Props) {
               {/* Ideal for */}
               {meta.idealFor.length > 0 && (
                 <div className="mb-8">
-                  <p className="text-xs font-bold uppercase tracking-[0.1em] mb-3" style={{ color: "var(--text-black-soft)" }}>
-                    Ideal for
+                  <p className="text-sm font-semibold mb-3" style={{ color: "var(--text-black)" }}>
+                    Works well for
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {meta.idealFor.map((item) => (
-                      <span
-                        key={item}
-                        className="text-sm px-3 py-1.5 rounded-full font-medium"
-                        style={{ background: meta.color + "12", color: meta.color, border: `1px solid ${meta.color}25` }}
-                      >
-                        {item}
-                      </span>
-                    ))}
+                  <div
+                    className="rounded-xl p-4"
+                    style={{ background: meta.color + "0d", border: `1px solid ${meta.color}20` }}
+                  >
+                    <ul className="flex flex-col gap-2">
+                      {meta.idealFor.map((item, i) => (
+                        <li key={item} className="flex items-center gap-2.5 text-sm" style={{ color: "var(--text-black)" }}>
+                          <span
+                            className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-[10px] font-bold"
+                            style={{ background: meta.color, color: "#fff" }}
+                          >
+                            {i + 1}
+                          </span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               )}

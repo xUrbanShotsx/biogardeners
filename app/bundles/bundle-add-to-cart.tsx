@@ -20,6 +20,7 @@ export function BundleAddToCart({ product }: { product: ShopifyProduct }) {
       variant:  variant?.title ?? "Default",
       price:    parseFloat(product.priceRange.minVariantPrice.amount),
       imageUrl: product.images.edges[0]?.node.url,
+      isBundle: true,
     });
     setTimeout(() => setAdding(false), 1800);
   }
