@@ -147,17 +147,6 @@ export default async function BundlesPage() {
           </p>
         </section>
 
-        {/* Minimum sizes note */}
-        <div
-          className="flex items-start gap-3 px-5 md:px-10 py-4 text-sm"
-          style={{ background: "var(--green-xlight)", borderBottom: "1px solid var(--green-light)" }}
-        >
-          <span className="text-base shrink-0 mt-0.5">📦</span>
-          <p style={{ color: "var(--green-bio)" }}>
-            <strong>Note:</strong> The packs are minimum sizes for delivery economy. If you need larger sizes, simply order individually and add to the cart.
-          </p>
-        </div>
-
         {/* Bundle grid */}
         <section className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-24">
           {bundles.length === 0 ? (
