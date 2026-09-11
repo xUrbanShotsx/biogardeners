@@ -75,8 +75,8 @@ function getMeta(title: string): BundleMeta {
     };
   if (t.includes("clay") || t.includes("heavy"))
     return {
-      icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 0,
-      includes: ["4L Liquid Instant ClayBreaker", "1L Penetrator"],
+      icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 33.50,
+      includes: ["1L Soil Health Conditioner", "1L Penetrator"],
     };
   if (t.includes("flower"))
     return {
