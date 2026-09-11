@@ -80,6 +80,9 @@
 /* ─── Base Reset ─── */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Prevent any child breaking the viewport width */
+img, video, iframe, table { max-width: 100%; }
+
 /* Prevent iOS auto-zoom on input focus (requires font-size >= 16px) */
 @media (max-width: 767px) {
   input, textarea, select { font-size: 16px !important; }
@@ -87,8 +90,9 @@
 
 html {
   scroll-behavior: smooth;
-  /* Prevent iOS momentum-scroll from triggering IntersectionObserver flicker */
   overscroll-behavior-y: none;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Promote fixed + animated elements to GPU layer — kills compositor flicker */

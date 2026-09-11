@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${nunitoSans.variable} ${sourceSerif.variable} h-full`}>
-      <body className="min-h-full flex flex-col" style={{ background: "var(--canvas)", color: "var(--text-black)" }}>
+      <body className="min-h-full flex flex-col w-full" style={{ background: "var(--canvas)", color: "var(--text-black)", overflowX: "hidden", maxWidth: "100vw" }}>
         <AiProvider>
           <CartProvider>
             {children}
