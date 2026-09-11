@@ -4,93 +4,18 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { FrapButton } from "@/components/frap-button";
 import { BundleAddToCart } from "./bundle-add-to-cart";
+import { getBundleMeta } from "./bundle-meta";
 import { getProductsByTag } from "@/lib/shopify";
 import { type ShopifyProduct } from "@/lib/shopify";
-import { formatPrice } from "@/lib/utils";
-import {
-  Leaf, Sun, Sprout, Snowflake, RefreshCcw,
-  Shovel, Wheat, Home, Shield, Layers, Flower2,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Care Bundles | BioGardeners",
   description: "Curated soil and fertiliser bundles for every garden type. Everything you need, matched and ready to go.",
 };
 
-/* ── Per-bundle metadata matched by keywords in the product title ── */
-type BundleMeta = {
-  icon:      React.ElementType;
-  color:     string;
-  tag:       string;
-  includes:  string[];
-  fullPrice: number;
-};
-
-function getMeta(title: string): BundleMeta {
-  const t = title.toLowerCase();
-  if (t.includes("spring"))
-    return {
-      icon: Sprout, color: "var(--green-accent)", tag: "Seasonal", fullPrice: 98.00,
-      includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "1L EcoSpray", "5kg Premium GP Fertiliser", "1L Penetrator"],
-    };
-  if (t.includes("summer"))
-    return {
-      icon: Sun, color: "var(--gold)", tag: "Seasonal", fullPrice: 79.50,
-      includes: ["5kg Premium GP Fertiliser", "1L EcoSpray", "1L NPK Liquid Fertiliser", "1L Bloom N Yield"],
-    };
-  if (t.includes("autumn"))
-    return {
-      icon: Leaf, color: "#b35c1e", tag: "Seasonal", fullPrice: 47.00,
-      includes: ["1L NPK Liquid Fertiliser", "100g Glacial Milk", "5kg Premium GP Fertiliser"],
-    };
-  if (t.includes("winter"))
-    return {
-      icon: Snowflake, color: "#4a8fa8", tag: "Seasonal", fullPrice: 42.50,
-      includes: ["1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "100g Glacial Milk"],
-    };
-  if (t.includes("regenerative"))
-    return {
-      icon: RefreshCcw, color: "var(--green-bio)", tag: "Treatment", fullPrice: 77.00,
-      includes: ["5kg Premium GP Fertiliser", "1L NPK Liquid Fertiliser", "1L Liquid Soil Conditioner", "1L EcoSpray"],
-    };
-  if (t.includes("planting") && !t.includes("seed"))
-    return {
-      icon: Shovel, color: "var(--green-accent)", tag: "Planting", fullPrice: 47.00,
-      includes: ["5kg Premium GP Fertiliser", "1L Liquid Soil Conditioner", "1L Liquid NPK Fertiliser"],
-    };
-  if (t.includes("seed"))
-    return {
-      icon: Wheat, color: "var(--gold)", tag: "Seeds", fullPrice: 45.00,
-      includes: ["1L NPK Liquid Fertiliser", "1L Bloom N Yield", "100g Glacial Milk"],
-    };
-  if (t.includes("indoor"))
-    return {
-      icon: Home, color: "var(--green-accent)", tag: "Indoor", fullPrice: 72.50,
-      includes: ["1L Liquid NPK Fertiliser", "1L Soil Conditioner", "100g Glacial Milk", "1L EcoSpray"],
-    };
-  if (t.includes("insect") || t.includes("fungus"))
-    return {
-      icon: Shield, color: "var(--green-bio)", tag: "Protection", fullPrice: 30.00,
-      includes: ["1L EcoSpray"],
-    };
-  if (t.includes("clay") || t.includes("heavy"))
-    return {
-      icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 33.50,
-      includes: ["1L Soil Health Conditioner", "1L Penetrator"],
-    };
-  if (t.includes("flower"))
-    return {
-      icon: Flower2, color: "#c0527a", tag: "Flowering", fullPrice: 45.00,
-      includes: ["1L Bloom N Yield", "1L Liquid NPK Fertiliser", "100g Glacial Milk"],
-    };
-  return {
-    icon: Sprout, color: "var(--green-accent)", tag: "Bundle", fullPrice: 0,
-    includes: [],
-  };
-}
-
 function BundleCard({ product }: { product: ShopifyProduct }) {
-  const meta      = getMeta(product.title);
+  const meta      = getBundleMeta(product.title);
   const Icon      = meta.icon;
   const bundleAmt = parseFloat(product.priceRange.minVariantPrice.amount);
   const saving    = meta.fullPrice > 0 ? +(meta.fullPrice - bundleAmt).toFixed(2) : 0;
@@ -100,9 +25,8 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       className="flex flex-col rounded-2xl overflow-hidden"
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
     >
-      {/* Header */}
-      <div className="px-3 pt-3 pb-2 md:px-6 md:pt-6 md:pb-5">
-        {/* Mobile: icon + save badge row */}
+      {/* Clickable header area → detail page */}
+      <Link href={`/bundles/${product.handle}`} className="block px-3 pt-3 pb-2 md:px-6 md:pt-6 md:pb-5 hover:opacity-90 transition-opacity">
         <div className="flex items-center justify-between mb-2 md:mb-4">
           <div
             className="w-8 h-8 md:w-11 md:h-11 rounded-lg md:rounded-xl flex items-center justify-center"
@@ -154,9 +78,14 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
             {product.description}
           </p>
         )}
-      </div>
 
-      {/* Includes — hidden on mobile */}
+        {/* View details link — desktop only */}
+        <p className="hidden md:flex items-center gap-1 text-xs font-semibold mt-3" style={{ color: meta.color }}>
+          View details <ArrowRight size={11} />
+        </p>
+      </Link>
+
+      {/* Includes — desktop only */}
       {meta.includes.length > 0 && (
         <div
           className="hidden md:block mx-6 mb-5 rounded-xl px-4 py-3"
@@ -167,9 +96,9 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
           </p>
           <ul className="flex flex-col gap-1.5">
             {meta.includes.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--text-black)" }}>
+              <li key={item.name} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--text-black)" }}>
                 <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: meta.color }} />
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>
