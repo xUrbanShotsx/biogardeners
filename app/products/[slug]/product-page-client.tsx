@@ -267,6 +267,36 @@ export function ProductPageClient({ product, related, slug }: Props) {
     setTimeout(() => setAddState("idle"), 2200);
   }
 
+  const [bundleState, setBundleState] = useState<"idle" | "added">("idle");
+
+  function handleAddBundleToCart() {
+    if (bundleState !== "idle") return;
+    // Add current product
+    const variant = variants[activeVariant];
+    addItem({
+      id:       shopifyVarIds[activeVariant] ?? product.id,
+      handle:   product.handle,
+      title:    product.title,
+      variant:  variant?.label ?? "Standard",
+      price:    parseFloat(variant?.price ?? currentPrice),
+      imageUrl: shopifyImages[0]?.url,
+    });
+    // Add each bundle item
+    bundleItems.forEach((bp) => {
+      const bpVariant = bp.variants.edges[0]?.node;
+      addItem({
+        id:       bpVariant?.id ?? bp.id,
+        handle:   bp.handle,
+        title:    bp.title,
+        variant:  bpVariant?.title ?? "Standard",
+        price:    parseFloat(bp.priceRange.minVariantPrice.amount),
+        imageUrl: bp.images.edges[0]?.node.url,
+      });
+    });
+    setBundleState("added");
+    setTimeout(() => setBundleState("idle"), 2200);
+  }
+
   const sections = [
     { id: "benefits",    title: "Benefits"     },
     { id: "how-to-use",  title: "How to use"   },
@@ -568,87 +598,102 @@ export function ProductPageClient({ product, related, slug }: Props) {
         </div>
 
         {/* Frequently bought together */}
-        {bundleItems.length > 0 && (
-          <section className="mb-16 rounded-2xl p-6 lg:p-8" style={{ background: "var(--green-xlight)", border: "1.5px solid var(--green-light)" }} aria-labelledby="bundle-heading">
-            <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-              <div>
-                <h2 id="bundle-heading" className="font-bold text-xl" style={{ color: "var(--green-house)", letterSpacing: "-0.01em" }}>
+        {bundleItems.length > 0 && (() => {
+          const fullTotal   = parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0);
+          const saleTotal   = fullTotal * 0.9;
+          const saving      = fullTotal - saleTotal;
+          const allProducts = [
+            { title: product.title, price: currentPrice, img: shopifyImages[0]?.url, bg: galleries[0] },
+            ...bundleItems.map((bp) => ({
+              title: bp.title,
+              price: bp.priceRange.minVariantPrice.amount,
+              img:   bp.images.edges[0]?.node.url,
+              bg:    (GALLERY_BG[bp.handle] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"])[0],
+            })),
+          ];
+          return (
+            <section className="mb-16" aria-labelledby="bundle-heading">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-4">
+                <h2 id="bundle-heading" className="font-bold text-lg" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
                   Frequently bought together
                 </h2>
-                <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>
-                  Customers who viewed this also added these — bundle &amp; save 10%
-                </p>
-              </div>
-              <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
-                Save 10% on bundle
-              </span>
-            </div>
-            <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
-              {/* Current product thumbnail */}
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative"
-                  style={{ background: galleries[0], boxShadow: "var(--shadow-card)" }}
-                >
-                  {shopifyImages[0] ? (
-                    <Image src={shopifyImages[0].url} alt={product.title} fill sizes="80px" className="object-contain p-1" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
-                      <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
-                        <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
-                        <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold" style={{ color: "var(--text-black)" }}>{product.title}</p>
-                  <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>{displayPrice}</p>
-                </div>
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#dcfce7", color: "#15803d" }}>
+                  Save {formatPrice(saving.toFixed(2))}
+                </span>
               </div>
 
-              {bundleItems.map((bp) => {
-                const bpGalleries  = GALLERY_BG[bp.handle] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
-                const bpFirstImg   = bp.images.edges[0]?.node;
-                return (
-                  <div key={bp.handle} className="flex items-center gap-3">
-                    <span className="text-xl" style={{ color: "var(--text-black-soft)" }}>+</span>
-                    <div
-                      className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative"
-                      style={{ background: bpGalleries[0], boxShadow: "var(--shadow-card)" }}
-                    >
-                      {bpFirstImg ? (
-                        <Image src={bpFirstImg.url} alt={bp.title} fill sizes="80px" className="object-contain p-1" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center scale-75 opacity-80">
-                          <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-10" aria-hidden="true">
-                            <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
-                            <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
-                          </svg>
-                        </div>
+              {/* Product row */}
+              <div
+                className="rounded-2xl p-5 md:p-6 mb-4"
+                style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
+              >
+                <div className="flex flex-wrap gap-3 items-center">
+                  {allProducts.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      {i > 0 && (
+                        <span className="text-lg font-light mx-1" style={{ color: "var(--text-black-soft)" }}>+</span>
                       )}
+                      {/* Image */}
+                      <div
+                        className="w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden flex-shrink-0 relative"
+                        style={{ background: item.bg, boxShadow: "var(--shadow-card)" }}
+                      >
+                        {item.img ? (
+                          <Image src={item.img} alt={item.title} fill sizes="64px" className="object-contain p-1" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center opacity-60">
+                            <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg" className="w-8" aria-hidden="true">
+                              <rect x="8" y="20" width="64" height="75" rx="4" fill="#1E3932" />
+                              <rect x="14" y="36" width="52" height="52" rx="2" fill="white" opacity="0.9" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      {/* Info */}
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold leading-tight" style={{ color: "var(--text-black)", maxWidth: "10ch", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {item.title}
+                        </p>
+                        <p className="text-xs font-bold mt-0.5" style={{ color: "var(--green-bio)" }}>
+                          {formatPrice(item.price)}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold" style={{ color: "var(--text-black)" }}>{bp.title}</p>
-                      <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>{formatPrice(bp.priceRange.minVariantPrice.amount)}</p>
-                    </div>
-                  </div>
-                );
-              })}
+                  ))}
+                </div>
+              </div>
 
-              <div className="lg:ml-auto w-full lg:w-auto flex flex-col gap-1">
-                <p className="text-xs" style={{ color: "var(--text-black-soft)" }}>
-                  Total: <span className="line-through">{formatPrice((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)).toFixed(2))}</span>
-                  {" "}<span className="font-bold" style={{ color: "var(--green-bio)" }}>{formatPrice(((parseFloat(currentPrice) + bundleItems.reduce((s, p) => s + parseFloat(p.priceRange.minVariantPrice.amount), 0)) * 0.9).toFixed(2))}</span>
-                </p>
-                <button className="btn btn-primary gap-2 w-full lg:w-auto justify-center" style={{ fontSize: 14, padding: "12px 24px" }}>
-                  <ShoppingBag size={15} />
-                  Add all to cart — save 10%
+              {/* Pricing + CTA */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs mb-0.5" style={{ color: "var(--text-black-soft)" }}>Bundle total</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-bold text-xl" style={{ color: "var(--green-bio)" }}>
+                      {formatPrice(saleTotal.toFixed(2))}
+                    </span>
+                    <span className="text-sm line-through" style={{ color: "var(--text-black-soft)" }}>
+                      {formatPrice(fullTotal.toFixed(2))}
+                    </span>
+                    <span className="text-xs font-semibold" style={{ color: "#15803d" }}>10% off</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleAddBundleToCart}
+                  className="btn btn-primary gap-2 self-start sm:self-auto"
+                  style={{ fontSize: 14, padding: "12px 24px", background: bundleState === "added" ? "var(--green-bio)" : undefined }}
+                >
+                  {bundleState === "added" ? (
+                    <><Check size={15} /> All added to cart!</>
+                  ) : (
+                    <><ShoppingBag size={15} /> Add all to cart — save 10%</>
+                  )}
                 </button>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          );
+        })()}
 
         {/* Accordion */}
         {details && (
