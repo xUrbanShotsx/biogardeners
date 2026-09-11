@@ -97,32 +97,11 @@ function ContactForm() {
       <Nav />
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
-        {/* Header band */}
-        <div style={{ background: "var(--green-accent)" }} className="px-6 lg:px-10 py-14">
-          <div className="max-w-[1440px] mx-auto">
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Get in touch
-              </p>
-              <h1 className="font-bold mb-3" style={{ fontSize: "clamp(2rem,4vw,3.5rem)", color: "#fff", letterSpacing: "-0.02em" }}>
-                Contact us
-              </h1>
-              <p className="text-base max-w-md" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.65 }}>
-                Questions about an order, a product, or just want some advice? We'd love to hear from you.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-14">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
 
             {/* Form */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-            >
+            <div>
               <AnimatePresence mode="wait">
                 {status === "sent" ? (
                   <motion.div
@@ -286,15 +265,10 @@ function ContactForm() {
                   </motion.form>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
 
             {/* Contact info sidebar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
-              className="flex flex-col gap-5"
-            >
+            <div className="flex flex-col gap-5">
               {[
                 {
                   icon:  Mail,
@@ -354,7 +328,7 @@ function ContactForm() {
                   9:00am – 5:00pm AEST
                 </p>
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
