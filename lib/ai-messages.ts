@@ -1,69 +1,75 @@
+// Static fallback messages used before the AI response loads.
+// Keep accurate — these are the first thing customers read.
+
 export const AI_HOVER: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":
-    "Packed with volcanic minerals and organic meal — feeds soil biology and delivers visible results in 2 weeks. Our #1 seller.",
+    "Our most versatile product — 30g per m² every 6–8 weeks covers most gardens. Pairs brilliantly with Penetrator if your soil is at all compacted.",
   "lawn-fertilizer-premium-granulated-concentrated":
-    "Concentrated slow-release granules that keep feeding your lawn for up to 12 weeks. One bag goes a very long way.",
+    "One application every 12 weeks is all your lawn needs. Apply after mowing and water in well — concentrated formula so a bag goes further than you'd expect.",
   "volcanic-dust-trace-elements":
-    "60+ trace elements from volcanic rock — remineralises depleted Aussie soils and improves long-term plant health.",
+    "Most Australian soils are starved of trace minerals. Broadcast 100–200g per m² once or twice a year and it quietly does more for long-term plant health than most fertilisers.",
   "soil-health-conditioner-powder":
-    "Boosts soil microbial life so nutrients actually reach your roots. Great for veg patches and garden beds of all sizes.",
+    "Healthy soil biology is what converts fertiliser into plant food. Mix 50g per litre and drench the root zone every 4–6 weeks — especially useful in veg patches.",
   "liquid-npk-fertilizer":
-    "Fast-acting liquid formula with balanced NPK — plants show a visible response in days, not weeks.",
+    "Fast results — dilute 10ml per litre and you'll see a visible response within a few days, either as a soil drench or foliar spray. Morning or evening application only.",
   "glacial-milk":
-    "Glacial rock flour rich in silica and trace minerals — strengthens plant cell walls and improves stress resistance.",
+    "High silica content from glacial rock flour that physically strengthens plant cells — more frost-resistant, harder for insects to penetrate. Mix 50g per 9L and apply monthly.",
   "soil-health-conditioner":
-    "Liquid microbial blend that supercharges water retention and breaks down organic matter faster for healthier roots.",
+    "Liquid microbial blend that gets soil biology working again. 50ml per 9L watering can every 4–6 weeks. Often the missing piece when plants aren't responding to fertiliser.",
   "plant-spray":
-    "Ready-to-use spray that tackles fungal disease and pest pressure — safe around bees and edible gardens.",
+    "Selenium-based spray that handles aphids, whitefly, spider mites, and powdery mildew without toxic chemicals. Always spray top and underside of leaves, morning or evening.",
   "penetrator":
-    "Makes water and nutrients soak in instead of running off. Essential for hard, hydrophobic Aussie soils.",
+    "Apply this first before anything else — 10ml per litre and it opens the soil profile so water and nutrients actually reach the roots instead of running off.",
 };
 
 export const AI_CART: Record<string, { compliment: string; tip: string }> = {
   "gp-fertiliser-premium-garden-lawn": {
-    compliment: "Great pick — GP Fertiliser is our most-loved formula!",
-    tip: "Sprinkle around the drip line of plants and water in well. You'll see stronger colour within 2 weeks.",
+    compliment: "Good choice — this is the one most of our customers come back for.",
+    tip:        "Sprinkle 30g per m² around the drip line of plants (not the stem), water it in well, and you'll see stronger colour within 2 weeks.",
   },
   "lawn-fertilizer-premium-granulated-concentrated": {
-    compliment: "Solid choice — this one transforms lawns fast.",
-    tip: "Apply at 30g per m² after mowing and water in thoroughly. One treatment feeds for up to 12 weeks.",
+    compliment: "Your lawn's going to love this — it's a proper slow-release, not a quick hit.",
+    tip:        "Apply 30g per m² after your next mow, water it in thoroughly, and one application will feed for up to 12 weeks.",
   },
   "volcanic-dust-trace-elements": {
-    compliment: "Nice pick — volcanic dust is one of our most underrated products.",
-    tip: "Broadcast over soil and mulch, or mix into potting mix at 10% by volume for a long-term mineral boost.",
+    compliment: "This is one of the most underrated things you can do for Australian soil.",
+    tip:        "Broadcast 100–200g per m² over your garden beds and water in — or mix it into potting mix at about 10% by volume for a long-term mineral base.",
   },
   "soil-health-conditioner-powder": {
-    compliment: "Smart move — healthy soil biology is the foundation of everything.",
-    tip: "Mix 50g per litre of water and drench around root zones. Apply every 4–6 weeks for best results.",
+    compliment: "Smart move — soil biology is where it all starts.",
+    tip:        "Mix 50g per litre of water and drench around your root zones every 4–6 weeks. Works best applied to moist soil in the morning.",
   },
   "liquid-npk-fertilizer": {
-    compliment: "You're going to love the speed on this one!",
-    tip: "Dilute 5ml per litre and apply fortnightly during the growing season. Works great as a foliar spray too.",
+    compliment: "This one works fast — you'll notice a difference within days.",
+    tip:        "Dilute 10ml per litre and apply as a soil drench or foliar spray (morning or evening only). Fortnightly during active growth is the sweet spot.",
   },
   "glacial-milk": {
-    compliment: "Excellent — this one is a hidden gem in our range.",
-    tip: "Mix 1 tablespoon per litre of water and apply to soil or leaves. Use monthly as a long-term soil conditioner.",
+    compliment: "Good find — this one's doing quiet work that most people don't notice until they're not doing it.",
+    tip:        "Mix 50g per 9L watering can and apply to soil monthly. If you're starting seeds, mix a tablespoon into each litre of seed-raising mix.",
   },
   "soil-health-conditioner": {
-    compliment: "Perfect — your soil will be loving life with this.",
-    tip: "Dilute 10ml per litre and drench soil around plants. Works best when applied in the morning.",
+    compliment: "If plants aren't responding to fertiliser, this is usually the reason — the biology isn't there to process it.",
+    tip:        "Dilute 50ml per 9L watering can and apply to moist soil every 4–6 weeks. For pots, 25ml per 9L every couple of months keeps potting mix alive.",
   },
   "plant-spray": {
-    compliment: "Wise choice — prevention is always better than cure in the garden.",
-    tip: "Spray leaves until wet, top and underside. Apply weekly as prevention or every 3 days for active issues.",
+    compliment: "Good thinking — easier to prevent than to fix once an infestation takes hold.",
+    tip:        "Spray top AND underside of leaves in the early morning or evening. For active pests, every 3–5 days for 3 rounds usually clears it.",
   },
   "penetrator": {
-    compliment: "This one changes everything if your soil is water-repellent!",
-    tip: "Mix 5ml per 9 litres of water and apply before watering or fertilising for much better absorption.",
+    compliment: "This changes everything if your soil is at all hydrophobic — and most Australian soil is.",
+    tip:        "Mix 10ml per litre and apply it first, before any watering or fertilising. That's the key — it opens the soil profile so everything else actually reaches the roots.",
   },
 };
 
 export function cartCheckoutMessage(count: number, titles: string[]): string {
   if (count === 1) {
-    return `Excellent choice! ${titles[0]} will make a real difference in your garden. You're one step away from greener days.`;
+    return `${titles[0]} is a solid place to start — you're on the right track. Ready when you are.`;
   }
   if (count === 2) {
-    return `A brilliant combination! These two products work beautifully together for a complete nutrition program. Ready to check out?`;
+    return `Good combination — these two work well together. Your soil's going to be in much better shape.`;
   }
-  return `You've put together a powerhouse garden kit with ${count} products. Your plants are going to thrive — excellent eye for quality.`;
+  if (count >= 3) {
+    return `You've put together a genuinely solid program here. ${count} products covering soil, nutrition, and plant health — that's the full picture.`;
+  }
+  return `Looking good — your garden's in good hands.`;
 }
