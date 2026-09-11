@@ -27,7 +27,7 @@ export function BundleAddToCart({ product }: { product: ShopifyProduct }) {
   return (
     <button
       onClick={handleAdd}
-      className="w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-bold transition-all active:scale-[0.97]"
+      className="w-full flex items-center justify-center gap-1.5 rounded-full py-2 md:py-3 text-xs md:text-sm font-bold transition-all active:scale-[0.97]"
       style={{
         background: adding ? "var(--green-accent)" : "var(--green-house)",
         color: "#fff",

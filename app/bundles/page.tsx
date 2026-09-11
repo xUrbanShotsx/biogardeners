@@ -101,25 +101,27 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
     >
       {/* Header */}
-      <div className="px-3 pt-3 pb-3 md:px-6 md:pt-6 md:pb-5">
-        <div className="flex items-start justify-between mb-4">
+      <div className="px-3 pt-3 pb-2 md:px-6 md:pt-6 md:pb-5">
+        {/* Mobile: icon + save badge row */}
+        <div className="flex items-center justify-between mb-2 md:mb-4">
           <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center"
+            className="w-8 h-8 md:w-11 md:h-11 rounded-lg md:rounded-xl flex items-center justify-center"
             style={{ background: meta.color + "18" }}
           >
-            <Icon size={22} style={{ color: meta.color }} />
+            <Icon size={16} className="md:hidden" style={{ color: meta.color }} />
+            <Icon size={22} className="hidden md:block" style={{ color: meta.color }} />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {saving > 0 && (
               <span
-                className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                className="text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded-full"
                 style={{ background: "#dcfce7", color: "#15803d" }}
               >
                 Save ${saving.toFixed(2)}
               </span>
             )}
             <span
-              className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+              className="hidden md:inline text-[10px] font-bold px-2.5 py-1 rounded-full"
               style={{ background: meta.color + "15", color: meta.color }}
             >
               {meta.tag}
@@ -127,37 +129,37 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
           </div>
         </div>
 
-        <h2 className="font-bold text-sm md:text-xl leading-snug mb-2 md:mb-3" style={{ color: "var(--text-black)", letterSpacing: "-0.02em" }}>
+        <h2 className="font-bold text-xs md:text-xl leading-snug mb-1.5 md:mb-3" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
           {product.title}
         </h2>
 
-        <div className="flex items-baseline gap-1.5 md:gap-2.5 mb-2 md:mb-3">
-          <span className="font-bold text-base md:text-2xl" style={{ color: "var(--green-bio)" }}>
+        <div className="flex items-baseline gap-1.5 md:gap-2.5 mb-0 md:mb-3">
+          <span className="font-bold text-sm md:text-2xl" style={{ color: "var(--green-bio)" }}>
             ${bundleAmt.toFixed(2)}
           </span>
           {meta.fullPrice > 0 && (
-            <span className="text-sm line-through" style={{ color: "var(--text-black-soft)" }}>
+            <span className="text-xs md:text-sm line-through" style={{ color: "var(--text-black-soft)" }}>
               ${meta.fullPrice.toFixed(2)}
             </span>
           )}
           {saving > 0 && (
-            <span className="text-xs font-semibold" style={{ color: "#15803d" }}>
+            <span className="hidden md:inline text-xs font-semibold" style={{ color: "#15803d" }}>
               10% off
             </span>
           )}
         </div>
 
         {product.description && (
-          <p className="text-sm leading-relaxed" style={{ color: "var(--text-black-soft)" }}>
+          <p className="hidden md:block text-sm leading-relaxed mt-3" style={{ color: "var(--text-black-soft)" }}>
             {product.description}
           </p>
         )}
       </div>
 
-      {/* Includes */}
+      {/* Includes — hidden on mobile */}
       {meta.includes.length > 0 && (
         <div
-          className="mx-3 mb-3 md:mx-6 md:mb-5 rounded-xl px-3 py-2.5 md:px-4 md:py-3"
+          className="hidden md:block mx-6 mb-5 rounded-xl px-4 py-3"
           style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.08em] mb-2.5" style={{ color: "var(--text-black-soft)" }}>
@@ -175,7 +177,7 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
       )}
 
       {/* Add to cart */}
-      <div className="px-3 pb-3 md:px-6 md:pb-6 mt-auto">
+      <div className="px-3 pb-3 pt-2 md:px-6 md:pb-6 md:pt-0 mt-auto">
         <BundleAddToCart product={product} />
       </div>
     </div>
