@@ -1,26 +1,16 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sprout, Leaf, Apple, FlaskConical, Sun, Droplets,
-  ArrowRight, Clock, ChevronDown, Search, BookOpen,
-  CheckCircle2, Zap, TreePine,
+  Clock, ChevronDown, BookOpen,
+  CheckCircle2, TreePine,
 } from "lucide-react";
 import { Nav }    from "@/components/nav";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 
-const CATEGORIES = [
-  { id: "All",           label: "All guides",     icon: BookOpen    },
-  { id: "Vegetables",    label: "Vegetables",      icon: Sprout      },
-  { id: "Herbs",         label: "Herbs",           icon: Leaf        },
-  { id: "Fruits & Trees",label: "Fruits & Trees",  icon: Apple       },
-  { id: "Soil prep",     label: "Soil prep",       icon: FlaskConical},
-  { id: "Seasonal",      label: "Seasonal",        icon: Sun         },
-];
-
-const DIFFICULTIES = ["All levels", "Beginner", "Intermediate"];
 
 const GUIDES = [
   {
@@ -349,108 +339,7 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
   );
 }
 
-function FeaturedGuide({ guide }: { guide: typeof GUIDES[0] }) {
-  const [open, setOpen] = useState(false);
-  const { icon: Icon, color } = guide;
-  return (
-    <div
-      className="rounded-2xl overflow-hidden"
-      style={{ background: color, boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}
-    >
-      <div className="p-7 md:p-8">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
-            <Icon size={20} color="#fff" />
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.2)", color: "#fff" }}>
-              {guide.difficulty}
-            </span>
-            <span className="text-[10px] flex items-center gap-1" style={{ color: "rgba(255,255,255,0.6)" }}>
-              <Clock size={9} /> {guide.readTime}
-            </span>
-          </div>
-        </div>
-        <h3 className="font-bold text-xl md:text-2xl mb-2 text-white" style={{ letterSpacing: "-0.02em" }}>
-          {guide.title}
-        </h3>
-        <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.65 }}>
-          {guide.summary}
-        </p>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all"
-            style={{ background: "#fff", color }}
-          >
-            {open ? "Hide steps" : "Read guide"}
-            <ArrowRight size={13} className={`transition-transform duration-300 ${open ? "rotate-90" : ""}`} />
-          </button>
-          <Link
-            href={`/products/${guide.productHandle}`}
-            className="text-sm font-semibold transition-opacity hover:opacity-75"
-            style={{ color: "rgba(255,255,255,0.75)" }}
-          >
-            Uses {guide.product} →
-          </Link>
-        </div>
-      </div>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: EASE }}
-            className="overflow-hidden"
-          >
-            <div className="px-7 md:px-8 pb-7" style={{ borderTop: "1px solid rgba(255,255,255,0.15)" }}>
-              <ol className="flex flex-col gap-3 pt-5">
-                {guide.steps.map((step, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    className="flex items-start gap-3"
-                  >
-                    <span
-                      className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5"
-                      style={{ background: "rgba(255,255,255,0.25)", color: "#fff" }}
-                    >
-                      {i + 1}
-                    </span>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{step}</p>
-                  </motion.li>
-                ))}
-              </ol>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export default function GrowingGuidesPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [activeDifficulty, setActiveDifficulty] = useState("All levels");
-  const [search, setSearch] = useState("");
-
-  const filtered = useMemo(() => {
-    return GUIDES.filter((g) => {
-      if (activeCategory !== "All" && g.category !== activeCategory) return false;
-      if (activeDifficulty !== "All levels" && g.difficulty !== activeDifficulty) return false;
-      if (search) {
-        const q = search.toLowerCase();
-        return g.title.toLowerCase().includes(q) || g.summary.toLowerCase().includes(q);
-      }
-      return true;
-    });
-  }, [activeCategory, activeDifficulty, search]);
-
-  const featured = GUIDES.slice(0, 1)[0];
-
   return (
     <>
       <Nav />
@@ -499,130 +388,12 @@ export default function GrowingGuidesPage() {
 
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10">
 
-          {/* Featured guide */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.5, ease: EASE }}
-            className="mb-10"
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <Zap size={13} style={{ color: "var(--green-accent)" }} />
-              <p className="text-xs font-bold uppercase tracking-[0.1em]" style={{ color: "var(--text-black-soft)" }}>
-                Start here
-              </p>
-            </div>
-            <FeaturedGuide guide={featured} />
-          </motion.div>
-
-          {/* Search + filters */}
-          <div className="flex flex-col gap-4 mb-8">
-            {/* Search */}
-            <div className="relative max-w-md">
-              <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: "var(--text-black-soft)" }} />
-              <input
-                type="text"
-                placeholder="Search guides…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-full text-sm pl-9 pr-4 py-2.5"
-                style={{
-                  border: "1.5px solid var(--input-border)",
-                  background: "#fff",
-                  color: "var(--text-black)",
-                  outline: "none",
-                  fontFamily: "var(--font-primary)",
-                }}
-              />
-            </div>
-
-            {/* Category pills */}
-            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
-              {CATEGORIES.map(({ id, label, icon: CatIcon }) => {
-                const active = activeCategory === id;
-                return (
-                  <button
-                    key={id}
-                    onClick={() => setActiveCategory(id)}
-                    className="shrink-0 flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-full border transition-all duration-200"
-                    style={{
-                      background:  active ? "var(--green-house)" : "#fff",
-                      color:       active ? "#fff" : "var(--text-black-soft)",
-                      borderColor: active ? "var(--green-house)" : "var(--input-border)",
-                    }}
-                  >
-                    <CatIcon size={11} />
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Difficulty pills */}
-            <div className="flex gap-2">
-              {DIFFICULTIES.map((d) => {
-                const active = activeDifficulty === d;
-                return (
-                  <button
-                    key={d}
-                    onClick={() => setActiveDifficulty(d)}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200"
-                    style={{
-                      background:  active ? "var(--green-xlight)" : "transparent",
-                      color:       active ? "var(--green-bio)" : "var(--text-black-soft)",
-                      border:      `1px solid ${active ? "var(--green-light)" : "var(--input-border)"}`,
-                    }}
-                  >
-                    {d}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Count */}
-          <p className="text-xs mb-6" style={{ color: "var(--text-black-soft)" }}>
-            {filtered.length} guide{filtered.length !== 1 ? "s" : ""}
-            {activeCategory !== "All" ? ` in ${activeCategory}` : ""}
-            {search ? ` matching "${search}"` : ""}
-          </p>
-
           {/* Guide grid */}
-          <AnimatePresence mode="wait">
-            {filtered.length === 0 ? (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-center py-16"
-              >
-                <p className="text-sm" style={{ color: "var(--text-black-soft)" }}>
-                  No guides found.{" "}
-                  <button
-                    onClick={() => { setSearch(""); setActiveCategory("All"); setActiveDifficulty("All levels"); }}
-                    className="underline font-semibold"
-                    style={{ color: "var(--green-bio)" }}
-                  >
-                    Clear filters
-                  </button>
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key={`${activeCategory}-${activeDifficulty}-${search}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-              >
-                {filtered.map((guide, i) => (
-                  <GuideCard key={guide.title} guide={guide} index={i} />
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {GUIDES.map((guide, i) => (
+              <GuideCard key={guide.title} guide={guide} index={i} />
+            ))}
+          </div>
 
           {/* Bottom CTA */}
           <motion.div
