@@ -267,7 +267,7 @@ export function getBundleMeta(title: string): BundleMeta {
       icon: Flower2, color: "#c0527a", tag: "Flowering", fullPrice: 45.00,
       blurb: "More flowers, bigger blooms, longer season. Phosphorus-rich feeding paired with trace minerals to maximise bud formation and fruit set.",
       includes: [
-        { name: "1L Bloom N Yield",         why: "Specifically formulated to stimulate and sustain flowering — higher in phosphorus and potassium to support bud development." },
+        { name: "1L Bloom N Yield",         why: "Sea minerals bio stimulant that delivers calcium, magnesium, potassium, and trace elements to support bud formation and flowering." },
         { name: "1L Liquid NPK Fertiliser", why: "Balanced base nutrition to keep foliage healthy while energy is directed into flowering." },
         { name: "100g Glacial Milk",        why: "Trace elements including boron and molybdenum that are critical for flower formation and fruit set." },
       ],

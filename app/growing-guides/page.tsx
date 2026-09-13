@@ -61,7 +61,7 @@ const GUIDES: GuideData[] = [
       "Apply Penetrator (10ml/L) at transplanting time. Tomatoes are heavy feeders and Penetrator ensures the root zone is open and able to absorb what you put in.",
       "Hold off fertiliser for 2 weeks while the plant establishes. You'll see new leaf growth when it's ready.",
       "Begin GP Fertiliser at 30g/m² around the base (not touching the stem). Water in thoroughly.",
-      "As flowers appear, apply every 5–6 weeks. Add Bloom N Yield at this stage — tomatoes need the phosphorus and potassium for fruit set.",
+      "As flowers appear, apply every 5–6 weeks. Add Bloom N Yield at this stage — tomatoes need calcium, magnesium, and sea minerals to support fruit set.",
       "Once fruiting begins, reduce application to monthly. Over-feeding at this stage can cause blossom end rot.",
     ],
     bundle: { name: "Spring Care Bundle" },

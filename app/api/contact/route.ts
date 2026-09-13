@@ -5,6 +5,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error("[contact] RESEND_API_KEY is not set");
+      return NextResponse.json({ error: "Email service not configured" }, { status: 500 });
+    }
+
     const { firstName, lastName, email, mobile, notes } = await req.json();
 
     if (!firstName || !lastName || !email) {
@@ -53,7 +58,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[contact]", err);
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[contact] Resend error:", msg);
+    return NextResponse.json({ error: "Failed to send", detail: msg }, { status: 500 });
   }
 }
