@@ -37,6 +37,13 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
   "bloom-n-yield":                                   { avg: 4.8, count: 44  },
 };
 
+const RATINGS_BY_TITLE: Record<string, { avg: number; count: number }> = {
+  "eco spray":    { avg: 4.7, count: 62 },
+  "ecospray":     { avg: 4.7, count: 62 },
+  "plant spray":  { avg: 4.7, count: 62 },
+  "bloom n yield":{ avg: 4.8, count: 44 },
+};
+
 const DESCRIPTION: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "Granulated · All Garden · Lawn",
   "lawn-fertilizer-premium-granulated-concentrated": "Slow-Release · 12 Week Feed",
@@ -92,11 +99,12 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
   const [adding, setAdding] = useState(false);
   const price    = formatPrice(product.priceRange.minVariantPrice.amount);
   const tag      = product.tags[0];
-  const proof    = SOCIAL_PROOF[product.handle];
-  const rating   = RATINGS[product.handle];
-  const badge    = BADGE[product.handle];
+  const titleKey = product.title.toLowerCase();
+  const proof    = SOCIAL_PROOF[product.handle] ?? Object.entries(SOCIAL_PROOF).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1];
+  const rating   = RATINGS[product.handle] ?? RATINGS_BY_TITLE[titleKey] ?? Object.entries(RATINGS_BY_TITLE).find(([k]) => titleKey.includes(k))?.[1];
+  const badge    = BADGE[product.handle] ?? (rating ? "Popular" : undefined);
   const firstImg = product.images.edges[0]?.node;
-  const desc     = product.description || DESCRIPTION[product.handle] || "";
+  const desc     = product.description || DESCRIPTION[product.handle] || Object.entries(DESCRIPTION).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1] || "";
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
