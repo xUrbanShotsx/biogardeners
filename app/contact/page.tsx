@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, CheckCircle, Send, MapPin } from "lucide-react";
+import { CheckCircle, Send } from "lucide-react";
 import { Nav }    from "@/components/nav";
 import { Footer } from "@/components/footer";
 
@@ -97,8 +97,8 @@ function ContactForm() {
       <Nav />
       <main style={{ background: "var(--canvas)", paddingTop: "var(--nav-h)" }}>
 
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
+        <div className="max-w-[860px] mx-auto px-4 md:px-6 lg:px-10 py-10 md:py-14">
+          <div>
 
             {/* Form */}
             <div>
@@ -265,69 +265,6 @@ function ContactForm() {
                   </motion.form>
                 )}
               </AnimatePresence>
-            </div>
-
-            {/* Contact info sidebar */}
-            <div className="flex flex-col gap-5">
-              {[
-                {
-                  icon:  Mail,
-                  label: "Email",
-                  value: "hello@biogardeners.com.au",
-                  sub:   "We reply within 1–2 business days",
-                  href:  "mailto:hello@biogardeners.com.au",
-                },
-                {
-                  icon:  Phone,
-                  label: "Phone",
-                  value: "Available by request",
-                  sub:   "Leave your number and we'll call you back",
-                  href:  null,
-                },
-                {
-                  icon:  MapPin,
-                  label: "Location",
-                  value: "Australia-wide",
-                  sub:   "We ship to every state and territory",
-                  href:  null,
-                },
-              ].map(({ icon: Icon, label, value, sub, href }) => (
-                <div
-                  key={label}
-                  className="flex gap-4 rounded-2xl p-5"
-                  style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: "var(--green-xlight)" }}
-                  >
-                    <Icon size={17} style={{ color: "var(--green-accent)" }} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.08em] mb-0.5" style={{ color: "var(--text-black-soft)" }}>{label}</p>
-                    {href ? (
-                      <a href={href} className="text-sm font-semibold transition-colors duration-150 hover:underline" style={{ color: "var(--green-bio)" }}>
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-semibold" style={{ color: "var(--text-black)" }}>{value}</p>
-                    )}
-                    <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>{sub}</p>
-                  </div>
-                </div>
-              ))}
-
-              {/* Response time card */}
-              <div
-                className="rounded-2xl p-5 mt-2"
-                style={{ background: "var(--green-accent)" }}
-              >
-                <p className="font-bold text-sm mb-1" style={{ color: "#fff" }}>Business hours</p>
-                <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
-                  Monday – Friday<br />
-                  9:00am – 5:00pm AEST
-                </p>
-              </div>
             </div>
 
           </div>

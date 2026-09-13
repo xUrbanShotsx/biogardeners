@@ -8,7 +8,7 @@ import { useCart, type CartItem } from "@/lib/cart-context";
 import { useAi } from "@/lib/ai-context";
 import { cartCheckoutMessage } from "@/lib/ai-messages";
 
-const SHIPPING = 17.95;
+const SHIPPING = 15.95;
 
 /* ─── Per-product visual colours ─── */
 const PRODUCT_BG: Record<string, string> = {
@@ -20,7 +20,9 @@ const PRODUCT_BG: Record<string, string> = {
   "glacial-milk":                                   "linear-gradient(140deg,#e8f4f8,#c8e4f0)",
   "soil-health-conditioner":                        "linear-gradient(140deg,#dde8d8,#b8d4b0)",
   "plant-spray":                                    "linear-gradient(140deg,#d8edd4,#aed4a8)",
+  "eco-spray":                                      "linear-gradient(140deg,#d8edd4,#aed4a8)",
   "penetrator":                                     "linear-gradient(140deg,#d8d4e8,#b4aed4)",
+  "bloom-n-yield":                                  "linear-gradient(140deg,#d4e8f0,#a0cce0)",
 };
 const PRODUCT_LABEL: Record<string, { l1: string; l2: string }> = {
   "gp-fertiliser-premium-garden-lawn":              { l1: "GP Fertiliser",  l2: "Garden / Lawn"  },
@@ -30,8 +32,10 @@ const PRODUCT_LABEL: Record<string, { l1: string; l2: string }> = {
   "liquid-npk-fertilizer":                          { l1: "Liquid NPK",     l2: "Fertilizer"     },
   "glacial-milk":                                   { l1: "Glacial Milk",   l2: "Rock Flour"     },
   "soil-health-conditioner":                        { l1: "Soil Health",    l2: "Conditioner"    },
-  "plant-spray":                                    { l1: "Plant Spray",    l2: "Disease Control"},
+  "plant-spray":                                    { l1: "Plant Spray",    l2: "Plant Vitality" },
+  "eco-spray":                                      { l1: "Eco Spray",      l2: "Plant Vitality" },
   "penetrator":                                     { l1: "Penetrator",     l2: "Soil Wetter"    },
+  "bloom-n-yield":                                  { l1: "Bloom N Yield",  l2: "Sea Minerals"   },
 };
 
 function MiniProduct({ handle, imageUrl, isBundle }: { handle: string; imageUrl?: string; isBundle?: boolean }) {
