@@ -47,7 +47,7 @@ export function Nav() {
 
           {/* Logo */}
           <Link href="/" className="shrink-0" aria-label="BioGardeners home">
-            <img src="/logoshopify.png" alt="BioGardeners" height={110} style={{ height: 110, width: "auto" }} />
+            <img src="/logoshopify.png" alt="BioGardeners" style={{ height: "clamp(52px, 7vw, 80px)", width: "auto", maxHeight: "calc(var(--nav-h) - 12px)" }} />
           </Link>
 
           {/* Desktop nav links */}
