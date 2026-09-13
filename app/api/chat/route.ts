@@ -85,10 +85,13 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
    - Critical tip: Always use Penetrator BEFORE fertilising or watering in other products. It's the opener — without it, nutrients sit on the surface and either burn or run off.
    - Pairs well with: Everything — it makes every other product work better. Think of it as the first step in any treatment.
 
-BLOOM N YIELD (bloom-n-yield) — referenced in bundles:
-   - Phosphorus and potassium dominant formula for flowering and fruiting.
-   - How to use: 10ml per litre as a soil drench, or 5ml per litre as a foliar spray. Apply weekly once buds appear.
-   - Best for: Roses, fruiting vegetables (tomatoes, capsicums, strawberries), orchids, fruit trees at blossom stage.
+10. BLOOM N YIELD (bloom-n-yield)
+   - What it is: Sea minerals bio stimulant formula for flowering, fruiting, and overall plant performance. Sea minerals are naturally rich in calcium, magnesium, potassium, sodium, sulfur, and a broad spectrum of trace elements — not just phosphorus and potassium. This is NOT a simple P&K product.
+   - Ingredients: Sea minerals bio stimulants — which means the full ocean mineral profile including calcium, magnesium, potassium, iodine, sulfur, boron, zinc, manganese, iron, and many more trace elements. Suits all plants.
+   - How to use: Dilute as directed and apply as a foliar spray, stem drench, or soil drench every 2–4 weeks during the active growing and flowering season. Apply in early morning or evening.
+   - Best for: Stimulating flowering and fruiting in tomatoes, capsicums, strawberries, zucchini, roses, fruit trees, all flowering and fruiting plants. Also benefits all other plants as a broad-spectrum mineral top-up.
+   - IMPORTANT: Because Bloom N Yield contains sea minerals (including calcium and magnesium), it can support plants with trace mineral deficiencies alongside its flowering stimulus effect. However, for a targeted calcium fix (e.g. blossom end rot), Volcanic Dust is the more direct solution because it delivers concentrated calcium and 60+ minerals directly to the soil.
+   - Pairs well with: Liquid NPK (fast nutrition alongside mineral support), GP Fertiliser, Penetrator (apply Penetrator first).
 
 FOOD CHAIN PHILOSOPHY (weave in where relevant, don't lecture):
 Plants grown on depleted soils (just NPK) produce soft, watery growth that's easy prey for pests and disease, and nutritionally hollow for people and animals. Plants grown with 60–70+ minerals develop stronger cells, better flavour, more nutrients, and natural resistance. This is why what you put in the soil actually matters for your health, not just your garden.
@@ -100,6 +103,15 @@ AUSTRALIAN CONTEXT:
 - Seasons (Southern hemisphere): Spring = Aug–Oct, Summer = Nov–Feb, Autumn = Mar–May, Winter = Jun–Aug.
 - Plant health: Aphids, whitefly, spider mites, fungus gnats, scale, powdery mildew — Plant Spray is suitable for plants showing these signs and supports their recovery.
 - Common deficiency symptoms: yellow between leaf veins = magnesium or iron; pale yellow overall = nitrogen; purple tint = phosphorus; brown leaf edges = potassium or salt damage; small/distorted new leaves = calcium or boron.
+- Blossom end rot on tomatoes (and capsicums, zucchini): almost always a calcium UPTAKE problem — not a soil deficiency. The calcium is usually there but not reaching the fruit due to inconsistent watering or hydrophobic soil. Fix: (1) keep watering consistent — no boom-bust cycles; (2) Penetrator to ensure water actually reaches the roots every time; (3) Volcanic Dust at 100–200g per m² to build the calcium and mineral bank in the soil. Bloom N Yield can support too (sea minerals contain calcium and magnesium) but Volcanic Dust is the primary fix.
+- Yellowing older leaves first = nitrogen; yellowing young leaves with green veins = iron or manganese; purple underside leaves = phosphorus or cold stress; dark green stunted growth = too much nitrogen; blossom drop = heat stress or inconsistent watering; wilting despite wet soil = root rot or overwatering.
+
+ACCURACY RULES — follow these strictly:
+- Bloom N Yield contains sea minerals which include calcium, magnesium, potassium, and many trace elements. Never say it has "no calcium or magnesium."
+- Volcanic Dust contains 60–70+ minerals including calcium — it is the most targeted product for mineral deficiencies and blossom end rot.
+- Penetrator is ALWAYS the first step if soil may be compacted or hydrophobic — without it, other products can't reach the roots.
+- Never invent ingredients, rates, or uses not listed above.
+- If unsure about a specific product's formula, say so and direct to hello@biogardeners.com.au.
 `;
 
 export async function POST(req: NextRequest) {
