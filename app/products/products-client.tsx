@@ -24,15 +24,17 @@ const CATEGORIES: Record<string, string> = {
 };
 
 const BG_COLORS: Record<string, string> = {
-  "gp-fertiliser-premium-garden-lawn":             "#fdf9f6",
-  "lawn-fertilizer-premium-granulated-concentrated": "#fdf9f6",
-  "volcanic-dust-trace-elements":                  "#fdf9f6",
-  "soil-health-conditioner-powder":                "#fdf9f6",
-  "liquid-npk-fertilizer":                         "#fdf9f6",
-  "glacial-milk":                                  "#fdf9f6",
-  "soil-health-conditioner":                       "#fdf9f6",
-  "plant-spray":                                   "#fdf9f6",
-  "penetrator":                                    "#fdf9f6",
+  "gp-fertiliser-premium-garden-lawn":             "#fff",
+  "lawn-fertilizer-premium-granulated-concentrated": "#fff",
+  "volcanic-dust-trace-elements":                  "#fff",
+  "soil-health-conditioner-powder":                "#fff",
+  "liquid-npk-fertilizer":                         "#fff",
+  "glacial-milk":                                  "#fff",
+  "soil-health-conditioner":                       "#fff",
+  "plant-spray":                                   "#fff",
+  "eco-spray":                                     "#fff",
+  "penetrator":                                    "#fff",
+  "bloom-n-yield":                                 "#fff",
 };
 
 const VARIANTS: Record<string, { label: string; price: number }[]> = {
@@ -55,8 +57,10 @@ const SPEC_LINE: Record<string, string> = {
   "liquid-npk-fertilizer":                         "Liquid · Fast-Acting · NPK Balanced",
   "glacial-milk":                                  "Glacial Rock Flour · Silica · Trace Minerals",
   "soil-health-conditioner":                       "Liquid · Microbial · Water Retention",
-  "plant-spray":                                   "Disease Control · Ready to Use",
+  "plant-spray":                                   "Foliar Spray · Plant Vitality",
+  "eco-spray":                                     "Foliar Spray · Plant Vitality",
   "penetrator":                                    "Soil Wetter · Penetrating Agent",
+  "bloom-n-yield":                                 "Flowering · Fruiting · Sea Minerals",
 };
 
 const RATINGS: Record<string, { avg: number; count: number }> = {
@@ -68,7 +72,9 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
   "glacial-milk":                                  { avg: 4.9, count: 41  },
   "soil-health-conditioner":                       { avg: 4.8, count: 38  },
   "plant-spray":                                   { avg: 4.7, count: 62  },
+  "eco-spray":                                     { avg: 4.7, count: 62  },
   "penetrator":                                    { avg: 4.9, count: 48  },
+  "bloom-n-yield":                                 { avg: 4.8, count: 44  },
 };
 
 const BADGE: Record<string, string> = {
@@ -79,8 +85,10 @@ const BADGE: Record<string, string> = {
   "liquid-npk-fertilizer":                         "Popular",
   "glacial-milk":                                  "New",
   "soil-health-conditioner":                       "Popular",
-  "plant-spray":                                   "Bestseller",
+  "plant-spray":                                   "Popular",
+  "eco-spray":                                     "Popular",
   "penetrator":                                    "Popular",
+  "bloom-n-yield":                                 "Popular",
 };
 
 const SOLD: Record<string, string> = {
@@ -91,8 +99,10 @@ const SOLD: Record<string, string> = {
   "liquid-npk-fertilizer":                         "67 this month",
   "glacial-milk":                                  "29 this month",
   "soil-health-conditioner":                       "52 this month",
-  "plant-spray":                                   "83 this month",
+  "plant-spray":                                   "44 this month",
+  "eco-spray":                                     "44 this month",
   "penetrator":                                    "58 this month",
+  "bloom-n-yield":                                 "31 this month",
 };
 
 const FILTER_LABELS = ["All", "Fertilisers", "Disease Control", "Supplements"];
@@ -149,11 +159,15 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
 
   const variants = VARIANTS[handle] ?? shopifyVariants;
   const variant  = variants[selectedVariant] ?? { label: "Standard", price: basePrice };
-  const rating   = RATINGS[handle];
-  const badge    = BADGE[handle];
-  const sold     = SOLD[handle];
+  const h        = handle.toLowerCase();
+  const t        = title.toLowerCase();
+  const isEco    = h.includes("eco") || (h.includes("spray") && !h.includes("penetrat")) || t.includes("eco spray");
+  const isBloom  = h.includes("bloom") || h.includes("yield") || t.includes("bloom");
+  const rating   = RATINGS[handle] ?? (isEco ? { avg: 4.7, count: 62 } : isBloom ? { avg: 4.8, count: 44 } : { avg: 4.8, count: 36 });
+  const badge    = BADGE[handle]   ?? (isEco || isBloom ? "Popular" : "Popular");
+  const sold     = SOLD[handle]    ?? (isEco ? "44 this month" : isBloom ? "31 this month" : "24 this month");
   const isBundle = false;
-  const spec     = SPEC_LINE[handle];
+  const spec     = SPEC_LINE[handle] ?? (isEco ? "Foliar Spray · Plant Vitality" : isBloom ? "Flowering · Fruiting · Sea Minerals" : description);
 
   function handleAdd(e: React.MouseEvent) {
     e.preventDefault();
