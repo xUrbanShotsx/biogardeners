@@ -5,20 +5,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Sprout, Leaf, Apple, FlaskConical, Sun, Droplets,
   Clock, ChevronDown, BookOpen,
-  CheckCircle2, TreePine,
+  CheckCircle2, TreePine, Package,
 } from "lucide-react";
 import { Nav }    from "@/components/nav";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 
+type GuideData = {
+  category:      string;
+  icon:          React.ElementType;
+  color:         string;
+  title:         string;
+  summary:       string;
+  readTime:      string;
+  difficulty:    string;
+  product:       string;
+  productHandle: string;
+  highlight:     string;
+  steps:         string[];
+  bundle?:       { name: string };
+};
 
-const GUIDES = [
+const GUIDES: GuideData[] = [
   {
     category:      "Vegetables",
     icon:          Sprout,
     color:         "#2D6A4F",
     title:         "Getting started with raised bed vegetables",
-    summary:       "How to build, fill, and feed a raised bed from scratch — the right layering order, soil ratios, and first-season fertiliser schedule.",
+    summary:       "How to build, fill, and feed a raised bed from scratch — the right layering order, soil preparation, and first-season fertiliser schedule.",
     readTime:      "8 min",
     difficulty:    "Beginner",
     product:       "GP Fertiliser",
@@ -26,9 +40,9 @@ const GUIDES = [
     highlight:     "Perfect for new gardeners starting their first bed",
     steps: [
       "Choose a location with at least 6 hours of direct sun per day.",
-      "Fill the bed with 60% GP Fertiliser blended with 40% existing topsoil for the bottom third, then 100% GP for the top two-thirds.",
-      "Apply Penetrator (5ml/L dilution) as a drench before planting — this inoculates the soil with mycorrhizal fungi.",
-      "Wait 2 weeks after planting before applying fertiliser at 30g/m². Water in well.",
+      "Fill the bed with quality topsoil or garden mix from your local supplier. Work GP Fertiliser into the top 10cm at 30g/m² before planting — this gives roots an immediate mineral-rich environment.",
+      "Apply Penetrator (10ml/L) as a drench before planting — it opens the soil so water and nutrients reach the root zone from day one rather than running off the surface.",
+      "Wait 2 weeks after planting before the next fertiliser application. Reapply GP Fertiliser at 30g/m² and water in well.",
       "Reapply every 6–8 weeks through the growing season.",
     ],
   },
@@ -44,12 +58,13 @@ const GUIDES = [
     productHandle: "gp-fertiliser-premium-garden-lawn",
     highlight:     "Australia's most popular home vegetable — get it right",
     steps: [
-      "Transplant seedlings into enriched soil. Apply Penetrator at transplanting — tomatoes are heavy feeders and need a strong root network early.",
+      "Apply Penetrator (10ml/L) at transplanting time. Tomatoes are heavy feeders and Penetrator ensures the root zone is open and able to absorb what you put in.",
       "Hold off fertiliser for 2 weeks while the plant establishes. You'll see new leaf growth when it's ready.",
-      "Begin fertiliser at 30g/m² around the base (not touching the stem). Water in thoroughly.",
-      "As flowers appear, increase to every 5–6 weeks. Tomatoes need phosphorus for fruit set.",
+      "Begin GP Fertiliser at 30g/m² around the base (not touching the stem). Water in thoroughly.",
+      "As flowers appear, apply every 5–6 weeks. Add Bloom N Yield at this stage — tomatoes need the phosphorus and potassium for fruit set.",
       "Once fruiting begins, reduce application to monthly. Over-feeding at this stage can cause blossom end rot.",
     ],
+    bundle: { name: "Spring Care Bundle" },
   },
   {
     category:      "Herbs",
@@ -63,11 +78,11 @@ const GUIDES = [
     productHandle: "gp-fertiliser-premium-garden-lawn",
     highlight:     "The fastest way to fresh herbs on your kitchen windowsill",
     steps: [
-      "Use a quality potting mix as the base — its water retention and pH buffer make it ideal for herb pots.",
-      "Apply a half-strength fertiliser application (15g per pot for a 30cm pot) every 4–5 weeks during active growth.",
-      "Soft-leafed herbs (basil, coriander, parsley) need more nitrogen. A half-strength liquid feed between granular applications helps in summer.",
-      "Woody herbs (rosemary, thyme, sage) are light feeders. One full application per season is enough — over-fertilising makes them leggy.",
-      "Mint is a heavy feeder and fast spreader — keep it in its own pot and feed monthly.",
+      "Use a quality potting mix from your local garden centre as the base. Add a tablespoon of Volcanic Dust per pot — the trace minerals make a real difference to herb flavour and oil content.",
+      "Apply a half-strength GP Fertiliser application (15g per pot for a 30cm pot) every 4–5 weeks during active growth.",
+      "Soft-leafed herbs (basil, coriander, parsley) need more nitrogen. A half-strength Liquid NPK application (5ml/L) between granular feeds keeps them lush through summer.",
+      "Woody herbs (rosemary, thyme, sage) are light feeders. One full GP Fertiliser application per season is enough — over-feeding makes them leggy and reduces flavour intensity.",
+      "Mint is a heavy feeder and fast spreader — keep it in its own pot and feed monthly with GP Fertiliser at the standard rate.",
     ],
   },
   {
@@ -84,9 +99,9 @@ const GUIDES = [
     steps: [
       "Legumes (beans, peas) fix atmospheric nitrogen into the soil — plant them before brassicas or leafy greens in your rotation.",
       "Deep-rooted plants like comfrey and chicory pull up minerals from subsoil layers. Their leaves can be used as mulch around feeding plants.",
-      "Marigolds deter nematodes and whitefly — plant them as a border around tomatoes and capsicums.",
+      "Marigolds planted as a border around tomatoes and capsicums can help deter certain insects — they also attract beneficial insects that support plant health.",
       "After harvesting legumes, cut the roots rather than pulling them. The root nodules left in the soil continue releasing nitrogen.",
-      "Add trace elements (Volcanic Dust) when replanting to reset the physical structure after a legume season before introducing heavy feeders.",
+      "Add Volcanic Dust at 100–200g/m² when replanting to replenish trace minerals after a legume season before introducing heavy feeders.",
     ],
   },
   {
@@ -101,12 +116,13 @@ const GUIDES = [
     productHandle: "penetrator",
     highlight:     "Get more fruit from trees you already have",
     steps: [
-      "In early spring (August–September), apply Penetrator as a drench across the entire root zone — from trunk to drip line.",
-      "Follow with fertiliser at 50g/m² under the canopy (not touching the trunk) once soil temperature is consistently above 12°C.",
-      "Citrus specifically: feed again in November. Citrus are heavy potassium consumers during fruit development.",
+      "In early spring (August–September), apply Penetrator (10ml/L) as a drench across the entire root zone — from trunk to drip line. This opens the soil so the fertiliser that follows actually reaches the roots.",
+      "Follow with GP Fertiliser at 30–50g/m² under the canopy (not touching the trunk) once soil temperature is consistently above 12°C.",
+      "Citrus specifically: feed again in November with Liquid NPK (10ml/L). Citrus are heavy potassium consumers during fruit development.",
       "Stone fruit (peaches, nectarines, plums): fertilise immediately after harvest in late summer to build reserves for next season's flowering.",
       "Do not feed after February — encouraging late growth makes trees vulnerable to frost and disease.",
     ],
+    bundle: { name: "Spring Care Bundle" },
   },
   {
     category:      "Fruits & Trees",
@@ -121,11 +137,12 @@ const GUIDES = [
     highlight:     "Don't give up — most struggling trees can recover",
     steps: [
       "Check the soil pH first — most nutrient deficiencies in Australian gardens are actually pH problems, not lack of nutrients. Aim for 6.2–6.8.",
-      "If the pH is fine, look at the symptoms: yellow between veins = magnesium or iron deficiency; pale overall = nitrogen; purple leaves = phosphorus.",
-      "Apply Penetrator to rebuild the soil's ability to absorb existing nutrients.",
-      "Add compost as a 5cm top-dressing around the drip line to improve soil structure and water penetration.",
-      "Begin feeding 3 weeks later at the standard rate. Monitor new leaf colour — improvement should be visible within 4–6 weeks.",
+      "Look at the symptoms: yellow between veins = magnesium or iron deficiency; pale overall = nitrogen; purple leaves = phosphorus.",
+      "Apply Penetrator (10ml/L) first to open the root zone, then Soil Health Conditioner (50ml/9L) to restore the biological activity needed to process nutrients.",
+      "Add compost as a 5cm top-dressing around the drip line to improve soil structure and water retention.",
+      "Begin GP Fertiliser 3 weeks later at 30g/m². Monitor new leaf colour — visible improvement should appear within 4–6 weeks.",
     ],
+    bundle: { name: "Regenerative Soil Care Bundle" },
   },
   {
     category:      "Soil prep",
@@ -143,7 +160,7 @@ const GUIDES = [
       "The squeeze test: wet soil and squeeze — if it ribbons out and stays together, you have clay-heavy soil. If it crumbles immediately, it's sandy.",
       "The worm count: dig a 30cm cube and count earthworms. Fewer than 5 worms indicates low organic matter or soil biology. More than 10 is healthy.",
       "pH strips: test soil at 10cm depth after watering. Most vegetables prefer 6.2–6.8. Below 5.5 means lime is needed; above 7.5 means acidifying inputs.",
-      "Based on your results: add Soil Health Conditioner for structure (clay or sand), Penetrator for low worm count (poor biology), and fertiliser to correct nutrient deficiency.",
+      "Based on results: add Soil Health Conditioner for depleted biology, Penetrator for compacted or water-repellent soil, Volcanic Dust for mineral depletion, GP Fertiliser to correct nutrient deficiency.",
     ],
   },
   {
@@ -159,10 +176,10 @@ const GUIDES = [
     highlight:     "Turn any patch of ground into a productive bed",
     steps: [
       "Remove grass or weeds. A layer of cardboard directly on the surface (newspaper-box sheets, overlapping) kills existing growth without digging.",
-      "Apply a 10cm layer of quality potting mix over the cardboard. Water it well.",
-      "Add a second 5cm layer of compost (any type) on top. This creates the planting layer.",
-      "Apply Penetrator across the whole bed surface before planting — it inoculates the new soil before roots arrive.",
-      "Plant directly into the top compost layer. By the second season, earthworms and soil biology will have broken down the cardboard and integrated the layers.",
+      "Apply a 10cm layer of compost or aged garden mix on top of the cardboard. Water it in well — the cardboard below provides a weed-suppressing base while it breaks down.",
+      "Add GP Fertiliser at 30g/m² and work it into the compost layer. This sets up the mineral environment before any roots arrive.",
+      "Apply Penetrator (10ml/L) across the whole bed surface before planting — it opens the new soil layer so water penetrates evenly rather than running off.",
+      "Plant directly into the top layer. By the second season, earthworms and soil biology will have broken down the cardboard and integrated all the layers.",
     ],
   },
   {
@@ -179,11 +196,12 @@ const GUIDES = [
     steps: [
       "Week 1: Test soil pH and amend if needed. Add lime to raise pH, sulfur to lower it. Allow 2 weeks before planting.",
       "Week 2: Top-dress existing beds with 5cm of compost. This refreshes structure and adds fresh organic matter after winter.",
-      "Week 2: Apply Penetrator to trees, shrubs, and established perennials — spring is when fungal networks are most active.",
-      "Week 3: Plant warm-season seedlings once soil temperature consistently reaches 12°C (use a $10 soil thermometer).",
-      "Week 3: Apply fertiliser at planting — the NPK charge gives transplants the nutrients they need immediately without burning.",
+      "Week 2: Apply Penetrator to trees, shrubs, and established perennials — spring's wet-dry cycles make soils prone to becoming water-repellent, and Penetrator resets the soil's ability to absorb water.",
+      "Week 3: Plant warm-season seedlings once soil temperature consistently reaches 12°C.",
+      "Week 3: Apply GP Fertiliser at planting (30g/m²) — the mineral charge gives transplants what they need immediately without burning.",
       "Ongoing: water consistently. More plants fail from inconsistent watering than from any nutrient issue.",
     ],
+    bundle: { name: "Spring Care Bundle" },
   },
   {
     category:      "Seasonal",
@@ -197,12 +215,13 @@ const GUIDES = [
     productHandle: "penetrator",
     highlight:     "Most summer plant failures are watering mistakes, not nutrient problems",
     steps: [
-      "Never apply granular fertiliser to dry soil — always water thoroughly first, apply, then water again. Dry application burns roots.",
-      "Reduce fertiliser frequency to every 8–10 weeks in peak summer. Plants slow their uptake in heat stress — pushing nutrients causes burn.",
-      "Penetrator can be applied through summer as it doesn't add salts that cause burn. It helps roots access existing soil moisture.",
+      "Never apply GP Fertiliser to dry soil — always water thoroughly first, apply, then water again. Dry application can burn roots.",
+      "Reduce fertiliser frequency to every 8–10 weeks in peak summer. Plants slow their uptake in heat stress — pushing nutrients causes build-up and burn.",
+      "Penetrator can be applied through summer as it doesn't add salts. It helps roots access existing soil moisture more efficiently.",
       "Water deeply and infrequently rather than shallowly every day. Deep watering encourages deep roots that are more heat and drought resistant.",
       "Mulch is the single highest-impact summer action — a 10cm layer of sugar cane mulch or straw reduces soil temperature by up to 8°C and halves water loss.",
     ],
+    bundle: { name: "Summer Care Bundle" },
   },
 
   // ── 10 new guides ──────────────────────────────────────────────────────────
@@ -220,8 +239,8 @@ const GUIDES = [
     highlight:     "A steady supply of greens from the same small space all year",
     steps: [
       "In summer, grow heat-tolerant varieties (silverbeet, perpetual spinach) and keep them shaded during the hottest part of the day.",
-      "Apply half-strength fertiliser (15g/m²) every 4 weeks — leafy greens are nitrogen lovers but burn easily in heat.",
-      "In autumn and winter, switch to full-sun positions. Cooler months are when true spinach and butter lettuce are at their best.",
+      "Apply GP Fertiliser at half-strength (15g/m²) every 4 weeks — leafy greens are nitrogen lovers but can burn easily in heat.",
+      "In autumn and winter, switch to full-sun positions. Cooler months are when true spinach and butter lettuce are at their best. Resume standard rate (30g/m²).",
       "Harvest outer leaves only — never strip the whole plant. This keeps it producing for months.",
       "Succession-plant every 3–4 weeks so you always have something at harvest stage.",
     ],
@@ -238,12 +257,13 @@ const GUIDES = [
     productHandle: "gp-fertiliser-premium-garden-lawn",
     highlight:     "Zucchinis will outproduce any other vegetable if you feed them right",
     steps: [
-      "Prepare beds with a full fertiliser application 2 weeks before planting — zucchinis and cucumbers need a rich starting environment.",
-      "At transplanting, apply Penetrator as a root drench to establish strong mycorrhizal networks immediately.",
-      "Begin follow-up feeding at 30g/m² once the plant has 4–6 true leaves. Avoid feeding before this — seedlings burn easily.",
-      "As flowering starts, feed every 4 weeks. The potassium component in GP Fertiliser supports both flowering and fruit set.",
-      "If fruit production slows mid-season, check for calcium deficiency (blossom end rot on cucumbers) — a foliar calcium spray or dolomite lime often resolves this fast.",
+      "Prepare beds with GP Fertiliser at 30g/m² two weeks before planting — zucchinis and cucumbers need a rich starting environment.",
+      "At transplanting, apply Penetrator (10ml/L) as a root drench to ensure roots can access water and nutrients from the start.",
+      "Begin follow-up feeding with GP Fertiliser at 30g/m² once the plant has 4–6 true leaves. Avoid feeding before this — seedlings are sensitive.",
+      "As flowering starts, feed every 4 weeks. Add Bloom N Yield to support both flowering and fruit set.",
+      "If fruit production slows mid-season, apply Liquid NPK (10ml/L) as a foliar spray in the early morning for a fast response.",
     ],
+    bundle: { name: "Summer Care Bundle" },
   },
   {
     category:      "Herbs",
@@ -258,10 +278,10 @@ const GUIDES = [
     highlight:     "Design it once, harvest from it for years",
     steps: [
       "Group herbs by water needs: Mediterranean herbs (rosemary, thyme, oregano, sage) in well-drained, drier spots; moisture-lovers (basil, parsley, chives) in richer soil.",
-      "Prepare beds with Volcanic Dust worked in 15cm deep — trace minerals make a noticeable difference to herb flavour and oil content.",
-      "Apply fertiliser at half the standard rate for Mediterranean herbs; full rate for soft-stemmed herbs.",
+      "Prepare beds with Volcanic Dust at 100–200g/m² worked in 15cm deep — trace minerals make a noticeable difference to herb flavour and essential oil content.",
+      "Apply GP Fertiliser at half the standard rate (15g/m²) for Mediterranean herbs; full rate (30g/m²) for soft-stemmed herbs.",
       "Mulch Mediterranean herbs with gravel or pebbles to reflect heat and prevent root rot — organic mulch holds too much moisture for them.",
-      "Prune flowering stems as they appear (except when you want seed). Letting herbs flower triggers them to slow leaf production.",
+      "Prune flowering stems as they appear. Letting herbs flower triggers them to slow leaf production — unless you want the seed.",
     ],
   },
   {
@@ -278,10 +298,11 @@ const GUIDES = [
     steps: [
       "Plant citrus in full sun — at least 6 hours direct sun per day. Morning sun with afternoon shade is acceptable in very hot climates.",
       "Prepare the planting hole twice as wide as the root ball but no deeper. Citrus are grafted; keep the graft union above soil level.",
-      "Apply Penetrator as a root drench at planting and again 6 weeks later — this establishes the fungal networks that citrus depend on for phosphorus uptake.",
-      "Hold off on fertiliser for 8 weeks after planting. Once established, begin at half-strength (25g/m²) in late winter.",
+      "Apply Penetrator (10ml/L) as a root drench at planting and again 6 weeks later — it ensures water and fertiliser reach the root zone rather than running off the soil surface.",
+      "Hold off on GP Fertiliser for 8 weeks after planting. Once established, begin at half-strength (15g/m²) in late winter and increase to full rate by spring.",
       "Remove any fruit that sets in the first year — energy into roots and canopy now means far more fruit from year three onward.",
     ],
+    bundle: { name: "Planting Day Care Bundle" },
   },
   {
     category:      "Fruits & Trees",
@@ -297,10 +318,11 @@ const GUIDES = [
     steps: [
       "Avocados are extremely sensitive to waterlogging. Plant on a raised mound of 30–40cm even in well-drained soil, or in a raised bed.",
       "Target pH of 6.0–6.5. Most Australian soils are either too alkaline (coastal limestone) or too acidic (heavy clay). Test first, amend slowly.",
-      "Apply Soil Health Conditioner to improve drainage and aeration in clay soils — avocado roots suffocate in compacted ground.",
-      "Fertilise lightly in late winter and again in early summer. Avocados are sensitive to salt build-up — use low-chloride fertilisers only, at half-standard rates.",
+      "Apply Penetrator first (10ml/L) to open waterlogged or compacted ground, then follow with Soil Health Conditioner (50ml/9L) to restore the biology that avocado roots rely on for phosphorus access.",
+      "Fertilise lightly with GP Fertiliser in late winter and again in early summer. Avocados are sensitive to salt build-up — use at half the standard rate (15g/m²).",
       "Water deeply but infrequently. Avocados in sandy soils may need twice-weekly watering in summer; in clay, every 10–14 days is often enough.",
     ],
+    bundle: { name: "Regenerative Soil Care Bundle" },
   },
   {
     category:      "Soil prep",
@@ -315,11 +337,12 @@ const GUIDES = [
     highlight:     "Clay holds nutrients better than sand — you just need to fix the structure",
     steps: [
       "Never dig clay when wet — it smears and compacts permanently. Work it only when moist enough to crumble but not so wet it sticks.",
-      "Apply Soil Health Conditioner at the full rate (as per product label) and work it into the top 15cm. This begins breaking up the clay matrix.",
+      "Apply Penetrator first (10ml/L) to force water through the clay profile. Follow immediately with Soil Conditioner (50ml per 9L watering can) — this combination opens the clay matrix and starts restoring biology.",
       "Add coarse organic matter (composted wood chip, straw, sugar cane mulch) on top — as it breaks down, earthworms pull it into the clay layer.",
-      "Gypsum (calcium sulfate) is an excellent clay breaker for sodic clays — apply at 1kg/m² and water in. It doesn't affect pH.",
-      "Do not add sand to clay — fine sand and clay particles pack together into a concrete-like matrix. The only things that work are organic matter, gypsum, and biology.",
+      "Gypsum (calcium sulfate) is excellent for sodic clays — apply at 1kg/m² and water in. It doesn't affect pH.",
+      "Repeat the Penetrator + Conditioner treatment monthly for 3–4 months. Do not add sand to clay — fine sand and clay particles pack into a concrete-like matrix.",
     ],
+    bundle: { name: "Clay / Heavy Soil Care Bundle" },
   },
   {
     category:      "Soil prep",
@@ -329,16 +352,17 @@ const GUIDES = [
     summary:       "Healthy soil is a living system. Here's how to establish a thriving population of bacteria, fungi, and earthworms in even the most depleted ground.",
     readTime:      "9 min",
     difficulty:    "Intermediate",
-    product:       "Penetrator",
-    productHandle: "penetrator",
+    product:       "Soil Health Conditioner",
+    productHandle: "soil-health-conditioner",
     highlight:     "Feed the soil and the soil feeds your plants — everything else follows",
     steps: [
-      "Stop using synthetic pesticides and herbicides in the target area at least 3 months before beginning. These compounds kill soil biology non-selectively.",
-      "Apply Penetrator as a drench — the mycorrhizal inoculants establish fungal networks that connect plants and allow them to share nutrients.",
-      "Add compost as a 5cm surface layer. Don't dig it in — let worms and biology pull it down. Digging disrupts fungal networks.",
-      "Plant a cover crop (oats, radish, field peas) if the bed will sit empty for more than 4 weeks. Bare soil dies; roots feed the biology you're trying to build.",
+      "Stop using synthetic pesticides and herbicides in the target area at least 3 months before beginning. These compounds affect soil biology non-selectively.",
+      "Apply Soil Health Conditioner (50ml per 9L watering can) across the area — it introduces beneficial bacteria and fungi that form the foundation of a living soil ecosystem.",
+      "Add compost as a 5cm surface layer. Don't dig it in — let worms and biology pull it down. Digging disrupts developing fungal networks.",
+      "Plant a cover crop (oats, radish, field peas) if the bed will sit empty for more than 4 weeks. Bare soil loses biology fast; roots feed the microbes you're building.",
       "After 8 weeks, count worms in a 30cm cube. More than 10 means your biology is establishing. Under 5 means more organic matter and less disturbance is needed.",
     ],
+    bundle: { name: "Regenerative Soil Care Bundle" },
   },
   {
     category:      "Seasonal",
@@ -352,12 +376,13 @@ const GUIDES = [
     productHandle: "volcanic-dust-trace-elements",
     highlight:     "Don't let the garden go idle in winter — it's your best growing season for leafy greens",
     steps: [
-      "In March–April, pull spent summer crops. Don't leave roots in the ground — they harbour pests over winter.",
+      "In March–April, pull spent summer crops. Don't leave roots in the ground — they can harbour problems over winter.",
       "Apply Volcanic Dust across the cleared bed at 100–200g/m². Autumn is the ideal time for trace mineral replenishment before winter crops go in.",
       "Plant brassicas (broccoli, cauliflower, cabbage, kale) and winter greens by April in most Australian climates. June in tropical regions.",
       "Add a 5cm layer of compost over the entire bed. Winter rain will work it in slowly, and spring worms will integrate it by September.",
-      "Do not fertilise in late autumn (May onwards) — encouraging soft new growth before frost makes plants more vulnerable. Resume in August.",
+      "Do not fertilise with GP Fertiliser after May — encouraging soft new growth before frost makes plants more vulnerable. Resume at half-rate in August.",
     ],
+    bundle: { name: "Autumn Care Bundle" },
   },
   {
     category:      "Seasonal",
@@ -371,12 +396,13 @@ const GUIDES = [
     productHandle: "gp-fertiliser-premium-garden-lawn",
     highlight:     "Half the fertiliser mistakes happen in winter — here's how to avoid them",
     steps: [
-      "Halve your fertiliser application rate in winter (15g/m² instead of 30g/m²). Plants take up nutrients much more slowly in cold soil.",
-      "Extend the interval between applications to 10–12 weeks. Nutrients sit in the soil longer in winter — over-applying leads to runoff and root burn.",
-      "Cool-season crops (brassicas, leafy greens, peas, broad beans) still benefit from feeding, but warm-season crops that haven't died should not be pushed.",
-      "Avoid nitrogen-heavy applications before frost. Nitrogen promotes soft leafy growth that's easily frost-damaged.",
-      "Resume full-rate feeding in August as soil temperatures rise — you'll see growth accelerate noticeably within 2 weeks of the first spring application.",
+      "Halve your GP Fertiliser application rate in winter (15g/m² instead of 30g/m²). Plants take up nutrients much more slowly in cold soil.",
+      "Extend the interval between applications to 10–12 weeks. Nutrients sit in the soil longer in winter — over-applying leads to run-off.",
+      "Cool-season crops (brassicas, leafy greens, peas, broad beans) still benefit from feeding; warm-season plants that haven't died back should not be pushed.",
+      "Apply Glacial Milk monthly through winter (50g per 9L watering can) — high silica content supports cell wall strength and frost resistance.",
+      "Resume full-rate GP Fertiliser in August as soil temperatures rise — you'll see growth accelerate noticeably within 2 weeks.",
     ],
+    bundle: { name: "Winter Care Bundle" },
   },
   {
     category:      "Vegetables",
@@ -394,7 +420,7 @@ const GUIDES = [
       "Avoid fresh manure or high-nitrogen fertilisers immediately before sowing. Excess nitrogen causes root crops to fork and produce excessive leaf instead of root.",
       "Apply Volcanic Dust at 100g/m² and work it in well. Trace minerals — especially boron and potassium — directly affect root quality and sweetness.",
       "Sow seed directly (root crops don't transplant well). Thin to the recommended spacing once seedlings are 3–4cm tall — overcrowding causes small, poor-quality roots.",
-      "Feed lightly with a low-nitrogen fertiliser at half-rate once plants are 10cm tall. From here, let the soil minerals do the work.",
+      "Once plants are 10cm tall, apply GP Fertiliser at half-rate (15g/m²). From here, let the soil minerals do the work — root crops don't need heavy feeding.",
     ],
   },
 ];
@@ -418,7 +444,7 @@ function DifficultyBadge({ level }: { level: string }) {
   );
 }
 
-function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number }) {
+function GuideCard({ guide, index }: { guide: GuideData; index: number }) {
   const [open, setOpen] = useState(false);
   const { icon: Icon, color } = guide;
 
@@ -466,17 +492,29 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
         </p>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--ceramic)" }}>
-          <Link
-            href={`/products/${guide.productHandle}`}
-            className="text-xs font-semibold px-2.5 py-1 rounded-full transition-opacity hover:opacity-75"
-            style={{ background: color + "12", color }}
-          >
-            Uses {guide.product}
-          </Link>
+        <div className="flex items-end justify-between pt-3" style={{ borderTop: "1px solid var(--ceramic)" }}>
+          <div className="flex flex-col gap-1.5">
+            <Link
+              href={`/products/${guide.productHandle}`}
+              className="text-xs font-semibold px-2.5 py-1 rounded-full transition-opacity hover:opacity-75 self-start"
+              style={{ background: color + "12", color }}
+            >
+              Uses {guide.product}
+            </Link>
+            {guide.bundle && (
+              <Link
+                href="/bundles"
+                className="flex items-center gap-1 text-[11px] font-semibold hover:underline self-start"
+                style={{ color: "var(--text-black-soft)" }}
+              >
+                <Package size={10} />
+                {guide.bundle.name}
+              </Link>
+            )}
+          </div>
           <button
             onClick={() => setOpen(!open)}
-            className="flex items-center gap-1 text-xs font-semibold transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold transition-colors shrink-0"
             style={{ color }}
             aria-expanded={open}
           >
@@ -524,6 +562,16 @@ function GuideCard({ guide, index }: { guide: typeof GUIDES[0]; index: number })
                 <CheckCircle2 size={12} />
                 {guide.steps.length} steps · {guide.readTime} read
               </div>
+              {guide.bundle && (
+                <Link
+                  href="/bundles"
+                  className="mt-3 flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-2 transition-opacity hover:opacity-80"
+                  style={{ background: color + "12", color }}
+                >
+                  <Package size={12} />
+                  Get everything in one: {guide.bundle.name} →
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

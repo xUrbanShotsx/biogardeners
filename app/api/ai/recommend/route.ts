@@ -9,7 +9,7 @@ const ALL_PRODUCTS = [
   { handle: "liquid-npk-fertilizer",                          title: "Liquid NPK Fertilizer",      role: "Fast-acting liquid NPK with trace elements. Foliar or soil drench, visible in 3-5 days." },
   { handle: "glacial-milk",                                   title: "Glacial Milk",               role: "Glacial rock flour high in silica. Strengthens cell walls, frost resistance, seed support." },
   { handle: "soil-health-conditioner",                        title: "Soil Health Conditioner",    role: "Liquid microbial blend. Rebuilds soil biology, improves water retention and nutrient uptake." },
-  { handle: "plant-spray",                                    title: "Plant Spray",                role: "Selenium-based foliar spray. Controls aphids, whitefly, spider mites, powdery mildew. Safe for edibles." },
+  { handle: "plant-spray",                                    title: "Plant Spray",                role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage. Safe for edibles." },
   { handle: "penetrator",                                     title: "Penetrator",                 role: "Soil wetting agent. Always apply FIRST — opens compacted/hydrophobic soils so everything else works." },
 ];
 
@@ -19,9 +19,9 @@ Natural product pairings and why:
 - Penetrator + anything: Penetrator always pairs with any soil-applied product because it ensures nutrients actually reach the roots. If someone is buying a fertiliser or conditioner, Penetrator makes it dramatically more effective.
 - GP Fertiliser + Volcanic Dust: GP provides the NPK backbone; Volcanic Dust adds the 60+ trace minerals. Together they cover the full mineral spectrum.
 - GP Fertiliser + Soil Health Conditioner (liquid or powder): Fertiliser feeds the plants; conditioner feeds the soil biology that converts those nutrients.
-- Liquid NPK + Plant Spray: Fast-acting foliar pairing — liquid NPK boosts growth, Plant Spray handles pests and disease. Often used together on fruiting veg.
+- Liquid NPK + Plant Spray: Fast-acting foliar pairing — liquid NPK boosts growth, Plant Spray supports plant vitality and healthy foliage. Often used together on fruiting veg.
 - Glacial Milk + anything: Glacial Milk is a trace mineral supplement that complements every feeding program — suggest it when someone buys any fertiliser.
-- Plant Spray as standalone: Suggest it whenever the customer is viewing products — pest and disease pressure is universal in Australian gardens.
+- Plant Spray as standalone: Suggest it whenever the customer is viewing products — healthy foliage support is relevant to any garden.
 - Lawn Fertilizer + Penetrator: Lawn products work far better when the soil isn't compacted. Penetrator + Lawn Fertilizer is the standard lawn program.
 - Soil Health Conditioner + Volcanic Dust: Biology needs minerals to work with. These two together rebuild dead soils from the ground up.
 `;

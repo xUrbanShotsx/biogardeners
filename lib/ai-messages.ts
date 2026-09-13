@@ -17,7 +17,7 @@ export const AI_HOVER: Record<string, string> = {
   "soil-health-conditioner":
     "Liquid microbial blend that gets soil biology working again. 50ml per 9L watering can every 4–6 weeks. Often the missing piece when plants aren't responding to fertiliser.",
   "plant-spray":
-    "Selenium-based spray that handles aphids, whitefly, spider mites, and powdery mildew without toxic chemicals. Always spray top and underside of leaves, morning or evening.",
+    "Selenium-rich foliar spray suitable for plants affected by common insects and fungal issues. Supports plant vitality and healthy foliage — spray top and underside of leaves, morning or evening.",
   "penetrator":
     "Apply this first before anything else — 10ml per litre and it opens the soil profile so water and nutrients actually reach the roots instead of running off.",
 };
@@ -52,8 +52,8 @@ export const AI_CART: Record<string, { compliment: string; tip: string }> = {
     tip:        "Dilute 50ml per 9L watering can and apply to moist soil every 4–6 weeks. For pots, 25ml per 9L every couple of months keeps potting mix alive.",
   },
   "plant-spray": {
-    compliment: "Good thinking — easier to prevent than to fix once an infestation takes hold.",
-    tip:        "Spray top AND underside of leaves in the early morning or evening. For active pests, every 3–5 days for 3 rounds usually clears it.",
+    compliment: "Good thinking — applying before problems take hold is always the smarter play.",
+    tip:        "Spray top AND underside of leaves in the early morning or evening. For plants showing signs of pest or disease pressure, apply every 3–5 days for 3 rounds to restore healthy foliage.",
   },
   "penetrator": {
     compliment: "This changes everything if your soil is at all hydrophobic — and most Australian soil is.",

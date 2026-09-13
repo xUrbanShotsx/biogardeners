@@ -30,7 +30,7 @@ function CheckoutHeader() {
       }}
     >
       <Link href="/" aria-label="BioGardeners home">
-        <img src="/logo.svg" alt="BioGardeners" style={{ height: 30, width: "auto" }} />
+        <img src="/logoshopify.png" alt="BioGardeners" style={{ height: 30, width: "auto" }} />
       </Link>
       <div className="hidden sm:flex items-center gap-2 text-xs font-semibold">
         <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>

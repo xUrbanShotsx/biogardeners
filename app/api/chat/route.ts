@@ -70,13 +70,12 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
    - Pairs well with: Volcanic Dust (gives biology the minerals to work with), GP Fertiliser, Glacial Milk.
 
 8. PLANT SPRAY / ECOSPRAY (plant-spray)
-   - What it is: Selenium-rich foliar spray with natural plant extracts. Acts as both a pest control and a foliar nutrient delivery system.
-   - How to use: Spray directly onto leaves — top AND underside. Apply in early morning or evening only (never in direct sun — leaf burn risk). For active infestations: every 3–5 days for 3 applications. For prevention: fortnightly.
-   - What it controls: Aphids, whitefly, spider mites, scale insects, fungus gnats, powdery mildew, downy mildew, fungal leaf spots.
-   - Why selenium works on pests: Selenium is toxic to soft-bodied insects at the concentrations used. It also builds systemic resistance — selenoprotein accumulation in leaf tissue makes them physically harder for insects to feed on over time.
-   - Safe for: Bees and beneficial insects (selective action on soft-bodied pests only), edible crops (no withholding period when used as directed), indoor use.
-   - Also functions as: Foliar nutrient delivery — selenium reaches the plant and contributes to the glutathione peroxidase enzyme system (a powerful plant antioxidant).
-   - Pairs well with: Any program — it's a standalone pest/disease solution that complements all other products.
+   - What it is: Selenium-rich foliar spray with natural plant extracts. Supports plant vitality and healthy foliage. Also functions as a foliar nutrient delivery system.
+   - How to use: Spray directly onto leaves — top AND underside. Apply in early morning or evening only (never in direct sun — leaf burn risk). For plants showing signs of pest or disease pressure: every 3–5 days for 3 applications to restore healthy foliage. For general plant health maintenance: fortnightly.
+   - Suitable for: Plants affected by common insects (aphids, whitefly, spider mites, scale, fungus gnats) or fungal issues (powdery mildew, downy mildew, fungal leaf spots). Helps restore plant vitality.
+   - IMPORTANT — DO NOT say Plant Spray "kills" pests or "controls" disease. Use language like "suitable for plants affected by", "helps restore vitality", "supports recovery", "for plants showing signs of". This is how the product is correctly described.
+   - Safe for: Edible crops (no withholding period when used as directed), indoor use. Selenium contributes to the glutathione peroxidase enzyme system — a powerful plant antioxidant that supports overall plant health.
+   - Pairs well with: Any program — it's a standalone foliar support that complements all other products.
 
 9. PENETRATOR (penetrator)
    - What it is: Professional-grade soil wetting agent. Breaks the hydrophobic barrier on dry, compacted, or water-repellent soils so water and nutrients actually penetrate to the root zone instead of running off.
@@ -99,7 +98,7 @@ AUSTRALIAN CONTEXT:
 - Common problems: water-repellent soils (hydrophobicity) → Penetrator; clay cracking and waterlogging → Soil Conditioner + Penetrator; sandy soils that don't hold nutrients → Volcanic Dust + Soil Conditioner; aphid and whitefly pressure → Plant Spray; lawns browning off in summer → Lawn Fertilizer + Penetrator.
 - Australian summer is brutal — apply fertilisers in early morning, never in midday heat, and always water first.
 - Seasons (Southern hemisphere): Spring = Aug–Oct, Summer = Nov–Feb, Autumn = Mar–May, Winter = Jun–Aug.
-- Key pests: Aphids, whitefly, spider mites, fungus gnats, scale — all addressable with Plant Spray.
+- Plant health: Aphids, whitefly, spider mites, fungus gnats, scale, powdery mildew — Plant Spray is suitable for plants showing these signs and supports their recovery.
 - Common deficiency symptoms: yellow between leaf veins = magnesium or iron; pale yellow overall = nitrogen; purple tint = phosphorus; brown leaf edges = potassium or salt damage; small/distorted new leaves = calcium or boron.
 `;
 

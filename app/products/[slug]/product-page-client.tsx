@@ -110,12 +110,12 @@ const PRODUCT_DETAILS: Record<string, {
   },
   "plant-spray": {
     benefits:    [
-      "Protects against common fungal diseases and pest damage",
+      "Suitable for spraying on plants affected by insects or fungal issues — helps restore vitality and healthy foliage",
       "Ready-to-use — no mixing or dilution required",
       "Safe for edibles, vegetables, and ornamentals when used as directed",
-      "Strengthens plant natural defences against environmental stress",
+      "Selenium-rich formula that supports plant resilience and overall leaf health",
     ],
-    howToUse:    "Spray directly onto affected plant surfaces, ensuring full coverage of leaves — top and bottom. Apply in the morning or evening, avoiding hot conditions. Repeat every 7–14 days or as needed. Do not spray in direct sunlight.",
+    howToUse:    "Spray directly onto affected plant surfaces, ensuring full coverage of leaves — top and bottom. Apply in the morning or evening, never in direct sunlight. For plants showing signs of pest or disease pressure, apply every 3–5 days for 3 rounds. For general plant health maintenance, apply fortnightly.",
     ingredients: "Active botanical and mineral complex. Biodegradable formula. Safe for beneficial insects when dry. See label for full active ingredient list.",
     weight:      "See product listing for available sizes",
   },
@@ -147,7 +147,7 @@ const GALLERY_BG: Record<string, string[]> = {
 const REVIEWS = [
   { name: "Sarah M.", city: "Sydney",    rating: 5, text: "Visible results in just 8 days. Bio Bloom doubled my tomato yield.",        initial: "S", color: "#006241" },
   { name: "James T.", city: "Melbourne", rating: 5, text: "Finally a brand that explains every ingredient. Trust built immediately.",    initial: "J", color: "#00754A" },
-  { name: "Helen R.", city: "Brisbane",  rating: 5, text: "Best potting mix I've ever used. Drainage is perfect, herbs are thriving.",  initial: "H", color: "#1E3932" },
+  { name: "Helen R.", city: "Brisbane",  rating: 5, text: "The Soil Conditioner changed everything — drainage is perfect and my herbs haven't looked this healthy in years.",  initial: "H", color: "#1E3932" },
   { name: "David K.", city: "Perth",     rating: 5, text: "New growth on every branch within two weeks. Incredible product.",           initial: "D", color: "#2b5148" },
 ];
 

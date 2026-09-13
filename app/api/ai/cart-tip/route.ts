@@ -18,7 +18,7 @@ SOIL HEALTH CONDITIONER (liquid): Liquid microbial blend. Dilute 50ml per 9L wat
 
 SOIL HEALTH CONDITIONER POWDER: Dry microbial inoculant. Mix 50g per litre, drench around roots. Every 4–6 weeks. Best for veg patches and depleted soils.
 
-PLANT SPRAY / ECOSPRAY: Selenium-based pest and disease spray. Spray top AND underside of leaves, morning or evening only. Active infestation: every 3–5 days for 3 rounds. Prevention: fortnightly. Controls aphids, whitefly, spider mites, fungus gnats, powdery mildew. Safe for edibles.
+PLANT SPRAY / ECOSPRAY: Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Helps restore plant vitality and healthy foliage. Spray top AND underside of leaves, morning or evening only. For plants under pressure: every 3–5 days for 3 rounds. Maintenance: fortnightly. Safe for edibles. Do NOT say it "kills" or "controls" — say it is "suitable for plants affected by" and "supports recovery".
 
 PENETRATOR: Soil wetting agent. Mix 10ml per litre and apply BEFORE watering or fertilising — always the first step. Opens compacted and hydrophobic soils. For clay/compaction: monthly for 3–4 months.
 `;

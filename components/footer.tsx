@@ -58,7 +58,7 @@ export function Footer() {
           {/* Brand col */}
           <div className="col-span-2">
             <Link href="/" aria-label="BioGardeners home" className="inline-block mb-5">
-              <img src="/logo.svg" alt="BioGardeners" height={32} style={{ height: 32, width: "auto", filter: "brightness(0) invert(1)" }} />
+              <img src="/logoshopify.png" alt="BioGardeners" height={32} style={{ height: 32, width: "auto", filter: "brightness(0) invert(1)" }} />
             </Link>
             <p className="text-sm leading-relaxed max-w-[230px]" style={{ color: "rgba(255,255,255,0.50)" }}>
               Precision-formulated garden nutrition for Australian home growers. Science in every granule.

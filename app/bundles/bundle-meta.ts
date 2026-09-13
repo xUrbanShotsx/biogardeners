@@ -25,7 +25,7 @@ export function getBundleMeta(title: string): BundleMeta {
       includes: [
         { name: "1L NPK Liquid Fertiliser",   why: "Fast-acting liquid feed to kickstart root activity after dormancy." },
         { name: "1L Bloom N Yield",            why: "Boosts early flowering signals and sets up strong cell structure." },
-        { name: "1L EcoSpray",                 why: "Selenium-based foliar spray that builds pest resistance from the first flush of growth." },
+        { name: "1L EcoSpray",                 why: "Selenium-rich foliar spray that supports plant vitality and healthy foliage from the first flush of new growth." },
         { name: "5kg Premium GP Fertiliser",   why: "Broad-spectrum granular base delivering 60+ minerals to the root zone." },
         { name: "1L Penetrator",               why: "Wetting agent that opens compacted soil so every product reaches the roots." },
       ],
@@ -51,7 +51,7 @@ export function getBundleMeta(title: string): BundleMeta {
       blurb: "Built for heat and drought. Keeps plants hydrated, productive, and pest-resistant through Australia's toughest growing months.",
       includes: [
         { name: "5kg Premium GP Fertiliser",  why: "Supplies the minerals that raise plant sugar concentration — the key to heat and drought tolerance." },
-        { name: "1L EcoSpray",                why: "Provides silicon and selenium which thicken leaf cuticles and reduce water loss through transpiration." },
+        { name: "1L EcoSpray",                why: "Selenium and silicon support leaf cuticle strength, helping plants maintain vitality through heat and stress." },
         { name: "1L NPK Liquid Fertiliser",   why: "Fast liquid feed to replace nutrients lost through high summer watering frequency." },
         { name: "1L Bloom N Yield",           why: "Supports fruiting and continued flowering through the stress of heat." },
       ],
@@ -124,7 +124,7 @@ export function getBundleMeta(title: string): BundleMeta {
         { name: "5kg Premium GP Fertiliser",  why: "Delivers the full mineral spectrum to restock depleted soil chemistry." },
         { name: "1L NPK Liquid Fertiliser",   why: "Fast-acting nutrition to stabilise struggling plants while the soil recovers." },
         { name: "1L Liquid Soil Conditioner", why: "Reintroduces microbial diversity to dead or chemically exhausted soil." },
-        { name: "1L EcoSpray",               why: "Supports weakened plants from the outside in while roots re-establish." },
+        { name: "1L EcoSpray",               why: "Supports leaf vitality and overall plant health from the outside while roots re-establish." },
       ],
       idealFor: ["Gardens that have been heavily chemically treated", "Soil that is compacted, grey, or lifeless", "Plants that are stunted, yellowing, or failing to thrive", "Post-construction fill soils", "Rented properties with neglected gardens"],
       useCases: [
@@ -200,7 +200,7 @@ export function getBundleMeta(title: string): BundleMeta {
         { name: "1L Liquid NPK Fertiliser",   why: "Clean, odour-free liquid feed safe for indoor use — no soil-smell or residue." },
         { name: "1L Liquid Soil Conditioner", why: "Refreshes the microbial life in potting mix that depletes over time in pots." },
         { name: "100g Glacial Milk",          why: "Provides the 60+ trace elements that commercial potting mixes lack." },
-        { name: "1L EcoSpray",               why: "Controls common indoor pests (fungus gnats, spider mites, scale) without toxic chemicals." },
+        { name: "1L EcoSpray",               why: "Suitable for indoor plants affected by common insects — supports recovery and healthy foliage without harsh chemicals." },
       ],
       idealFor: ["Indoor houseplants", "Balcony and terrace container gardens", "Office plants", "Ferns, tropicals, succulents, and pothos-type plants"],
       useCases: [
@@ -220,22 +220,22 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("insect") || t.includes("fungus"))
     return {
       icon: Shield, color: "#007845", tag: "Protection", fullPrice: 30.00,
-      blurb: "Controls aphids, whitefly, mites, and fungal disease without toxic chemicals. Safe for edibles and safe to use around kids and pets.",
+      blurb: "Suitable for plants affected by insects or fungal issues. Helps restore leaf vitality and supports healthy foliage — safe for edibles and safe to use around kids and pets.",
       includes: [
-        { name: "1L EcoSpray", why: "Selenium-rich foliar spray toxic to soft-bodied insects at the leaf surface, with anti-fungal properties from natural plant extracts." },
+        { name: "1L EcoSpray", why: "Selenium-rich foliar spray suitable for plants showing signs of pest or disease pressure — supports recovery and healthy leaf function." },
       ],
-      idealFor: ["Plants showing aphid or whitefly infestations", "Powdery mildew on roses, cucurbits, or tomatoes", "Fungal spots on leaves", "Gardens near bush or lawn areas prone to insect pressure"],
+      idealFor: ["Plants affected by aphids, whitefly, or mites", "Plants showing signs of powdery mildew or fungal spots", "Gardens wanting a natural foliar support spray", "Edible gardens where spray safety matters"],
       useCases: [
-        "Controlling aphids, whitefly, spider mites, and scale insects",
-        "Treating powdery mildew, downy mildew, and fungal leaf spots",
-        "Building systemic resistance — selenium makes leaves harder for insects to feed on",
+        "Suitable for use on plants affected by common insects — helps restore plant vitality",
+        "Suitable for plants showing fungal symptoms — supports recovery and healthy foliage",
+        "Selenium supports leaf resilience and overall plant health over time",
         "Safe for edibles — no withholding period when used as directed",
       ],
       howToUse: [
-        { step: "Spray affected plants",   detail: "Apply EcoSpray directly to affected leaves, covering top and underside surfaces." },
+        { step: "Spray affected plants",   detail: "Apply EcoSpray directly to affected leaves, covering top and underside surfaces thoroughly." },
         { step: "Time your application",   detail: "Always spray in early morning or evening — never in direct sun as this can cause leaf burn." },
-        { step: "Repeat treatment",        detail: "For active infestations, repeat every 3–5 days for 3 applications. For prevention, spray fortnightly." },
-        { step: "Whole-plant coverage",    detail: "Include stems and the underside of leaves where insects hide and lay eggs." },
+        { step: "Repeat as needed",        detail: "For plants under active pressure, apply every 3–5 days for 3 rounds. For general maintenance, spray fortnightly." },
+        { step: "Whole-plant coverage",    detail: "Include stems and the underside of leaves — this is where the most impact is seen." },
       ],
     };
 
