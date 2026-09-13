@@ -130,6 +130,17 @@ const PRODUCT_DETAILS: Record<string, {
     ingredients: "Non-ionic surfactant blend, soil penetrating agents, plant-safe wetting compounds. Biodegradable formula.",
     weight:      "See product listing for available sizes",
   },
+  "bloom-n-yield": {
+    benefits:    [
+      "Stimulates flowering, fruiting, and berry production in all edible plants",
+      "Sea minerals bio stimulants support vigorous, healthy plant growth",
+      "Versatile — apply as a foliar spray, stem drench, or soil application",
+      "Suits all plants — from azaleas to zucchini, ornamentals to vegetables",
+    ],
+    howToUse:    "Dilute as directed and apply every 2–4 weeks during the active growing and flowering season. Can be used as a foliar spray, stem drench, or soil drench. For best results apply in the early morning or evening. Safe for edibles, vegetables, and ornamentals.",
+    ingredients: "Sea minerals bio stimulants, natural biological actives, trace elements. 100% biodegradable. See label for full ingredient analysis.",
+    weight:      "Available in 1L and 4L",
+  },
 };
 
 const GALLERY_BG: Record<string, string[]> = {
@@ -141,7 +152,9 @@ const GALLERY_BG: Record<string, string[]> = {
   "glacial-milk":                                    ["#fff", "#fff", "#fff"],
   "soil-health-conditioner":                         ["#fff", "#fff", "#fff"],
   "plant-spray":                                     ["#fff", "#fff", "#fff"],
+  "eco-spray":                                       ["#fff", "#fff", "#fff"],
   "penetrator":                                      ["#fff", "#fff", "#fff"],
+  "bloom-n-yield":                                   ["#fff", "#fff", "#fff"],
 };
 
 const REVIEWS = [
@@ -175,8 +188,10 @@ function ProductIllustration({ handle, label }: { handle: string; label: string 
     "liquid-npk-fertilizer":                         { line1: "Liquid NPK",      line2: "Fertilizer",      spec: "Fast-Acting · Balanced"   },
     "glacial-milk":                                  { line1: "Glacial Milk",    line2: "Rock Flour",      spec: "Silica · Trace Minerals"  },
     "soil-health-conditioner":                       { line1: "Soil Health",     line2: "Conditioner",     spec: "Liquid · Microbial"       },
-    "plant-spray":                                   { line1: "Plant Spray",     line2: "Disease Control", spec: "Ready to Use"             },
+    "plant-spray":                                   { line1: "Eco Spray",       line2: "Foliar Spray",    spec: "Ready to Use"             },
+    "eco-spray":                                     { line1: "Eco Spray",       line2: "Foliar Spray",    spec: "Ready to Use"             },
     "penetrator":                                    { line1: "Penetrator",      line2: "Soil Wetter",     spec: "Wetting Agent"            },
+    "bloom-n-yield":                                 { line1: "Bloom N Yield",   line2: "Plant Stimulant", spec: "1L · 4L"                  },
   };
   const lbl = labels[handle] ?? { line1: "BioGardeners", line2: "Product", spec: label };
 

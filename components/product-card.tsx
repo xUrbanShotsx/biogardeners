@@ -18,7 +18,9 @@ const SOCIAL_PROOF: Record<string, string> = {
   "glacial-milk":                                    "21 sold this week",
   "soil-health-conditioner":                         "18 sold this week",
   "plant-spray":                                     "44 sold this week",
+  "eco-spray":                                       "44 sold this week",
   "penetrator":                                      "58 sold this week",
+  "bloom-n-yield":                                   "31 sold this week",
 };
 
 const RATINGS: Record<string, { avg: number; count: number }> = {
@@ -30,14 +32,18 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
   "glacial-milk":                                    { avg: 4.9, count: 41  },
   "soil-health-conditioner":                         { avg: 4.8, count: 38  },
   "plant-spray":                                     { avg: 4.7, count: 62  },
+  "eco-spray":                                       { avg: 4.7, count: 62  },
   "penetrator":                                      { avg: 4.8, count: 48  },
+  "bloom-n-yield":                                   { avg: 4.8, count: 44  },
 };
 
 const BADGE: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "Bestseller",
   "penetrator":                                      "Popular",
   "plant-spray":                                     "Popular",
+  "eco-spray":                                       "Popular",
   "lawn-fertilizer-premium-granulated-concentrated": "Top Rated",
+  "bloom-n-yield":                                   "Popular",
 };
 
 function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUrl?: string; imageAlt?: string }) {
