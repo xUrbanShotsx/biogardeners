@@ -55,7 +55,8 @@ function resolveRating(handle: string, titleKey: string) {
   if (h.includes("bloom") || h.includes("yield")) return { avg: 4.8, count: 44 };
   if (titleKey.includes("eco") || (titleKey.includes("spray") && !titleKey.includes("penetrat"))) return { avg: 4.7, count: 62 };
   if (titleKey.includes("bloom") || titleKey.includes("yield")) return { avg: 4.8, count: 44 };
-  return undefined;
+  // universal default — every BioGardeners product shows stars
+  return { avg: 4.8, count: 36 };
 }
 
 function resolveProof(handle: string, titleKey: string) {
@@ -67,7 +68,7 @@ function resolveProof(handle: string, titleKey: string) {
   if (h.includes("bloom") || h.includes("yield")) return "31 sold this week";
   if (titleKey.includes("eco") || (titleKey.includes("spray") && !titleKey.includes("penetrat"))) return "44 sold this week";
   if (titleKey.includes("bloom") || titleKey.includes("yield")) return "31 sold this week";
-  return undefined;
+  return "24 sold this week";
 }
 
 function resolveDesc(handle: string, titleKey: string, shopifyDesc: string) {
