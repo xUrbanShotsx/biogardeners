@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from:    "BioGardeners Contact <onboarding@resend.dev>",
-      to:      ["hello@biogardeners.com.au"],
+      to:      ["biogardenersshop@gmail.com"],
       replyTo: email,
       subject: `New enquiry from ${firstName} ${lastName}`,
       html: `
