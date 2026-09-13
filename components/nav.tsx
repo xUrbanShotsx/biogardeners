@@ -36,11 +36,14 @@ export function Nav() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500"
+        className="fixed top-0 left-0 right-0 z-[100]"
         style={{
           height:     "var(--nav-h)",
           background: "#fff",
           boxShadow:  scrolled ? "0 1px 3px rgba(0,0,0,0.10),0 2px 2px rgba(0,0,0,0.06)" : "none",
+          transition: "box-shadow 300ms ease",
+          transform:  "translateZ(0)",
+          willChange: "box-shadow",
         }}
       >
         <div className="max-w-[1440px] mx-auto px-4 md:px-10 h-full flex items-center justify-between gap-4">

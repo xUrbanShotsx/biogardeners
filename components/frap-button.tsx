@@ -120,9 +120,9 @@ export function FrapButton() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advisorTrigger]);
 
-  /* Wander when idle */
+  /* Wander when idle — desktop only to avoid mobile repaint flicker */
   useEffect(() => {
-    if (open || latchedProduct) {
+    if (isMobile || open || latchedProduct) {
       setWander({ x: 0, y: 0 });
       if (wanderRef.current) clearTimeout(wanderRef.current);
       return;
@@ -133,7 +133,7 @@ export function FrapButton() {
     }
     wanderRef.current = setTimeout(drift, 1800);
     return () => { if (wanderRef.current) clearTimeout(wanderRef.current); };
-  }, [open, latchedProduct]);
+  }, [isMobile, open, latchedProduct]);
 
   /* Fetch dynamic tip from Grok */
   const fetchHoverTip = useCallback(async (handle: string, title: string) => {

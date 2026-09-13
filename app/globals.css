@@ -95,15 +95,20 @@ html {
   max-width: 100%;
 }
 
-/* Promote fixed + animated elements to GPU layer — kills compositor flicker */
-.fixed { will-change: transform; }
+/* GPU compositing for fixed elements — prevents iOS scroll flicker */
+.fixed {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 
-/* Reduce mobile animation weight — framer uses inline transform/opacity */
+/* Mobile scroll smoothness */
 @media (max-width: 767px) {
-  @media (prefers-reduced-motion: no-preference) {
-    /* Force compositing on scroll-animated sections */
-    section { transform: translateZ(0); }
-  }
+  /* Isolate the main scroll container so fixed elements don't repaint */
+  body { -webkit-overflow-scrolling: touch; }
+  /* Disable wander/float animations that cause continuous GPU repaints */
+  [data-framer-motion] { will-change: auto !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
