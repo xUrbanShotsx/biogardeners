@@ -44,6 +44,45 @@ const RATINGS_BY_TITLE: Record<string, { avg: number; count: number }> = {
   "bloom n yield":{ avg: 4.8, count: 44 },
 };
 
+function resolveRating(handle: string, titleKey: string) {
+  if (RATINGS[handle]) return RATINGS[handle];
+  if (RATINGS_BY_TITLE[titleKey]) return RATINGS_BY_TITLE[titleKey];
+  const byTitle = Object.entries(RATINGS_BY_TITLE).find(([k]) => titleKey.includes(k))?.[1];
+  if (byTitle) return byTitle;
+  // keyword fallback — catches any handle Shopify generates (biocare-eco-spray, ecospray-1l, etc.)
+  const h = handle.toLowerCase();
+  if (h.includes("eco") || (h.includes("spray") && !h.includes("penetrat"))) return { avg: 4.7, count: 62 };
+  if (h.includes("bloom") || h.includes("yield")) return { avg: 4.8, count: 44 };
+  if (titleKey.includes("eco") || (titleKey.includes("spray") && !titleKey.includes("penetrat"))) return { avg: 4.7, count: 62 };
+  if (titleKey.includes("bloom") || titleKey.includes("yield")) return { avg: 4.8, count: 44 };
+  return undefined;
+}
+
+function resolveProof(handle: string, titleKey: string) {
+  if (SOCIAL_PROOF[handle]) return SOCIAL_PROOF[handle];
+  const byHandle = Object.entries(SOCIAL_PROOF).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1];
+  if (byHandle) return byHandle;
+  const h = handle.toLowerCase();
+  if (h.includes("eco") || (h.includes("spray") && !h.includes("penetrat"))) return "44 sold this week";
+  if (h.includes("bloom") || h.includes("yield")) return "31 sold this week";
+  if (titleKey.includes("eco") || (titleKey.includes("spray") && !titleKey.includes("penetrat"))) return "44 sold this week";
+  if (titleKey.includes("bloom") || titleKey.includes("yield")) return "31 sold this week";
+  return undefined;
+}
+
+function resolveDesc(handle: string, titleKey: string, shopifyDesc: string) {
+  if (shopifyDesc) return shopifyDesc;
+  if (DESCRIPTION[handle]) return DESCRIPTION[handle];
+  const byHandle = Object.entries(DESCRIPTION).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1];
+  if (byHandle) return byHandle;
+  const h = handle.toLowerCase();
+  if (h.includes("eco") || (h.includes("spray") && !h.includes("penetrat"))) return "Foliar Spray · Plant Vitality";
+  if (h.includes("bloom") || h.includes("yield")) return "Flowering · Fruiting · Sea Minerals";
+  if (titleKey.includes("eco") || (titleKey.includes("spray") && !titleKey.includes("penetrat"))) return "Foliar Spray · Plant Vitality";
+  if (titleKey.includes("bloom") || titleKey.includes("yield")) return "Flowering · Fruiting · Sea Minerals";
+  return "";
+}
+
 const DESCRIPTION: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "Granulated · All Garden · Lawn",
   "lawn-fertilizer-premium-granulated-concentrated": "Slow-Release · 12 Week Feed",
@@ -100,11 +139,11 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
   const price    = formatPrice(product.priceRange.minVariantPrice.amount);
   const tag      = product.tags[0];
   const titleKey = product.title.toLowerCase();
-  const proof    = SOCIAL_PROOF[product.handle] ?? Object.entries(SOCIAL_PROOF).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1];
-  const rating   = RATINGS[product.handle] ?? RATINGS_BY_TITLE[titleKey] ?? Object.entries(RATINGS_BY_TITLE).find(([k]) => titleKey.includes(k))?.[1];
+  const proof    = resolveProof(product.handle, titleKey);
+  const rating   = resolveRating(product.handle, titleKey);
   const badge    = BADGE[product.handle] ?? (rating ? "Popular" : undefined);
   const firstImg = product.images.edges[0]?.node;
-  const desc     = product.description || DESCRIPTION[product.handle] || Object.entries(DESCRIPTION).find(([k]) => titleKey.includes(k.replace(/-/g," ")))?.[1] || "";
+  const desc     = resolveDesc(product.handle, titleKey, product.description);
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
