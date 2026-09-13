@@ -133,15 +133,15 @@ const PRODUCT_DETAILS: Record<string, {
 };
 
 const GALLERY_BG: Record<string, string[]> = {
-  "gp-fertiliser-premium-garden-lawn":               ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "lawn-fertilizer-premium-granulated-concentrated": ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "volcanic-dust-trace-elements":                    ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "soil-health-conditioner-powder":                  ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "liquid-npk-fertilizer":                           ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "glacial-milk":                                    ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "soil-health-conditioner":                         ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "plant-spray":                                     ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
-  "penetrator":                                      ["#fdf9f6", "#fdf9f6", "#fdf9f6"],
+  "gp-fertiliser-premium-garden-lawn":               ["#fff", "#fff", "#fff"],
+  "lawn-fertilizer-premium-granulated-concentrated": ["#fff", "#fff", "#fff"],
+  "volcanic-dust-trace-elements":                    ["#fff", "#fff", "#fff"],
+  "soil-health-conditioner-powder":                  ["#fff", "#fff", "#fff"],
+  "liquid-npk-fertilizer":                           ["#fff", "#fff", "#fff"],
+  "glacial-milk":                                    ["#fff", "#fff", "#fff"],
+  "soil-health-conditioner":                         ["#fff", "#fff", "#fff"],
+  "plant-spray":                                     ["#fff", "#fff", "#fff"],
+  "penetrator":                                      ["#fff", "#fff", "#fff"],
 };
 
 const REVIEWS = [
@@ -375,7 +375,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               transition={{ duration: 0.35, ease }}
               className="flex-1 flex items-center justify-center rounded-2xl overflow-hidden relative"
               style={{
-                background:  hasImages ? (galleries[activeGallery] ?? "#f6faf8") : galleries[activeGallery],
+                background:  hasImages ? (galleries[activeGallery] ?? "#fff") : galleries[activeGallery],
                 boxShadow:   "var(--shadow-card)",
                 minHeight:   "320px",
               }}
