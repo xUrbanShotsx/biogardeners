@@ -37,6 +37,20 @@ const RATINGS: Record<string, { avg: number; count: number }> = {
   "bloom-n-yield":                                   { avg: 4.8, count: 44  },
 };
 
+const DESCRIPTION: Record<string, string> = {
+  "gp-fertiliser-premium-garden-lawn":               "Granulated · All Garden · Lawn",
+  "lawn-fertilizer-premium-granulated-concentrated": "Slow-Release · 12 Week Feed",
+  "volcanic-dust-trace-elements":                    "60+ Minerals · Remineralise",
+  "soil-health-conditioner-powder":                  "Powder · Microbial · Soil Biology",
+  "liquid-npk-fertilizer":                           "Fast-Acting · Foliar · Soil Drench",
+  "glacial-milk":                                    "Silica · Trace Minerals · Cell Strength",
+  "soil-health-conditioner":                         "Liquid · Microbial · Water Retention",
+  "plant-spray":                                     "Foliar Spray · Plant Vitality",
+  "eco-spray":                                       "Foliar Spray · Plant Vitality",
+  "penetrator":                                      "Soil Wetter · Penetrating Agent",
+  "bloom-n-yield":                                   "Flowering · Fruiting · Sea Minerals",
+};
+
 const BADGE: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "Bestseller",
   "penetrator":                                      "Popular",
@@ -82,6 +96,7 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
   const rating   = RATINGS[product.handle];
   const badge    = BADGE[product.handle];
   const firstImg = product.images.edges[0]?.node;
+  const desc     = product.description || DESCRIPTION[product.handle] || "";
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
@@ -163,9 +178,9 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
           <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
         </div>
 
-        {!hideDescription && (
+        {!hideDescription && desc && (
           <p className="hidden sm:block text-xs line-clamp-2 leading-relaxed flex-1" style={{ color: "var(--text-black-soft)" }}>
-            {product.description}
+            {desc}
           </p>
         )}
 
