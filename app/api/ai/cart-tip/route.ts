@@ -21,6 +21,8 @@ SOIL HEALTH CONDITIONER POWDER: Dry microbial inoculant. Mix 50g per litre, dren
 PLANT SPRAY / ECOSPRAY: Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Helps restore plant vitality and healthy foliage. Spray top AND underside of leaves, morning or evening only. For plants under pressure: every 3–5 days for 3 rounds. Maintenance: fortnightly. Safe for edibles. Do NOT say it "kills" or "controls" — say it is "suitable for plants affected by" and "supports recovery".
 
 PENETRATOR: Soil wetting agent. Mix 10ml per litre and apply BEFORE watering or fertilising — always the first step. Opens compacted and hydrophobic soils. For clay/compaction: monthly for 3–4 months.
+
+BLOOM N YIELD: Sea minerals bio stimulant for flowering and fruiting plants. Contains calcium, magnesium, potassium, iodine, sulfur, boron, zinc, manganese, iron, and many trace elements from sea minerals — this is NOT just a phosphorus and potassium product. Apply every 2–4 weeks as a foliar spray, stem drench, or soil drench during the growing and flowering season, in early morning or evening. Best for tomatoes, capsicums, strawberries, roses, fruit trees, and all flowering/fruiting plants.
 `;
 
 export async function POST(req: NextRequest) {

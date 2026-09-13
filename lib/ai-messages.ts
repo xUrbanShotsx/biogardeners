@@ -18,8 +18,12 @@ export const AI_HOVER: Record<string, string> = {
     "Liquid microbial blend that gets soil biology working again. 50ml per 9L watering can every 4–6 weeks. Often the missing piece when plants aren't responding to fertiliser.",
   "plant-spray":
     "Selenium-rich foliar spray suitable for plants affected by common insects and fungal issues. Supports plant vitality and healthy foliage — spray top and underside of leaves, morning or evening.",
+  "eco-spray":
+    "Selenium-rich foliar spray suitable for plants affected by common insects and fungal issues. Supports plant vitality and healthy foliage — spray top and underside of leaves, morning or evening.",
   "penetrator":
     "Apply this first before anything else — 10ml per litre and it opens the soil profile so water and nutrients actually reach the roots instead of running off.",
+  "bloom-n-yield":
+    "Sea minerals bio stimulant for flowering and fruiting plants. Rich in calcium, magnesium, potassium, and trace elements — apply every 2–4 weeks as a foliar spray, stem drench, or soil drench during the growing season.",
 };
 
 export const AI_CART: Record<string, { compliment: string; tip: string }> = {
@@ -55,9 +59,17 @@ export const AI_CART: Record<string, { compliment: string; tip: string }> = {
     compliment: "Good thinking — applying before problems take hold is always the smarter play.",
     tip:        "Spray top AND underside of leaves in the early morning or evening. For plants showing signs of pest or disease pressure, apply every 3–5 days for 3 rounds to restore healthy foliage.",
   },
+  "eco-spray": {
+    compliment: "Good thinking — applying before problems take hold is always the smarter play.",
+    tip:        "Spray top AND underside of leaves in the early morning or evening. For plants showing signs of pest or disease pressure, apply every 3–5 days for 3 rounds to restore healthy foliage.",
+  },
   "penetrator": {
     compliment: "This changes everything if your soil is at all hydrophobic — and most Australian soil is.",
     tip:        "Mix 10ml per litre and apply it first, before any watering or fertilising. That's the key — it opens the soil profile so everything else actually reaches the roots.",
+  },
+  "bloom-n-yield": {
+    compliment: "Great pick for getting more out of your flowering and fruiting plants.",
+    tip:        "Apply every 2–4 weeks as a foliar spray, stem drench, or soil drench during the active growing season. Works best in the morning or evening — sea minerals deliver calcium, magnesium, and trace elements straight to where the plant needs them.",
   },
 };
 

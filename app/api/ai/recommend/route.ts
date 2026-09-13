@@ -11,6 +11,8 @@ const ALL_PRODUCTS = [
   { handle: "soil-health-conditioner",                        title: "Soil Health Conditioner",    role: "Liquid microbial blend. Rebuilds soil biology, improves water retention and nutrient uptake." },
   { handle: "plant-spray",                                    title: "Plant Spray",                role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage. Safe for edibles." },
   { handle: "penetrator",                                     title: "Penetrator",                 role: "Soil wetting agent. Always apply FIRST — opens compacted/hydrophobic soils so everything else works." },
+  { handle: "plant-spray",                                    title: "Eco Spray",                  role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage." },
+  { handle: "bloom-n-yield",                                  title: "Bloom N Yield",              role: "Sea minerals bio stimulant for flowering and fruiting plants. Rich in calcium, magnesium, potassium, and trace elements — apply every 2-4 weeks during the growing season." },
 ];
 
 // Pairing logic: which products naturally complement each other
@@ -24,6 +26,9 @@ Natural product pairings and why:
 - Plant Spray as standalone: Suggest it whenever the customer is viewing products — healthy foliage support is relevant to any garden.
 - Lawn Fertilizer + Penetrator: Lawn products work far better when the soil isn't compacted. Penetrator + Lawn Fertilizer is the standard lawn program.
 - Soil Health Conditioner + Volcanic Dust: Biology needs minerals to work with. These two together rebuild dead soils from the ground up.
+- Bloom N Yield + Penetrator: Sea minerals need to reach the root zone — always apply Penetrator first, then Bloom N Yield as a soil drench.
+- Bloom N Yield + Liquid NPK: A powerful flowering/fruiting combo — Liquid NPK delivers fast NPK, Bloom N Yield adds sea minerals including calcium, magnesium, and trace elements.
+- Bloom N Yield + Volcanic Dust: Both deliver broad mineral spectrums, excellent together for rebuilding mineral-depleted soils in fruiting gardens.
 `;
 
 export async function POST(req: NextRequest) {
@@ -61,6 +66,6 @@ ${PAIRING_RULES}`,
   });
 
   const raw     = completion.choices[0]?.message?.content ?? "";
-  const handles = raw.split(",").map((s: string) => s.trim()).filter((h: string) => ALL_PRODUCTS.some(p => p.handle === h));
+  const handles = raw.split(",").map((s: string) => s.trim()).filter((h: string) => ALL_PRODUCTS.some(p => p.handle === h || h.includes(p.handle)));
   return NextResponse.json({ handles: handles.slice(0, 2) });
 }
