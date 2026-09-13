@@ -757,7 +757,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
                           <div className="flex flex-col gap-3">
                             {[
                               { icon: Truck,       label: "Standard shipping", info: "3–5 business days · $15.95 flat rate, Australia wide" },
-                              { icon: ShoppingBag, label: "Express shipping",  info: "1–2 business days · available at checkout" },
                               { icon: ShieldCheck, label: "Returns",           info: "All sales are final. If your order arrives damaged or faulty, contact us within 48 hours." },
                             ].map(({ icon: Icon, label, info }) => (
                               <div key={label} className="flex items-start gap-3">

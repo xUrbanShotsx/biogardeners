@@ -58,7 +58,7 @@ const FAQS = [
   {
     category: "Shipping",
     q: "How long does delivery take?",
-    a: "Standard shipping takes 3–5 business days to metro areas and 5–8 business days to regional addresses. Express shipping (1–2 business days) is available at checkout for an additional $14.95. We dispatch all orders placed before 12pm AEST on the same business day.",
+    a: "Standard shipping takes 3–5 business days to metro areas and 5–8 business days to regional addresses. We dispatch all orders placed before 12pm AEST on the same business day.",
   },
   {
     category: "Shipping",

@@ -15,7 +15,7 @@ const steps = [
   {
     number: "02",
     title:  "We ship it fast",
-    body:   "Order today and we'll get it on its way. Standard delivery 3–5 business days, express available. Free shipping on orders over $80.",
+    body:   "Order today and we'll get it on its way. Standard delivery 3–5 business days, Australia wide. Free shipping on orders over $80.",
     bg:     "var(--ceramic)",
     accent: "var(--green-bio)",
     inkBg:  "#fff",
