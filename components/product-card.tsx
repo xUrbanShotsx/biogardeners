@@ -43,7 +43,7 @@ const BADGE: Record<string, string> = {
 function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUrl?: string; imageAlt?: string }) {
   if (imageUrl) {
     return (
-      <div className="w-full h-full relative" style={{ background: "#fdf9f6" }}>
+      <div className="w-full h-full relative" style={{ background: "#fff" }}>
         <Image
           src={imageUrl}
           alt={imageAlt ?? handle}
@@ -55,7 +55,7 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
     );
   }
   return (
-    <div className="w-full h-full flex items-center justify-center" style={{ background: "#fdf9f6" }}>
+    <div className="w-full h-full flex items-center justify-center" style={{ background: "#fff" }}>
       <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" className="w-28 h-auto drop-shadow-lg" aria-hidden="true">
         <rect x="20" y="50" width="160" height="195" rx="10" fill="#1E3932" />
         <path d="M65 50 Q65 22 100 22 Q135 22 135 50" fill="none" stroke="#1E3932" strokeWidth="6" strokeLinecap="round" />
