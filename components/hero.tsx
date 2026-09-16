@@ -24,13 +24,13 @@ export function Hero() {
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(to top, rgba(10,25,18,0.82) 0%, rgba(10,25,18,0.38) 45%, rgba(10,25,18,0.10) 100%)",
+          background: "linear-gradient(to top, rgba(10,25,18,0.82) 0%, rgba(10,25,18,0.55) 40%, rgba(10,25,18,0.30) 70%, rgba(10,25,18,0.10) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Content — centred lower third */}
-      <div className="relative z-10 h-full flex flex-col justify-end pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
+      {/* Content — mobile: centred upper-middle; desktop: lower third */}
+      <div className="relative z-10 h-full flex flex-col justify-center md:justify-end pt-[10vh] md:pt-0 pb-0 md:pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
 
         {/* Headline */}
         <motion.h1
