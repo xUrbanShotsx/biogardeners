@@ -49,7 +49,7 @@ const SECTIONS = [
     title: "Shipping and delivery",
     body: [
       "We aim to dispatch orders within 1–2 business days. Delivery timeframes are estimates only and are not guaranteed.",
-      "Risk in the goods passes to you upon delivery. If a parcel is lost or damaged in transit, contact us at hello@biogardeners.com.au and we will work with the carrier to resolve the issue.",
+      "Risk in the goods passes to you upon delivery. If a parcel is lost or damaged in transit, contact us at bgshop48@gmail.com and we will work with the carrier to resolve the issue.",
       "We are not liable for delays caused by the carrier, customs, weather events, or other circumstances beyond our control.",
       "For full shipping details including rates and estimated delivery times by state, see our Shipping & Returns page.",
     ],
@@ -59,7 +59,7 @@ const SECTIONS = [
     title: "Returns and refunds",
     body: [
       "All sales are final. We do not accept change-of-mind returns or exchanges.",
-      "If your order arrives damaged, faulty, or not as described, please email hello@biogardeners.com.au within 48 hours of delivery with your order number and photos of the issue. We will arrange a replacement or remedy as required.",
+      "If your order arrives damaged, faulty, or not as described, please email bgshop48@gmail.com within 48 hours of delivery with your order number and photos of the issue. We will arrange a replacement or remedy as required.",
       "Nothing in these terms limits your rights under the Australian Consumer Law.",
     ],
   },
@@ -115,7 +115,7 @@ const SECTIONS = [
     title: "Contact",
     body: [
       "For any questions about these Terms and Conditions, please contact us:",
-      "Email: hello@biogardeners.com.au",
+      "Email: bgshop48@gmail.com",
       "BioGardeners Pty Ltd, Australia",
     ],
   },

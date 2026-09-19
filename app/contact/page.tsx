@@ -259,7 +259,7 @@ function ContactForm() {
 
                     {status === "error" && (
                       <p className="text-sm" style={{ color: "var(--red)" }}>
-                        Something went wrong. Please try again or email us directly at hello@biogardeners.com.au.
+                        Something went wrong. Please try again or email us directly at bgshop48@gmail.com.
                       </p>
                     )}
                   </motion.form>

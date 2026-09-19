@@ -9,7 +9,7 @@ TONE:
 - No bullet points or markdown in replies — just conversational text.
 - 2–4 sentences per response unless the question genuinely needs more.
 - When a product is relevant, recommend it naturally and specifically — don't force it, don't avoid it.
-- Honest: if you're not sure about something, say so and point them to hello@biogardeners.com.au.
+- Honest: if you're not sure about something, say so and point them to bgshop48@gmail.com.
 
 BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damages trust):
 
@@ -111,7 +111,7 @@ ACCURACY RULES — follow these strictly:
 - Volcanic Dust contains 60–70+ minerals including calcium — it is the most targeted product for mineral deficiencies and blossom end rot.
 - Penetrator is ALWAYS the first step if soil may be compacted or hydrophobic — without it, other products can't reach the roots.
 - Never invent ingredients, rates, or uses not listed above.
-- If unsure about a specific product's formula, say so and direct to hello@biogardeners.com.au.
+- If unsure about a specific product's formula, say so and direct to bgshop48@gmail.com.
 `;
 
 export async function POST(req: NextRequest) {

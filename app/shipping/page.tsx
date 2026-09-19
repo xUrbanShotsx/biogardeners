@@ -23,7 +23,7 @@ const STATES = [
 const FAULTY_STEPS = [
   {
     n: "01", title: "Contact us within 48 hrs",
-    body: "Email hello@biogardeners.com.au with your order number and photos of the damaged or faulty item within 48 hours of delivery.",
+    body: "Email bgshop48@gmail.com with your order number and photos of the damaged or faulty item within 48 hours of delivery.",
   },
   {
     n: "02", title: "We assess your claim",
@@ -253,9 +253,9 @@ export default function ShippingPage() {
               </h2>
               <p className="text-sm" style={{ color: "var(--text-black-soft)" }}>
                 Email{" "}
-                <a href="mailto:hello@biogardeners.com.au" className="font-semibold"
+                <a href="mailto:bgshop48@gmail.com" className="font-semibold"
                   style={{ color: "var(--green-accent)" }}>
-                  hello@biogardeners.com.au
+                  bgshop48@gmail.com
                 </a>
                 {" "}and we&apos;ll get back to you within one business day.
               </p>

@@ -48,12 +48,12 @@ const FAQS = [
   {
     category: "Orders",
     q: "Can I change or cancel my order after placing it?",
-    a: "Orders can be modified or cancelled within 2 hours of placing them by emailing hello@biogardeners.com.au with your order number. After that window, our fulfilment team will have already packed your order and we cannot guarantee changes.",
+    a: "Orders can be modified or cancelled within 2 hours of placing them by emailing bgshop48@gmail.com with your order number. After that window, our fulfilment team will have already packed your order and we cannot guarantee changes.",
   },
   {
     category: "Orders",
     q: "Do you offer bulk or wholesale pricing?",
-    a: "Yes. For orders over 20 units or for wholesale/trade accounts (nurseries, market gardens, councils), please contact us at wholesale@biogardeners.com.au. We offer tiered pricing from 15% off for recurring orders.",
+    a: "Yes. For orders over 20 units or for wholesale/trade accounts (nurseries, market gardens, councils), please contact us at bgshop48@gmail.com. We offer tiered pricing from 15% off for recurring orders.",
   },
   {
     category: "Shipping",
@@ -78,7 +78,7 @@ const FAQS = [
   {
     category: "Returns",
     q: "What is your returns policy?",
-    a: "All sales are final. We do not accept change-of-mind returns or exchanges. If your order arrives damaged, faulty, or not as described, email hello@biogardeners.com.au within 48 hours of delivery with your order number and photos, and we'll arrange a remedy as required by Australian Consumer Law.",
+    a: "All sales are final. We do not accept change-of-mind returns or exchanges. If your order arrives damaged, faulty, or not as described, email bgshop48@gmail.com within 48 hours of delivery with your order number and photos, and we'll arrange a remedy as required by Australian Consumer Law.",
   },
   {
     category: "Returns",
@@ -88,7 +88,7 @@ const FAQS = [
   {
     category: "Returns",
     q: "My plants didn't improve — what should I do?",
-    a: "Results depend on multiple factors including existing soil conditions, climate, and application method. If you followed our application guide and aren't seeing improvement, email hello@biogardeners.com.au — our team will troubleshoot your situation and help you get the best from the product.",
+    a: "Results depend on multiple factors including existing soil conditions, climate, and application method. If you followed our application guide and aren't seeing improvement, email bgshop48@gmail.com — our team will troubleshoot your situation and help you get the best from the product.",
   },
   {
     category: "Growing tips",

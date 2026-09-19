@@ -61,7 +61,7 @@ const SECTIONS = [
     title: "Access and correction",
     body: [
       "Under the Australian Privacy Act 1988, you have the right to access the personal information we hold about you, and to request corrections if it is inaccurate or out of date.",
-      "To make an access or correction request, email us at hello@biogardeners.com.au. We will respond within 30 days.",
+      "To make an access or correction request, email us at bgshop48@gmail.com. We will respond within 30 days.",
     ],
   },
   {
@@ -91,7 +91,7 @@ const SECTIONS = [
     title: "Contact us",
     body: [
       "If you have questions or concerns about this Privacy Policy or how we handle your personal information, please contact us:",
-      "Email: hello@biogardeners.com.au",
+      "Email: bgshop48@gmail.com",
       "We aim to respond to all privacy enquiries within 5 business days.",
     ],
   },
