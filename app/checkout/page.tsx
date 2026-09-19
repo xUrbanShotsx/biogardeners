@@ -26,21 +26,21 @@ function CheckoutHeader() {
         background: "#fff",
         borderBottom: "1px solid var(--ceramic)",
         boxShadow: "0 1px 0 rgba(0,0,0,0.04)",
-        height: 64,
+        height: 88,
       }}
     >
       <Link href="/" aria-label="BioGardeners home">
-        <img src="/logoshopify.png" alt="BioGardeners" style={{ height: 30, width: "auto" }} />
+        <img src="/logoshopify.png" alt="BioGardeners" style={{ height: 52, width: "auto" }} />
       </Link>
-      <div className="hidden sm:flex items-center gap-2 text-xs font-semibold">
-        <span className="px-2.5 py-1 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
+      <div className="hidden sm:flex items-center gap-3 text-sm font-semibold">
+        <span className="px-3.5 py-1.5 rounded-full" style={{ background: "var(--green-accent)", color: "#fff" }}>
           1 · Review
         </span>
         <span style={{ color: "var(--ceramic)" }}>›</span>
         <span style={{ color: "var(--text-black-soft)" }}>2 · Payment</span>
       </div>
-      <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--text-black-soft)" }}>
-        <Lock size={12} style={{ color: "var(--green-accent)" }} />
+      <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-black-soft)" }}>
+        <Lock size={14} style={{ color: "var(--green-accent)" }} />
         Secure Checkout
       </div>
     </header>
