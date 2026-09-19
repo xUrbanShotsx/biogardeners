@@ -228,11 +228,11 @@ export default function CheckoutPage() {
                   transition={{ duration: 0.2, ease }}
                   className="overflow-hidden"
                 >
-                  <div className="flex items-center gap-4 px-5 py-4"
+                  <div className="flex gap-3 px-5 py-4"
                     style={{ borderBottom: idx < items.length - 1 ? "1px solid var(--ceramic)" : "none" }}>
 
                     {/* Product image */}
-                    <div className="w-14 h-14 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
+                    <div className="w-16 h-16 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
                       style={{ background: "var(--surface-alt)", border: "1px solid var(--ceramic)" }}>
                       {item.imageUrl ? (
                         <img src={item.imageUrl} alt={item.title} className="w-full h-full object-contain p-1.5" />
@@ -241,44 +241,48 @@ export default function CheckoutPage() {
                       )}
                     </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold leading-snug" style={{ color: "var(--green-house)" }}>
-                        {item.title}
-                      </p>
-                      {item.variant && item.variant !== "Default Title" && (
-                        <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>{item.variant}</p>
-                      )}
+                    {/* Right: all text + controls */}
+                    <div className="flex-1 min-w-0 flex flex-col gap-2">
+
+                      {/* Title row + remove */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold leading-snug" style={{ color: "var(--green-house)" }}>
+                            {item.title}
+                          </p>
+                          {item.variant && item.variant !== "Default Title" && (
+                            <p className="text-xs mt-0.5" style={{ color: "var(--text-black-soft)" }}>{item.variant}</p>
+                          )}
+                        </div>
+                        <button onClick={() => removeItem(item.id)} aria-label="Remove"
+                          className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-red-50"
+                          style={{ color: "var(--ceramic)" }}>
+                          <X size={13} />
+                        </button>
+                      </div>
+
+                      {/* Qty + price row */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5"
+                          style={{ background: "var(--surface-alt)", borderRadius: 999, padding: "4px 10px", border: "1px solid var(--ceramic)" }}>
+                          <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
+                            <Minus size={9} style={{ color: "var(--green-house)" }} />
+                          </button>
+                          <span className="w-5 text-center text-xs font-bold" style={{ color: "var(--text-black)" }}>
+                            {item.quantity}
+                          </span>
+                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
+                            <Plus size={9} style={{ color: "var(--green-house)" }} />
+                          </button>
+                        </div>
+                        <span className="text-sm font-bold" style={{ color: "var(--green-bio)" }}>
+                          {formatPrice(item.price * item.quantity)}
+                        </span>
+                      </div>
+
                     </div>
-
-                    {/* Qty controls */}
-                    <div className="flex items-center gap-1.5 flex-shrink-0"
-                      style={{ background: "var(--surface-alt)", borderRadius: 999, padding: "4px 8px", border: "1px solid var(--ceramic)" }}>
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
-                        <Minus size={9} style={{ color: "var(--green-house)" }} />
-                      </button>
-                      <span className="w-5 text-center text-xs font-bold" style={{ color: "var(--text-black)" }}>
-                        {item.quantity}
-                      </span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-5 h-5 rounded-full flex items-center justify-center transition-colors hover:bg-white">
-                        <Plus size={9} style={{ color: "var(--green-house)" }} />
-                      </button>
-                    </div>
-
-                    {/* Price */}
-                    <span className="w-16 text-right text-sm font-bold flex-shrink-0"
-                      style={{ color: "var(--green-bio)" }}>
-                      {formatPrice(item.price * item.quantity)}
-                    </span>
-
-                    {/* Remove */}
-                    <button onClick={() => removeItem(item.id)} aria-label="Remove"
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors hover:bg-red-50"
-                      style={{ color: "var(--ceramic)" }}>
-                      <X size={13} />
-                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -298,7 +302,7 @@ export default function CheckoutPage() {
               <div className="flex justify-between items-center pt-2.5" style={{ borderTop: "1px solid var(--ceramic)" }}>
                 <span className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Total</span>
                 <span className="text-xl font-bold" style={{ color: "var(--green-house)" }}>
-                  {formatPrice(total + 15.95)}
+                  {formatPrice(total)}
                 </span>
               </div>
             </div>
