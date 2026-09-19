@@ -10,7 +10,7 @@ import { useAi } from "@/lib/ai-context";
 
 const links = [
   { href: "/products",       label: "Products"       },
-  { href: "/bundles",        label: "Bundles"        },
+  { href: "/bundles",        label: "Care Packs"     },
   { href: "/growing-guides", label: "Growing Guides" },
   { href: "/contact",        label: "Contact"        },
 ];
