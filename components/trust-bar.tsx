@@ -4,7 +4,7 @@ import { Truck, ShieldCheck, Leaf, Star, Clock } from "lucide-react";
 
 const ITEMS = [
   { Icon: Star,        text: "4.9★ — 380+ verified reviews" },
-  { Icon: Truck,       text: "$15.95 flat rate · Australia wide" },
+  { Icon: Truck,       text: "From $15.95 shipping · Australia wide" },
   { Icon: ShieldCheck, text: "Australian Consumer Law protected" },
   { Icon: Leaf,        text: "100% Australian made" },
   { Icon: ShieldCheck, text: "SSL encrypted checkout" },

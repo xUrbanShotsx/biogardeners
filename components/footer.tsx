@@ -35,7 +35,7 @@ const socials = [
 
 const trust = [
   "Australian-owned",
-  "$15.95 flat rate shipping",
+  "From $15.95 shipping",
   "Australian Consumer Law protected",
 ];
 

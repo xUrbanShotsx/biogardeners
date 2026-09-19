@@ -58,7 +58,7 @@ export default function ShippingPage() {
                 Shipping &amp; Returns
               </h1>
               <p className="text-base max-w-lg mb-8" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>
-                One simple rate, every address in Australia. No minimum spend, no surprises at checkout.
+                Weight-based rates, every address in Australia. No minimum spend, exact cost calculated at checkout.
               </p>
 
               {/* Rate callout */}
@@ -69,9 +69,9 @@ export default function ShippingPage() {
                   <Truck size={20} color="#fff" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white leading-none">$15.95</p>
+                  <p className="text-2xl font-bold text-white leading-none">From $15.95</p>
                   <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
-                    Flat rate · every Australian address
+                    Standard shipping · every Australian address
                   </p>
                 </div>
               </div>

@@ -68,7 +68,7 @@ const FAQS = [
   {
     category: "Shipping",
     q: "How much does shipping cost?",
-    a: "We ship Australia wide for a flat rate of $15.95 per order, regardless of size or location. Standard delivery takes 3–5 business days.",
+    a: "We ship Australia wide with weight-based rates starting from $15.95. Standard delivery takes 3–5 business days. Exact shipping cost is calculated at checkout based on your order weight.",
   },
   {
     category: "Shipping",

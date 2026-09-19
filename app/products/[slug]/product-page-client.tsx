@@ -590,7 +590,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               style={{ border: "1px solid var(--ceramic)" }}
             >
               {[
-                { icon: Truck,       label: "Flat rate shipping", sub: "$15.95 Australia wide" },
+                { icon: Truck,       label: "From $15.95 shipping", sub: "Australia wide" },
                 { icon: ShieldCheck, label: "ACL protected", sub: "Faulty goods only"  },
                 { icon: ShieldCheck, label: "Secure checkout",sub: "SSL encrypted"    },
                 { icon: Star,        label: "4.9 / 5",       sub: "380 reviews"       },
@@ -659,7 +659,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
                         ) : (
                           <div className="flex flex-col gap-3">
                             {[
-                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · $15.95 flat rate, Australia wide" },
+                              { icon: Truck,       label: "Standard shipping", info: "3–5 business days · from $15.95, Australia wide" },
                               { icon: ShieldCheck, label: "Returns",           info: "All sales are final. If your order arrives damaged or faulty, contact us within 48 hours." },
                             ].map(({ icon: Icon, label, info }) => (
                               <div key={label} className="flex items-start gap-3">
@@ -783,7 +783,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </div>
               {/* Trust hint */}
               <p className="hidden lg:block text-xs font-semibold shrink-0" style={{ color: "var(--text-black-soft)" }}>
-                ✓ Australian made &nbsp;·&nbsp; $15.95 flat rate shipping
+                ✓ Australian made &nbsp;·&nbsp; from $15.95 shipping
               </p>
               {/* CTA */}
               <button

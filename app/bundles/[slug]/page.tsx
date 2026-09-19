@@ -234,7 +234,7 @@ export default async function BundleSlugPage({ params }: Props) {
                 <div className="px-6 py-5">
                   <BundleAddToCart product={product} />
                   <p className="text-xs text-center mt-3" style={{ color: "var(--text-black-soft)" }}>
-                    $15.95 flat rate shipping · Australia wide
+                    From $15.95 shipping · Australia wide
                   </p>
                 </div>
               </div>

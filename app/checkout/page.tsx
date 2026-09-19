@@ -293,7 +293,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span style={{ color: "var(--text-black-soft)" }}>Shipping</span>
-                <span className="font-semibold" style={{ color: "var(--green-bio)" }}>$15.95 flat rate</span>
+                <span className="font-semibold" style={{ color: "var(--text-black-soft)" }}>Calculated at checkout</span>
               </div>
               <div className="flex justify-between items-center pt-2.5" style={{ borderTop: "1px solid var(--ceramic)" }}>
                 <span className="text-sm font-bold" style={{ color: "var(--green-house)" }}>Total</span>
@@ -342,10 +342,10 @@ export default function CheckoutPage() {
                 Order total
               </p>
               <p className="text-4xl font-bold leading-none mb-1" style={{ color: "#fff" }}>
-                {formatPrice(total + 15.95)}
+                {formatPrice(total)}
               </p>
               <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.40)" }}>
-                Includes $15.95 flat rate shipping
+                Subtotal · shipping calculated at checkout
               </p>
             </div>
 
@@ -403,7 +403,7 @@ export default function CheckoutPage() {
             {[
               { icon: ShieldCheck, label: "SSL Encrypted",    sub: "256-bit secure"          },
               { icon: Lock,        label: "Safe Payments",    sub: "Visa · MC · Apple Pay"   },
-              { icon: Truck,       label: "$15.95 Flat Rate", sub: "Australia wide"           },
+              { icon: Truck,       label: "From $15.95 Shipping", sub: "Australia wide"        },
               { icon: Leaf,        label: "100% Australian",  sub: "Owned & made locally"    },
             ].map(({ icon: Icon, label, sub }) => (
               <div key={label} className="flex items-center gap-3">
