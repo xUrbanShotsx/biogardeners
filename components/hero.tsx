@@ -11,14 +11,13 @@ export function Hero() {
       {/* Video */}
       <video
         autoPlay
-        muted
         loop
         playsInline
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
         aria-hidden="true"
       >
-        <source src="/Glider.mp4" type="video/mp4" />
+        <source src="/madison.mp4" type="video/mp4" />
       </video>
 
       {/* Layered overlay — bottom heavy for text legibility */}
