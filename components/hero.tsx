@@ -1,16 +1,29 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShoppingBag, ArrowRight } from "lucide-react";
+import { ShoppingBag, ArrowRight, Volume2, VolumeX } from "lucide-react";
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }
+
   return (
     <section className="relative w-full overflow-hidden" style={{ height: "100svh" }} aria-labelledby="hero-heading">
 
-      {/* Video */}
+      {/* Video — starts muted for autoplay, user can unmute */}
       <video
+        ref={videoRef}
         autoPlay
+        muted
         loop
         playsInline
         preload="auto"
@@ -28,6 +41,22 @@ export function Hero() {
         }}
         aria-hidden="true"
       />
+
+      {/* Mute toggle — top right */}
+      <button
+        onClick={toggleMute}
+        aria-label={muted ? "Unmute video" : "Mute video"}
+        className="absolute top-6 right-5 md:right-10 z-20 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+        style={{
+          background: "rgba(255,255,255,0.15)",
+          border: "1px solid rgba(255,255,255,0.25)",
+          backdropFilter: "blur(8px)",
+          color: "#fff",
+          marginTop: "var(--nav-h)",
+        }}
+      >
+        {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+      </button>
 
       {/* Content — mobile: centred upper-middle; desktop: lower third */}
       <div className="relative z-10 h-full flex flex-col justify-center md:justify-end pt-[10vh] md:pt-0 pb-0 md:pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
@@ -96,7 +125,6 @@ export function Hero() {
           </Link>
         </motion.div>
       </div>
-
 
     </section>
   );
