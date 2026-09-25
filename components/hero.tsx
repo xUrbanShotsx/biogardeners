@@ -45,8 +45,8 @@ export function Hero() {
       {/* Layered overlay — bottom heavy for text legibility */}
       <div
         className="absolute left-0 right-0 bottom-0"
-        style={{ top: "var(--nav-h)" }}
         style={{
+          top: "var(--nav-h)",
           background: "linear-gradient(to top, rgba(10,25,18,0.82) 0%, rgba(10,25,18,0.55) 40%, rgba(10,25,18,0.30) 70%, rgba(10,25,18,0.10) 100%)",
         }}
         aria-hidden="true"
