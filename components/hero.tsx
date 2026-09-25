@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingBag, ArrowRight, Volume2, VolumeX } from "lucide-react";
@@ -8,6 +8,14 @@ import { ShoppingBag, ArrowRight, Volume2, VolumeX } from "lucide-react";
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+
+  // React doesn't forward the `muted` JSX prop to the DOM — set it imperatively
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
 
   function toggleMute() {
     const v = videoRef.current;
