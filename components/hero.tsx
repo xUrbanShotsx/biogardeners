@@ -35,7 +35,8 @@ export function Hero() {
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute left-0 right-0 bottom-0 w-full object-cover"
+        style={{ top: "var(--nav-h)", height: "calc(100% - var(--nav-h))" }}
         aria-hidden="true"
       >
         <source src="/madison.mp4" type="video/mp4" />
@@ -43,7 +44,8 @@ export function Hero() {
 
       {/* Layered overlay — bottom heavy for text legibility */}
       <div
-        className="absolute inset-0"
+        className="absolute left-0 right-0 bottom-0"
+        style={{ top: "var(--nav-h)" }}
         style={{
           background: "linear-gradient(to top, rgba(10,25,18,0.82) 0%, rgba(10,25,18,0.55) 40%, rgba(10,25,18,0.30) 70%, rgba(10,25,18,0.10) 100%)",
         }}
