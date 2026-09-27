@@ -12,9 +12,9 @@ import { getProducts, DEMO_PRODUCTS } from "@/lib/shopify";
 
 const FEATURED_HANDLES = [
   "gp-fertiliser-premium-garden-lawn",
-  "lawn-fertilizer-premium-granulated-concentrated",
-  "penetrator",
   "plant-spray",
+  "liquid-npk-fertilizer",
+  "instant-claybreaker",
 ];
 
 export default async function Home() {
