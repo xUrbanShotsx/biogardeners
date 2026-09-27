@@ -14,7 +14,7 @@ const FEATURED_HANDLES = [
   "gp-fertiliser-premium-garden-lawn",
   "plant-spray",
   "liquid-npk-fertilizer",
-  "instant-claybreaker",
+  "soil-health-conditioner",
 ];
 
 export default async function Home() {
