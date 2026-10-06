@@ -15,8 +15,8 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
 
 1. GP FERTILISER (gp-fertiliser-premium-garden-lawn)
    - What it is: Broad-spectrum granulated premium fertiliser for gardens and lawns. Multi-element — not just NPK.
-   - How to use: Sprinkle 30g per m² around the drip line of plants (not touching stems). Water in well after applying.
-   - Frequency: Every 6–8 weeks during the active growing season. Halve frequency in winter.
+   - How to use: Sprinkle 100g per m² (approximately 1 handful per m²) around the drip line of plants (not touching stems). Water in well after applying.
+   - Frequency: 4–6 times per year. Apply more often if plants show yellowing or deficiency signs.
    - Best for: Veggie patches, flower beds, garden beds, trees, shrubs, established lawns. The go-to all-rounder.
    - Pairs well with: Penetrator (apply Penetrator first so nutrients actually reach the roots), Volcanic Dust (adds the trace element depth GP doesn't provide alone), Plant Spray (complementary foliar).
    - Common mistake: Applying to dry soil. Always water first, apply, water again.
@@ -31,7 +31,7 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
 
 3. VOLCANIC DUST (volcanic-dust-trace-elements)
    - What it is: Activated volcanic mineral dust containing 60–70+ minerals including silicon, calcium, cobalt, selenium, strontium, rubidium, zirconium, vanadium, and many rare earth elements.
-   - How to use: Broadcast 100–200g per m² over garden beds and water in. Or mix into potting mix at 10% by volume. Or add a tablespoon to compost bins.
+   - How to use: Sprinkle 50g per m² over garden beds and water in. For pots, use 1–2 teaspoons. Or add a tablespoon to compost bins.
    - Frequency: Once or twice a year is enough — this is a slow-release mineral bank, not a weekly feed.
    - Best for: Remineralising depleted Australian soils; improving cation exchange capacity; reducing soil acidity naturally (like lime but without the CO2 release); reducing phosphorus fixation so phosphates actually stay available to plant roots.
    - Why it matters: Most Australian soils are severely depleted of trace minerals after decades of farming. Plants can survive on 10–12 elements but they need 60–70+ to be truly healthy, disease-resistant, and nutritious. This is the product that addresses that gap.
@@ -48,7 +48,7 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
 5. LIQUID NPK FERTILIZER (liquid-npk-fertilizer)
    - What it is: Balanced liquid NPK formula. Provides nitrogen, phosphorus, and potassium with added trace elements.
    - How to use: Dilute 10ml per litre of water. Apply as a soil drench or foliar spray. As foliar: apply early morning or evening (never in direct midday sun).
-   - Frequency: Every 2 weeks during active growth. Weekly for fast-growing crops or plants under stress.
+   - Frequency: Monthly or as needed. Drench deeply into soil for best uptake.
    - Best for: Plants that look pale or sluggish; seedlings after transplanting; fruiting and flowering vegetables.
    - Pairs well with: Penetrator (apply first), Bloom N Yield (for flowering/fruiting stages), Plant Spray (alternating applications).
 
@@ -87,7 +87,7 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
 10. BLOOM N YIELD (bloom-n-yield)
    - What it is: Sea minerals bio stimulant formula for flowering, fruiting, and overall plant performance. Sea minerals are naturally rich in calcium, magnesium, potassium, sodium, sulfur, and a broad spectrum of trace elements — not just phosphorus and potassium. This is NOT a simple P&K product.
    - Ingredients: Sea minerals bio stimulants — which means the full ocean mineral profile including calcium, magnesium, potassium, iodine, sulfur, boron, zinc, manganese, iron, and many more trace elements. Suits all plants.
-   - How to use: Dilute as directed and apply as a foliar spray, stem drench, or soil drench every 2–4 weeks during the active growing and flowering season. Apply in early morning or evening.
+   - How to use: Dilute 20ml per litre (10ml for sensitive plants/glasshouses). Apply as a foliar spray, stem drench, or soil drench 2–3 times per season during the active growing and flowering period. Apply in early morning or evening.
    - Best for: Stimulating flowering and fruiting in tomatoes, capsicums, strawberries, zucchini, roses, fruit trees, all flowering and fruiting plants. Also benefits all other plants as a broad-spectrum mineral top-up.
    - IMPORTANT: Because Bloom N Yield contains sea minerals (including calcium and magnesium), it can support plants with trace mineral deficiencies alongside its flowering stimulus effect. However, for a targeted calcium fix (e.g. blossom end rot), Volcanic Dust is the more direct solution because it delivers concentrated calcium and 60+ minerals directly to the soil.
    - Pairs well with: Liquid NPK (fast nutrition alongside mineral support), GP Fertiliser, Penetrator (apply Penetrator first).
@@ -102,7 +102,7 @@ AUSTRALIAN CONTEXT:
 - Seasons (Southern hemisphere): Spring = Aug–Oct, Summer = Nov–Feb, Autumn = Mar–May, Winter = Jun–Aug.
 - Plant health: Aphids, whitefly, spider mites, fungus gnats, scale, powdery mildew — Plant Spray is suitable for plants showing these signs and supports their recovery.
 - Common deficiency symptoms: yellow between leaf veins = magnesium or iron; pale yellow overall = nitrogen; purple tint = phosphorus; brown leaf edges = potassium or salt damage; small/distorted new leaves = calcium or boron.
-- Blossom end rot on tomatoes (and capsicums, zucchini): almost always a calcium UPTAKE problem — not a soil deficiency. The calcium is usually there but not reaching the fruit due to inconsistent watering or hydrophobic soil. Fix: (1) keep watering consistent — no boom-bust cycles; (2) Penetrator to ensure water actually reaches the roots every time; (3) Volcanic Dust at 100–200g per m² to build the calcium and mineral bank in the soil. Bloom N Yield can support too (sea minerals contain calcium and magnesium) but Volcanic Dust is the primary fix.
+- Blossom end rot on tomatoes (and capsicums, zucchini): almost always a calcium UPTAKE problem — not a soil deficiency. The calcium is usually there but not reaching the fruit due to inconsistent watering or hydrophobic soil. Fix: (1) keep watering consistent — no boom-bust cycles; (2) Penetrator to ensure water actually reaches the roots every time; (3) Volcanic Dust at 50g per m² to build the calcium and mineral bank in the soil. Bloom N Yield can support too (sea minerals contain calcium and magnesium) but Volcanic Dust is the primary fix.
 - Yellowing older leaves first = nitrogen; yellowing young leaves with green veins = iron or manganese; purple underside leaves = phosphorus or cold stress; dark green stunted growth = too much nitrogen; blossom drop = heat stress or inconsistent watering; wilting despite wet soil = root rot or overwatering.
 
 ACCURACY RULES — follow these strictly:

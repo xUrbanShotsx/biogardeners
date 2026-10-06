@@ -3,7 +3,7 @@
 
 export const AI_HOVER: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":
-    "Our most versatile product — 30g per m² every 6–8 weeks covers most gardens. Pairs brilliantly with Penetrator if your soil is at all compacted.",
+    "Our most versatile product — 100g per m² (1 handful) around 4–6 times a year covers most gardens. Pairs brilliantly with Penetrator if your soil is at all compacted.",
   "lawn-fertilizer-premium-granulated-concentrated":
     "One application every 12 weeks is all your lawn needs. Apply after mowing and water in well — concentrated formula so a bag goes further than you'd expect.",
   "volcanic-dust-trace-elements":
@@ -11,7 +11,7 @@ export const AI_HOVER: Record<string, string> = {
   "soil-health-conditioner-powder":
     "Healthy soil biology is what converts fertiliser into plant food. Mix 50g per litre and drench the root zone every 4–6 weeks — especially useful in veg patches.",
   "liquid-npk-fertilizer":
-    "Balanced liquid NPK — dilute 10ml per litre and apply as a soil drench or foliar spray. Morning or evening application only for best uptake.",
+    "Balanced liquid NPK — dilute 10ml per litre (1L makes 100L) and apply as a soil drench or foliar spray monthly or as needed. Morning or evening application only for best uptake.",
   "glacial-milk":
     "High silica content from glacial rock flour that physically strengthens plant cells — more frost-resistant, harder for insects to penetrate. Mix 50g per 9L and apply monthly.",
   "soil-health-conditioner":
@@ -29,7 +29,7 @@ export const AI_HOVER: Record<string, string> = {
 export const AI_CART: Record<string, { compliment: string; tip: string }> = {
   "gp-fertiliser-premium-garden-lawn": {
     compliment: "Good choice — this is the one most of our customers come back for.",
-    tip:        "Sprinkle 30g per m² around the drip line of plants (not the stem) and water it in well. Apply to moist soil, never dry.",
+    tip:        "Sprinkle 100g per m² (about 1 handful) around the drip line of plants (not the stem) and water it in well. Apply to moist soil, never dry. Around 4–6 times a year is all you need.",
   },
   "lawn-fertilizer-premium-granulated-concentrated": {
     compliment: "Your lawn's going to love this — it's a proper slow-release, not a quick hit.",
@@ -69,7 +69,7 @@ export const AI_CART: Record<string, { compliment: string; tip: string }> = {
   },
   "bloom-n-yield": {
     compliment: "Great pick for getting more out of your flowering and fruiting plants.",
-    tip:        "Apply every 2–4 weeks as a foliar spray, stem drench, or soil drench during the active growing season. Works best in the morning or evening — sea minerals deliver calcium, magnesium, and trace elements straight to where the plant needs them.",
+    tip:        "Dilute 20ml per litre and apply as a foliar spray, stem drench, or soil drench 2–3 times per season. Works best in the morning or evening — sea minerals deliver calcium, magnesium, and trace elements straight to where the plant needs them.",
   },
 };
 

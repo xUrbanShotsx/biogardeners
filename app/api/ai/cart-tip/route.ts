@@ -4,13 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 const PRODUCT_KNOWLEDGE = `
 BioGardeners products and exact usage:
 
-GP FERTILISER: Broad-spectrum granulated fertiliser for gardens and lawns. Apply 30g per m² around plant drip lines (not touching stems), water in well. Every 6–8 weeks in growing season. Always apply to moist soil, never dry.
+GP FERTILISER: Broad-spectrum granulated fertiliser for gardens and lawns. Apply 100g per m² (approximately 1 handful) around plant drip lines (not touching stems), water in well. 4–6 times per year. Always apply to moist soil, never dry.
 
 LAWN FERTILIZER: Concentrated slow-release lawn granules. Apply 30g per m² after mowing, water in thoroughly. Feeds for up to 12 weeks — one treatment covers the lawn for a full season.
 
-VOLCANIC DUST: 60–70+ minerals from volcanic rock. Broadcast 100–200g per m² and water in, or mix into potting mix at 10% by volume. Once or twice a year is enough — slow-release mineral bank that improves cation exchange capacity and makes phosphorus stay available.
+VOLCANIC DUST: 60–70+ minerals from volcanic rock. Sprinkle 50g per m² over garden beds and water in. For pots, 1–2 teaspoons. Once or twice a year is enough — slow-release mineral bank that improves cation exchange capacity and makes phosphorus stay available.
 
-LIQUID NPK FERTILIZER: Balanced liquid NPK formula. Dilute 10ml per litre, apply as soil drench or foliar spray. Foliar spray in early morning or evening only (never midday sun). Every 2 weeks during active growth.
+LIQUID NPK FERTILIZER: Balanced liquid NPK formula. Dilute 10ml per litre (1L makes 100L), apply as soil drench or foliar spray. Foliar spray in early morning or evening only (never midday sun). Monthly or as needed.
 
 GLACIAL MILK: Glacial rock flour — high in silica, strengthens plant cell walls. Mix 50g per 9L watering can and apply to soil monthly. Or mix 1 tablespoon per litre into seed-raising mix. Great for frost resistance and winter maintenance.
 
@@ -18,11 +18,11 @@ SOIL HEALTH CONDITIONER (liquid): Liquid microbial blend. Dilute 50ml per 9L wat
 
 SOIL HEALTH CONDITIONER POWDER: Dry microbial inoculant. Mix 50g per litre, drench around roots. Every 4–6 weeks. Best for veg patches and depleted soils.
 
-PLANT SPRAY / ECOSPRAY: Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Helps restore plant vitality and healthy foliage. Spray top AND underside of leaves, morning or evening only. For plants under pressure: every 3–5 days for 3 rounds. Maintenance: fortnightly. Safe for edibles. Do NOT say it "kills" or "controls" — say it is "suitable for plants affected by" and "supports recovery".
+PLANT SPRAY / ECOSPRAY: Selenium-rich foliar spray concentrate suitable for plants affected by insects or fungal issues. Dilute 40ml per litre (20ml for sensitive plants/glasshouses) — 1L makes up to 25L. Helps restore plant vitality and healthy foliage. Spray top AND underside of leaves, morning or evening only. Shake well before use. For plants under pressure: every 3–5 days for 3 rounds. Maintenance: fortnightly. Safe for edibles. Do NOT say it "kills" or "controls" — say it is "suitable for plants affected by" and "supports recovery".
 
 PENETRATOR: Soil wetting agent. Mix 10ml per litre and apply BEFORE watering or fertilising — always the first step. Opens compacted and hydrophobic soils. For clay/compaction: monthly for 3–4 months.
 
-BLOOM N YIELD: Sea minerals bio stimulant for flowering and fruiting plants. Contains calcium, magnesium, potassium, iodine, sulfur, boron, zinc, manganese, iron, and many trace elements from sea minerals — this is NOT just a phosphorus and potassium product. Apply every 2–4 weeks as a foliar spray, stem drench, or soil drench during the growing and flowering season, in early morning or evening. Best for tomatoes, capsicums, strawberries, roses, fruit trees, and all flowering/fruiting plants.
+BLOOM N YIELD: Sea minerals bio stimulant for flowering and fruiting plants. Contains calcium, magnesium, potassium, iodine, sulfur, boron, zinc, manganese, iron, and many trace elements from sea minerals — this is NOT just a phosphorus and potassium product. Dilute 20ml per litre (10ml for sensitive plants). Apply 2–3 times per season as a foliar spray, stem drench, or soil drench during the growing and flowering period, in early morning or evening. Best for tomatoes, capsicums, strawberries, roses, fruit trees, and all flowering/fruiting plants.
 `;
 
 export async function POST(req: NextRequest) {
