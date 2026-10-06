@@ -114,7 +114,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center md:justify-end pt-[10vh] md:pt-0 pb-0 md:pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
+      <div className="relative z-10 h-full flex flex-col justify-end pt-0 pb-[12vh] md:pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
 
         <motion.h1
           id="hero-heading"
