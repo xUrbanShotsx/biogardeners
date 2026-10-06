@@ -231,6 +231,37 @@ function DrawerPanel() {
         </div>
       </div>
 
+      {/* Weight bar */}
+      {count > 0 && (
+        <div className="px-5 pt-3 pb-1 shrink-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-semibold" style={{ color: "var(--text-black-soft)" }}>
+              Order weight
+            </span>
+            <span
+              className="text-[11px] font-bold"
+              style={{ color: totalWeight >= 20 ? "#b45309" : "var(--green-bio)" }}
+            >
+              {totalWeight.toFixed(1)}kg / 20kg
+            </span>
+          </div>
+          <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: "var(--ceramic)" }}>
+            <motion.div
+              className="h-full rounded-full"
+              animate={{ width: `${Math.min((totalWeight / 20) * 100, 100)}%` }}
+              transition={{ type: "spring", damping: 20, stiffness: 180 }}
+              style={{
+                background: totalWeight >= 20
+                  ? "#f59e0b"
+                  : totalWeight >= 15
+                  ? "#86efac"
+                  : "var(--green-accent)",
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       {/* AI message — appears when item is added */}
       <AnimatePresence>
         {cartMessage && count > 0 && (
