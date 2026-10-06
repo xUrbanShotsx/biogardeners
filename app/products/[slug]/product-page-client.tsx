@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef }       from "react";
+import { useState, useEffect }               from "react";
 import Link                                   from "next/link";
 import Image                                  from "next/image";
 import { motion, AnimatePresence }            from "framer-motion";
-import { ArrowLeft, ShoppingBag, ChevronDown, Star, Users, Truck, ShieldCheck, Minus, Plus, Check } from "lucide-react";
+import { ArrowLeft, ChevronDown, Star, Users, Truck, ShieldCheck, Check, ArrowRight } from "lucide-react";
 import { ProductCard }                        from "@/components/product-card";
 import { formatPrice }                        from "@/lib/utils";
-import { useCart }                            from "@/lib/cart-context";
-import { useAi }                             from "@/lib/ai-context";
 import type { ShopifyProduct }                from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
@@ -226,94 +224,23 @@ interface Props {
 
 export function ProductPageClient({ product, related, slug }: Props) {
   const details       = PRODUCT_DETAILS[slug];
-  const shopifyVarIds = product.variants.edges.map((e) => e.node.id);
   const shopifyVars   = product.variants.edges.map((e) => ({ label: e.node.title, price: e.node.price.amount }));
   const variants      = VARIANTS[slug] ?? (shopifyVars.length ? shopifyVars : [{ label: "Standard", price: product.priceRange.minVariantPrice.amount }]);
   const galleries     = GALLERY_BG[slug] ?? GALLERY_BG["gp-fertiliser-premium-garden-lawn"];
   const shopifyImages = product.images.edges.map((e) => e.node);
   const hasImages     = shopifyImages.length > 0;
-  const bundleItems   = related.slice(0, 2); // "Frequently bought together" = first 2 related
 
   const [activeVariant, setActiveVariant] = useState(0);
   const [activeGallery, setActiveGallery] = useState(0);
-  const [quantity,      setQuantity]      = useState(1);
   const [openSection,   setOpenSection]   = useState<string | null>("benefits");
-  const { addItem }                       = useCart();
-  const { showCartMessage }               = useAi();
-  const [addState,      setAddState]      = useState<"idle" | "adding" | "added">("idle");
-  const [stickyVisible, setStickyVisible] = useState(false);
   const [viewingCount,  setViewingCount]  = useState(8);
-  const [stockLeft,     setStockLeft]     = useState(6);
-
-  const addBtnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setViewingCount(Math.floor(Math.random() * 14) + 6);
-    setStockLeft(Math.floor(Math.random() * 8) + 4);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setStickyVisible(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    if (addBtnRef.current) observer.observe(addBtnRef.current);
-    return () => observer.disconnect();
   }, []);
 
   const currentPrice = variants[activeVariant]?.price ?? product.priceRange.minVariantPrice.amount;
   const displayPrice = formatPrice(currentPrice);
-
-  function handleAddToCart() {
-    if (addState !== "idle") return;
-    setAddState("adding");
-    const variant = variants[activeVariant];
-    addItem({
-      id:       shopifyVarIds[activeVariant] ?? product.variants.edges[activeVariant]?.node.id ?? product.id,
-      handle:   product.handle,
-      title:    product.title,
-      variant:  variant?.label ?? "Standard",
-      price:    parseFloat(variant?.price ?? currentPrice),
-      weight:   product.variants.edges[activeVariant]?.node.weight ?? 0,
-      quantity,
-      imageUrl: shopifyImages[0]?.url,
-    });
-    showCartMessage(product.handle, product.title, []);
-    setTimeout(() => setAddState("added"), 600);
-    setTimeout(() => setAddState("idle"), 2200);
-  }
-
-  const [bundleState, setBundleState] = useState<"idle" | "added">("idle");
-
-  function handleAddBundleToCart() {
-    if (bundleState !== "idle") return;
-    // Add current product
-    const variant = variants[activeVariant];
-    addItem({
-      id:       shopifyVarIds[activeVariant] ?? product.id,
-      handle:   product.handle,
-      title:    product.title,
-      variant:  variant?.label ?? "Standard",
-      price:    parseFloat(variant?.price ?? currentPrice),
-      weight:   product.variants.edges[activeVariant]?.node.weight ?? 0,
-      imageUrl: shopifyImages[0]?.url,
-    });
-    // Add each bundle item
-    bundleItems.forEach((bp) => {
-      const bpVariant = bp.variants.edges[0]?.node;
-      addItem({
-        id:       bpVariant?.id ?? bp.id,
-        handle:   bp.handle,
-        title:    bp.title,
-        variant:  bpVariant?.title ?? "Standard",
-        price:    parseFloat(bp.priceRange.minVariantPrice.amount),
-        weight:   bpVariant?.weight ?? 0,
-        imageUrl: bp.images.edges[0]?.node.url,
-      });
-    });
-    setBundleState("added");
-    setTimeout(() => setBundleState("idle"), 2200);
-  }
 
   const sections = [
     { id: "benefits",    title: "Benefits"     },
@@ -513,78 +440,22 @@ export function ProductPageClient({ product, related, slug }: Props) {
           <div className="hidden lg:block" aria-hidden="true" />
           <div>
 
-            {/* Urgency row */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 mb-5">
-              <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--red)" }}>
-                <span className="w-2 h-2 rounded-full animate-pulse shrink-0" style={{ background: "var(--red)" }} />
-                Only {stockLeft} left in stock
-              </div>
-            </div>
-
-            {/* Quantity + Add to cart */}
-            <div ref={addBtnRef} className="flex gap-3 mb-4">
-              {/* Quantity stepper */}
-              <div className="flex items-center rounded-full shrink-0" style={{ border: "1.5px solid var(--input-border)" }}>
-                <button
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-11 h-11 flex items-center justify-center transition-colors duration-200 rounded-full"
-                  aria-label="Decrease"
-                >
-                  <Minus size={14} style={{ color: "var(--text-black-soft)" }} />
-                </button>
-                <span className="w-8 text-center text-sm font-bold" aria-live="polite" style={{ color: "var(--text-black)" }}>
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity((q) => q + 1)}
-                  className="w-11 h-11 flex items-center justify-center transition-colors duration-200 rounded-full"
-                  aria-label="Increase"
-                >
-                  <Plus size={14} style={{ color: "var(--text-black-soft)" }} />
-                </button>
-              </div>
-
-              {/* Add to cart — dominant CTA */}
-              <button
-                onClick={handleAddToCart}
-                className="btn btn-primary flex-1 gap-2"
-                style={{ fontSize: 17, padding: "16px 24px", boxShadow: "0 4px 18px rgba(0,168,86,0.35)" }}
+            {/* Bundles CTA */}
+            <div className="rounded-2xl p-5 mb-5" style={{ background: "var(--green-xlight)", border: "1px solid var(--ceramic)" }}>
+              <p className="text-sm font-semibold mb-1" style={{ color: "var(--green-house)" }}>
+                Ready to buy?
+              </p>
+              <p className="text-xs mb-4" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>
+                This product is available as part of our curated bundles — designed to give your garden everything it needs.
+              </p>
+              <Link
+                href="/bundles"
+                className="btn btn-primary flex items-center justify-center gap-2"
+                style={{ fontSize: 15, padding: "13px 24px" }}
               >
-                <AnimatePresence mode="wait" initial={false}>
-                  {addState === "idle" && (
-                    <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <ShoppingBag size={18} /> Add to cart
-                    </motion.span>
-                  )}
-                  {addState === "adding" && (
-                    <motion.span key="adding" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      Adding…
-                    </motion.span>
-                  )}
-                  {addState === "added" && (
-                    <motion.span key="added" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <Check size={18} /> Added to cart!
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </button>
-            </div>
-
-            {/* Post-ATC reassurance strip */}
-            <div
-              className="flex items-center justify-around py-3 px-3 rounded-xl mb-5 text-xs font-semibold"
-              style={{ background: "var(--green-xlight)", color: "var(--green-house)" }}
-            >
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={13} style={{ color: "var(--green-accent)" }} />
-                Australian made
-              </span>
-              <span className="w-px h-3 rounded-full" style={{ background: "var(--green-light)" }} aria-hidden="true" />
-              <span className="flex items-center gap-1.5">
-                <span className="text-[11px]">🇦🇺</span>
-                <span className="hidden sm:inline">Australian made</span>
-                <span className="sm:hidden">AU made</span>
-              </span>
+                Shop bundles
+                <ArrowRight size={15} />
+              </Link>
             </div>
 
             {/* Trust badges — 2×2 on mobile, 4-col on sm+ */}
@@ -755,52 +626,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
         )}
       </div>
 
-      {/* Sticky bottom bar — appears when add-to-cart scrolls out of view */}
-      <AnimatePresence>
-        {stickyVisible && (
-          <motion.div
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 80, opacity: 0 }}
-            transition={{ duration: 0.25, ease }}
-            className="fixed bottom-0 inset-x-0 z-[150]"
-            style={{ boxShadow: "var(--shadow-sticky)" }}
-          >
-            <div className="max-w-[1440px] mx-auto flex items-center gap-4 px-4 lg:px-10 py-3.5" style={{ background: "#fff" }}>
-              {/* Product info */}
-              <div className="hidden sm:flex items-center gap-3 flex-1 min-w-0">
-                <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 relative" style={{ background: galleries[0] }}>
-                  {shopifyImages[0] && (
-                    <Image src={shopifyImages[0].url} alt={product.title} fill sizes="40px" className="object-contain p-0.5" />
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-sm truncate" style={{ color: "var(--text-black)" }}>{product.title}</p>
-                  <p className="text-sm font-bold" style={{ color: "var(--green-bio)" }}>{displayPrice}</p>
-                </div>
-              </div>
-              {/* Mobile — just title + price */}
-              <div className="sm:hidden flex-1 min-w-0">
-                <p className="font-bold text-sm truncate" style={{ color: "var(--text-black)" }}>{product.title}</p>
-                <p className="text-xs font-bold" style={{ color: "var(--green-bio)" }}>{displayPrice}</p>
-              </div>
-              {/* Trust hint */}
-              <p className="hidden lg:block text-xs font-semibold shrink-0" style={{ color: "var(--text-black-soft)" }}>
-                ✓ Australian made &nbsp;·&nbsp; from $15.95 shipping
-              </p>
-              {/* CTA */}
-              <button
-                onClick={handleAddToCart}
-                className="btn btn-primary gap-2 shrink-0"
-                style={{ fontSize: 15, padding: "12px 28px", boxShadow: "0 2px 12px rgba(0,168,86,0.30)" }}
-              >
-                <ShoppingBag size={15} />
-                Add to cart
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }
