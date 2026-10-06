@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Star, Check } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { type ShopifyProduct } from "@/lib/shopify";
 import { formatPrice } from "@/lib/utils";
-import { useCart } from "@/lib/cart-context";
 
 const SOCIAL_PROOF: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "83 sold this week",
@@ -135,8 +133,6 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
 }
 
 export function ProductCard({ product, index = 0, hideDescription = false }: { product: ShopifyProduct; index?: number; hideDescription?: boolean }) {
-  const { addItem } = useCart();
-  const [adding, setAdding] = useState(false);
   const price    = formatPrice(product.priceRange.minVariantPrice.amount);
   const tag      = product.tags[0];
   const titleKey = product.title.toLowerCase();
@@ -145,23 +141,6 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
   const badge    = BADGE[product.handle] ?? (rating ? "Popular" : undefined);
   const firstImg = product.images.edges[0]?.node;
   const desc     = resolveDesc(product.handle, titleKey, product.description);
-
-  function handleAddToCart(e: React.MouseEvent) {
-    e.preventDefault();
-    if (adding) return;
-    setAdding(true);
-    const firstVariant = product.variants.edges[0]?.node;
-    addItem({
-      id:       firstVariant?.id ?? product.id,
-      handle:   product.handle,
-      title:    product.title,
-      variant:  firstVariant?.title ?? "Default",
-      price:    parseFloat(product.priceRange.minVariantPrice.amount),
-      weight:   firstVariant?.weight ?? 0,
-      imageUrl: firstImg?.url,
-    });
-    setTimeout(() => setAdding(false), 1600);
-  }
 
   return (
     <motion.article
@@ -233,28 +212,14 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
           </p>
         )}
 
-        {/* Add to cart — always visible */}
-        <button
-          onClick={handleAddToCart}
-          className="mt-1 w-full flex items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-all active:scale-[0.97]"
-          style={{
-            background: "var(--green-accent)",
-            color: "#fff",
-            boxShadow: adding ? "none" : "0 2px 12px rgba(0,0,0,0.18)",
-          }}
+        {/* View product */}
+        <Link
+          href={`/products/${product.handle}`}
+          className="mt-1 w-full flex items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-all hover:brightness-110 active:scale-[0.97]"
+          style={{ background: "var(--green-accent)", color: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.18)" }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {adding ? (
-              <motion.span key="done" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1.5">
-                <Check size={14} /> Added!
-              </motion.span>
-            ) : (
-              <motion.span key="add" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1.5">
-                <ShoppingBag size={14} /> Add to cart
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
+          View product <ArrowRight size={14} />
+        </Link>
       </div>
     </motion.article>
   );
