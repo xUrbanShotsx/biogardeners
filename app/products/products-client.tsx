@@ -4,9 +4,7 @@ import { useState } from "react"; // kept for QuickPickCard internal state
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Star, TrendingUp, Check, Package } from "lucide-react";
-import { useCart } from "@/lib/cart-context";
-import { useAi }  from "@/lib/ai-context";
+import { Star, TrendingUp, Package, ArrowRight } from "lucide-react";
 import { type ShopifyProduct } from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
@@ -141,21 +139,17 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
 
 /* ─── Quick Pick Card ──────────────────────────────────────────────── */
 
-function QuickPickCard({ handle, title, description, index, shopifyVariants, shopifyVariantIds, basePrice, imageUrl, imageAlt }: {
+function QuickPickCard({ handle, title, description, index, shopifyVariants, basePrice, imageUrl, imageAlt }: {
   handle: string;
   title: string;
   description: string;
   index: number;
   shopifyVariants: { label: string; price: number; weight?: number }[];
-  shopifyVariantIds: string[];
   basePrice: number;
   imageUrl?: string;
   imageAlt?: string;
 }) {
-  const { addItem } = useCart();
-  const { showCartMessage } = useAi();
   const [selectedVariant, setSelectedVariant] = useState(0);
-  const [addState, setAddState] = useState<"idle" | "added">("idle");
 
   const variants = VARIANTS[handle] ?? shopifyVariants;
   const variant  = variants[selectedVariant] ?? { label: "Standard", price: basePrice };
@@ -166,23 +160,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
   const rating   = RATINGS[handle] ?? (isEco ? { avg: 4.7, count: 62 } : isBloom ? { avg: 4.8, count: 44 } : { avg: 4.8, count: 36 });
   const badge    = BADGE[handle]   ?? (isEco || isBloom ? "Popular" : "Popular");
   const sold     = SOLD[handle]    ?? (isEco ? "44 this month" : isBloom ? "31 this month" : "24 this month");
-  const isBundle = false;
   const spec     = SPEC_LINE[handle] ?? (isEco ? "Foliar Spray · Plant Vitality" : isBloom ? "Flowering · Fruiting · Sea Minerals" : description);
-
-  function handleAdd(e: React.MouseEvent) {
-    e.preventDefault();
-    addItem({
-      id:      shopifyVariantIds[selectedVariant] ?? shopifyVariantIds[0] ?? `${handle}-v${selectedVariant}`,
-      handle,
-      title,
-      variant: variant.label,
-      price:   variant.price,
-      weight:  shopifyVariants[selectedVariant]?.weight ?? shopifyVariants[0]?.weight ?? 0,
-    });
-    showCartMessage(handle, title, []);
-    setAddState("added");
-    setTimeout(() => setAddState("idle"), 1800);
-  }
 
   return (
     <motion.article
@@ -306,45 +284,21 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
             )}
           </div>
 
-          <button
-            onClick={handleAdd}
-            className="flex items-center justify-center gap-1.5 font-bold rounded-full transition-all duration-200"
+          <Link
+            href={`/products/${handle}`}
+            className="flex items-center justify-center gap-1.5 font-bold rounded-full transition-all duration-200 hover:brightness-110"
             style={{
-              background: addState === "added" ? "var(--green-accent)" : "var(--green-accent)",
+              background: "var(--green-accent)",
               color:      "#fff",
               fontSize:   13,
               padding:    "9px 18px",
               minWidth:   96,
               boxShadow:  "0 2px 8px rgba(30,57,50,0.25)",
             }}
-            aria-label={`Add ${title} – ${variant.label} to cart`}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              {addState === "added" ? (
-                <motion.span
-                  key="added"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center gap-1"
-                >
-                  <Check size={13} strokeWidth={2.5} />
-                  Added
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="add"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center gap-1"
-                >
-                  <ShoppingBag size={13} />
-                  Add
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
+            View
+            <ArrowRight size={13} />
+          </Link>
         </div>
       </div>
 
@@ -398,8 +352,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                   price:  parseFloat(e.node.price.amount),
                   weight: e.node.weight,
                 }))}
-                shopifyVariantIds={p.variants.edges.map((e) => e.node.id)}
-                basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
+basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
                 imageUrl={firstImg?.url}
                 imageAlt={firstImg?.altText ?? p.title}
               />
