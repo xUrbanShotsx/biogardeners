@@ -160,6 +160,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
   const rating   = RATINGS[handle] ?? (isEco ? { avg: 4.7, count: 62 } : isBloom ? { avg: 4.8, count: 44 } : { avg: 4.8, count: 36 });
   const badge    = BADGE[handle]   ?? (isEco || isBloom ? "Popular" : "Popular");
   const sold     = SOLD[handle]    ?? (isEco ? "44 this month" : isBloom ? "31 this month" : "24 this month");
+  const isBundle = false;
   const spec     = SPEC_LINE[handle] ?? (isEco ? "Foliar Spray · Plant Vitality" : isBloom ? "Flowering · Fruiting · Sea Minerals" : description);
 
   return (
