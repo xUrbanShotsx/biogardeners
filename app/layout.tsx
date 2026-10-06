@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     template: "%s | BioGardeners",
   },
   description:
-    "Precision-formulated garden soil and fertilisers for home gardeners. Australian made. Science backed.",
+    "Your friendly Aussie garden shop. Hand-picked, regenerative fertilisers and soil care that are family and pet friendly, easy to use, and delivered Australia wide.",
   keywords: ["garden fertiliser", "garden soil", "plant nutrition", "organic garden", "Australian"],
   openGraph: {
     title:       "BioGardeners — Premium Garden Nutrition",
-    description: "Precision-formulated garden soil and fertilisers for home gardeners.",
+    description: "Hand-picked, regenerative garden products from a proudly Aussie brand — family and pet friendly and easy to use.",
     type:        "website",
   },
   robots: { index: true, follow: true },

@@ -12,33 +12,33 @@ const CATEGORIES = ["All", "Products", "Orders", "Shipping", "Returns", "Growing
 const FAQS = [
   {
     category: "Products",
-    q: "What makes BioGardeners different from supermarket fertilisers?",
-    a: "Supermarket fertilisers are typically generic blends with cheap salt-based nutrients that release too quickly, burning roots and washing through the soil. Our formulas use chelated minerals, slow-release nitrogen, and living soil inputs (like mycorrhizal fungi in Deep Root Tonic) calibrated to Australian soil profiles. Every ingredient earns its place.",
+    q: "Who makes the products you sell?",
+    a: "BioGardeners is an Australian garden retailer — we hand-pick and sell Healthy Earth products because we genuinely love them. They come from a proudly Aussie brand and are regenerative, environmentally friendly, gentle around family and pets when used as directed, and easy to use. We choose the range so you don't have to.",
   },
   {
     category: "Products",
-    q: "Are your products safe for edible gardens — vegetables, herbs, fruits?",
-    a: "Yes. All BioGardeners products are safe for edible plants. Bio Bloom Fertiliser and Terra Pro Soil Mix are specifically formulated for vegetables, herbs, and fruiting plants. Deep Root Tonic is also safe for edibles and is particularly beneficial for fruit trees and tomatoes.",
+    q: "Are the products okay to use around edible gardens, family and pets?",
+    a: "Our range is chosen to be gentle and easy to use around vegetables, herbs, fruit trees, and the people and pets who share your backyard — when used as directed. Always follow the rates and directions on each product page, and feel free to email us if you'd like a hand.",
   },
   {
     category: "Products",
-    q: "Can I use Bio Bloom and Deep Root Tonic together?",
-    a: "Absolutely — they work synergistically. Apply Deep Root Tonic at transplanting to establish the root network, then begin Bio Bloom fertiliser two weeks later once the plant is settled. Do not mix Deep Root Tonic with chemical fungicides as these will kill the beneficial fungi.",
+    q: "Can I use more than one product together?",
+    a: "Absolutely — plenty of our customers build a little routine. Apply Penetrator first so water and nutrients reach the roots, then follow with your fertiliser or Bloom N Yield. Check each product page for rates, and email us if you'd like help putting a combo together.",
   },
   {
     category: "Products",
-    q: "How long does a bag of Bio Bloom last?",
-    a: "A 1kg bag covers approximately 33m² at the standard 30g/m² application rate, or treats a typical 4×8m raised bed about twice. For a standard 20–30m² home vegetable garden used every 6–8 weeks, a 1kg bag lasts roughly one season.",
+    q: "How far does a bag of GP Fertiliser go?",
+    a: "At the standard rate of 100g per m², a 5kg bag covers around 50m² per application, a 12kg bag around 120m², and a 20kg bag around 200m².",
   },
   {
     category: "Products",
-    q: "Are your products organic?",
-    a: "Our products use a mix of organic inputs (humic acid, seaweed extract, mycorrhizal fungi, composted bark) and precision mineral compounds to achieve the best results. We prioritise soil biology over certification labels — but if organic certification is important to you, please contact us and we can advise which products best fit that requirement.",
+    q: "Are the products organic?",
+    a: "The range is built around natural, regenerative inputs like volcanic minerals, sea minerals and glacial rock flour. We don't make certified-organic claims, but if that's important to you, email us and we'll happily check the specific product you have in mind.",
   },
   {
     category: "Products",
-    q: "What is the shelf life of your products?",
-    a: "Bio Bloom Fertiliser and Terra Pro Soil Mix are stable for 3 years when stored in a cool, dry place. Deep Root Tonic contains living organisms and should be used within 18 months of manufacture — the batch date is printed on each bottle. Store out of direct sunlight and do not freeze.",
+    q: "How should I store my products?",
+    a: "Keep products in a cool, dry place out of direct sunlight, and don't let liquids freeze. Check the label on your product for batch and storage details.",
   },
   {
     category: "Orders",
@@ -92,18 +92,18 @@ const FAQS = [
   },
   {
     category: "Growing tips",
-    q: "When is the best time to apply Bio Bloom Fertiliser?",
-    a: "Apply at the start of the growing season (late August–September in most of Australia) and then every 6–8 weeks through flowering and fruiting. Avoid applying in the heat of summer (above 35°C) or directly before heavy rain. Morning application with a good water-in works best.",
+    q: "When is the best time to apply GP Fertiliser?",
+    a: "Start at the beginning of the growing season (late August–September in most of Australia) and apply 4–6 times per year. Avoid heat above 35°C or just before heavy rain — a morning application on moist soil with a good water-in works best.",
   },
   {
     category: "Growing tips",
-    q: "My soil is very sandy / very clay — which product should I start with?",
-    a: "For sandy soils, start with Terra Pro Soil Mix as a 30% blend-in — the coir and bark structure dramatically improves water retention. For clay soils, Terra Pro's perlite content improves drainage. Follow with Deep Root Tonic at planting to establish the fungal network that makes both soil types more accessible to roots.",
+    q: "My soil is very sandy / very clay — where should I start?",
+    a: "For clay or water-repellent soils, start with Penetrator so water can soak in properly. For sandy soils, Volcanic Dust and Soil Health Conditioner help build the minerals and soil life that hold onto nutrients. Then feed with GP Fertiliser. Not sure? Email us and we'll point you in the right direction.",
   },
   {
     category: "Growing tips",
-    q: "How do I use Deep Root Tonic for established trees?",
-    a: "For established trees, dilute 5ml per litre and apply as a drench to the root zone — from the trunk out to the drip line. For large trees, use 10–20 litres of diluted solution per application. Apply in spring when soil temperature rises above 10°C, then once more in autumn.",
+    q: "How do I use Bloom N Yield on fruit trees?",
+    a: "Dilute 20ml per litre (10ml for sensitive plants) and apply as a foliar spray, stem drench or soil drench 2–3 times per season, in the early morning or evening.",
   },
 ];
 

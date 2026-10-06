@@ -37,7 +37,7 @@ const PRODUCT_DETAILS: Record<string, {
       "Made with natural volcanic minerals, meat and bone meal, and essential trace elements",
     ],
     howToUse:    "Sprinkle 100g per m² (approximately 1 handful per m²) around the drip line of plants — not touching stems. Water in well after applying. Always apply to moist soil, never dry. Apply 4–6 times per year; apply more often if plants show yellowing or deficiency signs.",
-    ingredients: "Natural volcanic minerals, Meat and bone meal, Essential nutrients and trace elements. 100% Australian owned and made.",
+    ingredients: "Natural volcanic minerals, Meat and bone meal, Essential nutrients and trace elements. Proudly Australian made.",
     weight:      "Available in 5KG, 12KG, 20KG",
   },
   "lawn-fertilizer-premium-granulated-concentrated": {
@@ -48,7 +48,7 @@ const PRODUCT_DETAILS: Record<string, {
       "Easy to spread with no unpleasant smells",
     ],
     howToUse:    "Apply 30g per m² to lawn surface after mowing. Water in thoroughly after application. One application feeds for up to 12 weeks — one of the longest-lasting lawn feeds available. Avoid applying in extreme heat.",
-    ingredients: "Concentrated granulated fertiliser blend. Slow-release nitrogen, phosphorus and potassium with essential trace elements. 100% Australian made.",
+    ingredients: "Concentrated granulated fertiliser blend. Slow-release nitrogen, phosphorus and potassium with essential trace elements. Proudly Australian made.",
     weight:      "Available as 1 Pack or 2 Pack (save $10)",
   },
   "volcanic-dust-trace-elements": {
@@ -70,7 +70,7 @@ const PRODUCT_DETAILS: Record<string, {
       "Easy to apply — mixes directly into soil or potting mix",
     ],
     howToUse:    "Mix 50g per litre of water and drench around root zones. Apply to moist soil, not dry. Repeat every 4–6 weeks through the growing season. Best used in veg patches, new garden beds, and soils recovering from chemical use.",
-    ingredients: "Natural mineral complex, biological soil stimulants, humic substances, trace elements. 100% Australian made.",
+    ingredients: "Natural mineral complex, biological soil stimulants, humic substances, trace elements. Proudly Australian made.",
     weight:      "See product listing for available sizes",
   },
   "liquid-npk-fertilizer": {
@@ -156,7 +156,7 @@ const GALLERY_BG: Record<string, string[]> = {
 };
 
 const REVIEWS = [
-  { name: "Sarah M.", city: "Sydney",    rating: 5, text: "Bio Bloom is incredible — my tomato yield doubled this season.",              initial: "S", color: "#006241" },
+  { name: "Sarah M.", city: "Sydney",    rating: 5, text: "Bloom N Yield is fantastic — my tomatoes have never looked better.",              initial: "S", color: "#006241" },
   { name: "James T.", city: "Melbourne", rating: 5, text: "Finally a brand that explains every ingredient. Trust built immediately.",    initial: "J", color: "#00754A" },
   { name: "Helen R.", city: "Brisbane",  rating: 5, text: "The Soil Conditioner changed everything — drainage is perfect and my herbs haven't looked this healthy in years.",  initial: "H", color: "#1E3932" },
   { name: "David K.", city: "Perth",     rating: 5, text: "New growth on every branch. This product is incredible.",                    initial: "D", color: "#2b5148" },
@@ -208,7 +208,7 @@ function ProductIllustration({ handle, label }: { handle: string; label: string 
       <rect x="38" y="244" width="204" height="2" fill="#00754A" opacity="0.30" />
       <text x="140" y="266" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="400" fontSize="10" fill="rgba(0,0,0,0.50)">{lbl.spec}</text>
       <rect x="38" y="278" width="204" height="18" fill="#006241" opacity="0.07" />
-      <text x="140" y="291" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="9" fill="#006241" letterSpacing="1.5">AUSTRALIAN MADE · PRECISION FORMULA</text>
+      <text x="140" y="291" textAnchor="middle" fontFamily="'Nunito Sans',sans-serif" fontWeight="700" fontSize="9" fill="#006241" letterSpacing="1.5">AUSTRALIAN MADE · REGENERATIVE</text>
       <ellipse cx="140" cy="350" rx="100" ry="10" fill="rgba(0,0,0,0.07)" />
     </svg>
   );

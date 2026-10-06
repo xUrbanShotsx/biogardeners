@@ -7,7 +7,7 @@ import { getProducts, DEMO_PRODUCTS } from "@/lib/shopify";
 
 export const metadata: Metadata = {
   title:       "Shop the Range | BioGardeners",
-  description: "Precision-formulated garden soil and fertilisers. Select your size and add to cart in seconds.",
+  description: "Hand-picked Aussie garden fertilisers and soil care — regenerative, family and pet friendly, and easy to use. Choose your size and add to cart.",
 };
 
 export default async function ProductsPage() {

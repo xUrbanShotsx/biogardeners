@@ -2,23 +2,23 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sprout, FlaskConical, Ban } from "lucide-react";
+import { Sprout, HeartHandshake, Smile } from "lucide-react";
 
 const principles = [
   {
     Icon: Sprout,
-    title: "Soil First",
-    body:  "Every BioGardeners formula starts with the microbial ecosystem beneath the surface. Healthy soil biology is the foundation of healthy plants.",
+    title: "Regenerative & Eco-Friendly",
+    body:  "We stock products that work with your soil, not against it — feeding the living ecosystem beneath your garden so it gets healthier season after season.",
   },
   {
-    Icon: FlaskConical,
-    title: "Precision Ratios",
-    body:  "NPK ratios are not guesses. We run soil analysis across Australian climate zones and adjust seasonal formulas to match what home gardens actually need.",
+    Icon: HeartHandshake,
+    title: "Safe Around Family & Pets",
+    body:  "Our range is chosen to be gentle around the people and pets who share your backyard, when used as directed. Garden with confidence.",
   },
   {
-    Icon: Ban,
-    title: "No Filler",
-    body:  "Common fertilisers pad their blends with cheap salts that burn roots over time. Every gram in a BioGardeners product earns its place.",
+    Icon: Smile,
+    title: "Genuinely Easy to Use",
+    body:  "Clear rates, simple steps and results you can be proud of. Whether you're a first-time grower or a seasoned green thumb, it just works.",
   },
 ];
 
@@ -45,16 +45,17 @@ export function ScienceSection() {
               className="font-bold mb-6"
               style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)", color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.08 }}
             >
-              The science behind{" "}
+              Why we love{" "}
               <em className="font-serif" style={{ color: "var(--green-accent)", fontStyle: "italic" }}>
-                every granule.
+                what we stock.
               </em>
             </h2>
 
             <p className="text-base mb-10 max-w-[44ch]" style={{ color: "rgba(255,255,255,0.60)", lineHeight: 1.7 }}>
-              Most gardeners never see what&apos;s actually happening in their soil.
-              We do. Our team of soil scientists and gardening experts analyse Australian
-              growing conditions year-round to create formulas that actually work.
+              At BioGardeners, we&apos;re gardeners first. We hand-pick Healthy Earth
+              products — a proudly Aussie brand — because they&apos;re kind to the
+              environment, safe around your family and pets, and a joy to use. Your
+              garden deserves the good stuff, and so do you.
             </p>
 
             <div className="flex gap-3">

@@ -7,7 +7,7 @@ const steps = [
   {
     number: "01",
     title:  "Choose your product",
-    body:   "Browse our range of Australian-made fertilisers, soil conditioners, and supplements. Pick the right formula for your lawn, garden beds, or pot plants.",
+    body:   "Browse our hand-picked range of Aussie-made fertilisers, soil conditioners, and plant care. Whatever your lawn, garden beds, or pot plants need, we\u2019ll help you find the perfect fit.",
     bg:     "var(--green-xlight)",
     accent: "var(--green-accent)",
     inkBg:  "#fff",

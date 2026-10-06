@@ -34,7 +34,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
               Shop Bestsellers
             </h2>
             <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
-              Over 2,400 Australian gardeners trust these formulas — soil-tested, season after season.
+              Hand-picked favourites from a proudly Aussie brand — regenerative, family and pet friendly, and easy to use.
             </p>
           </div>
           <Link

@@ -6,9 +6,9 @@ const ITEMS = [
   { Icon: Star,        text: "4.9★ — 380+ verified reviews" },
   { Icon: Truck,       text: "From $9.95 shipping · Australia wide" },
   { Icon: ShieldCheck, text: "Australian Consumer Law protected" },
-  { Icon: Leaf,        text: "100% Australian made" },
+  { Icon: Leaf,        text: "Proudly Aussie products" },
   { Icon: ShieldCheck, text: "SSL encrypted checkout" },
-  { Icon: Clock,       text: "100% natural ingredients" },
+  { Icon: Clock,       text: "Family & pet friendly" },
 ];
 
 // Duplicate for seamless infinite loop

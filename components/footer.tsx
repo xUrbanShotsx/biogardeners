@@ -10,7 +10,7 @@ const links = {
   ],
   Company: [
     { href: "/#about",   label: "About"       },
-    { href: "/#science", label: "The Science" },
+    { href: "/#science", label: "Why We Love Them" },
     { href: "/contact",  label: "Contact"     },
   ],
   Support: [
@@ -61,7 +61,7 @@ export function Footer() {
               <img src="/logoshopify.png" alt="BioGardeners" height={44} style={{ height: 44, width: "auto", borderRadius: 8, padding: "4px 8px", background: "#fff" }} />
             </Link>
             <p className="text-sm leading-relaxed max-w-[230px]" style={{ color: "rgba(255,255,255,0.50)" }}>
-              Precision-formulated garden nutrition for Australian home growers. Science in every granule.
+              Your friendly Aussie garden shop. We hand-pick regenerative, family and pet-friendly garden products that are easy to use — and we love helping your garden thrive.
             </p>
 
             {/* Social */}

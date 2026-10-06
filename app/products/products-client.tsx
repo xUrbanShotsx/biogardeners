@@ -382,10 +382,10 @@ basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
               </div>
               <div>
                 <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-accent)" }}>
-                  100% Australian owned and made
+                  Proudly Aussie, naturally good
                 </p>
                 <p className="text-sm max-w-sm" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>
-                  Natural volcanic minerals, meat and bone meal, and essential trace elements — premium inputs for healthier plants from the ground up.
+                  Regenerative, eco-friendly and safe around family and pets — products we love, for a garden you&apos;ll love.
                 </p>
               </div>
             </div>
