@@ -408,7 +408,7 @@ export default function CheckoutPage() {
             {[
               { icon: ShieldCheck, label: "SSL Encrypted",    sub: "256-bit secure"          },
               { icon: Lock,        label: "Safe Payments",    sub: "Visa · MC · Apple Pay"   },
-              { icon: Truck,       label: "From $15.95 Shipping", sub: "Australia wide"        },
+              { icon: Truck,       label: "From $9.95 Shipping", sub: "Australia wide"        },
               { icon: Leaf,        label: "100% Australian",  sub: "Owned & made locally"    },
             ].map(({ icon: Icon, label, sub }) => (
               <div key={label} className="flex items-center gap-3">

@@ -58,7 +58,7 @@ const FAQS = [
   {
     category: "Shipping",
     q: "How long does delivery take?",
-    a: "Standard shipping takes 3–5 business days to metro areas and 5–8 business days to regional addresses. We dispatch all orders placed before 12pm AEST on the same business day.",
+    a: "Standard shipping takes 5–8 business days Australia wide. We dispatch all orders placed before 12pm AEST on the same business day.",
   },
   {
     category: "Shipping",
@@ -68,7 +68,7 @@ const FAQS = [
   {
     category: "Shipping",
     q: "How much does shipping cost?",
-    a: "We ship Australia wide with weight-based rates starting from $15.95. Standard delivery takes 3–5 business days. Exact shipping cost is calculated at checkout based on your order weight.",
+    a: "We ship Australia wide with weight-based rates starting from $9.95. Standard delivery takes 5–8 business days. Exact shipping cost is calculated at checkout based on your order weight.",
   },
   {
     category: "Shipping",

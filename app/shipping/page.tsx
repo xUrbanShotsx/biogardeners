@@ -9,15 +9,22 @@ import { Nav }    from "@/components/nav";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 
+const RATES = [
+  { weight: "0 – 5 kg",    price: "$9.95" },
+  { weight: "5 – 10 kg",   price: "$17.49" },
+  { weight: "10 – 15 kg",  price: "$21.49" },
+  { weight: "15 – 20 kg",  price: "$26.95" },
+];
+
 const STATES = [
-  { state: "NSW / ACT", delivery: "2–4 business days" },
-  { state: "VIC",        delivery: "2–4 business days" },
-  { state: "QLD",        delivery: "3–5 business days" },
-  { state: "SA",         delivery: "3–5 business days" },
+  { state: "NSW / ACT", delivery: "5–8 business days" },
+  { state: "VIC",        delivery: "5–8 business days" },
+  { state: "QLD",        delivery: "5–8 business days" },
+  { state: "SA",         delivery: "5–8 business days" },
   { state: "WA",         delivery: "5–8 business days" },
-  { state: "TAS",        delivery: "4–6 business days" },
-  { state: "NT",         delivery: "6–9 business days" },
-  { state: "Remote",     delivery: "8–12 business days" },
+  { state: "TAS",        delivery: "5–8 business days" },
+  { state: "NT",         delivery: "5–8 business days" },
+  { state: "Remote",     delivery: "5–8 business days" },
 ];
 
 const FAULTY_STEPS = [
@@ -61,18 +68,22 @@ export default function ShippingPage() {
                 Weight-based rates, every address in Australia. No minimum spend, exact cost calculated at checkout.
               </p>
 
-              {/* Rate callout */}
-              <div className="inline-flex items-center gap-4 px-6 py-4 rounded-2xl"
-                style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}>
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: "var(--green-accent)" }}>
-                  <Truck size={20} color="#fff" />
+              {/* Rate table */}
+              <div className="rounded-2xl overflow-hidden inline-block"
+                style={{ border: "1px solid rgba(255,255,255,0.12)", minWidth: 280 }}>
+                <div className="grid grid-cols-2 px-5 py-2.5" style={{ background: "rgba(255,255,255,0.10)" }}>
+                  <p className="text-xs font-bold uppercase tracking-[0.08em]" style={{ color: "rgba(255,255,255,0.50)" }}>Order weight</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.08em]" style={{ color: "rgba(255,255,255,0.50)" }}>Shipping</p>
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-white leading-none">From $15.95</p>
-                  <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
-                    Standard shipping · every Australian address
-                  </p>
+                {RATES.map((r, i) => (
+                  <div key={r.weight} className="grid grid-cols-2 px-5 py-3"
+                    style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                    <p className="text-sm font-semibold text-white">{r.weight}</p>
+                    <p className="text-sm font-bold" style={{ color: "var(--green-accent)" }}>{r.price}</p>
+                  </div>
+                ))}
+                <div className="px-5 py-2.5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>5–8 business days · 20 kg max per order</p>
                 </div>
               </div>
             </motion.div>

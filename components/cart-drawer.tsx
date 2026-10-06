@@ -8,7 +8,7 @@ import { useCart, type CartItem } from "@/lib/cart-context";
 import { useAi } from "@/lib/ai-context";
 import { cartCheckoutMessage } from "@/lib/ai-messages";
 
-const SHIPPING = 15.95;
+const SHIPPING = 9.95;
 
 /* ─── Per-product visual colours ─── */
 const PRODUCT_BG: Record<string, string> = {
@@ -327,7 +327,7 @@ function DrawerPanel() {
             <span className="text-sm font-semibold" style={{ color: "var(--text-black-soft)" }}>Subtotal</span>
             <span className="text-lg font-bold" style={{ color: "var(--green-bio)" }}>${subtotal.toFixed(2)}</span>
           </div>
-          <p className="text-[10px] mb-4" style={{ color: "var(--text-black-soft)" }}>From $15.95 shipping · Australia wide</p>
+          <p className="text-[10px] mb-4" style={{ color: "var(--text-black-soft)" }}>From $9.95 shipping · Australia wide</p>
 
           {/* AI checkout encouragement */}
           <div className="flex gap-2.5 items-start mb-4 p-3 rounded-xl" style={{ background: "var(--green-xlight)" }}>
