@@ -50,11 +50,11 @@
   --expander-ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Nav height — used for page paddingTop */
-  --nav-h: 64px;
+  --nav-h: 76px;
 }
 
 @media (min-width: 768px) {
-  :root { --nav-h: 99px; }
+  :root { --nav-h: 116px; }
 }
 
 @theme inline {
