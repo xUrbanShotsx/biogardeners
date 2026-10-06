@@ -242,7 +242,7 @@ export const DEMO_PRODUCTS = [
     id:          "demo-5",
     handle:      "liquid-npk-fertilizer",
     title:       "Liquid NPK Fertilizer",
-    description: "Fast-acting liquid NPK fertiliser for rapid uptake through roots and leaves. Delivers balanced nitrogen, phosphorus, and potassium for lush, vigorous growth across all plants.",
+    description: "Balanced liquid NPK fertiliser for uptake through roots and leaves. Delivers nitrogen, phosphorus, and potassium for lush, vigorous growth across all plants.",
     tags:        ["Fertiliser"],
     priceRange:  { minVariantPrice: { amount: "32.00", currencyCode: "AUD" } },
     images:      { edges: [] },

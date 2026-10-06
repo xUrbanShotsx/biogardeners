@@ -11,7 +11,7 @@ export const AI_HOVER: Record<string, string> = {
   "soil-health-conditioner-powder":
     "Healthy soil biology is what converts fertiliser into plant food. Mix 50g per litre and drench the root zone every 4–6 weeks — especially useful in veg patches.",
   "liquid-npk-fertilizer":
-    "Fast results — dilute 10ml per litre and you'll see a visible response within a few days, either as a soil drench or foliar spray. Morning or evening application only.",
+    "Balanced liquid NPK — dilute 10ml per litre and apply as a soil drench or foliar spray. Morning or evening application only for best uptake.",
   "glacial-milk":
     "High silica content from glacial rock flour that physically strengthens plant cells — more frost-resistant, harder for insects to penetrate. Mix 50g per 9L and apply monthly.",
   "soil-health-conditioner":
@@ -29,7 +29,7 @@ export const AI_HOVER: Record<string, string> = {
 export const AI_CART: Record<string, { compliment: string; tip: string }> = {
   "gp-fertiliser-premium-garden-lawn": {
     compliment: "Good choice — this is the one most of our customers come back for.",
-    tip:        "Sprinkle 30g per m² around the drip line of plants (not the stem), water it in well, and you'll see stronger colour within 2 weeks.",
+    tip:        "Sprinkle 30g per m² around the drip line of plants (not the stem) and water it in well. Apply to moist soil, never dry.",
   },
   "lawn-fertilizer-premium-granulated-concentrated": {
     compliment: "Your lawn's going to love this — it's a proper slow-release, not a quick hit.",
@@ -44,7 +44,7 @@ export const AI_CART: Record<string, { compliment: string; tip: string }> = {
     tip:        "Mix 50g per litre of water and drench around your root zones every 4–6 weeks. Works best applied to moist soil in the morning.",
   },
   "liquid-npk-fertilizer": {
-    compliment: "This one works fast — you'll notice a difference within days.",
+    compliment: "Good choice — one of our most versatile liquid formulas.",
     tip:        "Dilute 10ml per litre and apply as a soil drench or foliar spray (morning or evening only). Fortnightly during active growth is the sweet spot.",
   },
   "glacial-milk": {

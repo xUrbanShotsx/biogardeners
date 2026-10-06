@@ -78,7 +78,7 @@ const PRODUCT_DETAILS: Record<string, {
       "Balanced NPK formula for rapid, visible growth results",
       "Liquid delivery for fast root and foliar uptake",
       "Suitable for all plants, vegetables, lawns, and fruit trees",
-      "Visible response within 3–5 days when applied as a foliar spray",
+      "Suitable for foliar spray or soil drench applications",
     ],
     howToUse:    "Dilute 10ml per litre of water. Apply as a soil drench or foliar spray. For foliar applications, spray in early morning or evening only — never in direct midday sun. Apply every 2 weeks during active growth, or weekly for fast-growing crops or plants under stress.",
     ingredients: "Soluble nitrogen, phosphorus, potassium, and trace elements in liquid concentrate. See label for full analysis.",
@@ -122,7 +122,7 @@ const PRODUCT_DETAILS: Record<string, {
       "Breaks through hydrophobic and water-repellent soils",
       "Improves water and nutrient infiltration to the root zone",
       "Reduces run-off and dry patch in lawns and garden beds",
-      "Works quickly — visible improvement after first application",
+      "Improves soil water movement and nutrient access to the root zone",
     ],
     howToUse:    "Mix 10ml per litre of water (or 5ml per 9L for light use). Apply to the area FIRST, then water or apply fertiliser after — Penetrator opens the soil profile so everything applied after it reaches much deeper. For heavily compacted clay, apply monthly for 3–4 months.",
     ingredients: "Non-ionic surfactant blend, soil penetrating agents, plant-safe wetting compounds. Biodegradable formula.",
@@ -156,10 +156,10 @@ const GALLERY_BG: Record<string, string[]> = {
 };
 
 const REVIEWS = [
-  { name: "Sarah M.", city: "Sydney",    rating: 5, text: "Visible results in just 8 days. Bio Bloom doubled my tomato yield.",        initial: "S", color: "#006241" },
+  { name: "Sarah M.", city: "Sydney",    rating: 5, text: "Bio Bloom is incredible — my tomato yield doubled this season.",              initial: "S", color: "#006241" },
   { name: "James T.", city: "Melbourne", rating: 5, text: "Finally a brand that explains every ingredient. Trust built immediately.",    initial: "J", color: "#00754A" },
   { name: "Helen R.", city: "Brisbane",  rating: 5, text: "The Soil Conditioner changed everything — drainage is perfect and my herbs haven't looked this healthy in years.",  initial: "H", color: "#1E3932" },
-  { name: "David K.", city: "Perth",     rating: 5, text: "New growth on every branch within two weeks. Incredible product.",           initial: "D", color: "#2b5148" },
+  { name: "David K.", city: "Perth",     rating: 5, text: "New growth on every branch. This product is incredible.",                    initial: "D", color: "#2b5148" },
 ];
 
 /* ─── Sub-components ──────────────────────────────────────────────── */

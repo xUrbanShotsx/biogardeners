@@ -8,7 +8,7 @@ const ITEMS = [
   { Icon: ShieldCheck, text: "Australian Consumer Law protected" },
   { Icon: Leaf,        text: "100% Australian made" },
   { Icon: ShieldCheck, text: "SSL encrypted checkout" },
-  { Icon: Clock,       text: "Visible results in 10 days" },
+  { Icon: Clock,       text: "100% natural ingredients" },
 ];
 
 // Duplicate for seamless infinite loop

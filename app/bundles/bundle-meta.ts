@@ -257,7 +257,7 @@ export function getBundleMeta(title: string): BundleMeta {
       howToUse: [
         { step: "Apply Penetrator first",    detail: "Dilute 10ml per litre and drench the area. This opens the clay profile for what follows." },
         { step: "Follow with Conditioner",   detail: "Within 30 minutes, apply Soil Conditioner at 50ml per 9L watering can across the same area." },
-        { step: "Repeat monthly",            detail: "For heavily compacted clay, repeat monthly for 3–4 months. You'll notice improved drainage within the first 2 applications." },
+        { step: "Repeat monthly",            detail: "For heavily compacted clay, repeat monthly for 3–4 months. Consistent application is key to improving drainage over time." },
         { step: "Don't dig clay",            detail: "Avoid tilling or digging clay soils when wet — it destroys soil structure. Let the biology do the work." },
       ],
     };

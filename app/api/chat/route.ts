@@ -46,11 +46,10 @@ BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong rates or wrong advice damag
    - Pairs well with: Volcanic Dust (minerals for the microbes to work with), GP Fertiliser, Glacial Milk.
 
 5. LIQUID NPK FERTILIZER (liquid-npk-fertilizer)
-   - What it is: Fast-acting balanced liquid NPK formula. Provides nitrogen, phosphorus, and potassium with added trace elements.
+   - What it is: Balanced liquid NPK formula. Provides nitrogen, phosphorus, and potassium with added trace elements.
    - How to use: Dilute 10ml per litre of water. Apply as a soil drench or foliar spray. As foliar: apply early morning or evening (never in direct midday sun).
    - Frequency: Every 2 weeks during active growth. Weekly for fast-growing crops or plants under stress.
-   - Best for: Quick results when plants look pale or sluggish; seedlings after transplanting; fruiting and flowering vegetables.
-   - Response time: Visible improvement within 3–5 days when applied as a foliar spray.
+   - Best for: Plants that look pale or sluggish; seedlings after transplanting; fruiting and flowering vegetables.
    - Pairs well with: Penetrator (apply first), Bloom N Yield (for flowering/fruiting stages), Plant Spray (alternating applications).
 
 6. GLACIAL MILK (glacial-milk)

@@ -20,11 +20,15 @@ export function Hero() {
     function onEnded() {
       playCount.current += 1;
       if (playCount.current >= 2) {
-        v!.loop = false;
         v!.pause();
         setEnded(true);
       } else {
-        v!.play().catch(() => {});
+        v!.play().catch(() => {
+          // Mobile may block unmuted replay from a non-gesture context
+          v!.muted = true;
+          setMuted(true);
+          v!.play().catch(() => {});
+        });
       }
     }
 
@@ -44,7 +48,6 @@ export function Hero() {
     const v = videoRef.current;
     if (!v) return;
     playCount.current = 0;
-    v.loop  = false;
     v.currentTime = 0;
     setEnded(false);
     v.play().catch(() => {});

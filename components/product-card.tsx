@@ -87,7 +87,7 @@ const DESCRIPTION: Record<string, string> = {
   "lawn-fertilizer-premium-granulated-concentrated": "Slow-Release · 12 Week Feed",
   "volcanic-dust-trace-elements":                    "60+ Minerals · Remineralise",
   "soil-health-conditioner-powder":                  "Powder · Microbial · Soil Biology",
-  "liquid-npk-fertilizer":                           "Fast-Acting · Foliar · Soil Drench",
+  "liquid-npk-fertilizer":                           "Liquid NPK · Foliar · Soil Drench",
   "glacial-milk":                                    "Silica · Trace Minerals · Cell Strength",
   "soil-health-conditioner":                         "Liquid · Microbial · Water Retention",
   "plant-spray":                                     "Foliar Spray · Plant Vitality",

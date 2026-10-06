@@ -23,7 +23,7 @@ const steps = [
   {
     number: "03",
     title:  "Apply and watch it work",
-    body:   "Follow the simple instructions on the pack. Most customers see stronger colour, new growth, and healthier plants within a couple of weeks.",
+    body:   "Follow the simple instructions on the pack. Apply as directed and let the natural biology do the work — consistent use is where the results come from.",
     bg:     "var(--green-house)",
     accent: "#fff",
     inkBg:  "rgba(255,255,255,0.15)",

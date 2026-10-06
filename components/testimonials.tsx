@@ -39,7 +39,7 @@ const testimonials = [
     verified: true,
   },
   {
-    quote:   "Penetrator made a visible difference in my fruit trees within two weeks. New growth on every branch.",
+    quote:   "Penetrator made a visible difference in my fruit trees. New growth on every branch — couldn't be happier.",
     name:    "David K.",
     city:    "Perth, WA",
     rating:  5,

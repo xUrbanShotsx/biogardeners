@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const SLIDES = [
   {
     image:    "/results/result-1.jpg",
-    caption:  "Lawn transformation — 3 weeks",
+    caption:  "Lawn transformation — before & after",
     customer: "Sarah M. · Sydney, NSW",
     product:  "GP Fertiliser",
   },
@@ -22,7 +22,7 @@ const SLIDES = [
   },
   {
     image:    "/results/result-3.jpg",
-    caption:  "Dense green lawn in 2 weeks",
+    caption:  "Dense green lawn — consistent feeding",
     customer: "Helen R. · Brisbane, QLD",
     product:  "Lawn Fertilizer",
   },

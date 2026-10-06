@@ -6,7 +6,7 @@ const ALL_PRODUCTS = [
   { handle: "lawn-fertilizer-premium-granulated-concentrated", title: "Lawn Fertilizer",           role: "Concentrated slow-release lawn granules — feeds for 12 weeks. Lawn-specific." },
   { handle: "volcanic-dust-trace-elements",                   title: "Volcanic Dust",              role: "60-70+ trace minerals. Remineralises depleted soils, improves cation exchange. Use 1-2x/year." },
   { handle: "soil-health-conditioner-powder",                 title: "Soil Conditioner Powder",    role: "Dry microbial inoculant — rebuilds soil biology in veg patches and garden beds." },
-  { handle: "liquid-npk-fertilizer",                          title: "Liquid NPK Fertilizer",      role: "Fast-acting liquid NPK with trace elements. Foliar or soil drench, visible in 3-5 days." },
+  { handle: "liquid-npk-fertilizer",                          title: "Liquid NPK Fertilizer",      role: "Balanced liquid NPK with trace elements. Apply as foliar or soil drench, morning or evening." },
   { handle: "glacial-milk",                                   title: "Glacial Milk",               role: "Glacial rock flour high in silica. Strengthens cell walls, frost resistance, seed support." },
   { handle: "soil-health-conditioner",                        title: "Soil Health Conditioner",    role: "Liquid microbial blend. Rebuilds soil biology, improves water retention and nutrient uptake." },
   { handle: "plant-spray",                                    title: "Plant Spray",                role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage. Safe for edibles." },

@@ -10,7 +10,7 @@ LAWN FERTILIZER: Concentrated slow-release lawn granules. Apply 30g per m² afte
 
 VOLCANIC DUST: 60–70+ minerals from volcanic rock. Broadcast 100–200g per m² and water in, or mix into potting mix at 10% by volume. Once or twice a year is enough — slow-release mineral bank that improves cation exchange capacity and makes phosphorus stay available.
 
-LIQUID NPK FERTILIZER: Fast-acting balanced liquid. Dilute 10ml per litre, apply as soil drench or foliar spray. Foliar spray in early morning or evening only (never midday sun). Every 2 weeks during active growth. Visible response within 3–5 days.
+LIQUID NPK FERTILIZER: Balanced liquid NPK formula. Dilute 10ml per litre, apply as soil drench or foliar spray. Foliar spray in early morning or evening only (never midday sun). Every 2 weeks during active growth.
 
 GLACIAL MILK: Glacial rock flour — high in silica, strengthens plant cell walls. Mix 50g per 9L watering can and apply to soil monthly. Or mix 1 tablespoon per litre into seed-raising mix. Great for frost resistance and winter maintenance.
 
