@@ -274,6 +274,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
       title:    product.title,
       variant:  variant?.label ?? "Standard",
       price:    parseFloat(variant?.price ?? currentPrice),
+      weight:   product.variants.edges[activeVariant]?.node.weight ?? 0,
       quantity,
       imageUrl: shopifyImages[0]?.url,
     });
@@ -294,6 +295,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
       title:    product.title,
       variant:  variant?.label ?? "Standard",
       price:    parseFloat(variant?.price ?? currentPrice),
+      weight:   product.variants.edges[activeVariant]?.node.weight ?? 0,
       imageUrl: shopifyImages[0]?.url,
     });
     // Add each bundle item
@@ -305,6 +307,7 @@ export function ProductPageClient({ product, related, slug }: Props) {
         title:    bp.title,
         variant:  bpVariant?.title ?? "Standard",
         price:    parseFloat(bp.priceRange.minVariantPrice.amount),
+        weight:   bpVariant?.weight ?? 0,
         imageUrl: bp.images.edges[0]?.node.url,
       });
     });

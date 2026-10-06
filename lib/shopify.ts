@@ -42,7 +42,7 @@ export interface ShopifyProduct {
     minVariantPrice: { amount: string; currencyCode: string };
   };
   images: { edges: { node: { url: string; altText: string | null } }[] };
-  variants: { edges: { node: { id: string; title: string; price: { amount: string } } }[] };
+  variants: { edges: { node: { id: string; title: string; price: { amount: string }; weight?: number; weightUnit?: string } }[] };
   tags: string[];
 }
 
@@ -71,7 +71,7 @@ const PRODUCT_FRAGMENT = `
   id handle title description tags
   priceRange { minVariantPrice { amount currencyCode } }
   images(first: 3) { edges { node { url altText } } }
-  variants(first: 10) { edges { node { id title price { amount } } } }
+  variants(first: 10) { edges { node { id title price { amount } weight weightUnit } } }
 `;
 
 export async function getProducts(first = 12) {
@@ -174,6 +174,17 @@ export async function addToCart(cartId: string, variantId: string, quantity = 1)
   return data.cartLinesAdd.cart;
 }
 
+/* ─── Weight helper ─── */
+export function toKg(weight?: number, unit?: string): number {
+  if (!weight) return 0;
+  switch (unit) {
+    case "GRAMS":  return weight / 1000;
+    case "POUNDS": return weight * 0.453592;
+    case "OUNCES": return weight * 0.0283495;
+    default:       return weight; // KILOGRAMS
+  }
+}
+
 /* ─── Demo products (mirrors real Shopify catalog — used as fallback) ─── */
 export const DEMO_PRODUCTS = [
   {
@@ -185,9 +196,9 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "17.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-1a", title: "5KG",  price: { amount: "17.00" } } },
-      { node: { id: "v-1b", title: "12KG", price: { amount: "36.00" } } },
-      { node: { id: "v-1c", title: "20KG", price: { amount: "50.00" } } },
+      { node: { id: "v-1a", title: "5KG",  price: { amount: "17.00" }, weight: 5.5,  weightUnit: "KILOGRAMS" } },
+      { node: { id: "v-1b", title: "12KG", price: { amount: "36.00" }, weight: 12.5, weightUnit: "KILOGRAMS" } },
+      { node: { id: "v-1c", title: "20KG", price: { amount: "50.00" }, weight: 20.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -199,8 +210,8 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "35.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-2a", title: "1 Pack", price: { amount: "35.00" } } },
-      { node: { id: "v-2b", title: "2 Pack", price: { amount: "60.00" } } },
+      { node: { id: "v-2a", title: "1 Pack", price: { amount: "35.00" }, weight: 5.5,  weightUnit: "KILOGRAMS" } },
+      { node: { id: "v-2b", title: "2 Pack", price: { amount: "60.00" }, weight: 11.0, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -212,7 +223,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "25.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-3a", title: "Standard", price: { amount: "25.00" } } },
+      { node: { id: "v-3a", title: "Standard", price: { amount: "25.00" }, weight: 5.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -224,7 +235,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "29.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-4a", title: "Standard", price: { amount: "29.00" } } },
+      { node: { id: "v-4a", title: "Standard", price: { amount: "29.00" }, weight: 5.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -236,7 +247,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "32.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-5a", title: "Standard", price: { amount: "32.00" } } },
+      { node: { id: "v-5a", title: "Standard", price: { amount: "32.00" }, weight: 1.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -248,7 +259,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "22.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-6a", title: "Standard", price: { amount: "22.00" } } },
+      { node: { id: "v-6a", title: "Standard", price: { amount: "22.00" }, weight: 1.2, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -260,7 +271,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "28.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-7a", title: "Standard", price: { amount: "28.00" } } },
+      { node: { id: "v-7a", title: "Standard", price: { amount: "28.00" }, weight: 1.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -272,7 +283,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "34.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-8a", title: "Standard", price: { amount: "34.00" } } },
+      { node: { id: "v-8a", title: "Standard", price: { amount: "34.00" }, weight: 1.5, weightUnit: "KILOGRAMS" } },
     ]},
   },
   {
@@ -284,7 +295,7 @@ export const DEMO_PRODUCTS = [
     priceRange:  { minVariantPrice: { amount: "26.00", currencyCode: "AUD" } },
     images:      { edges: [] },
     variants:    { edges: [
-      { node: { id: "v-9a", title: "Standard", price: { amount: "26.00" } } },
+      { node: { id: "v-9a", title: "Standard", price: { amount: "26.00" }, weight: 1.2, weightUnit: "KILOGRAMS" } },
     ]},
   },
 ] satisfies ShopifyProduct[];

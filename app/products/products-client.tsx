@@ -146,7 +146,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
   title: string;
   description: string;
   index: number;
-  shopifyVariants: { label: string; price: number }[];
+  shopifyVariants: { label: string; price: number; weight?: number }[];
   shopifyVariantIds: string[];
   basePrice: number;
   imageUrl?: string;
@@ -177,6 +177,7 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, sho
       title,
       variant: variant.label,
       price:   variant.price,
+      weight:  shopifyVariants[selectedVariant]?.weight ?? shopifyVariants[0]?.weight ?? 0,
     });
     showCartMessage(handle, title, []);
     setAddState("added");
@@ -393,8 +394,9 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                 description={p.description}
                 index={i}
                 shopifyVariants={p.variants.edges.map((e) => ({
-                  label: e.node.title,
-                  price: parseFloat(e.node.price.amount),
+                  label:  e.node.title,
+                  price:  parseFloat(e.node.price.amount),
+                  weight: e.node.weight,
                 }))}
                 shopifyVariantIds={p.variants.edges.map((e) => e.node.id)}
                 basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}

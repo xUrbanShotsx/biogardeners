@@ -179,7 +179,7 @@ function AiBubble({ compliment, tip, onDismiss }: { compliment: string; tip: str
 
 /* ─── Drawer panel (slide-in from right) ─── */
 function DrawerPanel() {
-  const { items, subtotal, count, closeCart, expandCart } = useCart();
+  const { items, subtotal, count, totalWeight, cartWarning, clearCartWarning, closeCart, expandCart } = useCart();
   const { cartMessage, clearCartMessage } = useAi();
 
   return (
@@ -240,6 +240,29 @@ function DrawerPanel() {
             tip={cartMessage.tip}
             onDismiss={clearCartMessage}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Weight limit warning */}
+      <AnimatePresence>
+        {cartWarning && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="mx-5 mt-3 flex items-start gap-2.5 rounded-xl px-4 py-3"
+            style={{ background: "#fff3cd", border: "1px solid #f5c842" }}
+          >
+            <span className="text-base leading-none mt-0.5">⚠️</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold" style={{ color: "#7a5800" }}>{cartWarning}</p>
+              <p className="text-xs mt-0.5" style={{ color: "#7a5800", opacity: 0.8 }}>
+                Current cart weight: {totalWeight.toFixed(1)}kg / 20kg max
+              </p>
+            </div>
+            <button onClick={clearCartWarning} className="shrink-0 text-sm leading-none" style={{ color: "#7a5800", opacity: 0.6 }} aria-label="Dismiss">✕</button>
+          </motion.div>
         )}
       </AnimatePresence>
 

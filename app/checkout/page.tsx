@@ -152,11 +152,12 @@ export default function CheckoutPage() {
     const v = product.variants.edges[0]?.node;
     if (!v) return;
     addItem({
-      id: v.id,
-      handle: product.handle,
-      title: product.title,
+      id:      v.id,
+      handle:  product.handle,
+      title:   product.title,
       variant: v.title,
-      price: parseFloat(v.price.amount),
+      price:   parseFloat(v.price.amount),
+      weight:  v.weight ?? 0,
       imageUrl: product.images.edges[0]?.node.url,
     });
   }

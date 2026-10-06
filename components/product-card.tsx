@@ -157,6 +157,7 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
       title:    product.title,
       variant:  firstVariant?.title ?? "Default",
       price:    parseFloat(product.priceRange.minVariantPrice.amount),
+      weight:   firstVariant?.weight ?? 0,
       imageUrl: firstImg?.url,
     });
     setTimeout(() => setAdding(false), 1600);
