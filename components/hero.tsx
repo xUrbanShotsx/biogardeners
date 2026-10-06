@@ -85,11 +85,11 @@ export function Hero() {
         <button
           onClick={toggleMute}
           aria-label={muted ? "Unmute video" : "Mute video"}
-          className="px-4 py-2 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+          className="px-6 py-3 rounded-full text-sm font-bold transition-all hover:scale-105 active:scale-95"
           style={{
-            background:     "rgba(255,255,255,0.15)",
-            border:         "1px solid rgba(255,255,255,0.30)",
-            backdropFilter: "blur(8px)",
+            background:     "rgba(255,255,255,0.18)",
+            border:         "1px solid rgba(255,255,255,0.35)",
+            backdropFilter: "blur(10px)",
             color:          "#fff",
           }}
         >
@@ -100,11 +100,11 @@ export function Hero() {
           <button
             onClick={playAgain}
             aria-label="Play video again"
-            className="px-4 py-2 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+            className="px-6 py-3 rounded-full text-sm font-bold transition-all hover:scale-105 active:scale-95"
             style={{
-              background:     "rgba(255,255,255,0.15)",
-              border:         "1px solid rgba(255,255,255,0.30)",
-              backdropFilter: "blur(8px)",
+              background:     "rgba(255,255,255,0.18)",
+              border:         "1px solid rgba(255,255,255,0.35)",
+              backdropFilter: "blur(10px)",
               color:          "#fff",
             }}
           >
