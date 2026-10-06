@@ -3,18 +3,34 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShoppingBag, ArrowRight, Volume2, VolumeX } from "lucide-react";
+import { ShoppingBag, ArrowRight } from "lucide-react";
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
+  const videoRef  = useRef<HTMLVideoElement>(null);
+  const playCount = useRef(0);
+  const [muted,   setMuted]   = useState(true);
+  const [ended,   setEnded]   = useState(false);
 
-  // React doesn't forward the `muted` JSX prop to the DOM — set it imperatively
+  // Mute imperatively (React JSX muted prop doesn't reach the DOM)
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
+
+    function onEnded() {
+      playCount.current += 1;
+      if (playCount.current >= 2) {
+        v!.loop = false;
+        v!.pause();
+        setEnded(true);
+      } else {
+        v!.play().catch(() => {});
+      }
+    }
+
+    v.addEventListener("ended", onEnded);
     v.play().catch(() => {});
+    return () => v.removeEventListener("ended", onEnded);
   }, []);
 
   function toggleMute() {
@@ -24,15 +40,24 @@ export function Hero() {
     setMuted(v.muted);
   }
 
+  function playAgain() {
+    const v = videoRef.current;
+    if (!v) return;
+    playCount.current = 0;
+    v.loop  = false;
+    v.currentTime = 0;
+    setEnded(false);
+    v.play().catch(() => {});
+  }
+
   return (
     <section className="relative w-full overflow-hidden" style={{ height: "100svh" }} aria-labelledby="hero-heading">
 
-      {/* Video — starts muted for autoplay, user can unmute */}
+      {/* Video — plays twice then stops */}
       <video
         ref={videoRef}
         autoPlay
         muted
-        loop
         playsInline
         preload="auto"
         className="absolute left-0 right-0 bottom-0 w-full object-cover"
@@ -42,7 +67,7 @@ export function Hero() {
         <source src="/madison.mp4" type="video/mp4" />
       </video>
 
-      {/* Layered overlay — bottom heavy for text legibility */}
+      {/* Layered overlay */}
       <div
         className="absolute left-0 right-0 bottom-0"
         style={{
@@ -52,26 +77,45 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Mute toggle — top right */}
-      <button
-        onClick={toggleMute}
-        aria-label={muted ? "Unmute video" : "Mute video"}
-        className="absolute top-6 right-5 md:right-10 z-20 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
-        style={{
-          background: "rgba(255,255,255,0.15)",
-          border: "1px solid rgba(255,255,255,0.25)",
-          backdropFilter: "blur(8px)",
-          color: "#fff",
-          marginTop: "var(--nav-h)",
-        }}
+      {/* Mute + Play Again controls — top right */}
+      <div
+        className="absolute right-5 md:right-10 z-20 flex flex-col items-end gap-2"
+        style={{ top: "calc(var(--nav-h) + 20px)" }}
       >
-        {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-      </button>
+        <button
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+          className="px-4 py-2 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+          style={{
+            background:     "rgba(255,255,255,0.15)",
+            border:         "1px solid rgba(255,255,255,0.30)",
+            backdropFilter: "blur(8px)",
+            color:          "#fff",
+          }}
+        >
+          {muted ? "Click to unmute" : "Click to mute"}
+        </button>
 
-      {/* Content — mobile: centred upper-middle; desktop: lower third */}
+        {ended && (
+          <button
+            onClick={playAgain}
+            aria-label="Play video again"
+            className="px-4 py-2 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+            style={{
+              background:     "rgba(255,255,255,0.15)",
+              border:         "1px solid rgba(255,255,255,0.30)",
+              backdropFilter: "blur(8px)",
+              color:          "#fff",
+            }}
+          >
+            Play Again
+          </button>
+        )}
+      </div>
+
+      {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center md:justify-end pt-[10vh] md:pt-0 pb-0 md:pb-[10vh] px-5 md:px-10 lg:px-16 max-w-[1440px] mx-auto w-full">
 
-        {/* Headline */}
         <motion.h1
           id="hero-heading"
           initial={{ opacity: 0, y: 28 }}
@@ -101,7 +145,6 @@ export function Hero() {
           </em>
         </motion.h1>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
