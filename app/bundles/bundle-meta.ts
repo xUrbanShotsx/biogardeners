@@ -37,11 +37,11 @@ export function getBundleMeta(title: string): BundleMeta {
         "Improving water infiltration in soils dried out over winter",
       ],
       howToUse: [
-        { step: "Apply GP Fertiliser",   detail: "Spread 5kg granules evenly across your garden beds or lawn. Water in well." },
-        { step: "Add Penetrator",        detail: "Mix 10ml per litre of water and drench the soil. Do this first to open the soil profile." },
-        { step: "Water with NPK",        detail: "Dilute 10ml per litre and apply as a soil drench weekly for the first 4 weeks." },
-        { step: "Foliar spray EcoSpray", detail: "Spray undiluted on leaves in the early morning or evening. Repeat fortnightly." },
-        { step: "Bloom N Yield",         detail: "Apply every 2 weeks as a soil or foliar feed once flower buds appear." },
+        { step: "Apply GP Fertiliser",   detail: "Spread the granules evenly across your garden beds or lawn and water in well. Follow the directions on the label." },
+        { step: "Add Penetrator",        detail: "Dilute as directed on the label and drench the soil. Do this first to open the soil profile." },
+        { step: "Water with NPK",        detail: "Dilute as directed on the label and apply as a soil drench." },
+        { step: "Foliar spray EcoSpray", detail: "Spray on leaves in the early morning or evening, following the directions on the label." },
+        { step: "Bloom N Yield",         detail: "Apply as a soil or foliar feed once flower buds appear, following the directions on the label." },
       ],
     };
 
@@ -52,7 +52,7 @@ export function getBundleMeta(title: string): BundleMeta {
       includes: [
         { name: "5kg Premium GP Fertiliser",  why: "Supplies the minerals that raise plant sugar concentration — the key to heat and drought tolerance." },
         { name: "1L EcoSpray",                why: "Selenium and silicon support leaf cuticle strength, helping plants maintain vitality through heat and stress." },
-        { name: "1L NPK Liquid Fertiliser",   why: "Fast liquid feed to replace nutrients lost through high summer watering frequency." },
+        { name: "1L NPK Liquid Fertiliser",   why: "Liquid feed to replace nutrients lost through high summer watering frequency." },
         { name: "1L Bloom N Yield",           why: "Supports fruiting and continued flowering through the stress of heat." },
       ],
       idealFor: ["Gardens in hot, dry climates", "Lawns prone to browning off", "Veggie patches growing tomatoes, cucumbers, zucchini", "Container plants that dry out quickly"],
@@ -64,9 +64,9 @@ export function getBundleMeta(title: string): BundleMeta {
       ],
       howToUse: [
         { step: "Apply GP Fertiliser",  detail: "Spread early morning before temperatures rise. Water in immediately." },
-        { step: "Water with NPK",       detail: "Dilute 10ml per litre and apply twice weekly during peak summer heat." },
-        { step: "Foliar spray EcoSpray",detail: "Apply in early morning or evening — never in direct midday sun. Fortnightly." },
-        { step: "Bloom N Yield",        detail: "Apply weekly to flowering and fruiting plants to maintain productivity under heat stress." },
+        { step: "Water with NPK",       detail: "Dilute as directed on the label and apply during peak summer heat." },
+        { step: "Foliar spray EcoSpray",detail: "Apply in early morning or evening — never in direct midday sun. Follow the directions on the label." },
+        { step: "Bloom N Yield",        detail: "Apply to flowering and fruiting plants to maintain productivity under heat stress, following the directions on the label." },
       ],
     };
 
@@ -88,8 +88,8 @@ export function getBundleMeta(title: string): BundleMeta {
       ],
       howToUse: [
         { step: "Apply GP Fertiliser",    detail: "Spread across garden beds and lawn. Autumn rain will work it in naturally." },
-        { step: "Water in Glacial Milk",  detail: "Mix 50g per 9L watering can and apply to soil. Focus on garden beds." },
-        { step: "Liquid NPK feed",        detail: "Apply every 3 weeks through autumn as a light soil drench — don't push heavy growth." },
+        { step: "Water in Glacial Milk",  detail: "Mix with water as directed on the label and apply to soil. Focus on garden beds." },
+        { step: "Liquid NPK feed",        detail: "Apply as a light soil drench through autumn, following the directions on the label — don't push heavy growth." },
       ],
     };
 
@@ -110,9 +110,9 @@ export function getBundleMeta(title: string): BundleMeta {
         "Supporting evergreen plants through the low-light months",
       ],
       howToUse: [
-        { step: "Apply Glacial Milk",        detail: "Mix 50g per 9L and apply to soil monthly through winter." },
-        { step: "Soil Conditioner drench",   detail: "Apply monthly — it feeds the microbes that will be critical in spring." },
-        { step: "Low-rate NPK",              detail: "Quarter-strength dose every 3–4 weeks. No heavy feeding — just maintenance." },
+        { step: "Apply Glacial Milk",        detail: "Mix with water as directed on the label and apply to soil through winter." },
+        { step: "Soil Conditioner drench",   detail: "Apply as directed on the label — it feeds the microbes that will be critical in spring." },
+        { step: "Low-rate NPK",              detail: "A light maintenance feed following the directions on the label. No heavy feeding." },
       ],
     };
 
@@ -135,10 +135,10 @@ export function getBundleMeta(title: string): BundleMeta {
       ],
       howToUse: [
         { step: "Penetrating drench first", detail: "If soil is hard and compacted, start with a Penetrator drench (sold separately) to open the profile before applying anything else." },
-        { step: "Apply GP Fertiliser",      detail: "Spread 5kg across the affected area and water in well." },
-        { step: "Soil Conditioner",         detail: "Apply 50ml per 9L watering can weekly for 4 weeks to re-establish microbial life." },
-        { step: "NPK liquid feed",          detail: "Apply every 2 weeks to support plant recovery while soil biology rebuilds." },
-        { step: "EcoSpray foliar",          detail: "Spray on leaves fortnightly to support the plant from the outside while roots strengthen." },
+        { step: "Apply GP Fertiliser",      detail: "Spread the granules across the affected area and water in well." },
+        { step: "Soil Conditioner",         detail: "Dilute as directed on the label and apply to re-establish microbial life." },
+        { step: "NPK liquid feed",          detail: "Apply as directed on the label to support plant recovery while soil biology rebuilds." },
+        { step: "EcoSpray foliar",          detail: "Spray on leaves as directed on the label to support the plant from the outside while roots strengthen." },
       ],
     };
 
@@ -160,10 +160,10 @@ export function getBundleMeta(title: string): BundleMeta {
       ],
       howToUse: [
         { step: "Prepare the hole",      detail: "Dig planting hole 2× the size of the root ball." },
-        { step: "Add GP Fertiliser",     detail: "Mix 100–200g of GP Fertiliser into the backfill soil before planting." },
-        { step: "Drench with Conditioner", detail: "Mix 50ml Soil Conditioner per 9L water and drench the hole before placing the plant." },
+        { step: "Add GP Fertiliser",     detail: "Mix GP Fertiliser into the backfill soil before planting, following the directions on the label." },
+        { step: "Drench with Conditioner", detail: "Dilute Soil Conditioner as directed on the label and drench the hole before placing the plant." },
         { step: "Plant and backfill",    detail: "Place the plant, backfill with the GP-enriched soil, and firm gently." },
-        { step: "Water with NPK",        detail: "Dilute 10ml NPK per litre and water in thoroughly. Repeat weekly for first month." },
+        { step: "Water with NPK",        detail: "Dilute NPK as directed on the label and water in thoroughly." },
       ],
     };
 
@@ -184,11 +184,11 @@ export function getBundleMeta(title: string): BundleMeta {
         "Reducing leggy, weak seedlings by ensuring full mineral availability",
       ],
       howToUse: [
-        { step: "Prepare growing mix",   detail: "Mix 1 tablespoon Glacial Milk per litre of seed-raising mix before filling trays." },
-        { step: "Moisten with NPK",      detail: "Dilute 5ml NPK per litre water and use this to moisten the seed-raising mix before sowing." },
+        { step: "Prepare growing mix",   detail: "Mix Glacial Milk through the seed-raising mix before filling trays, following the directions on the label." },
+        { step: "Moisten with NPK",      detail: "Dilute NPK as directed on the label and use it to moisten the seed-raising mix before sowing." },
         { step: "Sow seeds",             detail: "Sow as normal and cover lightly." },
-        { step: "Bloom N Yield mist",    detail: "Dilute 5ml per litre and mist seedlings once first leaves appear. Repeat weekly." },
-        { step: "Transplant feed",       detail: "At transplanting, water in with full-strength NPK (10ml per litre) to reduce shock." },
+        { step: "Bloom N Yield mist",    detail: "Dilute as directed on the label and mist seedlings once first leaves appear." },
+        { step: "Transplant feed",       detail: "At transplanting, water in with NPK as directed on the label to reduce shock." },
       ],
     };
 
@@ -210,10 +210,10 @@ export function getBundleMeta(title: string): BundleMeta {
         "Refreshing old potting mix without the cost and mess of repotting",
       ],
       howToUse: [
-        { step: "Monthly NPK watering",       detail: "Replace one regular watering per month with NPK diluted at 10ml per litre." },
-        { step: "Soil Conditioner refresh",   detail: "Every 2 months, apply 25ml Soil Conditioner per 9L water to reactivate potting mix biology." },
-        { step: "Glacial Milk top-dress",     detail: "Sprinkle a pinch (5g) on top of pot soil monthly and water in." },
-        { step: "EcoSpray for pests",         detail: "At first sign of pests, spray leaves top and bottom. Repeat every 5 days for 3 applications." },
+        { step: "NPK watering",       detail: "Water with NPK diluted as directed on the label." },
+        { step: "Soil Conditioner refresh",   detail: "Apply Soil Conditioner as directed on the label to reactivate potting mix biology." },
+        { step: "Glacial Milk top-dress",     detail: "Top-dress pot soil with Glacial Milk as directed on the label and water in." },
+        { step: "EcoSpray for pests",         detail: "At first sign of pests, spray leaves top and bottom, following the directions on the label." },
       ],
     };
 
@@ -234,7 +234,7 @@ export function getBundleMeta(title: string): BundleMeta {
       howToUse: [
         { step: "Spray affected plants",   detail: "Apply EcoSpray directly to affected leaves, covering top and underside surfaces thoroughly." },
         { step: "Time your application",   detail: "Always spray in early morning or evening — never in direct sun as this can cause leaf burn." },
-        { step: "Repeat as needed",        detail: "For plants under active pressure, apply every 3–5 days for 3 rounds. For general maintenance, spray fortnightly." },
+        { step: "Repeat as needed",        detail: "For plants under pressure, apply as directed on the label." },
         { step: "Whole-plant coverage",    detail: "Include stems and the underside of leaves — this is where the most impact is seen." },
       ],
     };
@@ -242,7 +242,7 @@ export function getBundleMeta(title: string): BundleMeta {
   if (t.includes("clay") || t.includes("heavy"))
     return {
       icon: Layers, color: "#7c5c3a", tag: "Soil", fullPrice: 33.50,
-      blurb: "Opens compacted clay soils so water, air, and roots can actually penetrate. Penetrator first, then Conditioner — results visible in the first application.",
+      blurb: "Opens compacted clay soils so water, air, and roots can actually penetrate. Penetrator first, then Conditioner.",
       includes: [
         { name: "1L Soil Health Conditioner", why: "Introduces microbial strains that break down clay particle bonds and improve soil aggregation." },
         { name: "1L Penetrator",              why: "Wetting agent that forces water through the clay profile, carrying conditioner to depth." },
@@ -255,9 +255,9 @@ export function getBundleMeta(title: string): BundleMeta {
         "Improving water infiltration so watering is more efficient",
       ],
       howToUse: [
-        { step: "Apply Penetrator first",    detail: "Dilute 10ml per litre and drench the area. This opens the clay profile for what follows." },
-        { step: "Follow with Conditioner",   detail: "Within 30 minutes, apply Soil Conditioner at 50ml per 9L watering can across the same area." },
-        { step: "Repeat monthly",            detail: "For heavily compacted clay, repeat monthly for 3–4 months. Consistent application is key to improving drainage over time." },
+        { step: "Apply Penetrator first",    detail: "Dilute as directed on the label and drench the area. This opens the clay profile for what follows." },
+        { step: "Follow with Conditioner",   detail: "Straight after, apply Soil Conditioner as directed on the label across the same area." },
+        { step: "Repeat as directed",            detail: "For heavily compacted clay, repeat as directed on the label. Consistent application is key to improving drainage over time." },
         { step: "Don't dig clay",            detail: "Avoid tilling or digging clay soils when wet — it destroys soil structure. Let the biology do the work." },
       ],
     };
@@ -279,10 +279,10 @@ export function getBundleMeta(title: string): BundleMeta {
         "Recovering plants that have stopped flowering due to nutrient deficiency",
       ],
       howToUse: [
-        { step: "Apply Glacial Milk",    detail: "At the start of the season, mix 50g per 9L and water into the root zone." },
-        { step: "NPK base feed",         detail: "Apply NPK at 10ml per litre fortnightly as a soil drench throughout the growing season." },
-        { step: "Bloom N Yield weekly",  detail: "Once buds start forming, apply Bloom N Yield at 10ml per litre weekly. Continue until flowering finishes." },
-        { step: "Foliar option",         detail: "Bloom N Yield can also be sprayed as a foliar feed — dilute to 5ml per litre and apply to leaves in the morning." },
+        { step: "Apply Glacial Milk",    detail: "At the start of the season, mix with water as directed on the label and water into the root zone." },
+        { step: "NPK base feed",         detail: "Apply NPK as a soil drench throughout the growing season, following the directions on the label." },
+        { step: "Bloom N Yield",  detail: "Once buds start forming, apply Bloom N Yield following the directions on the label until flowering finishes." },
+        { step: "Foliar option",         detail: "Bloom N Yield can also be sprayed as a foliar feed — dilute as directed on the label and apply to leaves in the morning." },
       ],
     };
 

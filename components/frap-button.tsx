@@ -65,6 +65,30 @@ function useTypewriter(text: string, speed = 16) {
   return displayed;
 }
 
+/* ─── Chat text with internal links ───────────── */
+function ChatText({ text, onNavigate }: { text: string; onNavigate: () => void }) {
+  const parts = text.split(/(\[[^\]]+\]\(\/[^)\s]*\))/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const m = part.match(/^\[([^\]]+)\]\((\/[^)\s]*)\)$/);
+        if (!m) return <span key={i}>{part}</span>;
+        return (
+          <Link
+            key={i}
+            href={m[2]}
+            onClick={onNavigate}
+            className="font-bold underline underline-offset-2"
+            style={{ color: "var(--green-accent)" }}
+          >
+            {m[1]}
+          </Link>
+        );
+      })}
+    </>
+  );
+}
+
 /* ─── Pulse dot ──────────────────────────────── */
 function PulseDot() {
   return (
@@ -151,7 +175,7 @@ export function FrapButton() {
         signal: ctrl.signal,
       });
       const data = await res.json();
-      if (data.answer) setDynamicHover(data.answer);
+      if (data.answer) setDynamicHover(String(data.answer).replace(/\[([^\]]+)\]\([^)]*\)/g, "$1"));
     } catch { /* keep static */ }
   }, []);
 
@@ -391,7 +415,7 @@ export function FrapButton() {
                       ? { background: "var(--green-accent)", color: "#fff", fontWeight: 500 }
                       : { background: "#f3f4f3", color: "var(--text-black)", fontWeight: 500 }}
                   >
-                    {m.text}
+                    {m.role === "advisor" ? <ChatText text={m.text} onNavigate={() => { if (isMobile) closeAll(); }} /> : m.text}
                   </div>
                 </div>
               ))}

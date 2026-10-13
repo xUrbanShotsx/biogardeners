@@ -18,17 +18,17 @@ const FAQS = [
   {
     category: "Products",
     q: "Are the products okay to use around edible gardens, family and pets?",
-    a: "Our range is chosen to be gentle and easy to use around vegetables, herbs, fruit trees, and the people and pets who share your backyard — when used as directed. Always follow the rates and directions on each product page, and feel free to email us if you'd like a hand.",
+    a: "Our range is chosen to be gentle and easy to use around vegetables, herbs, fruit trees, and the people and pets who share your backyard — when used as directed. Always follow the directions on the product label, and feel free to email us if you'd like a hand.",
   },
   {
     category: "Products",
     q: "Can I use more than one product together?",
-    a: "Absolutely — plenty of our customers build a little routine. Apply Penetrator first so water and nutrients reach the roots, then follow with your fertiliser or Bloom N Yield. Check each product page for rates, and email us if you'd like help putting a combo together.",
+    a: "Absolutely — plenty of our customers build a little routine. Apply Penetrator first so water and nutrients reach the roots, then follow with your fertiliser or Bloom N Yield. Follow the directions on each product label, and email us if you'd like help putting a combo together.",
   },
   {
     category: "Products",
-    q: "How far does a bag of GP Fertiliser go?",
-    a: "At the standard rate of 100g per m², a 5kg bag covers around 50m² per application, a 12kg bag around 120m², and a 20kg bag around 200m².",
+    q: "How much of each product should I use?",
+    a: "Please follow the directions on the product label — it has the right amount, dilution and timing for that product. If you're unsure, email us and we'll happily help.",
   },
   {
     category: "Products",
@@ -93,7 +93,7 @@ const FAQS = [
   {
     category: "Growing tips",
     q: "When is the best time to apply GP Fertiliser?",
-    a: "Start at the beginning of the growing season (late August–September in most of Australia) and apply 4–6 times per year. Avoid heat above 35°C or just before heavy rain — a morning application on moist soil with a good water-in works best.",
+    a: "Check the directions on the product label for how much to use and how often. As a general guide, avoid heat above 35°C or just before heavy rain — a morning application on moist soil with a good water-in works best.",
   },
   {
     category: "Growing tips",
@@ -103,7 +103,7 @@ const FAQS = [
   {
     category: "Growing tips",
     q: "How do I use Bloom N Yield on fruit trees?",
-    a: "Dilute 20ml per litre (10ml for sensitive plants) and apply as a foliar spray, stem drench or soil drench 2–3 times per season, in the early morning or evening.",
+    a: "Dilute with water as directed on the label and apply as a foliar spray, stem drench or soil drench during the growing and flowering period, in the early morning or evening.",
   },
 ];
 

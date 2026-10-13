@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const ALL_PRODUCTS = [
   { handle: "gp-fertiliser-premium-garden-lawn",              title: "GP Fertiliser",            role: "Broad-spectrum granulated fertiliser for gardens and lawns. The core feeding product." },
-  { handle: "lawn-fertilizer-premium-granulated-concentrated", title: "Lawn Fertilizer",           role: "Concentrated slow-release lawn granules — feeds for 12 weeks. Lawn-specific." },
+  { handle: "lawn-fertilizer-premium-granulated-concentrated", title: "Lawn Fertilizer",           role: "Concentrated slow-release lawn granules. Lawn-specific." },
   { handle: "volcanic-dust-trace-elements",                   title: "Volcanic Dust",              role: "60-70+ trace minerals. Remineralises depleted soils, improves cation exchange. Use 1-2x/year." },
   { handle: "soil-health-conditioner-powder",                 title: "Soil Conditioner Powder",    role: "Dry microbial inoculant — rebuilds soil biology in veg patches and garden beds." },
   { handle: "liquid-npk-fertilizer",                          title: "Liquid NPK Fertilizer",      role: "Balanced liquid NPK with trace elements. Apply as foliar or soil drench, morning or evening." },
@@ -12,7 +12,7 @@ const ALL_PRODUCTS = [
   { handle: "plant-spray",                                    title: "Plant Spray",                role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage. Safe for edibles." },
   { handle: "penetrator",                                     title: "Penetrator",                 role: "Soil wetting agent. Always apply FIRST — opens compacted/hydrophobic soils so everything else works." },
   { handle: "plant-spray",                                    title: "Eco Spray",                  role: "Selenium-rich foliar spray suitable for plants affected by insects or fungal issues. Supports plant vitality and healthy foliage." },
-  { handle: "bloom-n-yield",                                  title: "Bloom N Yield",              role: "Sea minerals bio stimulant for flowering and fruiting plants. Rich in calcium, magnesium, potassium, and trace elements — apply every 2-4 weeks during the growing season." },
+  { handle: "bloom-n-yield",                                  title: "Bloom N Yield",              role: "Sea minerals bio stimulant for flowering and fruiting plants. Rich in calcium, magnesium, potassium, and trace elements." },
 ];
 
 // Pairing logic: which products naturally complement each other
