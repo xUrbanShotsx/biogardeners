@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { type ShopifyProduct } from "@/lib/shopify";
-import { formatPrice } from "@/lib/utils";
 
 const SOCIAL_PROOF: Record<string, string> = {
   "gp-fertiliser-premium-garden-lawn":               "83 sold this week",
@@ -133,7 +132,6 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
 }
 
 export function ProductCard({ product, index = 0, hideDescription = false }: { product: ShopifyProduct; index?: number; hideDescription?: boolean }) {
-  const price    = formatPrice(product.priceRange.minVariantPrice.amount);
   const tag      = product.tags[0];
   const titleKey = product.title.toLowerCase();
   const proof    = resolveProof(product.handle, titleKey);
@@ -196,14 +194,13 @@ export function ProductCard({ product, index = 0, hideDescription = false }: { p
           </div>
         )}
 
-        {/* Title + Price */}
+        {/* Title */}
         <div className="flex items-start justify-between gap-2">
           <Link href={`/products/${product.handle}`}>
             <h3 className="font-bold text-sm leading-snug hover:underline" style={{ color: "var(--text-black)", letterSpacing: "-0.01em" }}>
               {product.title}
             </h3>
           </Link>
-          <span className="font-bold text-base shrink-0" style={{ color: "var(--green-bio)" }}>{price}</span>
         </div>
 
         {!hideDescription && desc && (

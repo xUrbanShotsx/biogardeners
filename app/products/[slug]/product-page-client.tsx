@@ -6,7 +6,6 @@ import Image                                  from "next/image";
 import { motion, AnimatePresence }            from "framer-motion";
 import { ArrowLeft, ChevronDown, Star, Users, Truck, ShieldCheck, Check, ArrowRight } from "lucide-react";
 import { ProductCard }                        from "@/components/product-card";
-import { formatPrice }                        from "@/lib/utils";
 import type { ShopifyProduct }                from "@/lib/shopify";
 
 /* ─── Static data ─────────────────────────────────────────────────── */
@@ -230,7 +229,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
   const shopifyImages = product.images.edges.map((e) => e.node);
   const hasImages     = shopifyImages.length > 0;
 
-  const [activeVariant, setActiveVariant] = useState(0);
   const [activeGallery, setActiveGallery] = useState(0);
   const [openSection,   setOpenSection]   = useState<string | null>("benefits");
   const [viewingCount,  setViewingCount]  = useState(8);
@@ -238,9 +236,6 @@ export function ProductPageClient({ product, related, slug }: Props) {
   useEffect(() => {
     setViewingCount(Math.floor(Math.random() * 14) + 6);
   }, []);
-
-  const currentPrice = variants[activeVariant]?.price ?? product.priceRange.minVariantPrice.amount;
-  const displayPrice = formatPrice(currentPrice);
 
   const sections = [
     { id: "benefits",    title: "Benefits"     },
@@ -388,29 +383,17 @@ export function ProductPageClient({ product, related, slug }: Props) {
               </span>
             </div>
 
-            {/* Price */}
-            <p className="font-bold mb-5" style={{ fontSize: "2rem", color: "var(--green-bio)" }}>
-              {displayPrice}
-              {activeVariant === 0 && variants.length > 1 && (
-                <span className="text-sm font-normal ml-2" style={{ color: "var(--text-black-soft)" }}>from</span>
-              )}
-            </p>
-
-            {/* Variant selector */}
+            {/* Available sizes (pricing is shown on bundles only) */}
             {variants.length > 1 && (
               <div className="mb-5">
                 <p className="text-sm font-semibold mb-2.5" style={{ color: "var(--text-black)" }}>
-                  Size: <span style={{ color: "var(--green-bio)" }}>{variants[activeVariant].label}</span>
+                  Available sizes
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {variants.map((v, i) => (
-                    <button
-                      key={v.label}
-                      onClick={() => setActiveVariant(i)}
-                      className={`variant-pill${activeVariant === i ? " active" : ""}`}
-                    >
+                  {variants.map((v) => (
+                    <span key={v.label} className="variant-pill">
                       {v.label}
-                    </button>
+                    </span>
                   ))}
                 </div>
               </div>

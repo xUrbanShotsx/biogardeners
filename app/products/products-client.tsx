@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react"; // kept for QuickPickCard internal state
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -139,20 +138,16 @@ function ProductVisual({ handle, imageUrl, imageAlt }: { handle: string; imageUr
 
 /* ─── Quick Pick Card ──────────────────────────────────────────────── */
 
-function QuickPickCard({ handle, title, description, index, shopifyVariants, basePrice, imageUrl, imageAlt }: {
+function QuickPickCard({ handle, title, description, index, shopifyVariants, imageUrl, imageAlt }: {
   handle: string;
   title: string;
   description: string;
   index: number;
   shopifyVariants: { label: string; price: number; weight?: number }[];
-  basePrice: number;
   imageUrl?: string;
   imageAlt?: string;
 }) {
-  const [selectedVariant, setSelectedVariant] = useState(0);
-
   const variants = VARIANTS[handle] ?? shopifyVariants;
-  const variant  = variants[selectedVariant] ?? { label: "Standard", price: basePrice };
   const h        = handle.toLowerCase();
   const t        = title.toLowerCase();
   const isEco    = h.includes("eco") || (h.includes("spray") && !h.includes("penetrat")) || t.includes("eco spray");
@@ -251,39 +246,16 @@ function QuickPickCard({ handle, title, description, index, shopifyVariants, bas
           </p>
         </Link>
 
-        {/* Variant size pills */}
+        {/* Available sizes */}
         {variants.length > 1 && (
-          <div className="flex flex-wrap gap-1.5 mb-3" role="group" aria-label="Select size">
-            {variants.map((v, i) => (
-              <button
-                key={v.label}
-                onClick={() => setSelectedVariant(i)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-150"
-                style={{
-                  background:   selectedVariant === i ? "var(--green-accent)" : "var(--ceramic)",
-                  color:        selectedVariant === i ? "#fff" : "var(--text-black)",
-                  boxShadow:    selectedVariant === i ? "0 0 0 2px var(--green-house)" : "none",
-                }}
-                aria-pressed={selectedVariant === i}
-              >
-                {v.label}
-              </button>
-            ))}
-          </div>
+          <p className="text-xs font-semibold mb-3" style={{ color: "var(--text-black-soft)" }}>
+            Sizes: {variants.map((v) => v.label).join(" · ")}
+          </p>
         )}
 
-        {/* Price + Add row — pushes to bottom */}
+        {/* View row — pushes to bottom */}
         <div className="mt-auto flex items-center gap-3">
-          <div className="flex-1">
-            <span className="text-xl font-bold" style={{ color: "var(--green-bio)", letterSpacing: "-0.02em" }}>
-              ${variant.price.toFixed(2)}
-            </span>
-            {isBundle && (
-              <span className="ml-2 text-xs line-through" style={{ color: "var(--text-black-soft)" }}>
-                $104.95
-              </span>
-            )}
-          </div>
+          <div className="flex-1" />
 
           <Link
             href={`/products/${handle}`}
@@ -353,7 +325,6 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                   price:  parseFloat(e.node.price.amount),
                   weight: e.node.weight,
                 }))}
-basePrice={parseFloat(p.priceRange.minVariantPrice.amount)}
                 imageUrl={firstImg?.url}
                 imageAlt={firstImg?.altText ?? p.title}
               />

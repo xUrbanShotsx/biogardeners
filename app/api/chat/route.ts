@@ -17,8 +17,8 @@ async function loadCatalog(): Promise<Catalog> {
 
     const productLines = products.map((p) => {
       paths.add(`/products/${p.handle}`);
-      const sizes = p.variants.edges.map((v) => `${v.node.title} ${money(v.node.price.amount)}`).join(", ");
-      return `- ${p.title} | link: /products/${p.handle} | sizes & prices: ${sizes}`;
+      const sizes = p.variants.edges.map((v) => v.node.title).join(", ");
+      return `- ${p.title} | link: /products/${p.handle} | sizes: ${sizes}`;
     });
 
     const bundleLines = bundles.map((b) => {
@@ -39,7 +39,7 @@ async function loadCatalog(): Promise<Catalog> {
       paths,
       text: `LIVE STORE CATALOG (this is exactly what the website sells — the only source of truth for names, sizes, prices and links):
 
-SINGLE PRODUCTS:
+SINGLE PRODUCTS (no individual pricing — products are purchased through bundles only):
 ${productLines.join("\n") || "(unavailable)"}
 
 BUNDLES:
@@ -158,7 +158,7 @@ AUSTRALIAN CONTEXT:
 BUNDLE & PRODUCT RECOMMENDATIONS (important):
 - You are also the store's guide. When a customer describes their garden, season, plant, soil problem or goal, recommend the single best-fit bundle from the LIVE STORE CATALOG below (and a second only if it genuinely fits). Say in one or two sentences why it fits, mentioning 2–3 of the products inside it.
 - ALWAYS include a clickable link to anything you recommend, using ONLY the exact link paths in the catalog, as a markdown link, e.g. [Spring Pack](/bundles/spring-pack). Never invent a link, handle, bundle, product, price or size. If nothing in the catalog fits, say so honestly and suggest browsing [all bundles](/bundles) or [all products](/products).
-- Only state prices, sizes and bundle contents that appear in the catalog. Do not promise discounts, free shipping or delivery dates beyond the facts below.
+- Single products are NOT sold individually and have no price on the website — they are only available inside bundles. Never quote a price for a single product. Only state bundle prices, sizes and bundle contents that appear in the catalog. When someone wants a specific product, point them to a bundle that includes it (or to [all bundles](/bundles)). Do not promise discounts, free shipping or delivery dates beyond the facts below.
 - If a customer just asks about a product, you can link it with its /products/ link. Don't push bundles when they're only asking a gardening question.
 
 STORE FACTS (match the website exactly):
