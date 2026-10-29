@@ -104,7 +104,7 @@ export function Testimonials() {
             >
               What growers say
             </h2>
-            <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
+            <p className="text-base" style={{ color: "var(--text-black)" }}>
               Verified purchases from Australian home gardeners.
             </p>
           </motion.div>

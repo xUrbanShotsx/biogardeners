@@ -31,8 +31,8 @@ export function CtaBanner() {
                   results you can see.
                 </em>
               </h2>
-              <p className="text-base max-w-[400px]" style={{ color: "var(--text-black-soft)", lineHeight: 1.65 }}>
-                Science-backed formulas crafted for Australian soil. Over 2,400 home gardeners
+              <p className="text-base max-w-[400px]" style={{ color: "var(--text-black)", lineHeight: 1.65 }}>
+                Hand-picked, regenerative products for Australian soil. Over 2,400 home gardeners
                 choose BioGardeners every season. Delivered across Australia.
               </p>
             </div>

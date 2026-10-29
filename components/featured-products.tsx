@@ -33,7 +33,7 @@ export function FeaturedProducts({ products }: { products: ShopifyProduct[] }) {
             >
               Shop Bestsellers
             </h2>
-            <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
+            <p className="text-base" style={{ color: "var(--text-black)" }}>
               Hand-picked favourites from a proudly Aussie brand — regenerative, family and pet friendly, and easy to use.
             </p>
           </div>

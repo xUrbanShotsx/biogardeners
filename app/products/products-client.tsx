@@ -355,7 +355,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
                 <p className="font-bold text-lg leading-tight mb-1" style={{ color: "var(--green-accent)" }}>
                   Proudly Aussie, naturally good
                 </p>
-                <p className="text-sm max-w-sm" style={{ color: "var(--text-black-soft)", lineHeight: 1.6 }}>
+                <p className="text-sm max-w-sm" style={{ color: "var(--text-black)", lineHeight: 1.6 }}>
                   Regenerative, eco-friendly and safe around family and pets — products we love, for a garden you&apos;ll love.
                 </p>
               </div>

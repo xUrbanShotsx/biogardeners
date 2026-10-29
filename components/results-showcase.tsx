@@ -199,7 +199,7 @@ export function ResultsShowcase() {
               Real gardens.{" "}
               <em className="font-serif" style={{ color: "var(--green-accent)", fontStyle: "italic" }}>Real results.</em>
             </h2>
-            <p className="text-base" style={{ color: "var(--text-black-soft)" }}>
+            <p className="text-base" style={{ color: "var(--text-black)" }}>
               Real customer gardens with real results.
             </p>
           </div>
