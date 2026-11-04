@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, Send, MessageCircle, Sprout } from "lucide-react";
+import { X, ArrowRight, Send, MessageCircle, Sprout, Volume2, VolumeX } from "lucide-react";
 import { useAi, type SimpleRect } from "@/lib/ai-context";
 import { AI_HOVER } from "@/lib/ai-messages";
 
@@ -114,6 +114,12 @@ export function FrapButton() {
   const [input, setInput]           = useState("");
   const [loading, setLoading]       = useState(false);
   const [wander, setWander]         = useState({ x: 0, y: 0 });
+  const [voiceOn, setVoiceOn]       = useState(true);
+  const [voiceAvailable, setVoiceAvailable] = useState(true);
+  const [speakingText, setSpeakingText]     = useState<string | null>(null);
+  const audioRef    = useRef<HTMLAudioElement | null>(null);
+  const audioUrlRef = useRef<string | null>(null);
+  const speakReqRef = useRef(0);
   const [dynamicHover, setDynamicHover]     = useState("");
   // Latched product — persists after hover-off; cleared only by X or new hover while in chat
   const [latchedProduct, setLatchedProduct] = useState<{ handle: string; title: string } | null>(null);
@@ -127,7 +133,54 @@ export function FrapButton() {
   const inputRef    = useRef<HTMLInputElement>(null);
   const bottomRef   = useRef<HTMLDivElement>(null);
 
+  function stopSpeech() {
+    speakReqRef.current += 1;
+    audioRef.current?.pause();
+    audioRef.current = null;
+    if (audioUrlRef.current) { URL.revokeObjectURL(audioUrlRef.current); audioUrlRef.current = null; }
+    setSpeakingText(null);
+  }
+
+  async function speak(text: string) {
+    stopSpeech();
+    const reqId = speakReqRef.current;
+    setSpeakingText(text);
+    try {
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (res.status === 503) { setVoiceAvailable(false); setSpeakingText(null); return; }
+      if (!res.ok) { setSpeakingText(null); return; }
+      const blob = await res.blob();
+      if (reqId !== speakReqRef.current) return;
+      const url = URL.createObjectURL(blob);
+      audioUrlRef.current = url;
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => { if (reqId === speakReqRef.current) stopSpeech(); };
+      await audio.play();
+    } catch {
+      if (reqId === speakReqRef.current) setSpeakingText(null);
+    }
+  }
+
+  function toggleVoice() {
+    const next = !voiceOn;
+    setVoiceOn(next);
+    if (!next) stopSpeech();
+    try { localStorage.setItem("madison-voice", next ? "on" : "off"); } catch { /* ignore */ }
+  }
+
+  useEffect(() => {
+    try { if (localStorage.getItem("madison-voice") === "off") setVoiceOn(false); } catch { /* ignore */ }
+    return () => stopSpeech();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function closeAll() {
+    stopSpeech();
     setOpen(false);
     setMessages([]);
     setLatchedProduct(null);
@@ -171,6 +224,7 @@ export function FrapButton() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question: `Give me a 1-2 sentence expert insight about "${title}" — what makes it special and one key usage tip for Australian gardens. Be specific, warm, and concise.`,
+          mode: "tip",
         }),
         signal: ctrl.signal,
       });
@@ -260,6 +314,7 @@ export function FrapButton() {
         text: answer,
         apiMsg: { role: "assistant", content: answer },
       }]);
+      if (voiceOn && voiceAvailable && data.answer) speak(answer);
     } catch {
       setMessages(prev => [...prev, { role: "advisor", text: "Something went wrong — please try again." }]);
     } finally {
@@ -325,14 +380,25 @@ export function FrapButton() {
                   <Sprout size={isMobile && open ? 20 : 15} color="#fff" />
                 </div>
                 <div>
-                  <p className={`font-bold leading-none ${isMobile && open ? "text-base" : "text-xs"}`} style={{ color: "#fff" }}>Bio Advisor</p>
+                  <p className={`font-bold leading-none ${isMobile && open ? "text-base" : "text-xs"}`} style={{ color: "#fff" }}>Madison</p>
                   <p className="text-[11px] leading-none mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>
-                    {open ? "Ask me anything" : "Hover insight"}
+                    {open ? "Your Bio Advisor · ask me anything" : "Hover insight"}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <PulseDot />
+                {open && voiceAvailable && (
+                  <button onClick={toggleVoice} aria-label={voiceOn ? "Turn Madison's voice off" : "Turn Madison's voice on"}
+                    className="flex items-center justify-center rounded-full transition-opacity"
+                    style={{
+                      width: isMobile ? 36 : 24, height: isMobile ? 36 : 24,
+                      background: isMobile ? "rgba(255,255,255,0.18)" : "transparent",
+                      color: "#fff", opacity: voiceOn ? 1 : 0.6,
+                    }}>
+                    {voiceOn ? <Volume2 size={isMobile ? 18 : 14} /> : <VolumeX size={isMobile ? 18 : 14} />}
+                  </button>
+                )}
                 <button onClick={closeAll} aria-label="Close"
                   className="flex items-center justify-center rounded-full transition-opacity"
                   style={{
@@ -416,6 +482,17 @@ export function FrapButton() {
                       : { background: "#f3f4f3", color: "var(--text-black)", fontWeight: 500 }}
                   >
                     {m.role === "advisor" ? <ChatText text={m.text} onNavigate={() => { if (isMobile) closeAll(); }} /> : m.text}
+                    {m.role === "advisor" && m.apiMsg && voiceAvailable && (
+                      <button
+                        onClick={() => (speakingText === m.text ? stopSpeech() : speak(m.text))}
+                        className="mt-1.5 flex items-center gap-1 text-[11px] font-semibold"
+                        style={{ color: "var(--green-accent)" }}
+                        aria-label={speakingText === m.text ? "Stop Madison speaking" : "Listen to Madison"}
+                      >
+                        {speakingText === m.text ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                        {speakingText === m.text ? "Stop" : "Listen"}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

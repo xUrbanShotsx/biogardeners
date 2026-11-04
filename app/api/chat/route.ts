@@ -5,12 +5,14 @@ import { getBundleMeta } from "@/app/bundles/bundle-meta";
 
 const STATIC_PATHS = ["/bundles", "/products", "/shipping", "/faq", "/contact", "/growing-guides"];
 
-type Catalog = { text: string; paths: Set<string> };
+type BundleInfo = { title: string; handle: string; price: number; meta: ReturnType<typeof getBundleMeta> };
+type Catalog = { text: string; paths: Set<string>; bundles: BundleInfo[] };
 let catalogCache: { at: number; data: Catalog } | null = null;
 
 async function loadCatalog(): Promise<Catalog> {
   if (catalogCache && Date.now() - catalogCache.at < 5 * 60_000) return catalogCache.data;
   const paths = new Set<string>(STATIC_PATHS);
+  const bundleData: BundleInfo[] = [];
   try {
     const [products, bundles] = await Promise.all([getProducts(30), getProductsByTag("Bundle", 30)]);
     const money = (n: string) => `$${parseFloat(n).toFixed(2)}`;
@@ -25,6 +27,7 @@ async function loadCatalog(): Promise<Catalog> {
       paths.add(`/bundles/${b.handle}`);
       const meta  = getBundleMeta(b.title);
       const price = parseFloat(b.priceRange.minVariantPrice.amount);
+      bundleData.push({ title: b.title, handle: b.handle, price, meta });
       const save  = meta.fullPrice > 0 ? ` (worth ${money(String(meta.fullPrice))} separately, saves ${money(String(meta.fullPrice - price))})` : "";
       return [
         `- ${b.title} | ${money(String(price))}${save} | link: /bundles/${b.handle}`,
@@ -37,6 +40,7 @@ async function loadCatalog(): Promise<Catalog> {
 
     const data: Catalog = {
       paths,
+      bundles: bundleData,
       text: `LIVE STORE CATALOG (this is exactly what the website sells — the only source of truth for names, sizes, prices and links):
 
 SINGLE PRODUCTS (no individual pricing — products are purchased through bundles only):
@@ -48,7 +52,7 @@ ${bundleLines.join("\n") || "(unavailable)"}`,
     catalogCache = { at: Date.now(), data };
     return data;
   } catch {
-    return { paths, text: "LIVE STORE CATALOG: currently unavailable. Do not quote prices or bundle contents; point customers to /bundles and /products instead." };
+    return { paths, bundles: [], text: "LIVE STORE CATALOG: currently unavailable. Do not quote prices or bundle contents; point customers to /bundles and /products instead." };
   }
 }
 
@@ -59,15 +63,118 @@ function sanitiseLinks(text: string, paths: Set<string>) {
   });
 }
 
-const SYSTEM = `You are the Bio Advisor — BioGardeners' friendly garden expert. BioGardeners is an Australian garden retailer (NOT the manufacturer): we hand-pick and sell Healthy Earth products because they are Aussie-made, regenerative, environmentally friendly, safe around family and pets when used as directed, and easy to use. Always speak as the retailer using 'we stock' / 'our range' — never claim we make, formulate or test the products ourselves. Keep a warm, upbeat tone that leaves the customer feeling happy and confident. You know everything about soil science, plant nutrition, Australian conditions, pest and disease management, and the full BioGardeners product range inside out. You're like that mate who's done a decade of horticulture and is always straight with you — warm, practical, no fluff, never talks down to people.
+/* ─── Understand the customer so the model isn't guessing ─── */
+const STOP = new Set("what with that this have from your about would could should which there their them they been into when will just like want need help some more also than then very much many make good best does dont can't cant".split(" "));
+
+type Intent = { id: string; re: RegExp; products: string[]; bundleHint: string[]; note: string };
+const INTENTS: Intent[] = [
+  { id: "compacted / hard / water-repellent soil", re: /\b(clay|compact|hard soil|hydrophob|water.?repel|runs? off|won'?t soak|doesn'?t soak|crack|waterlog|heavy soil)/i,
+    products: ["Penetrator", "Soil Health Conditioner"], bundleHint: ["clay", "heavy"],
+    note: "Penetrator goes FIRST so water and nutrients can get in; Soil Health Conditioner follows to rebuild soil biology." },
+  { id: "sandy soil", re: /\b(sandy|sand soil|drains? too (fast|quick)|nutrients? wash)/i,
+    products: ["Volcanic Dust", "Soil Health Conditioner", "Glacial Milk"], bundleHint: ["regenerative"],
+    note: "Sandy soils lose minerals and biology quickly — minerals plus soil biology is the fix." },
+  { id: "yellowing / pale / sluggish plants", re: /\b(yellow|pale|sluggish|stunted|slow growth|not growing|weak|leggy)/i,
+    products: ["GP Fertiliser", "Liquid NPK Fertilizer"], bundleHint: [],
+    note: "Ask which leaves yellow first: older leaves = nitrogen; yellow between green veins on young leaves = iron/manganese; between veins on older leaves = magnesium. Don't guess — ask if not stated." },
+  { id: "blossom end rot", re: /blossom.?end|bottom of (my )?(tomato|capsicum|zucchini)|black (patch|bottom)/i,
+    products: ["Volcanic Dust", "Penetrator"], bundleHint: ["flower"],
+    note: "Calcium UPTAKE problem: consistent watering, Penetrator so water reaches roots, Volcanic Dust as the primary mineral fix; Bloom N Yield supports." },
+  { id: "pests / fungal issues", re: /\b(aphid|whitefly|mite|scale|gnat|mildew|fung|mould|mold|bugs?|pests?|insects?|spots on leaves|leaf spot|sooty)/i,
+    products: ["Plant Spray / EcoSpray"], bundleHint: ["insect", "fungus"],
+    note: "Use ONLY the wording 'suitable for plants affected by…' / 'supports recovery' — never say kills or controls." },
+  { id: "lawn", re: /\b(lawn|turf|grass|buffalo|couch|kikuyu|zoysia|fescue)/i,
+    products: ["Lawn Fertilizer", "Penetrator"], bundleHint: [],
+    note: "Lawn Fertilizer is the lawn-specific product; Penetrator first for thatchy/compacted lawns." },
+  { id: "flowering / fruiting plants", re: /\b(tomato|capsicum|chilli|strawberr|zucchini|cucumber|rose|flower|bloom|fruit|citrus|lemon|orange|avocado|fruiting)/i,
+    products: ["Bloom N Yield", "GP Fertiliser", "Volcanic Dust"], bundleHint: ["flower"],
+    note: "Bloom N Yield is the flowering/fruiting product (sea minerals incl. calcium & magnesium)." },
+  { id: "seeds / seedlings", re: /\b(seed|seedling|germinat|propagat|sow)/i,
+    products: ["Glacial Milk", "Liquid NPK Fertilizer"], bundleHint: ["seed"],
+    note: "Glacial Milk can go in seed-raising mix; seedlings are sensitive, so always point to the label." },
+  { id: "new planting / transplanting", re: /\b(new (bed|garden|plant)|transplant|planting out|just planted|establish|backfill|new tree)/i,
+    products: ["GP Fertiliser", "Soil Health Conditioner", "Penetrator"], bundleHint: ["planting"],
+    note: "Planting set-up: minerals in the hole, soil biology, and a wetting agent." },
+  { id: "pots / indoor plants", re: /\b(indoor|house ?plant|potted|pot plant|in pots?|balcony|succulent)/i,
+    products: ["Glacial Milk", "Soil Health Conditioner", "Liquid NPK Fertilizer"], bundleHint: ["indoor"],
+    note: "Potting mix is mineral-poor and biologically thin — minerals and biology keep it alive." },
+  { id: "frost / cold / winter", re: /\b(frost|cold|winter|chill)/i,
+    products: ["Glacial Milk", "Soil Health Conditioner"], bundleHint: ["winter"],
+    note: "Silica from Glacial Milk strengthens cell walls (frost resistance)." },
+  { id: "heat / drought / summer stress", re: /\b(heat|hot|drought|dry spell|scorch|summer stress|heatwave)/i,
+    products: ["Penetrator", "Liquid NPK Fertilizer", "Plant Spray / EcoSpray"], bundleHint: ["summer"],
+    note: "Apply early morning or evening, never midday sun." },
+  { id: "depleted / dead / chemical-damaged soil", re: /\b(depleted|dead soil|worn out|tired soil|chemical|herbicide|pesticide|rebuild|regenerat|organic|microb|worms?)/i,
+    products: ["Soil Health Conditioner", "Volcanic Dust", "GP Fertiliser"], bundleHint: ["regenerative"],
+    note: "Rebuild biology + minerals; GP Fertiliser as the base feed." },
+];
+
+const SEASON_BY_WORD: Record<string, string> = { spring: "spring", summer: "summer", autumn: "autumn", fall: "autumn", winter: "winter" };
+
+function currentSeason(d = new Date()) {
+  const m = d.getMonth(); // Southern Hemisphere
+  if (m >= 8 && m <= 10) return "spring";
+  if (m === 11 || m <= 1) return "summer";
+  if (m >= 2 && m <= 4) return "autumn";
+  return "winter";
+}
+
+function buildContext(question: string, history: { role: string; content: string }[], catalog: Catalog) {
+  const userTurns = history.filter((h) => h.role === "user").slice(-4).map((h) => h.content);
+  const text = [...userTurns, question].join(" \n ").toLowerCase();
+
+  const matched = INTENTS.filter((i) => i.re.test(text));
+  const season  = currentSeason();
+  const wanted  = Object.keys(SEASON_BY_WORD).find((w) => new RegExp(`\\b${w}\\b`).test(text));
+  const seasonWord = wanted ? SEASON_BY_WORD[wanted] : null;
+
+  const tokens = Array.from(new Set(text.split(/[^a-z]+/).filter((t) => t.length > 3 && !STOP.has(t))));
+  const hints  = new Set(matched.flatMap((i) => i.bundleHint));
+
+  const scored = catalog.bundles.map((b) => {
+    const title = b.title.toLowerCase();
+    const body  = [b.meta.tag, b.meta.blurb, ...b.meta.idealFor, ...b.meta.useCases, ...b.meta.includes.map((i) => i.name)].join(" ").toLowerCase();
+    let score = 0;
+    const why: string[] = [];
+    hints.forEach((h) => { if (title.includes(h)) { score += 6; why.push(`matches "${h}" need`); } });
+    if (seasonWord && title.includes(seasonWord)) { score += 5; why.push(`customer mentioned ${seasonWord}`); }
+    else if (!seasonWord && title.includes(season) && matched.length === 0) { score += 1; why.push(`in season now (${season})`); }
+    let overlap = 0;
+    tokens.forEach((t) => { if (title.includes(t)) overlap += 2; else if (body.includes(t)) overlap += 1; });
+    if (overlap) { score += Math.min(overlap, 5); why.push("keywords overlap"); }
+    return { b, score, why };
+  }).filter((x) => x.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
+
+  const lines = [
+    `TODAY: ${new Date().toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} — it is ${season} in Australia right now.`,
+    matched.length
+      ? "WHAT THE CUSTOMER HAS TOLD US (detected from their messages):\n" + matched.map((i) => `- ${i.id} → recommend: ${i.products.join(", ")}. ${i.note}`).join("\n")
+      : "WHAT THE CUSTOMER HAS TOLD US: nothing specific yet about their plants, soil or problem.",
+    scored.length
+      ? "BEST-MATCH BUNDLES (ranked by the store's own matching — choose from these unless the customer clearly needs something else):\n" +
+        scored.map((x, i) => `${i + 1}. ${x.b.title} — /bundles/${x.b.handle} (${x.why.join("; ")})`).join("\n")
+      : "BEST-MATCH BUNDLES: none confidently matched yet — ask a clarifying question before recommending a bundle.",
+  ];
+  return lines.join("\n\n");
+}
+
+const SYSTEM = `You are Madison, the BioGardeners Bio Advisor — BioGardeners' friendly garden expert. BioGardeners is an Australian garden retailer (NOT the manufacturer): we hand-pick and sell Healthy Earth products because they are Aussie-made, regenerative, environmentally friendly, safe around family and pets when used as directed, and easy to use. Always speak as the retailer using 'we stock' / 'our range' — never claim we make, formulate or test the products ourselves. Keep a warm, upbeat tone that leaves the customer feeling happy and confident. You know everything about soil science, plant nutrition, Australian conditions, pest and disease management, and the full BioGardeners product range inside out. You're like that mate who's done a decade of horticulture and is always straight with you — warm, practical, no fluff, never talks down to people.
 
 TONE:
 - Casual but knowledgeable. Like a professional who doesn't need to prove themselves.
 - Short sentences. Plain language. No jargon unless it actually helps.
 - No bullet points, bold or headings — just conversational text. The ONLY formatting allowed is a markdown link, written exactly like [Spring Pack](/bundles/handle-from-catalog).
-- 2–4 sentences per response unless the question genuinely needs more.
+- 2–4 sentences per response unless the question genuinely needs more. A clarifying question should be one or two sentences.
 - When a product is relevant, recommend it naturally and specifically — don't force it, don't avoid it.
 - Honest: if you're not sure about something, say so and point them to bgshop48@gmail.com.
+
+HOW YOU THINK (this is what makes you smart — follow it every time):
+1. Read "WHAT THE CUSTOMER HAS TOLD US" and "BEST-MATCH BUNDLES" below. They were computed from the customer's own words and the live catalog. Build on them; do not ignore them.
+2. Don't guess. If the customer asks what to buy or describes a problem but is missing the key facts, ask exactly ONE short, specific clarifying question (give 2–3 quick options in the question). Key facts are: what they're growing (lawn, veg, fruit trees, flowers, pots/indoor), soil type or the symptom, and what they want to achieve. Never ask more than one question per message, and never re-ask something already answered.
+3. Once you know enough, commit: give ONE clear recommendation (the best-fit bundle with its link, naming 2–3 products inside and why each helps), plus at most one useful extra tip. No hedging words like "maybe", "perhaps", "might want to", "I think".
+4. If a question is outside what you know (e.g. an unusual plant disease, a product we don't stock, specific results), say so plainly in one sentence, share what you DO know, and offer bgshop48@gmail.com. Never make something up to fill a gap.
+5. Before sending, check: does every product, bundle, link and fact in your reply appear in this prompt or the live catalog? If not, remove it.
+6. Keep it warm and upbeat — the customer should feel looked after and confident.
 
 BIOGARDENERS PRODUCT KNOWLEDGE (be precise — wrong advice damages trust):
 
@@ -149,7 +256,7 @@ AUSTRALIAN CONTEXT:
 - Most Australian soils are severely weathered and mineral-depleted. Adding trace minerals is often more impactful than adding more NPK.
 - Common problems: water-repellent soils (hydrophobicity) → Penetrator; clay cracking and waterlogging → Soil Conditioner + Penetrator; sandy soils that don't hold nutrients → Volcanic Dust + Soil Conditioner; aphid and whitefly pressure → Plant Spray; lawns browning off in summer → Lawn Fertilizer + Penetrator.
 - Australian summer is brutal — apply fertilisers in early morning, never in midday heat, and always water first.
-- Seasons (Southern hemisphere): Spring = Aug–Oct, Summer = Nov–Feb, Autumn = Mar–May, Winter = Jun–Aug.
+- Seasons (Southern hemisphere): Spring = Sep–Nov, Summer = Dec–Feb, Autumn = Mar–May, Winter = Jun–Aug.
 - Plant health: Aphids, whitefly, spider mites, fungus gnats, scale, powdery mildew — Plant Spray is suitable for plants showing these signs and supports their recovery.
 - Common deficiency symptoms: yellow between leaf veins = magnesium or iron; pale yellow overall = nitrogen; purple tint = phosphorus; brown leaf edges = potassium or salt damage; small/distorted new leaves = calcium or boron.
 - Blossom end rot on tomatoes (and capsicums, zucchini): almost always a calcium UPTAKE problem — not a soil deficiency. The calcium is usually there but not reaching the fruit due to inconsistent watering or hydrophobic soil. Fix: (1) keep watering consistent — no boom-bust cycles; (2) Penetrator to ensure water actually reaches the roots every time; (3) Volcanic Dust (used as directed on the label) to build the calcium and mineral bank in the soil. Bloom N Yield can support too (sea minerals contain calcium and magnesium) but Volcanic Dust is the primary fix.
@@ -181,26 +288,48 @@ export async function POST(req: NextRequest) {
     apiKey:  process.env.XAI_API_KEY!,
     baseURL: "https://api.x.ai/v1",
   });
-  const { question, history } = await req.json();
-  if (!question?.trim()) {
+  const body = await req.json();
+  const question: string = typeof body.question === "string" ? body.question.trim().slice(0, 1500) : "";
+  if (!question) {
     return NextResponse.json({ error: "No question" }, { status: 400 });
   }
 
+  const history: { role: "user" | "assistant"; content: string }[] = (Array.isArray(body.history) ? body.history : [])
+    .filter((h: { role?: string; content?: unknown }) => (h?.role === "user" || h?.role === "assistant") && typeof h.content === "string")
+    .slice(-12)
+    .map((h: { role: "user" | "assistant"; content: string }) => ({ role: h.role, content: h.content.slice(0, 1500) }));
+
+  const tipMode = body.mode === "tip";
   const catalog = await loadCatalog();
+  const context = tipMode
+    ? "THIS IS A PRODUCT HOVER TIP, not a conversation. Answer directly in 1–2 sentences about the product named in the question: what makes it special plus one useful usage tip (no rates, no timing claims). Do NOT ask questions and do NOT recommend bundles or include links."
+    : buildContext(question, history, catalog);
 
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
-    { role: "system", content: `${SYSTEM}\n\n${catalog.text}` },
-    ...(Array.isArray(history) ? history : []),
+    { role: "system", content: `${SYSTEM}\n\n${catalog.text}\n\n=== THIS CONVERSATION ===\n${context}` },
+    ...history,
     { role: "user", content: question },
   ];
 
-  const completion = await grok.chat.completions.create({
-    model:      "grok-3-mini",
-    max_tokens: 600,
-    messages,
-  });
+  const model = process.env.XAI_MODEL || "grok-3-mini";
+  const params = { model, max_tokens: 900, temperature: 0.3, messages };
 
-  const raw  = completion.choices[0]?.message?.content ?? "Sorry, I couldn't get an answer right now.";
-  const text = sanitiseLinks(raw, catalog.paths);
+  let raw: string | undefined;
+  try {
+    const completion = await grok.chat.completions.create({
+      ...params,
+      ...(model.includes("mini") ? { reasoning_effort: "high" } : {}),
+    } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
+    raw = completion.choices[0]?.message?.content ?? undefined;
+  } catch {
+    try {
+      const completion = await grok.chat.completions.create(params);
+      raw = completion.choices[0]?.message?.content ?? undefined;
+    } catch {
+      raw = undefined;
+    }
+  }
+
+  const text = sanitiseLinks(raw?.trim() || "Sorry, I couldn't get an answer right now — please try again, or email bgshop48@gmail.com.", catalog.paths);
   return NextResponse.json({ answer: text });
 }
