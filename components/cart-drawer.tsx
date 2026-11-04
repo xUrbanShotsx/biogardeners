@@ -132,7 +132,7 @@ function EmptyCart({ onClose }: { onClose: () => void }) {
         className="btn btn-primary"
         style={{ fontSize: 14, padding: "10px 24px" }}
       >
-        Shop now
+        View Products
       </button>
     </div>
   );

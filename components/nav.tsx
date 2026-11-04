@@ -101,7 +101,7 @@ export function Nav() {
             {/* Desktop CTA button */}
             <div className="hidden md:flex items-center">
               <Link href="/products" className="btn btn-primary" style={{ padding: "9px 20px", fontSize: 17 }}>
-                Shop now
+                View Products
               </Link>
             </div>
 
@@ -154,7 +154,7 @@ export function Nav() {
                 style={{ background: "#fff", color: "var(--green-accent)" }}
                 onClick={() => setMenuOpen(false)}
               >
-                Shop now
+                View Products
               </Link>
               <button
                 className="w-full py-4 rounded-full font-bold text-sm flex items-center justify-center gap-2"

@@ -662,7 +662,7 @@ export default function GrowingGuidesPage() {
                 className="btn btn-outline whitespace-nowrap"
                 style={{ fontSize: 14, padding: "11px 22px", borderColor: "rgba(255,255,255,0.35)", color: "#fff" }}
               >
-                View bundles
+                Shop Bundles
               </Link>
             </div>
           </motion.div>

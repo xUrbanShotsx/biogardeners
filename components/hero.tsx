@@ -164,7 +164,7 @@ export function Hero() {
             }}
           >
             <ShoppingBag size={15} />
-            Shop now
+            View Products
           </Link>
           <Link
             href="/bundles"
@@ -176,7 +176,7 @@ export function Hero() {
               backdropFilter: "blur(8px)",
             }}
           >
-            View bundles
+            Shop Bundles
             <ArrowRight size={14} />
           </Link>
         </motion.div>

@@ -63,7 +63,7 @@ export function ScienceSection() {
                 Learn more
               </Link>
               <Link href="/products" className="btn btn-outline-white" style={{ fontSize: 14, padding: "11px 26px" }}>
-                Shop now
+                View Products
               </Link>
             </div>
           </motion.div>
