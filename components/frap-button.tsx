@@ -40,8 +40,10 @@ function calcPanelStyle(rect: SimpleRect | null): React.CSSProperties {
   if (left + PANEL_W > vw - 8) left = rect.left - PANEL_W - margin;
   if (left < 8) left = Math.max(8, (vw - PANEL_W) / 2);
 
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 116;
+  const minTop = navH + 12;
   let top = rect.top;
-  top = Math.max(8, Math.min(top, vh - approxH - 8));
+  top = Math.max(minTop, Math.min(top, vh - approxH - 8));
 
   return { top, left };
 }
@@ -305,16 +307,42 @@ export function FrapButton() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q, history }),
+        body: JSON.stringify({ question: q, history, stream: true }),
       });
-      const data   = await res.json();
-      const answer = data.answer ?? "Sorry, I couldn't get an answer right now.";
-      setMessages(prev => [...prev, {
-        role: "advisor",
-        text: answer,
-        apiMsg: { role: "assistant", content: answer },
-      }]);
-      if (voiceOn && voiceAvailable && data.answer) speak(answer);
+
+      if (!res.ok || !res.body) throw new Error("bad response");
+
+      const reader  = res.body.getReader();
+      const decoder = new TextDecoder();
+      let answer  = "";
+      let started = false;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        answer += decoder.decode(value, { stream: true });
+        if (!started) {
+          started = true;
+          setLoading(false);
+          setMessages(prev => [...prev, { role: "advisor", text: answer }]);
+        } else {
+          const snapshot = answer;
+          setMessages(prev => {
+            const next = prev.slice();
+            next[next.length - 1] = { role: "advisor", text: snapshot };
+            return next;
+          });
+        }
+      }
+
+      answer = answer.trim() || "Sorry, I couldn't get an answer right now.";
+      const finalText = answer;
+      setMessages(prev => {
+        const next = prev.slice();
+        const last = { role: "advisor" as const, text: finalText, apiMsg: { role: "assistant" as const, content: finalText } };
+        if (started) next[next.length - 1] = last; else next.push(last);
+        return next;
+      });
+      if (voiceOn && voiceAvailable) speak(finalText);
     } catch {
       setMessages(prev => [...prev, { role: "advisor", text: "Something went wrong — please try again." }]);
     } finally {
@@ -329,8 +357,8 @@ export function FrapButton() {
   const typedHover  = useTypewriter(open ? "" : hoverMsg);
 
   const showPanel  = open || !!latchedProduct;
-  // Desktop: bottom:104px + nav(99px) + 16px gap = 219px total clearance needed
-  const DESKTOP_H = "calc(100vh - 220px)";
+  // Desktop: 104px bottom offset + navbar height + 16px gap, so the panel stops just below the navbar
+  const DESKTOP_H = "calc(100vh - 104px - var(--nav-h) - 16px)";
   const panelStyle = (isMobile && open)
     ? { inset: 0, width: "100%", height: "100dvh", borderRadius: 0, maxHeight: "100dvh" }
     : open

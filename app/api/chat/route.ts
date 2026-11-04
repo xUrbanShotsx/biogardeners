@@ -56,6 +56,34 @@ ${bundleLines.join("\n") || "(unavailable)"}`,
   }
 }
 
+function makeLinkFilter(paths: Set<string>) {
+  let buf = "";
+  return {
+    push(chunk: string) {
+      buf += chunk;
+      let out = "";
+      for (;;) {
+        const i = buf.indexOf("[");
+        if (i === -1) { out += buf; buf = ""; break; }
+        out += buf.slice(0, i);
+        buf = buf.slice(i);
+        const m = buf.match(/^\[([^\]]*)\]\(([^)\s]*)\)/);
+        if (m) { out += sanitiseLinks(m[0], paths); buf = buf.slice(m[0].length); continue; }
+        const pending = /^\[[^\]]*$/.test(buf) || /^\[[^\]]*\]$/.test(buf) || /^\[[^\]]*\]\([^)\s]*$/.test(buf);
+        if (pending && buf.length < 300) break;
+        out += "[";
+        buf = buf.slice(1);
+      }
+      return out;
+    },
+    flush() {
+      const rest = sanitiseLinks(buf, paths);
+      buf = "";
+      return rest;
+    },
+  };
+}
+
 function sanitiseLinks(text: string, paths: Set<string>) {
   return text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_m, label: string, href: string) => {
     const clean = href.split(/[?#]/)[0].replace(/\/$/, "");
@@ -312,13 +340,46 @@ export async function POST(req: NextRequest) {
   ];
 
   const model = process.env.XAI_MODEL || "grok-3-mini";
-  const params = { model, max_tokens: 900, temperature: 0.3, messages };
+  const params = { model, max_tokens: 500, temperature: 0.3, messages };
+  const effort = model.includes("mini") ? { reasoning_effort: "low" } : {};
+
+  if (body.stream === true && !tipMode) {
+    let completion: AsyncIterable<OpenAI.Chat.ChatCompletionChunk> | null = null;
+    try {
+      completion = await grok.chat.completions.create({ ...params, ...effort, stream: true } as OpenAI.Chat.ChatCompletionCreateParamsStreaming);
+    } catch {
+      try {
+        completion = await grok.chat.completions.create({ ...params, stream: true });
+      } catch {
+        return NextResponse.json({ error: "Chat unavailable" }, { status: 502 });
+      }
+    }
+
+    const filter  = makeLinkFilter(catalog.paths);
+    const encoder = new TextEncoder();
+    const stream  = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const part of completion!) {
+            const delta = part.choices[0]?.delta?.content;
+            if (!delta) continue;
+            const out = filter.push(delta);
+            if (out) controller.enqueue(encoder.encode(out));
+          }
+          const tail = filter.flush();
+          if (tail) controller.enqueue(encoder.encode(tail));
+        } catch { /* end the stream with whatever was sent */ }
+        controller.close();
+      },
+    });
+    return new Response(stream, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
+  }
 
   let raw: string | undefined;
   try {
     const completion = await grok.chat.completions.create({
       ...params,
-      ...(model.includes("mini") ? { reasoning_effort: "high" } : {}),
+      ...effort,
     } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
     raw = completion.choices[0]?.message?.content ?? undefined;
   } catch {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || "eR40ATw9ArzDf9h3v7t7";
-const MODEL_ID = process.env.ELEVENLABS_MODEL || "eleven_turbo_v2_5";
+const MODEL_ID = process.env.ELEVENLABS_MODEL || "eleven_flash_v2_5";
 
 const WINDOW_MS = 10 * 60_000;
 const MAX_PER_WINDOW = 30;
