@@ -156,6 +156,14 @@ export function Nav() {
               >
                 View Products
               </Link>
+              <Link
+                href="/bundles"
+                className="w-full py-4 rounded-full font-bold text-sm flex items-center justify-center"
+                style={{ background: "#fff", color: "var(--green-accent)" }}
+                onClick={() => setMenuOpen(false)}
+              >
+                Buy Care Packs
+              </Link>
               <button
                 className="w-full py-4 rounded-full font-bold text-sm flex items-center justify-center gap-2"
                 style={{ background: "#fff", color: "var(--green-accent)" }}
