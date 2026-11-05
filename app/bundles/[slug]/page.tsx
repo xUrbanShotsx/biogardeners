@@ -6,6 +6,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { FrapButton } from "@/components/frap-button";
 import { BundleAddToCart } from "../bundle-add-to-cart";
+import { BundleGallery } from "../bundle-gallery";
 import { getBundleMeta } from "../bundle-meta";
 import { getProductByHandle } from "@/lib/shopify";
 import { formatPrice } from "@/lib/utils";
@@ -64,6 +65,8 @@ export default async function BundleSlugPage({ params }: Props) {
 
             {/* Left — info */}
             <div>
+              <BundleGallery images={product.images.edges.map((e) => e.node)} title={product.title} />
+
               {/* Tag + icon */}
               <div className="flex items-center gap-3 mb-5">
                 <div

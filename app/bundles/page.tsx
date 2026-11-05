@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { FrapButton } from "@/components/frap-button";
@@ -19,12 +20,30 @@ function BundleCard({ product }: { product: ShopifyProduct }) {
   const Icon      = meta.icon;
   const bundleAmt = parseFloat(product.priceRange.minVariantPrice.amount);
   const saving    = meta.fullPrice > 0 ? +(meta.fullPrice - bundleAmt).toFixed(2) : 0;
+  const image     = product.images.edges[0]?.node;
 
   return (
     <div
       className="flex flex-col rounded-2xl overflow-hidden"
       style={{ boxShadow: "var(--shadow-card)", background: "#fff" }}
     >
+      {image && (
+        <Link
+          href={`/bundles/${product.handle}`}
+          aria-label={`View ${product.title}`}
+          className="relative block w-full overflow-hidden"
+          style={{ aspectRatio: "4 / 3", background: "var(--surface-alt)" }}
+        >
+          <Image
+            src={image.url}
+            alt={image.altText || product.title}
+            fill
+            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 400px"
+            className="object-cover transition-transform duration-500 hover:scale-[1.04]"
+          />
+        </Link>
+      )}
+
       {/* Clickable header area → detail page */}
       <Link href={`/bundles/${product.handle}`} className="block px-3 pt-3 pb-2 md:px-6 md:pt-6 md:pb-5 hover:opacity-90 transition-opacity">
         <div className="flex items-center justify-between mb-2 md:mb-4">

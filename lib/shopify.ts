@@ -70,7 +70,7 @@ export interface ShopifyCart {
 const PRODUCT_FRAGMENT = `
   id handle title description tags
   priceRange { minVariantPrice { amount currencyCode } }
-  images(first: 3) { edges { node { url altText } } }
+  images(first: 6) { edges { node { url altText } } }
   variants(first: 10) { edges { node { id title price { amount } weight weightUnit } } }
 `;
 
