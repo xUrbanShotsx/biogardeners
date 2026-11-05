@@ -300,7 +300,7 @@ export function ProductsClient({ products }: { products: ShopifyProduct[] }) {
             Shop the range
           </h1>
           <p className="text-base max-w-md" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
-            Select a size, add to cart — no detours needed.
+            Simply click on the product and learn all about it.
           </p>
         </div>
       </div>
